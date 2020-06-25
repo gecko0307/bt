@@ -1,10 +1,12 @@
 const fs = require("fs-extra");
 const path = require("path");
+const stt = require("spaces-to-tabs");
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 const pretty = require("pretty");
 const babel = require("@babel/core");
 const uglify = require("uglify-js");
+const mime = require("mime");
 const Zip = require("adm-zip");
 
 async function build(inputDir, outputDir, zipName = "")
@@ -39,12 +41,9 @@ async function build(inputDir, outputDir, zipName = "")
         presets: ["@babel/preset-env"]
     };
     
-    // CSS
-    await copy("main.css");
-    
     // HTML
     const index = await fs.readFile(input.index, "utf8");
-    const dom = new JSDOM(index);
+    const dom = new JSDOM(stt(index, 2));
     const head = dom.window.document.getElementsByTagName("head")[0];
     const body = dom.window.document.getElementsByTagName("body")[0];
     const link = dom.window.document.getElementById("link");
@@ -84,7 +83,6 @@ async function build(inputDir, outputDir, zipName = "")
     }
     
     // CSS
-    /*
     const styles = dom.window.document.getElementsByTagName("link");
     for (let i = 0; i < styles.length; i++)
     {
@@ -99,11 +97,11 @@ async function build(inputDir, outputDir, zipName = "")
             
             if (isInlineStyle)
             {
-                style.removeAttribute("inline");
-                style.removeAttribute("href");
-                style.rel = "stylesheet";
-                style.type = "text/css";
-                style.innerHTML = code;
+                style.remove();
+                const inlineStyle = dom.window.document.createElement("style");
+                inlineStyle.type = "text/css";
+                inlineStyle.innerHTML = code;
+                head.appendChild(inlineStyle);
             }
             else
             {
@@ -113,22 +111,33 @@ async function build(inputDir, outputDir, zipName = "")
             }
         }
     }
-    */
     
     // Images
     const images = dom.window.document.getElementsByTagName("img");
     for (let i = 0; i < images.length; i++)
     {
         const image = images[i];
+        image.alt = "";
         const imageFilename = image.getAttribute("src");
         const isInlineImage = image.hasAttribute("inline");
-        //console.log(imageFilename, isInlineImage);
         const inFilename = path.join(inputDir, imageFilename);
+        const outFilename = path.join(outputDir, imageFilename);
         if (await fs.exists(inFilename))
         {
-            // TODO: inline
-            const outFilename = path.join(outputDir, imageFilename);
-            await copy(imageFilename);
+            if (isInlineImage)
+            {
+                const content = await fs.readFile(inFilename);
+                const base64Str = content.toString("base64");
+                const mimetype = mime.getType(inFilename);
+                const dataStr = `data:${mimetype};base64,${base64Str}`;
+                image.removeAttribute("inline");
+                image.removeAttribute("src");
+                image.src = dataStr;
+            }
+            else
+            {
+                await copy(imageFilename);
+            }
         }
     }
     
