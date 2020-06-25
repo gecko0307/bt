@@ -1,5 +1,5 @@
 # bt
-Banner development toolchain
+Banner development toolchain. Automates optimization and packaging of HTML ad creatives.
 
 ## Usage
 Installation:
@@ -8,8 +8,10 @@ npm install
 npm link
 ```
 
-Running banner locally:
+To test banner locally:
+
 `bt run`
 
-Building banner:
+To build banner for publishing:
+
 `bt build`
