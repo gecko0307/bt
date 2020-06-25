@@ -46,14 +46,6 @@ async function build(inputDir, outputDir, zipName = "")
     
     const outputFiles = [];
     
-    async function copy(filename)
-    {
-        await fs.copy(
-            path.join(inputDir, filename),
-            path.join(outputDir, filename));
-        outputFiles.push(path.join(outputDir, filename));
-    }
-    
     const babelOptions =
     {
         presets: ["@babel/preset-env"]
