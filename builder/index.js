@@ -11,6 +11,22 @@ const cleanCSS = require("@node-minify/clean-css");
 const mime = require("mime");
 const Zip = require("adm-zip");
 
+function prepareDCM(document)
+{
+    const head = document.getElementsByTagName("head")[0];
+    const body = document.getElementsByTagName("body")[0];
+    const link = document.getElementById("link");
+    
+    const clickTag = document.createElement("script");
+    clickTag.type = "text/javascript";
+    clickTag.innerHTML = ' var clickTag = "https://google.com"; ';
+    const nl = document.createTextNode("\n");
+    head.appendChild(nl);
+    head.appendChild(clickTag);
+    link.setAttribute("href", "javascript:void(window.open(window.clickTag))");
+    link.setAttribute("aria-label", "Перейти по ссылке в баннере");
+}
+
 async function build(inputDir, outputDir, zipName = "")
 {
     const input =
@@ -146,16 +162,9 @@ async function build(inputDir, outputDir, zipName = "")
         }
     }
     
-    // DCM
+    // Prepare
     // TODO: use build.json from banner source
-    const clickTag = dom.window.document.createElement("script");
-    clickTag.type = "text/javascript";
-    clickTag.innerHTML = ' var clickTag = "https://google.com"; ';
-    const nl = dom.window.document.createTextNode("\n");
-    head.appendChild(nl);
-    head.appendChild(clickTag);
-    link.setAttribute("href", "javascript:void(window.open(window.clickTag))");
-    link.setAttribute("aria-label", "Перейти по ссылке в баннере");
+    prepareDCM(dom.window.document);
     
     await fs.outputFile(output.index, dom.serialize());
     outputFiles.push(output.index);

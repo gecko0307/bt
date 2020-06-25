@@ -25,6 +25,6 @@
     },
     "scripts": {
         "start": "rollup -c -m --watch",
-        "build": "node build.js"
+        "build": "node builder/index.js"
     }
 }
