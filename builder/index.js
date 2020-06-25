@@ -74,8 +74,10 @@ async function build(inputDir, outputDir, zipName = "")
     {
         const script = scripts[i];
         const scriptFilename = script.getAttribute("src");
+        const baseFilename = path.basename(scriptFilename);
         const isInlineScript = script.hasAttribute("inline");
         const inFilename = path.join(inputDir, scriptFilename);
+        const outFilename = path.join(outputDir, baseFilename);
         if (await fs.exists(inFilename))
         {
             let code = await fs.readFile(inFilename, "utf8");
@@ -96,7 +98,7 @@ async function build(inputDir, outputDir, zipName = "")
             }
             else
             {
-                const outFilename = path.join(outputDir, scriptFilename);
+                script.src = baseFilename;
                 await fs.outputFile(outFilename, code);
                 outputFiles.push(outFilename);
             }
@@ -109,8 +111,10 @@ async function build(inputDir, outputDir, zipName = "")
     {
         const style = styles[i];
         const styleFilename = style.getAttribute("href");
+        const baseFilename = path.basename(styleFilename);
         const isInlineStyle = style.hasAttribute("inline");
         const inFilename = path.join(inputDir, styleFilename);
+        const outFilename = path.join(outputDir, baseFilename);
         if (await fs.exists(inFilename))
         {
             let code = await fs.readFile(inFilename, "utf8");
@@ -126,7 +130,7 @@ async function build(inputDir, outputDir, zipName = "")
             }
             else
             {
-                const outFilename = path.join(outputDir, styleFilename);
+                style.href = baseFilename;
                 await fs.outputFile(outFilename, code);
                 outputFiles.push(outFilename);
             }
@@ -140,9 +144,10 @@ async function build(inputDir, outputDir, zipName = "")
         const image = images[i];
         image.alt = "";
         const imageFilename = image.getAttribute("src");
+        const baseFilename = path.basename(imageFilename);
         const isInlineImage = image.hasAttribute("inline");
         const inFilename = path.join(inputDir, imageFilename);
-        const outFilename = path.join(outputDir, imageFilename);
+        const outFilename = path.join(outputDir, baseFilename);
         if (await fs.exists(inFilename))
         {
             if (isInlineImage || inlineAll)
@@ -157,7 +162,9 @@ async function build(inputDir, outputDir, zipName = "")
             }
             else
             {
-                await copy(imageFilename);
+                image.src = baseFilename;
+                await fs.copy(inFilename, outFilename);
+                outputFiles.push(outFilename);
             }
         }
     }
