@@ -1,9 +1,12 @@
-import scss from "rollup-plugin-scss";
+import sass from "rollup-plugin-sass";
 import serve from "rollup-plugin-serve";
+
+import autoprefixer from "autoprefixer";
+import postcss from "postcss";
  
 export default
 {
-    input: "banners/300x300/main.js",
+    input: "banners/300x300/src/main.js",
     
     output: {
         file: "banners/300x300/bundle.js",
@@ -11,8 +14,11 @@ export default
     },
     
     plugins: [
-        scss({
-            output: "banners/300x300/bundle.css"
+        sass({
+            output: "banners/300x300/bundle.css",
+            processor: css => postcss([autoprefixer])
+                .process(css)
+                .then(result => result.css)
         }),
         serve({
             contentBase: ["banners"],
