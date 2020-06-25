@@ -1,3 +1,4 @@
+import scss from "rollup-plugin-scss";
 import serve from "rollup-plugin-serve";
  
 export default
@@ -10,6 +11,9 @@ export default
     },
     
     plugins: [
+        scss({
+            output: "banners/300x300/bundle.css"
+        }),
         serve({
             contentBase: ["banners"],
             host: "localhost",

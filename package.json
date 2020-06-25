@@ -17,6 +17,7 @@
         "mime": "^2.4.6",
         "pretty": "^2.0.0",
         "rollup": "^2.18.0",
+        "rollup-plugin-scss": "^2.5.0",
         "rollup-plugin-serve": "^1.0.1",
         "spaces-to-tabs": "0.0.3"
     },
