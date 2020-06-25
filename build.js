@@ -5,7 +5,9 @@ const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 const pretty = require("pretty");
 const babel = require("@babel/core");
-const uglify = require("uglify-js");
+const minify = require("@node-minify/core");
+const uglifyjs = require("@node-minify/uglify-js");
+const cleanCSS = require("@node-minify/clean-css");
 const mime = require("mime");
 const Zip = require("adm-zip");
 
@@ -65,7 +67,8 @@ async function build(inputDir, outputDir, zipName = "")
             if (scriptFilename === "bundle.js")
             {
                 const result = await babel.transform(code, babelOptions);
-                code = uglify.minify(result.code).code;
+                //code = uglify.minify(result.code).code;
+                code = await minify({ compressor: uglifyjs, content: result.code });
             }
             
             if (isInlineScript || inlineAll)
@@ -84,14 +87,13 @@ async function build(inputDir, outputDir, zipName = "")
         }
     }
     
-    // CSS
+    // Styles
     const styles = dom.window.document.getElementsByTagName("link");
     for (let i = 0; i < styles.length; i++)
     {
         const style = styles[i];
         const styleFilename = style.getAttribute("href");
         const isInlineStyle = style.hasAttribute("inline");
-        console.log(styleFilename, isInlineStyle);
         const inFilename = path.join(inputDir, styleFilename);
         if (await fs.exists(inFilename))
         {
@@ -102,6 +104,7 @@ async function build(inputDir, outputDir, zipName = "")
                 style.remove();
                 const inlineStyle = dom.window.document.createElement("style");
                 inlineStyle.type = "text/css";
+                code = await minify({ compressor: cleanCSS, content: code });
                 inlineStyle.innerHTML = code;
                 head.appendChild(inlineStyle);
             }
@@ -144,9 +147,12 @@ async function build(inputDir, outputDir, zipName = "")
     }
     
     // DCM
+    // TODO: use build.json from banner source
     const clickTag = dom.window.document.createElement("script");
     clickTag.type = "text/javascript";
     clickTag.innerHTML = ' var clickTag = "https://google.com"; ';
+    const nl = dom.window.document.createTextNode("\n");
+    head.appendChild(nl);
     head.appendChild(clickTag);
     link.setAttribute("href", "javascript:void(window.open(window.clickTag))");
     link.setAttribute("aria-label", "Перейти по ссылке в баннере");
