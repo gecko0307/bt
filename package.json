@@ -1,0 +1,23 @@
+{
+    "name": "BT",
+    "version": "0.0.1",
+    "description": "Banner development toolchain",
+    "author": "Timur Gafarov",
+    "private": true,
+    "license": "UNLICENSED",
+    "dependencies": {
+        "@babel/core": "^7.10.3",
+        "@babel/preset-env": "^7.10.3",
+        "adm-zip": "^0.4.16",
+        "fs-extra": "^9.0.1",
+        "jsdom": "^16.2.2",
+        "pretty": "^2.0.0",
+        "rollup": "^2.18.0",
+        "rollup-plugin-serve": "^1.0.1",
+        "uglify-js": "^3.10.0"
+    },
+    "scripts": {
+        "start": "rollup -c -m --watch",
+        "build": "node build.js"
+    }
+}
