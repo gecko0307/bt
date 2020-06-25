@@ -165,7 +165,7 @@ async function build(inputDir, outputDir, zipName = "")
     }
     
     // Prepare
-    // TODO: use build.json from banner source
+    // TODO: use bt.json from banner source
     prepareDCM(dom.window.document);
     
     await fs.outputFile(output.index, dom.serialize());
