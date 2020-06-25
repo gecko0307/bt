@@ -17,6 +17,8 @@ function prepareDCM(document)
     const body = document.getElementsByTagName("body")[0];
     const link = document.getElementById("link");
     
+    // TODO: <meta name="ad.size" content="width=300,height=300">
+    
     const clickTag = document.createElement("script");
     clickTag.type = "text/javascript";
     clickTag.innerHTML = ' var clickTag = "https://google.com"; ';
