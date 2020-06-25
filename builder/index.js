@@ -87,7 +87,7 @@ async function build(inputDir, outputDir, zipName = "")
                 script.removeAttribute("inline");
                 script.removeAttribute("src");
                 script.type = "text/javascript";
-                script.innerHTML = code;
+                script.innerHTML = "\n" + code;
             }
             else
             {
