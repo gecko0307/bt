@@ -24,10 +24,6 @@
         "rollup-plugin-serve": "^1.0.1",
         "spaces-to-tabs": "0.0.3"
     },
-    "scripts": {
-        "start": "rollup -c rollup.config.dev.js -m --watch",
-        "build": "rollup -c rollup.config.prod.js && node builder/index.js"
-    },
     "bin": {
         "bt": "src/index.js"
     }
