@@ -45,11 +45,6 @@ a {
   color: black;
 }
 
-#banner, #link {
-  width: 240px;
-  height: 400px;
-}
-
 #banner {
   overflow: hidden;
   transform: perspective(1400px) matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
@@ -74,7 +69,9 @@ a {
 #rect {
   width: 30px;
   height: 30px;
-  top: 0;
-  left: 0;
+  left: -100%;
+  right: -100%;
+  margin-left: auto;
+  margin-right: auto;
   transformOrigin: "center center";
 }
