@@ -1,5 +1,5 @@
-# bt
-Banner development toolchain. Automates optimization and packaging of HTML ad creatives.
+# Banner Toolchain
+Banner development tools. Automate optimization and packaging of HTML ad creatives.
 
 ## Usage
 Installation:
