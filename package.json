@@ -26,5 +26,8 @@
     "scripts": {
         "start": "rollup -c rollup.config.dev.js -m --watch",
         "build": "rollup -c rollup.config.prod.js && node builder/index.js"
+    },
+    "bin": {
+        "bt": "index.js"
     }
 }

@@ -4,16 +4,16 @@ import postcss from "postcss";
  
 export default
 {
-    input: "banners/300x300/src/main.js",
+    input: "src/main.js",
     
     output: {
-        file: "banners/300x300/bundle.js",
+        file: "bundle.js",
         format: "iife"
     },
     
     plugins: [
         sass({
-            output: "banners/300x300/bundle.css",
+            output: "bundle.css",
             processor: css => postcss([autoprefixer])
                 .process(css)
                 .then(result => result.css)

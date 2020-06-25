@@ -29,6 +29,8 @@ function prepareDCM(document)
 
 async function build(inputDir, outputDir, zipName = "")
 {
+    const modulesDir = path.join(__dirname, "..", "node_modules");
+    
     const input =
     {
         index: path.join(inputDir, "index.html"),
@@ -48,7 +50,7 @@ async function build(inputDir, outputDir, zipName = "")
     
     const babelOptions =
     {
-        presets: ["@babel/preset-env"]
+        presets: [path.join(modulesDir, "@babel", "preset-env")]
     };
     
     const inlineAll = false;
@@ -180,9 +182,4 @@ async function build(inputDir, outputDir, zipName = "")
     }
 }
 
-async function main()
-{
-    await build("banners/300x300", "dist/300x300_dcm", "300x300_dcm.zip");
-}
-
-main();
+module.exports = build;
