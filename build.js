@@ -41,6 +41,8 @@ async function build(inputDir, outputDir, zipName = "")
         presets: ["@babel/preset-env"]
     };
     
+    const inlineAll = false;
+    
     // HTML
     const index = await fs.readFile(input.index, "utf8");
     const dom = new JSDOM(stt(index, 2));
@@ -66,7 +68,7 @@ async function build(inputDir, outputDir, zipName = "")
                 code = uglify.minify(result.code).code;
             }
             
-            if (isInlineScript)
+            if (isInlineScript || inlineAll)
             {
                 script.removeAttribute("inline");
                 script.removeAttribute("src");
@@ -95,7 +97,7 @@ async function build(inputDir, outputDir, zipName = "")
         {
             let code = await fs.readFile(inFilename, "utf8");
             
-            if (isInlineStyle)
+            if (isInlineStyle || inlineAll)
             {
                 style.remove();
                 const inlineStyle = dom.window.document.createElement("style");
@@ -124,7 +126,7 @@ async function build(inputDir, outputDir, zipName = "")
         const outFilename = path.join(outputDir, imageFilename);
         if (await fs.exists(inFilename))
         {
-            if (isInlineImage)
+            if (isInlineImage || inlineAll)
             {
                 const content = await fs.readFile(inFilename);
                 const base64Str = content.toString("base64");
