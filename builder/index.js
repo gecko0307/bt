@@ -184,7 +184,7 @@ async function build(inputDir, outputDir, zipName = "")
 
 async function main()
 {
-    await build("banners/300x300", "dist/300x300", "300x300_dcm.zip");
+    await build("banners/300x300", "dist/300x300_dcm", "300x300_dcm.zip");
 }
 
 main();
