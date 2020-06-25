@@ -48,7 +48,7 @@ a {
 #banner {
   overflow: hidden;
   transform: perspective(1400px) matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
-  background-color: #ffff00;
+  background-color: #00ff00;
   font-size: 0;
 }
 

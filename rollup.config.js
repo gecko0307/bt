@@ -1,5 +1,6 @@
 import sass from "rollup-plugin-sass";
 import serve from "rollup-plugin-serve";
+import livereload from "rollup-plugin-livereload";
 
 import autoprefixer from "autoprefixer";
 import postcss from "postcss";
@@ -24,6 +25,9 @@ export default
             contentBase: ["banners"],
             host: "localhost",
             port: 8000
+        }),
+        livereload({
+            watch: "banners/300x300",
         })
     ]
 }
