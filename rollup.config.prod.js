@@ -1,3 +1,4 @@
+import strip from "@rollup/plugin-strip";
 import sass from "rollup-plugin-sass";
 import autoprefixer from "autoprefixer";
 import postcss from "postcss";
@@ -12,6 +13,9 @@ export default
     },
     
     plugins: [
+        strip({
+            debugger: true
+        }),
         sass({
             output: "bundle.css",
             processor: css => postcss([autoprefixer])
