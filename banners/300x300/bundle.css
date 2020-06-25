@@ -46,14 +46,14 @@ a {
 }
 
 #banner, #link {
-  width: 300px;
-  height: 300px;
+  width: 240px;
+  height: 400px;
 }
 
 #banner {
   overflow: hidden;
   transform: perspective(1400px) matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
-  background-color: #ffffff;
+  background-color: #ffff00;
   font-size: 0;
 }
 
@@ -64,6 +64,11 @@ a {
   border: 1px solid #808080;
   pointer-events: none;
   z-index: 1000;
+}
+
+#banner, #link {
+  width: 300px;
+  height: 300px;
 }
 
 #rect {
