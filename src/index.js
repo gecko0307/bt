@@ -27,8 +27,7 @@ async function run()
     console.log("BannerToolchain run");
     const rollup = path.join(__dirname, "..", "node_modules", ".bin", "rollup");
     const rollupConfig = path.join(__dirname, "..", "rollup.config.dev.js");
-    const rollupCmd = `${rollup} -c ${rollupConfig} -m --watch`;
-    const code = await execute(rollup, ["-c", rollupConfig, "-m", "--watch"]);
+    await execute(rollup, ["-c", rollupConfig, "-m", "--watch"]);
 }
 
 if (args.length > 0)
