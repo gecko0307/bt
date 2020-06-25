@@ -10,6 +10,10 @@ export default
     },
     
     plugins: [
-        serve("banners/300x300")
+        serve({
+            contentBase: ["banners"],
+            host: "localhost",
+            port: 8000
+        })
     ]
 }
