@@ -77,7 +77,6 @@ async function build(inputDir, outputDir, zipName = "")
             if (scriptFilename === "bundle.js")
             {
                 const result = await babel.transform(code, babelOptions);
-                //code = uglify.minify(result.code).code;
                 code = await minify({ compressor: uglifyjs, content: result.code });
             }
             
