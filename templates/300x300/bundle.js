@@ -19,10 +19,23 @@
         return tl;
     }
 
+    let master;
+
+    function start()
+    {
+        master = mainTimeline();
+        master.play();
+    }
+
+    function stop()
+    {
+        master.pause();
+    }
+
     function main()
     {
-        const tl = mainTimeline();
-        tl.play();
+        start();
+        setTimeout(stop, 30000);
     }
 
     window.onload = main;

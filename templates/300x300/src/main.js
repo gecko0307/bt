@@ -1,28 +1,10 @@
 import "./main.sass";
-
-function mainTimeline()
-{
-    const tl = anime.timeline({
-        easing: "easeInOutQuad",
-        loop: true,
-        autoplay: false
-    });
-    
-    tl.add({ targets: "#rect", duration: 1000, translateX: "450%", transformOrigin: ["center center 0", "center center 0"] });
-    tl.add({ targets: "#rect", translateY: "900%", backgroundColor: "#0000ff" });
-    tl.add({ targets: "#rect", duration: 500, transformOrigin: ["right bottom 0", "right bottom 0"],
-        scaleX: 10.0,
-        scaleY: 10.0
-    });
-    
-    return tl;
-}
+import * as animation from "./animation";
 
 function main()
 {
-    console.log("main");
-    const tl = mainTimeline();
-    tl.play();
+    animation.start();
+    setTimeout(animation.stop, 30000);
 }
 
 window.onload = main;
