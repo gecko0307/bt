@@ -6,13 +6,13 @@
     <meta name="format-detection" content="telephone=no,date=no,address=no,email=no,url=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="ad.size" content="width=300,height=300">
-    <title>Brand Name - Campaign</title>
+    <title><%= it.brandName %> - <%= it.campaignName %></title>
     <link rel="stylesheet" type="text/css" href="bundle.css" inline>
   </head>
   <body>
     <a href="#" id="link">
       <div id="banner">
-        <div id="t1"> Hello, World! </div>
+        <div id="t1"> <%= it.text1 %> </div>
         <img id="rect" src="images/img.svg">
       </div>
       <div id="border"></div>
