@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="format-detection" content="telephone=no,date=no,address=no,email=no,url=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="ad.size" content="width=300,height=300">
+    <meta name="ad.size" content="width=<%=it.width%>,height=<%=it.height%>">
     <title><%= it.brandName %> - <%= it.campaignName %></title>
     <link rel="stylesheet" type="text/css" href="bundle.css" inline>
   </head>
@@ -13,7 +13,7 @@
     <a href="#" id="link">
       <div id="banner">
         <div id="t1"> <%= it.text1 %> </div>
-        <img id="rect" src="images/img.svg">
+        <img id="rect" src="images/img.svg" inline>
       </div>
       <div id="border"></div>
     </a>
