@@ -1,5 +1,4 @@
 import "./main.sass";
-import "./index.eta.js";
 
 function mainTimeline()
 {
