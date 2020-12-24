@@ -12,7 +12,7 @@ function smartloop(tl, timeLimit, stopTime)
     tl.loopComplete = function() {
         tl._smartLoop.loop++;
         const t = tl._smartLoop.loop * tl.duration / 1000;
-        if (tl._smartLoop.loop === tl._smartLoop.stopAtLoop) {
+        if (tl._smartLoop.loop == tl._smartLoop.stopAtLoop) {
             console.log(`stopped at loop ${tl._smartLoop.loop} / ${t}s`);
             tl.seek(tl._smartLoop.stopTime * 1000);
             tl._smartLoop.loop = 0;
