@@ -1,4 +1,6 @@
 {
+    "brandName": "Test",
+    "campaignName": "Test Campaign",
     "platforms": ["dcm"],
     "requiredFiles": []
 }

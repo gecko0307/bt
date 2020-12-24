@@ -69,9 +69,12 @@ a {
   background-color: #ffff00;
 }
 
-#rect {
+.rect {
   width: 30px;
   height: 30px;
+}
+
+#rect {
   left: -100%;
   right: -100%;
   margin-left: auto;
@@ -80,7 +83,7 @@ a {
 }
 
 #t1 {
-  font-family: sans-serif;
+  font-family: "Roboto_Bold";
   font-size: 17px;
   padding: 10px;
 }

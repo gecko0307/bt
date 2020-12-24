@@ -1,0 +1,7 @@
+{
+    "Roboto_Bold": {
+        "family": "Roboto_Bold",
+		"file": "Roboto-Bold.ttf",
+        "whitelist": "Hello, World!"
+    }
+}

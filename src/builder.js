@@ -57,6 +57,8 @@ async function build(inputDir, outputDir, zipName = "")
     
     const inlineAll = false;
     
+    fs.emptyDirSync(outputDir);
+    
     // HTML
     const index = await fs.readFile(input.index, "utf8");
     const dom = new JSDOM(stt(index, 2));
@@ -65,7 +67,7 @@ async function build(inputDir, outputDir, zipName = "")
     const link = dom.window.document.getElementById("link");
     
     // JS
-    const scripts = dom.window.document.getElementsByTagName("script");
+    const scripts = Array.prototype.slice.call(dom.window.document.getElementsByTagName("script"));
     for (let i = 0; i < scripts.length; i++)
     {
         const script = scripts[i];
@@ -101,10 +103,9 @@ async function build(inputDir, outputDir, zipName = "")
     }
     
     // Styles
-    const styles = dom.window.document.getElementsByTagName("link");
-    for (let i = 0; i < styles.length; i++)
+    const styles = Array.prototype.slice.call(dom.window.document.getElementsByTagName("link"));
+    for (const style of styles)
     {
-        const style = styles[i];
         const styleFilename = style.getAttribute("href");
         const baseFilename = path.basename(styleFilename);
         const isInlineStyle = style.hasAttribute("inline");
@@ -133,7 +134,7 @@ async function build(inputDir, outputDir, zipName = "")
     }
     
     // Images
-    const images = dom.window.document.getElementsByTagName("img");
+    const images = Array.prototype.slice.call(dom.window.document.getElementsByTagName("img"));
     for (let i = 0; i < images.length; i++)
     {
         const image = images[i];

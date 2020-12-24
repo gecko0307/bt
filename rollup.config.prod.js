@@ -2,6 +2,7 @@ import strip from "@rollup/plugin-strip";
 import sass from "rollup-plugin-sass";
 import autoprefixer from "autoprefixer";
 import postcss from "postcss";
+import { fonts, eta } from "./rollup.plugins";
  
 export default
 {
@@ -13,6 +14,8 @@ export default
     },
     
     plugins: [
+        fonts(),
+        eta(),
         strip({
             debugger: true
         }),
