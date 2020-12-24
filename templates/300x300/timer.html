@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+	<title>Preview</title>
+	<meta charset="utf-8">
+	<meta name="author" content="Made with ? by SH">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+	<meta name="format-detection" content="telephone=no,date=no,address=no,email=no,url=no">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<style type="text/css">
+		html {
+			box-sizing: border-box;
+			width: 100%;
+			height: 100%;
+		}
+		*, *::before, *::after {
+			box-sizing: inherit;
+		}
+		body {
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+			user-select: none;
+			margin: 0; padding: 0;
+			background-color: #ccc;
+			-moz-user-select:none;
+			-webkit-user-select:none;
+			overscroll-behavior: none;
+			touch-action: manipulation;
+			text-size-adjust: 100%;
+			-webkit-overflow-scrolling: touch;
+			-webkit-font-smoothing: antialiased;
+			-webkit-tap-highlight-color: transparent;
+		}
+		
+		iframe {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+			left: 0; right: 0;
+			top: 0; bottom: 0;
+			margin: auto;
+			opacity: 1;
+		}
+        
+        #ui {
+            position: absolute;
+            padding: 20px;
+            width: 200px;
+            left: auto;
+            right: 0;
+        }
+        
+        #timer {
+            font-family: monospace;
+            font-size: 50px;
+            position: relative;
+            color: #fff;
+            text-shadow: 1px 1px 5px #555;
+        }
+        
+        #msec {
+            font-size: 0.75em;
+        }
+        
+        #restart {
+            position: relative;
+            width: 120px;
+            height: 40px;
+            margin-top: 15px;
+            margin-bottom: 15px;
+            background-color: #00a4f1;
+            font-family: sans-serif;
+            font-size: 20px;
+            line-height: 2em;
+            text-align: center;
+            color: #fff;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        
+        #restart:active {
+            background-color: #0063a2;
+        }
+	</style>
+</head>
+
+<body>
+	<iframe id="frame" src="index.html" frameborder="0" scrolling="no"></iframe>
+    <div id="ui">
+        <div id="timer"><span id="sec">00</span>:<span id="msec">00</span></div>
+        <div id="restart">↻ Restart</div>
+    </div>
+	<script>
+		"use strict";
+        
+        function pad(n, size) {
+            var s = String(n);
+            while (s.length < (size || 2)) { s = "0" + s; }
+            return s;
+        }
+		
+        var sec = document.getElementById("sec");
+        var msec = document.getElementById("msec");
+        var restart = document.getElementById("restart");
+		var frame = document.getElementById("frame");
+        
+        restart.onclick = function() {
+            frame.src = "index.html";
+        };
+        
+        var timerId = null;
+        var period = 10; // milliseconds
+        var startTime = Date.now();
+        
+		frame.onload = function() {
+			var frameWindow = frame.contentWindow;
+			var frameDocument = frameWindow.document;
+            var frameContainer = frameDocument.getElementById("container");
+            if (timerId != null) clearInterval(timerId);
+            startTime = Date.now();
+            timerId = setInterval(function tick() {
+                var elapsedTime = Date.now() - startTime;
+                var time = (elapsedTime / 1000).toFixed(3);
+                if (time >= 30) {
+                    time = 30;
+                }
+                
+                var integer = Math.floor(time);
+                sec.innerText = pad(integer, 2);
+                var decimal = Math.floor((time % 1).toFixed(2) * 100);
+                if (decimal > 99) decimal = 99;
+                msec.innerText = pad(decimal, 2);
+            }, period);
+		}
+	</script>
+</body>
+
+
+
+</html>
