@@ -3,6 +3,26 @@
 (function () {
     'use strict';
 
+    function smartloop(tl, timeLimit, stopTime)
+    {
+        tl._smartLoop = {
+            timeLimit: timeLimit,
+            stopTime: stopTime,
+            loop: 0,
+            stopAtLoop: Math.floor(timeLimit / (tl.duration / 1000))
+        };
+        tl.loopComplete = function() {
+            tl._smartLoop.loop++;
+            const t = tl._smartLoop.loop * tl.duration / 1000;
+            if (tl._smartLoop.loop === tl._smartLoop.stopAtLoop) {
+                console.log(`stopped at loop ${tl._smartLoop.loop} / ${t}s`);
+                tl.seek(tl._smartLoop.stopTime * 1000);
+                tl._smartLoop.loop = 0;
+                tl.pause();
+            }
+        };
+    }
+
     function mainTimeline()
     {
         const tl = anime.timeline({
@@ -21,29 +41,16 @@
         return tl;
     }
 
-    const timeLimit = 30;
-    const stopTime = 1;
+    const timeLimit = 30.0;
+    const stopTime = 1.0;
 
     let master;
-    let loop = 0;
-    let stopAtLoop = 0;
 
     function start()
     {
         console.log("start");
         master = mainTimeline();
-        master.loopComplete = function() {
-            loop++;
-            const t = loop * master.duration / 1000;
-            if (loop === stopAtLoop) {
-                console.log(`stopped at loop ${loop} / ${t}s`);
-                master.seek(stopTime * 1000);
-                loop = 0;
-                master.pause();
-            }
-        };
-        console.log(master.duration / 1000);
-        stopAtLoop = Math.floor(timeLimit / (master.duration / 1000));
+        smartloop(master, timeLimit, stopTime);
         master.play();
     }
 

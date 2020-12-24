@@ -1,3 +1,5 @@
+import smartloop from "./smartloop";
+
 function mainTimeline()
 {
     const tl = anime.timeline({
@@ -16,29 +18,16 @@ function mainTimeline()
     return tl;
 }
 
-const timeLimit = 30;
-const stopTime = 1;
+const timeLimit = 30.0;
+const stopTime = 1.0;
 
 let master;
-let loop = 0;
-let stopAtLoop = 0;
 
 function start()
 {
     console.log("start");
     master = mainTimeline();
-    master.loopComplete = function() {
-        loop++;
-        const t = loop * master.duration / 1000;
-        if (loop === stopAtLoop) {
-            console.log(`stopped at loop ${loop} / ${t}s`);
-            master.seek(stopTime * 1000);
-            loop = 0;
-            master.pause();
-        }
-    };
-    console.log(master.duration / 1000);
-    stopAtLoop = Math.floor(timeLimit / (master.duration / 1000));
+    smartloop(master, timeLimit, stopTime);
     master.play();
 }
 
