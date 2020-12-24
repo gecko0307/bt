@@ -14,8 +14,8 @@ export default
     },
     
     plugins: [
-        fonts(),
-        eta(),
+        fonts({ always: true }),
+        eta({ always: true }),
         strip({
             debugger: true
         }),

@@ -14,15 +14,18 @@ function requireUncached(module) {
     return require(module);
 }
 
-export function fonts() {
+export function fonts(options = {}) {
     return {
         name: "compile-fonts",
         async buildStart() {
             this.addWatchFile(path.resolve("./src/fonts.json"));
+            
+            if (options.always === true) {
+                generateFonts();
+            }
         },
         async watchChange(id, change) {
             if (id.endsWith("fonts.json")) {
-                console.log(`!${change}: ${id}`);
                 generateFonts();
             }
         },
@@ -35,21 +38,30 @@ export function fonts() {
 export function eta(options = {}) {
     const etaIndex = path.resolve("./src/index.eta");
     const etaData = path.resolve("./src/index.eta.js");
+    
+    function buildHTML() {
+        const dir = path.dirname(etaData);
+        const data = requireUncached(etaData);
+        const basename = path.basename(etaIndex, ".eta");
+        const template = fs.readFileSync(etaIndex, "utf8");
+        const html = Eta.render(template, data);
+        const htmlFilename = path.join(dir, "..", basename + ".html");
+        fs.writeFileSync(htmlFilename, html);
+    }
+    
     return {
         name: "watch-eta-files",
         async buildStart() {
             this.addWatchFile(etaIndex);
             this.addWatchFile(etaData);
+            
+            if (options.always === true) {
+                buildHTML();
+            }
         },
 
-        writeBundle() {
-            const dir = path.dirname(etaData);
-            const data = requireUncached(etaData);
-            const basename = path.basename(etaIndex, ".eta");
-            const template = fs.readFileSync(etaIndex, "utf8");
-            const html = Eta.render(template, data);
-            const htmlFilename = path.join(dir, "..", basename + ".html");
-            fs.writeFileSync(htmlFilename, html);
+        async writeBundle() {
+            buildHTML();
         }
     }
 }
