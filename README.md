@@ -1,5 +1,11 @@
 # Banner Toolchain
-Banner development tools. Automate optimization and packaging of HTML ad creatives.
+Banner development tools. Automate optimization and packaging of HTML ad creatives
+* HTML template engine (Eta.js)
+* SASS
+* JavaScript module bundling and minification
+* Built-in webfont generator with subsetting (requires glyphhanger)
+* Resource inlining
+* Prepares HTML for ad platforms such as DCM, creates zip archives.
 
 ## Usage
 Installation:
