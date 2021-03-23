@@ -1,13 +1,13 @@
 #rect2 {
-	animation-name: animation0;
+	animation-name: animation1;
 	animation-duration: 2.5s;
 	animation-iteration-count: infinite;
 }
 
-@keyframes animation0 {
+@keyframes animation1 {
 	0% { opacity: 0; background-color: #ff0000; }
 	20% { opacity: 1; }
 	80% { opacity: 1; }
-	100% { opacity: 0; background-color: #00ff00; }
+	100% { opacity: 0; background-color: #ff00ff; }
 }
 

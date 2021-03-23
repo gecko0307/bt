@@ -3,7 +3,7 @@ import * as fs from "fs";
 import * as Eta from "eta";
 
 const generateFonts = require("./src/webfontgen");
-const { generateAnimationStyle } = require("./src/animator");
+const { Timeline, generateAnimationStyle } = require("./src/animator");
 
 Eta.configure({
     views: path.resolve("./src")
@@ -42,18 +42,11 @@ export function animation(options = {}) {
     function generateAnimationCSS() {
         const dir = path.dirname(animScript);
         const { timeline } = requireUncached(animScript);
-        const tl = timeline();
-        console.log(tl);
-        
+        const tl = new Timeline();
+        timeline(tl);
         const css = generateAnimationStyle(tl);
         const cssFilename = path.join(dir, "..", "animation.css");
         fs.writeFileSync(cssFilename, css);
-        
-        //const basename = path.basename(etaIndex, ".eta");
-        //const template = fs.readFileSync(etaIndex, "utf8");
-        //const html = Eta.render(template, data);
-        //const htmlFilename = path.join(dir, "..", basename + ".html");
-        //fs.writeFileSync(htmlFilename, html);
     }
     
     return {

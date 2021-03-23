@@ -46,5 +46,5 @@ function generateStyle(timeline) {
 }
 
 module.exports = {
-	generateStyle
+    generateStyle
 };
