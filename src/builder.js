@@ -29,6 +29,10 @@ function prepareDCM(document)
     link.setAttribute("aria-label", "Перейти по ссылке в баннере");
 }
 
+function prepareMail(document)
+{
+}
+
 async function build(inputDir, outputDir, zipName = "")
 {
     const modulesDir = path.join(__dirname, "..", "node_modules");

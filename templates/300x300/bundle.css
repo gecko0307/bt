@@ -87,3 +87,9 @@ a {
   font-size: 17px;
   padding: 10px;
 }
+
+#rect2 {
+  width: 100px;
+  height: 100px;
+  background-color: #ff0000;
+}

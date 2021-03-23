@@ -1,3 +1,5 @@
+
+(function(l, r) { if (l.getElementById('livereloadscript')) return; r = l.createElement('script'); r.async = 1; r.src = '//' + (window.location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1'; r.id = 'livereloadscript'; l.getElementsByTagName('head')[0].appendChild(r) })(window.document);
 (function () {
     'use strict';
 
@@ -13,6 +15,7 @@
             tl._smartLoop.loop++;
             const t = tl._smartLoop.loop * tl.duration / 1000;
             if (tl._smartLoop.loop == tl._smartLoop.stopAtLoop) {
+                console.log(`stopped at loop ${tl._smartLoop.loop} / ${t}s`);
                 tl.seek(tl._smartLoop.stopTime * 1000);
                 tl._smartLoop.loop = 0;
                 tl.pause();
@@ -45,6 +48,7 @@
 
     function start()
     {
+        console.log("start");
         master = mainTimeline();
         smartloop(master, timeLimit, stopTime);
         master.play();
@@ -58,3 +62,4 @@
     window.onload = main;
 
 }());
+//# sourceMappingURL=bundle.js.map

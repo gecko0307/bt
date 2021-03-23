@@ -3,7 +3,7 @@ import autoprefixer from "autoprefixer";
 import postcss from "postcss";
 import serve from "rollup-plugin-serve";
 import livereload from "rollup-plugin-livereload";
-import { fonts, eta } from "./rollup.plugins";
+import { fonts, animation, eta } from "./rollup.plugins";
 
 export default
 {
@@ -16,6 +16,7 @@ export default
     
     plugins: [
         fonts(),
+        animation(),
         eta(),
         sass({
             output: "bundle.css",
