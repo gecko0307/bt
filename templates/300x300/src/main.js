@@ -6,4 +6,4 @@ function main()
     animation.start();
 }
 
-window.onload = main;
+window.addEventListener("DOMContentLoaded", main);

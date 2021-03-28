@@ -14,9 +14,11 @@
   <body>
     <a href="#" id="link">
       <div id="banner">
+        <img id="bg" src="images/bg.jpg">
         <div id="t1"><%= it.text1 %></div>
-        <img id="rect" class="rect" src="images/img.svg" inline>
-        <div id="rect2"></div>
+        <div id="t2"><%= it.text2 %></div>
+        <div id="t3"><%= it.text3 %></div>
+        <div id="t4"><%= it.text4 %></div>
       </div>
       <div id="border"></div>
     </a>

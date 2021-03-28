@@ -1,8 +1,7 @@
 {
-    "Roboto_Bold": {
-        "family": "Roboto_Bold",
-        "file": "Roboto-Bold.ttf",
-        "whitelist": "Hello, World!"
-        
+    "Cimatics_Regular": {
+        "family": "Cimatics_Regular",
+        "file": "cimatics-base.ttf",
+        "whitelist": "Лаки для ногтей Кремы, маски Средства для волос Азиатская косметика в Казани"
     }
 }

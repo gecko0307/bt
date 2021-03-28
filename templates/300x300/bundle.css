@@ -61,35 +61,28 @@ a {
 }
 
 #banner, #link {
-  width: 300px;
-  height: 300px;
+  width: 240px;
+  height: 400px;
 }
 
 #banner {
-  background-color: #ffff00;
+  background-color: #ffffff;
 }
 
-.rect {
-  width: 30px;
-  height: 30px;
+#bg {
+  width: 100%;
+  height: auto;
 }
 
-#rect {
-  left: -100%;
-  right: -100%;
-  margin-left: auto;
-  margin-right: auto;
-  transform-origin: "center center";
+#t1, #t2, #t3, #t4 {
+  width: 100%;
+  top: 172px;
+  font-family: "Cimatics_Regular";
+  font-size: 18px;
+  text-align: center;
+  color: #53a3da;
 }
 
-#t1 {
-  font-family: "Roboto_Bold";
-  font-size: 17px;
-  padding: 10px;
-}
-
-#rect2 {
-  width: 100px;
-  height: 100px;
-  background-color: #ff0000;
+#t4 {
+  color: #ff377b;
 }
