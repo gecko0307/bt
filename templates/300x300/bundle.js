@@ -1,3 +1,5 @@
+
+(function(l, r) { if (l.getElementById('livereloadscript')) return; r = l.createElement('script'); r.async = 1; r.src = '//' + (window.location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1'; r.id = 'livereloadscript'; l.getElementsByTagName('head')[0].appendChild(r) })(window.document);
 (function () {
     'use strict';
 
@@ -16,6 +18,7 @@
             this_tl._smartLoop.loop++;
             const t = this_tl._smartLoop.loop * this_tl.duration();
             if (this_tl._smartLoop.loop == this_tl._smartLoop.stopAtLoop) {
+                console.log(`stopped at loop ${this_tl._smartLoop.loop} / ${t}s`);
                 this_tl._smartLoop.loop = 0;
                 this_tl.pause(this_tl._smartLoop.stopLabel);
             }
@@ -29,18 +32,22 @@
         
         tl.addLabel("slide1", "start");
         tl.fromTo("#t1", 0.5, { autoAlpha: 0 }, { autoAlpha: 1 }, "slide1");
+        tl.addLabel("capture 1", "+=0.0");
         
         tl.addLabel("slide2", "+=2.0");
         tl.to("#t1", 0.5, { autoAlpha: 0 }, "slide2");
         tl.fromTo("#t2", 0.5, { autoAlpha: 0 }, { autoAlpha: 1 }, "slide2+=0.5");
+        tl.addLabel("capture 2", "+=0.0");
         
         tl.addLabel("slide3", "+=2.0");
         tl.to("#t2", 0.5, { autoAlpha: 0 }, "slide3");
         tl.fromTo("#t3", 0.5, { autoAlpha: 0 }, { autoAlpha: 1 }, "slide3+=0.5");
+        tl.addLabel("capture 3", "+=0.0");
         
         tl.addLabel("slide4", "+=2.0");
         tl.to("#t3", 0.5, { autoAlpha: 0 }, "slide4");
         tl.fromTo("#t4", 0.5, { autoAlpha: 0 }, { autoAlpha: 1 }, "slide4+=0.5");
+        tl.addLabel("capture 4", "+=0.0");
         stop(tl, 30.0, "+=0.0");
         
         tl.addLabel("end", "+=3.0");
@@ -53,6 +60,7 @@
 
     function start()
     {
+        console.log("start");
         master = mainTimeline();
         master.play(0);
     }
@@ -65,3 +73,4 @@
     window.addEventListener("DOMContentLoaded", main);
 
 }());
+//# sourceMappingURL=bundle.js.map
