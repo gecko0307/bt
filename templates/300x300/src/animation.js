@@ -1,25 +1,15 @@
-import smartloop from "./smartloop";
+import stop from "./stop";
 
 function mainTimeline()
 {
-    const tl = anime.timeline({
-        easing: "easeInOutQuad",
-        loop: true,
-        autoplay: false
-    });
-    
-    tl.add({ targets: "#rect", duration: 1000, translateX: "450%", transformOrigin: ["center center 0", "center center 0"] });
-    tl.add({ targets: "#rect", translateY: "900%", backgroundColor: "#0000ff" });
-    tl.add({ targets: "#rect", duration: 500, transformOrigin: ["right bottom 0", "right bottom 0"],
-        scaleX: 10.0,
-        scaleY: 10.0
-    });
-    
+    const tl = gsap.timeline({ repeat: -1, paused: true });
+    tl.addLabel("start", 0.0);
+    tl.fromTo("#rect", 1.0, { xPercent: 0 }, { xPercent: 450, ease: "power2.inOut" }, "start");
+    tl.fromTo("#rect", 1.0, { yPercent: 0 }, { yPercent: 900, ease: "power2.inOut" }, "+=0.0");
+    tl.fromTo("#rect", 0.5, { scale: 1, transformOrigin: "right bottom" }, { scale: 10, ease: "power2.inOut" }, "+=0.0");
+    stop(tl, 10.0, "+=0.0");
     return tl;
 }
-
-const timeLimit = 30.0;
-const stopTime = 1.0;
 
 let master;
 
@@ -27,8 +17,7 @@ function start()
 {
     console.log("start");
     master = mainTimeline();
-    smartloop(master, timeLimit, stopTime);
-    master.play();
+    master.play(0);
 }
 
 export

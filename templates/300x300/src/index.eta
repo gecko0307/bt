@@ -20,7 +20,7 @@
       </div>
       <div id="border"></div>
     </a>
-    <script src="anime.min.js" inline></script>
+    <script src="gsap.min.js" inline></script>
     <script src="bundle.js" inline></script>
   </body>
 </html>
