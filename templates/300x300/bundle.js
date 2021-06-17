@@ -62,6 +62,9 @@
     {
         console.log("start");
         master = mainTimeline();
+        window.animation = {
+            master: master
+        };
         master.play(0);
     }
 

@@ -3,10 +3,10 @@
 const path = require("path");
 const { execute } = require("./utils");
 const builder = require("./builder");
+const capturer = require("./capturer");
 
 const cwd = process.cwd();
 const [,, ...args] = process.argv;
-//console.log(`${args}`);
 
 async function build()
 {
@@ -30,14 +30,18 @@ async function run()
     await execute(rollup, ["-c", rollupConfig, "-m", "--watch"]);
 }
 
+async function capture()
+{
+    console.log("BannerToolchain capture");
+    await capturer(cwd);
+}
+
 if (args.length > 0)
 {
     if (args[0] === "build")
-    {
         build();
-    }
     else if (args[0] === "run")
-    {
         run();
-    }
+    else if (args[0] === "capture")
+        capture();
 }
