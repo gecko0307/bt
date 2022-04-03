@@ -8,8 +8,7 @@ const capturer = require("./capturer");
 const cwd = process.cwd();
 const [,, ...args] = process.argv;
 
-async function build()
-{
+async function build() {
     console.log("BannerToolchain build");
     const rollup = path.join(__dirname, "..", "node_modules", ".bin", "rollup");
     const rollupConfig = path.join(__dirname, "..", "rollup.config.prod.js"); 
@@ -22,22 +21,19 @@ async function build()
     }
 }
 
-async function run()
-{
+async function run() {
     console.log("BannerToolchain run");
     const rollup = path.join(__dirname, "..", "node_modules", ".bin", "rollup");
     const rollupConfig = path.join(__dirname, "..", "rollup.config.dev.js");
     await execute(rollup, ["-c", rollupConfig, "-m", "--watch"]);
 }
 
-async function capture()
-{
+async function capture() {
     console.log("BannerToolchain capture");
     await capturer(cwd);
 }
 
-if (args.length > 0)
-{
+if (args.length > 0) {
     if (args[0] === "build")
         build();
     else if (args[0] === "run")

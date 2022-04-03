@@ -5,8 +5,7 @@ import serve from "rollup-plugin-serve";
 import livereload from "rollup-plugin-livereload";
 import { fonts, animation, eta } from "./rollup.plugins";
 
-export default
-{
+export default {
     input: "src/main.js",
     
     output: {

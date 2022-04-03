@@ -4,7 +4,7 @@
     "description": "Banner development toolchain",
     "author": "Timur Gafarov",
     "private": true,
-    "license": "UNLICENSED",
+    "license": "MIT",
     "dependencies": {
         "@babel/core": "^7.10.3",
         "@babel/preset-env": "^7.10.3",

@@ -7,8 +7,7 @@ const { Timeline, generateAnimationStyle } = require("./src/animator");
 
 Eta.configure({
     views: path.resolve("./src")
-})
-
+});
 
 function requireUncached(module) {
     delete require.cache[require.resolve(module)];

@@ -11,8 +11,7 @@ const cleanCSS = require("@node-minify/clean-css");
 const mime = require("mime");
 const Zip = require("adm-zip");
 
-function prepareDCM(document)
-{
+function prepareDCM(document) {
     const head = document.getElementsByTagName("head")[0];
     const body = document.getElementsByTagName("body")[0];
     const link = document.getElementById("link");
@@ -29,22 +28,18 @@ function prepareDCM(document)
     link.setAttribute("aria-label", "Перейти по ссылке в баннере");
 }
 
-function prepareMail(document)
-{
+function prepareMail(document) {
 }
 
-async function build(inputDir, outputDir, zipName = "")
-{
+async function build(inputDir, outputDir, zipName = "") {
     const modulesDir = path.join(__dirname, "..", "node_modules");
     
-    const input =
-    {
+    const input = {
         index: path.join(inputDir, "index.html"),
         bundle: path.join(inputDir, "bundle.js"),
     };
     
-    const output =
-    {
+    const output = {
         index: path.join(outputDir, "index.html"),
         css: path.join(outputDir, "main.css"),
         bundle: path.join(outputDir, "bundle.js"),
@@ -54,8 +49,7 @@ async function build(inputDir, outputDir, zipName = "")
     
     const outputFiles = [];
     
-    const babelOptions =
-    {
+    const babelOptions = {
         presets: [path.join(modulesDir, "@babel", "preset-env")]
     };
     
@@ -80,25 +74,21 @@ async function build(inputDir, outputDir, zipName = "")
         const isInlineScript = script.hasAttribute("inline");
         const inFilename = path.join(inputDir, scriptFilename);
         const outFilename = path.join(outputDir, baseFilename);
-        if (await fs.exists(inFilename))
-        {
+        if (await fs.exists(inFilename)) {
             let code = await fs.readFile(inFilename, "utf8");
             
-            if (scriptFilename === "bundle.js")
-            {
+            if (scriptFilename === "bundle.js") {
                 const result = await babel.transform(code, babelOptions);
                 code = await minify({ compressor: uglifyjs, content: result.code });
             }
             
-            if (isInlineScript || inlineAll)
-            {
+            if (isInlineScript || inlineAll) {
                 script.removeAttribute("inline");
                 script.removeAttribute("src");
                 script.type = "text/javascript";
                 script.innerHTML = "\n" + code;
             }
-            else
-            {
+            else {
                 script.src = baseFilename;
                 await fs.outputFile(outFilename, code);
                 outputFiles.push(outFilename);
@@ -108,19 +98,16 @@ async function build(inputDir, outputDir, zipName = "")
     
     // Styles
     const styles = Array.prototype.slice.call(dom.window.document.getElementsByTagName("link"));
-    for (const style of styles)
-    {
+    for (const style of styles) {
         const styleFilename = style.getAttribute("href");
         const baseFilename = path.basename(styleFilename);
         const isInlineStyle = style.hasAttribute("inline");
         const inFilename = path.join(inputDir, styleFilename);
         const outFilename = path.join(outputDir, baseFilename);
-        if (await fs.exists(inFilename))
-        {
+        if (await fs.exists(inFilename)) {
             let code = await fs.readFile(inFilename, "utf8");
             
-            if (isInlineStyle || inlineAll)
-            {
+            if (isInlineStyle || inlineAll) {
                 style.remove();
                 const inlineStyle = dom.window.document.createElement("style");
                 inlineStyle.type = "text/css";
@@ -128,8 +115,7 @@ async function build(inputDir, outputDir, zipName = "")
                 inlineStyle.innerHTML = code;
                 head.appendChild(inlineStyle);
             }
-            else
-            {
+            else {
                 style.href = baseFilename;
                 await fs.outputFile(outFilename, code);
                 outputFiles.push(outFilename);
@@ -139,8 +125,7 @@ async function build(inputDir, outputDir, zipName = "")
     
     // Images
     const images = Array.prototype.slice.call(dom.window.document.getElementsByTagName("img"));
-    for (let i = 0; i < images.length; i++)
-    {
+    for (let i = 0; i < images.length; i++) {
         const image = images[i];
         image.alt = "";
         const imageFilename = image.getAttribute("src");
@@ -148,10 +133,8 @@ async function build(inputDir, outputDir, zipName = "")
         const isInlineImage = image.hasAttribute("inline");
         const inFilename = path.join(inputDir, imageFilename);
         const outFilename = path.join(outputDir, baseFilename);
-        if (await fs.exists(inFilename))
-        {
-            if (isInlineImage || inlineAll)
-            {
+        if (await fs.exists(inFilename)) {
+            if (isInlineImage || inlineAll) {
                 const content = await fs.readFile(inFilename);
                 const base64Str = content.toString("base64");
                 const mimetype = mime.getType(inFilename);
@@ -160,8 +143,7 @@ async function build(inputDir, outputDir, zipName = "")
                 image.removeAttribute("src");
                 image.src = dataStr;
             }
-            else
-            {
+            else {
                 image.src = baseFilename;
                 await fs.copy(inFilename, outFilename);
                 outputFiles.push(outFilename);
@@ -177,11 +159,9 @@ async function build(inputDir, outputDir, zipName = "")
     outputFiles.push(output.index);
     
     // Make zip
-    if (zipName.length > 0) 
-    {
+    if (zipName.length > 0) {
         const zip = new Zip();
-        for (const filename of outputFiles)
-        {
+        for (const filename of outputFiles) {
             console.log("Zipping", filename);
             zip.addLocalFile(filename);
         }

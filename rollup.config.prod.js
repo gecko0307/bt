@@ -15,8 +15,7 @@ const urlOptions = {
     // assetsPath: "dist",
 };
  
-export default
-{
+export default {
     input: "src/main.js",
     
     output: {
