@@ -1,5 +1,3 @@
-
-(function(l, r) { if (l.getElementById('livereloadscript')) return; r = l.createElement('script'); r.async = 1; r.src = '//' + (window.location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1'; r.id = 'livereloadscript'; l.getElementsByTagName('head')[0].appendChild(r) })(window.document);
 (function () {
     'use strict';
 
@@ -18,7 +16,6 @@
             this_tl._smartLoop.loop++;
             const t = this_tl._smartLoop.loop * this_tl.duration();
             if (this_tl._smartLoop.loop == this_tl._smartLoop.stopAtLoop) {
-                console.log(`stopped at loop ${this_tl._smartLoop.loop} / ${t}s`);
                 this_tl._smartLoop.loop = 0;
                 this_tl.pause(this_tl._smartLoop.stopLabel);
             }
@@ -60,7 +57,6 @@
 
     function start()
     {
-        console.log("start");
         master = mainTimeline();
         window.animation = {
             master: master
@@ -76,4 +72,3 @@
     window.addEventListener("DOMContentLoaded", main);
 
 }());
-//# sourceMappingURL=bundle.js.map
