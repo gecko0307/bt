@@ -18,6 +18,7 @@ async function listen() {
 
 const routes = {
     "api": "http://localhost:9000/api",
+    "preview": "http://localhost:9000/preview/",
     "fonts": "http://localhost:9000/fonts/",
     "images": "http://localhost:9000/images/"
 };

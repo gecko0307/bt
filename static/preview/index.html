@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Preview</title>
+	<style>
+		html {
+			box-sizing: border-box;
+			width: 100%;
+			height: 100%;
+		}
+		*, *::before, *::after {
+			box-sizing: inherit;
+		}
+		body {
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+			user-select: none;
+			margin: 0; padding: 0;
+			background-color: #ccc;
+			-moz-user-select:none;
+			-webkit-user-select:none;
+			overscroll-behavior: none;
+			touch-action: manipulation;
+			text-size-adjust: 100%;
+			-webkit-overflow-scrolling: touch;
+			-webkit-font-smoothing: antialiased;
+			-webkit-tap-highlight-color: transparent;
+		}
+		
+		#banner {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			overflow: hidden;
+			left: 0; right: 0;
+			top: 0; bottom: 0;
+			margin: auto;
+			opacity: 0;
+		}
+	</style>
+</head>
+<body>
+	<iframe id="banner" src="index.html" frameborder="0" scrolling="no"></iframe>
+	<script>
+		"use strict";
+		
+		var banner = document.getElementById("banner");
+		banner.onload = function() {
+			var bannerWindow = banner.contentWindow;
+			var bannerDocument = bannerWindow.document;
+			var bannerContainer = bannerDocument.getElementById("container");
+			bannerContainer.style.margin = "0";
+			
+			//
+			
+			banner.style.opacity = "1";
+		};
+	</script>
+</body>
+</html>

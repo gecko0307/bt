@@ -46,6 +46,7 @@ export default {
             },
             proxy: [
                 { from: "/api", to: utilServer.routes["api"] },
+                { from: "/preview", to: utilServer.routes["preview"] },
                 { from: "/fonts", to: utilServer.routes["fonts"] },
                 { from: "/images", to: utilServer.routes["images"] },
                 { from: "/tuner", to: utilServer.routes["images"] }, // Banny Tools compatibility
