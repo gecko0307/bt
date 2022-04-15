@@ -1,5 +1,5 @@
 # Banner Toolchain
-HTML banner development tools for Node.js. Automate bundling, optimization and packaging of ads, games and other single page web projects. Inspired by and compatible with SmartHead's Banny Tools.
+HTML banner development tools for Node.js. Automate bundling, optimization and packaging of ads, games and other single page web projects. Inspired by and compatible with [SmartHead](https://github.com/smarthead)'s Banny Tools.
 * ✔️ Project initialization
 * ✔️ JavaScript module bundling and minification
 * ✔️ Server with autorefresh
