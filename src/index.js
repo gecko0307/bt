@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-
+const fs = require("fs-extra");
 const path = require("path");
 const { execute } = require("./utils");
 //const builder = require("./builder");
@@ -7,6 +7,12 @@ const { execute } = require("./utils");
 
 const cwd = process.cwd();
 const [,, ...args] = process.argv;
+
+async function isDirEmpty(dirname) {
+    return fs.promises.readdir(dirname).then(files => {
+        return files.length === 0;
+    });
+}
 
 async function runRollup(rollupConfig, options = []) {
     const rollup = path.join(__dirname, "..", "node_modules", ".bin", "rollup");
@@ -42,6 +48,25 @@ async function run() {
     const code = await runRollup("rollup.config.dev.js", ["-m", "--watch"]);
 }
 
+async function init(template) {
+    console.log("BannerToolchain init");
+    if (await isDirEmpty(cwd) === true) {
+        const templatePath = path.join(__dirname, "..", "templates", template);
+        if (await fs.exists(templatePath)) {
+            const srcDir = path.join(__dirname, "..", "templates", "default");
+            const dstDir = path.join(cwd);
+            await fs.copy(srcDir, dstDir);
+            console.log(`Project initialized with template "${template}"`);
+        }
+        else {
+            console.log(`Error: template "${template}" not found!`);
+        }
+    }
+    else {
+        console.log("Error: working directory is not empty!");
+    }
+}
+
 async function capture() {
     console.log("BannerToolchain capture (WIP)");
     // await capturer(cwd);
@@ -54,4 +79,6 @@ if (args.length > 0) {
         run();
     else if (args[0] === "capture")
         capture();
+    else if (args[0] === "init")
+        init(args[1] || "default");
 }
