@@ -45,7 +45,9 @@ export default {
             host: "localhost",
             port: 8000,
             onListen: function(server) {
-                opener("http://localhost:8000/");
+                const url = "http://localhost:8000/";
+                console.log("Listening on", url);
+                opener(url);
                 console.log("Good luck!");
             },
             proxy: [
@@ -54,6 +56,7 @@ export default {
                 { from: "/fonts", to: utilServer.routes["fonts"] },
                 { from: "/images", to: utilServer.routes["images"] },
                 { from: "/tuner", to: utilServer.routes["images"] }, // Banny Tools compatibility
+                { from: "/mobile", to: utilServer.routes["mobile"] },
             ]
         }),
         livereload({

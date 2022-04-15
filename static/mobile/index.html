@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, maximum-scale=1.0, initial-scale=1.0, minimum-scale=1.0">
+        <title>Banner preview</title>        
+        <style>		
+            html, body, iframe {
+                margin: 0;
+                padding: 0;
+                border: 0;
+                width: 100%;
+                height: 100%;
+            }
+            
+            #content {
+				margin: 0;
+				padding: 0;
+				visibility: hidden;
+            }
+			
+			#banner_contaner {
+				width: 100%;
+				height: 250px;
+			}
+
+            #bannerFrame {
+            }
+        </style>
+    </head>
+    <body>		
+		<div id="banner_contaner">
+			<iframe id="bannerFrame"></iframe>
+		</div>
+		
+        <div id="content">
+        </div>
+
+		<script type="text/javascript" src="js/detect-browser.js"></script>
+		<script type="text/javascript" src="js/touch-emulator.js"></script>
+        <script type="text/javascript" src="js/config.js"></script>
+        <script>
+			if (!SmartPhone.isAny())
+				window.location.href = "emulator.html";
+			else
+			{
+				var iframe = document.getElementById("iframe");
+				iframe.src = bannerUrl;
+				
+				function sendGyroscopeEvent(a, b, g) {
+					iframe.contentWindow.postMessage(
+						JSON.stringify({ alpha: a, beta: b, gamma: g, orientation: window.orientation || 0 }),
+						origin);
+				}
+				
+				window.addEventListener("deviceorientation", function(e) {
+					sendGyroscopeEvent(e.alpha, e.beta, e.gamma);
+				});
+			}
+        </script>
+    </body>
+</html>

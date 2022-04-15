@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+	<title>Mobile Device Emulator 1.0</title>
+
+	<script type="text/javascript" src="js/libs/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="js/config.js"></script>
+	<script type="text/javascript" src="js/utils.js"></script>
+
+	<link type="text/css" rel="stylesheet" href="css/groundwork.css">
+	<link type="text/css" rel="stylesheet" href="css/emulator.css">
+	<script type="text/javascript" src="js/emulator.js"></script>
+
+	<link type="text/css" rel="stylesheet" href="css/timeline.css">
+	<script type="text/javascript" src="js/timeliner.js"></script>
+	
+	<script type="text/javascript" src="js/app.js"></script>
+</head>
+
+<body class="emulator-page">
+	<iframe id="controller" class="bounceInDown animated charcoal" src="" frameborder="0"></iframe>
+
+	<div id="emulator" class="bounceInDown animated" style="z-index:2;">
+		<ul class="button-group">
+			<li>
+				<div class="info" style="margin: 0; padding-right: 10px" title="Ссылка на баннер">
+					<input type="text" id="banner_url" placeholder="Введите ссылку на баннер">
+				</div>
+			</li>
+			<li>
+				<button class="charcoal apply_url" title="Загрузить баннер" data-disable-during-playback="true" tabindex="1">Загрузить</button>
+			</li>
+			<li>
+				<button class="charcoal refresh" title="Обновить баннер" style="margin-right: 10px" data-disable-during-playback="true" tabindex="2"><i class="icon-refresh"></i></button>
+			</li>
+
+			<li>
+				<button class="asphalt active" title="iPhone 6/7/8" data-rotate="true" data-device="iphone" data-viewport-width="375px" data-viewport-height="667px" data-zoom="100%" data-user-agent="Mozilla/5.0 (iPhone; CPU iPhone OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5376e Safari/8536.25"
+				tabindex="-1"><i class="icon-apple"></i></button>
+			</li>
+			<li>
+				<button class="charcoal" title="Galaxy S5" data-rotate="true" data-device="android" data-viewport-width="360px" data-viewport-height="640px" data-zoom="100%" data-user-agent="Mozilla/5.0 (Linux; Android 5.0; SM-G900P Build/LRX21T) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.23 Mobile Safari/537.36"
+				tabindex="-1"><i class="icon-android"></i></button>
+			</li>
+
+			<li>
+				<div class="info" style="margin-right: 0px; padding-right:0px;" title="Поворот устройства">
+					a:
+					<input type="number" id="orientationAlpha" data-disable-during-playback="true" value="-" tabindex="1" step="any" min="0" max="359.99"> b:
+					<input type="number" id="orientationBeta" data-disable-during-playback="true" value="-" tabindex="2" step="any" min="-180" max="180"> g:
+					<input type="number" id="orientationGamma" data-disable-during-playback="true" value="-" tabindex="3" step="any" min="-90" max="90">
+				</div>
+			</li>
+			<li>
+				<button class="charcoal reset" title="Сбросить поворот устройства" style="margin-right: 10px" data-disable-during-playback="true" tabindex="-1"><i class="icon-location-arrow"></i></button>
+			</li>
+			
+			<li>
+				<div class="info" style="margin: 0; padding-right: 10px" title="Ориентация экрана">
+					s:
+					<span id="screenOrientation" style="width: 20px;">0</span>
+				</div>
+			</li>
+			<li>
+				<button class="charcoal rotate" data-rotate="true" title="Повернуть устройство на 90 градусов" style="margin-right: 10px" data-disable-during-playback="true" tabindex="-1"><i class="icon-rotate-left"></i></button>
+			</li>
+			
+			<li>
+				<button class="charcoal help" title="Помощь" data-disable-during-playback="true" tabindex="-1"><i class="icon-question-sign"></i></button>
+			</li>
+
+		</ul>
+	</div>
+
+	<div id="deviceContainer">
+		<iframe id="deviceFrame" class="relative" style="z-index:1;" src="" frameborder="0"></iframe>
+		<img src="images/handle.png" id="resizeHandle" style="z-index:2;" >
+	</div>
+	
+	<div id="emulator_help">
+		<ul>
+			<li>Введите ссылку на баннер в текстовое поле вверху страницы и нажмите "Загрузить".</li>
+			<li>Вращайте 3D-модель телефона левой кнопкой мыши для управления гироскопом.</li>
+			<li>Чтобы сбросить поворот, нажмите кнопку со стрелкой.</li>
+			<li>Растягивайте экран виртуального устройства при помощи треугольника в правом нижнем углу.</li>
+			<li>Нажмите на баннер левой кнопкой мыши и потяните курсор, чтобы имитировать касание сенсорного экрана.</li>
+		</ul>
+	</div>
+	
+	<script>
+		document.getElementById("banner_url").value = bannerUrl;
+	</script>
+</body>
+</html>
