@@ -1,11 +1,8 @@
 # Banner Toolchain
-Banner development tools. Automate optimization and packaging of HTML ad creatives
+Banner development tools compatible with SmartHead's Banny Tools. Automates optimization and packaging of HTML ad creatives.
 * JavaScript module bundling and minification
-* HTML template engine (Eta.js)
 * SASS
-* Built-in webfont generator with subsetting (requires glyphhanger)
-* CSS keyframe animation generator
-* Resource inlining
+* Server with autorefresh
 
 ## Usage
 Installation:
@@ -14,10 +11,10 @@ npm install
 npm link
 ```
 
-To test banner locally:
+To develop/test banner locally:
 
 `bt run`
 
-To build banner for publishing:
+To build banner for publishing (WIP):
 
 `bt build`
