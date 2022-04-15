@@ -1,5 +1,5 @@
 # Banner Toolchain
-Banner development tools compatible with projects for SmartHead's Banny Tools. Automate optimization and packaging of HTML ad creatives.
+HTML banner development tools compatible with projects for SmartHead's Banny Tools. Automate bundling, optimization and packaging of ads, games and other single page web projects.
 * ✔️ Project initialization
 * ✔️ JavaScript module bundling and minification
 * ✔️ Server with autorefresh
@@ -35,8 +35,11 @@ To build banner for publishing (WIP):
 
 Development server runs at `http://localhost:8000/`.
 
-Additional utility server runs at `http://localhost:9000/`, providing helper tools and toolchain API, but it is not meant to be accessed directly. Instead, proxies from port 8000 should be used to access the tools:
+Additional utility server runs at `http://localhost:9000/`, providing helper tools and toolchain API, but it is not meant to be accessed directly. Instead, proxy routes from port 8000 should be used to access the tools:
 * `http://localhost:8000/preview` - preview page (WIP)
 * `http://localhost:8000/fonts` - web font generator (WIP)
 * `http://localhost:8000/images` or `http://localhost:8000/tuner` - image minimizer (WIP)
 * `http://localhost:8000/mobile` - mobile device emulator to work with Device Orientation API on desktop. This functionality will be reimplemented as a part of `/preview` page in future.
+
+## Copyright and license
+Copyright (c) 2021-2022 Timur Gafarov. Distributed under the MIT license.
