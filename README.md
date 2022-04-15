@@ -4,7 +4,7 @@ HTML banner development tools for Node.js. Automate bundling, optimization and p
 * ✔️ JavaScript module bundling and babeling
 * ✔️ Dev server with file watching and autorefresh
 * ✔️ [Sass](https://sass-lang.com/) support
-* ✔️ CSS animation generator that uses simple GreenSock-like input expressions
+* ✔️ CSS animation generator that uses simple [GreenSock](https://greensock.com/)-like input expressions
 * ⌛ Web font generator
 * ⌛ Image minimizer
 * ⌛ Banner builder
