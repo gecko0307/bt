@@ -24,9 +24,11 @@ To create a new banner in an empty directory:
 
 `bt init`
 
-This will create a project using a default template that uses [GreenSock](https://greensock.com/) animation library. You can add your own templates to `templates` directory and use them, for example:
+This will create a project using a default template that uses [GreenSock](https://greensock.com/) animation library. Additionally [Anime.js](https://animejs.com/)-based template is available for fully self-hosted banners with as small size overhead as possible:
 
-`bt init mySuperTemplate`
+`bt init anime`
+
+You can also add your own templates to `templates` directory and use them.
 
 To run the development server:
 
@@ -36,6 +38,7 @@ To build banner for publishing (WIP):
 
 `bt build`
 
+## Server tools (WIP)
 Development server runs at `http://localhost:8000/`.
 
 Additional utility server runs at `http://localhost:9000/`, providing helper tools and toolchain API, but it is not meant to be accessed directly. Instead, proxy routes from port 8000 should be used to access the tools:
