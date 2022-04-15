@@ -4,7 +4,6 @@ const path = require("path");
 const { execute } = require("./utils");
 //const builder = require("./builder");
 //const capturer = require("./capturer");
-//const config = require("./config");
 
 const cwd = process.cwd();
 const [,, ...args] = process.argv;
