@@ -20,23 +20,18 @@ npm install
 npm link
 ```
 
-To create a new banner in an empty directory:
+To create a new banner in an empty directory: `bt init`
 
-`bt init`
+To run the development server: `bt run`
 
-This will create a project using a default template that uses [GreenSock](https://greensock.com/) animation library. Additionally [Anime.js](https://animejs.com/)-based template is available for fully self-hosted banners with as small size overhead as possible:
+To build banner for publishing (WIP): `bt build`
+
+## Templates
+`bt init` will create a project using a default template that uses [GreenSock](https://greensock.com/) animation library. Additionally [Anime.js](https://animejs.com/)-based template is available for fully self-hosted banners with as small size overhead as possible:
 
 `bt init anime`
 
 You can also add your own templates to `templates` directory and use them.
-
-To run the development server:
-
-`bt run`
-
-To build banner for publishing (WIP):
-
-`bt build`
 
 ## Server tools (WIP)
 Development server runs at `http://localhost:8000/`.
