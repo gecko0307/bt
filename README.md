@@ -42,4 +42,4 @@ Additional utility server runs at `http://localhost:9000/`, providing helper too
 * `http://localhost:8000/mobile` - mobile device emulator to work with Device Orientation API on desktop. This functionality will be reimplemented as a part of `/preview` page in future.
 
 ## Copyright and license
-Copyright (c) 2021-2022 Timur Gafarov. Distributed under the MIT license.
+Copyright (c) 2020-2022 Timur Gafarov. Distributed under the MIT license.
