@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<title>Banner</title>
+	<meta charset="utf-8">
+	<meta name="keywords" content="Greensock">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="format-detection" content="telephone=no,date=no,address=no,email=no,url=no">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" type="text/css" href="fonts.css" inline>
+	<style type="text/css" inline>
+		html {
+			width: 100%; height: 100%;
+			box-sizing: border-box;
+		}
+		*, *::before, *::after {
+			box-sizing: inherit;
+		}
+		body {
+			width: 100%; height: 100%;
+			overflow: hidden;
+			user-select: none;
+			margin: 0; padding: 0;
+			text-size-adjust: 100%;
+			-moz-user-select:none;
+			-webkit-user-select:none;
+			overscroll-behavior: none;
+			touch-action: manipulation;
+			-webkit-overflow-scrolling: touch;
+			-webkit-font-smoothing: antialiased;
+			-webkit-tap-highlight-color: transparent;
+		}
+		div, img, svg, a {
+			display: block; 
+			position: absolute;
+			left: 0; top: 0;
+		}
+		img { border: 0; }
+		a { pointer-events: auto; text-decoration: none; color: black; }
+		._i { position:relative; display:inline-block; }
+		
+		#container, #link {
+			width: 240px;
+			height: 400px;
+		}
+		
+		#container {
+			position: relative;
+			overflow: hidden;
+			transform: perspective(1400px) matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+			background-color: #fff;
+			font-size: 0;
+		}
+		#overlay {
+			width: 100%; height: 100%;
+			border: 1px solid #808080;
+			pointer-events: none;
+			z-index: 1000;
+		}
+		
+		#rect {
+			width: 50px;
+			height: 50px;
+			background-color: red;
+		}
+	</style>
+</head>
+<body>
+	<a href="#" id="link" target="_blank">
+		<div id="container" style="opacity: 0">
+			<div id="rect"></div>
+			<div id="overlay"></div>
+		</div>
+	</a>
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js"></script>
+	<!-- <script src="https://s0.2mdn.net/ads/studio/cached_libs/gsap_3.5.1_min.js"></script> -->
+	<!-- <script src="https://dsp-rambler.ru/js/gsap/3.5.1/gsap.min.js"></script> -->
+	<!-- <script src="greensock/3.5.1/gsap.min.js"></script> -->
+	
+	<script src="animation.js" inline></script>
+</body>
+</html>

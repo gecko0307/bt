@@ -1,0 +1,10 @@
+{
+	"name": "Template banner",
+	"version": "0.0.1",
+	"template": {
+		"name": "Greensock",
+		"version": "0.0.1"
+	},
+	"author": "Timur Gafarov",
+	"private": false
+}
