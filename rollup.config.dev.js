@@ -39,7 +39,12 @@ export default {
         serve({
             contentBase: ["HTML"],
             host: "localhost",
-            port: 8000
+            port: 8000,
+            open: true,
+            openPage: "/index.html",
+            onListening: function(server) {
+                console.log("Good luck!");
+            }
         }),
         livereload({
             watch: "HTML",
