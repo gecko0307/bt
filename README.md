@@ -3,6 +3,7 @@ Banner development tools compatible with projects for SmartHead's Banny Tools. A
 * ✔️ JavaScript module bundling and minification
 * ✔️ Server with autorefresh
 * ✔️ SASS
+* ✔️ CSS animation generator
 * ⌛ Web font generator
 * ⌛ Image minimizer
 * ⌛ Banner builder

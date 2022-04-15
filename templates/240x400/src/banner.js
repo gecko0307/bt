@@ -4,8 +4,8 @@ const master = gsap.timeline({ id: "MASTER", repeat: -1, paused: true });
 
 function createAnimation(tl) {
 	tl.addLabel("start", 0.0);
-	tl.fromTo("#rect", 1.0, { xPercent: 0 }, { xPercent: 100 }, "start");
-	tl.to("#rect", 1.0, { xPercent: 0 }, "+=0.0");
+	//tl.fromTo("#rect", 1.0, { xPercent: 0 }, { xPercent: 100 }, "start");
+	//tl.to("#rect", 1.0, { xPercent: 0 }, "+=0.0");
 }
 
 if (window.onload === null) window.onload = open;

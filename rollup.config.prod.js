@@ -4,7 +4,7 @@ import babel from "@rollup/plugin-babel";
 import sass from "rollup-plugin-sass";
 import autoprefixer from "autoprefixer";
 import postcss from "postcss";
-import { bundleReplace /*, fonts, animation, eta*/ } from "./rollup.plugins";
+import { bundleReplace, cssAnimation } from "./rollup.plugins";
 
 const node_modules = __dirname + "/node_modules/";
 
@@ -29,10 +29,6 @@ export default {
                 [/ {3}/g, "\t"]
             ]
         }),
-        // TODO:
-        //fonts(),
-        //animation(),
-        //eta(),
         sass({
             output: "HTML/bundle.css",
             processor: css => postcss([
@@ -41,6 +37,7 @@ export default {
                 .process(css)
                 .then(result => result.css)
         }),
+        cssAnimation({ always: true }),
         strip({
             debugger: true
         }),

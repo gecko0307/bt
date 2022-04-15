@@ -1,0 +1,13 @@
+#rect {
+	animation-name: animation1;
+	animation-duration: 1.5s;
+	animation-iteration-count: infinite;
+}
+
+@keyframes animation1 {
+    0% { opacity: 0; }
+    33% { opacity: 1; }
+    66% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
