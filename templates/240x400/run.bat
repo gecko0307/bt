@@ -1,0 +1,1 @@
+code . && bt run

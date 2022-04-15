@@ -6,9 +6,12 @@ function requireUncached(module) {
     return require(module);
 }
 
-const config = { };
+let config = { };
 
 const configFile = path.resolve("./package.json");
-const config = requireUncached(configFile);
+
+if (fs.existsSync(configFile)) {
+    config = requireUncached(configFile);
+}
 
 module.exports = config;
