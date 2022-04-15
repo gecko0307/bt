@@ -1,3 +1,5 @@
+import "./banner.sass";
+
 const master = gsap.timeline({ id: "MASTER", repeat: -1, paused: true });
 
 function createAnimation(tl) {
