@@ -13,6 +13,8 @@ export function cssAnimation(options = {}) {
     const animScript = path.resolve("./src/animation.css.js");
     
     function generateAnimationCSS() {
+        if (fs.existsSync(animScript) === false)
+            return;
         const dir = path.dirname(animScript);
         const { timeline } = requireUncached(animScript);
         const tl = new Timeline();
