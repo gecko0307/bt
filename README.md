@@ -8,6 +8,7 @@ Banner development tools compatible with projects for SmartHead's Banny Tools. A
 * ⌛ Image minimizer
 * ⌛ Banner builder
 * ⌛ Banner preview tools
+* ⌛ Project initializer
 
 ## Usage
 Installation:
