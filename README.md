@@ -21,7 +21,7 @@ To create a new banner in an empty directory:
 
 `bt init`
 
-This will create a project using a default template. You can add your own templates to `templates` directory and use them, for example:
+This will create a project using a default template that uses [GreenSock](https://greensock.com/) animation library. You can add your own templates to `templates` directory and use them, for example:
 
 `bt init mySuperTemplate`
 
