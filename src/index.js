@@ -2,19 +2,36 @@
 
 const path = require("path");
 const { execute } = require("./utils");
-const builder = require("./builder");
-const capturer = require("./capturer");
+//const builder = require("./builder");
+//const capturer = require("./capturer");
+//const config = require("./config");
 
 const cwd = process.cwd();
 const [,, ...args] = process.argv;
 
-async function build() {
-    console.log("BannerToolchain build");
+async function runRollup(rollupConfig, options = []) {
     const rollup = path.join(__dirname, "..", "node_modules", ".bin", "rollup");
-    const rollupConfig = path.join(__dirname, "..", "rollup.config.prod.js"); 
-    const code = await execute(rollup, ["-c", rollupConfig]);
+    const rollupConfigPath = path.join(__dirname, "..", rollupConfig);
+    const code = await execute(rollup, ["-c", rollupConfigPath, ...options]);
+    return code;
+}
+
+async function build() {
+    console.log("BannerToolchain build (WIP)");
+    const code = await runRollup("rollup.config.prod.js");
     if (code === 0) {
-        await builder("", "dist", "dist.zip");
+        // TODO: run local Banner Builder if available
+        /*
+        console.log(config.platforms);
+        if (config.platforms && config.platforms.length > 0) {
+            for (const platform of config.platforms) {
+                await builder("", "dist", platform, "dist_" + platform + ".zip");
+            }
+        }
+        else {
+            await builder("", "dist", "undefined", "dist.zip");
+        }
+        */
     }
     else {
         console.log("Build aborted!");
@@ -23,14 +40,12 @@ async function build() {
 
 async function run() {
     console.log("BannerToolchain run");
-    const rollup = path.join(__dirname, "..", "node_modules", ".bin", "rollup");
-    const rollupConfig = path.join(__dirname, "..", "rollup.config.dev.js");
-    await execute(rollup, ["-c", rollupConfig, "-m", "--watch"]);
+    const code = await runRollup("rollup.config.dev.js", ["-m", "--watch"]);
 }
 
 async function capture() {
-    console.log("BannerToolchain capture");
-    await capturer(cwd);
+    console.log("BannerToolchain capture (WIP)");
+    // await capturer(cwd);
 }
 
 if (args.length > 0) {

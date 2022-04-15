@@ -11,27 +11,11 @@ const cleanCSS = require("@node-minify/clean-css");
 const mime = require("mime");
 const Zip = require("adm-zip");
 
-function prepareDCM(document) {
-    const head = document.getElementsByTagName("head")[0];
-    const body = document.getElementsByTagName("body")[0];
-    const link = document.getElementById("link");
-    
-    // TODO: <meta name="ad.size" content="width=300,height=300">
-    
-    const clickTag = document.createElement("script");
-    clickTag.type = "text/javascript";
-    clickTag.innerHTML = ' var clickTag = "https://google.com"; ';
-    const nl = document.createTextNode("\n");
-    head.appendChild(nl);
-    head.appendChild(clickTag);
-    link.setAttribute("href", "javascript:void(window.open(window.clickTag))");
-    link.setAttribute("aria-label", "Перейти по ссылке в баннере");
-}
+const platformProcessors = {
+    dcm: require("./dcm")
+};
 
-function prepareMail(document) {
-}
-
-async function build(inputDir, outputDir, zipName = "") {
+async function build(inputDir, outputDir, platform, zipName = "") {
     const modulesDir = path.join(__dirname, "..", "node_modules");
     
     const input = {
@@ -107,6 +91,8 @@ async function build(inputDir, outputDir, zipName = "") {
         if (await fs.exists(inFilename)) {
             let code = await fs.readFile(inFilename, "utf8");
             
+            // TODO: process urls in code
+            
             if (isInlineStyle || inlineAll) {
                 style.remove();
                 const inlineStyle = dom.window.document.createElement("style");
@@ -152,8 +138,12 @@ async function build(inputDir, outputDir, zipName = "") {
     }
     
     // Prepare
-    // TODO: use bt.json from banner source
-    prepareDCM(dom.window.document);
+    if (platform in platformProcessors) {
+        platformProcessors[platform](dom.window.document);
+    }
+    else {
+        console.log("Unknown platform:", platform);
+    }
     
     await fs.outputFile(output.index, dom.serialize());
     outputFiles.push(output.index);

@@ -1,6 +1,8 @@
 const fs = require("fs-extra");
 const puppeteer = require("puppeteer");
 
+// TODO: update to work with Banny Tools projects
+
 const script = `
     window._capture = function(data) {
         if (data.command == "capture") {

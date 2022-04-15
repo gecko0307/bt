@@ -14,11 +14,12 @@ function requireUncached(module) {
     return require(module);
 }
 
+// TODO: update to work with Banny Tools projects
 export function fonts(options = {}) {
     return {
         name: "compile-fonts",
         async buildStart() {
-            this.addWatchFile(path.resolve("./src/fonts.json"));
+            this.addWatchFile(path.resolve("./.data/fonts.json"));
             
             if (options.always === true) {
                 generateFonts();
@@ -35,6 +36,7 @@ export function fonts(options = {}) {
     }
 }
 
+// TODO: update to work with Banny Tools projects
 export function animation(options = {}) {
     const animScript = path.resolve("./src/animation.css.js");
     
@@ -68,6 +70,7 @@ export function animation(options = {}) {
     }
 }
 
+// TODO: update to work with Banny Tools projects
 export function eta(options = {}) {
     const etaIndex = path.resolve("./src/index.eta");
     const etaData = path.resolve("./src/index.eta.js");
@@ -97,4 +100,18 @@ export function eta(options = {}) {
             buildHTML();
         }
     }
+}
+
+export function bundleReplace(options = {}) {
+    return {
+        generateBundle(outputOptions, bundle, isWrite) {
+            let code = bundle["animation.js"].code;
+            for (const r in options.replace) {
+                const repl = options.replace[r];
+                code = code.replace(repl[0], repl[1]);
+            }
+            if (options.transform) code = options.transform(code);
+            bundle["animation.js"].code = code;
+        }
+    };
 }

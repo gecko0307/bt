@@ -1,6 +1,0 @@
-@font-face {
-	font-family: "${font_family}";
-	font-weight: normal;
-	font-style: normal;
-	src: url(data:font/woff;charset=utf-8;base64,${font_data}) format("woff");
-}

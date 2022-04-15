@@ -10,6 +10,8 @@ function requireUncached(module) {
     return require(module);
 }
 
+// TODO: update to work with Banny Tools projects
+
 const defaultTemplate = "font.template.css";
 const defaultWhitelist = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890.,:;!?-+*/=><@#¹$%^&()[]{}|";
 
