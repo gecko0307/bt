@@ -33,7 +33,7 @@ async function build() {
         */
     }
     else {
-        console.log("Build aborted!");
+        console.log("Build failed!");
     }
 }
 
