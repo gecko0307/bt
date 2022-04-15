@@ -53,9 +53,8 @@ async function init(template) {
     if (await isDirEmpty(cwd) === true) {
         const templatePath = path.join(__dirname, "..", "templates", template);
         if (await fs.exists(templatePath)) {
-            const srcDir = path.join(__dirname, "..", "templates", "default");
-            const dstDir = path.join(cwd);
-            await fs.copy(srcDir, dstDir);
+            const destPath = path.join(cwd);
+            await fs.copy(templatePath, destPath);
             console.log(`Project initialized with template "${template}"`);
         }
         else {
