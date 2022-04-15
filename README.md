@@ -13,18 +13,24 @@ Warning: Banner Toolchain is currently undergoing a major refactoring, so not al
 * ⌛ Banner builder
 * ⌛ Banner preview tools
 
-## Usage
-Installation:
+## Installation
 ```
 npm install
 npm link
 ```
 
-To create a new banner in an empty directory: `bt init`
+## Basic usage
+To create a new banner in an empty directory:
 
-To run the development server: `bt run`
+`bt init`
 
-To build banner for publishing (WIP): `bt build`
+To run the development server:
+
+`bt run`
+
+To build banner for publishing (WIP):
+
+`bt build`
 
 ## Templates
 `bt init` will create a project using a default template that uses [GreenSock](https://greensock.com/) animation library. Additionally [Anime.js](https://animejs.com/)-based template is available for fully self-hosted banners with as small size overhead as possible:
