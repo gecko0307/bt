@@ -4,7 +4,7 @@ import autoprefixer from "autoprefixer";
 import postcss from "postcss";
 import dev from "rollup-plugin-dev";
 import livereload from "rollup-plugin-livereload";
-import { bundleReplace, cssAnimation } from "./rollup.plugins";
+import { bundleReplace, cssAnimation, domIntrospection } from "./rollup.plugins";
 import opener from "opener";
 
 const utilServer = require("./src/server");
@@ -39,6 +39,7 @@ export default {
                 .then(result => result.css)
         }),
         cssAnimation({ always: true }),
+        domIntrospection({ always: true }),
         dev({
             silent: true,
             dirs: ["HTML"],

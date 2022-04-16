@@ -55,7 +55,7 @@ async function init(template) {
         if (await fs.exists(templatePath)) {
             const destPath = path.join(cwd);
             await fs.copy(templatePath, destPath);
-            console.log(`Project initialized with template "${template}"`);
+            console.log(`Initialized a project with template "${template}"`);
         }
         else {
             console.log(`Error: template "${template}" not found!`);

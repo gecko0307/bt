@@ -4,7 +4,7 @@ import babel from "@rollup/plugin-babel";
 import sass from "rollup-plugin-sass";
 import autoprefixer from "autoprefixer";
 import postcss from "postcss";
-import { bundleReplace, cssAnimation } from "./rollup.plugins";
+import { bundleReplace, cssAnimation, domIntrospection } from "./rollup.plugins";
 
 const node_modules = __dirname + "/node_modules/";
 
@@ -38,6 +38,7 @@ export default {
                 .then(result => result.css)
         }),
         cssAnimation({ always: true }),
+        domIntrospection({ always: true }),
         strip({
             debugger: true
         }),

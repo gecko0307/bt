@@ -2,6 +2,7 @@ import * as path from "path";
 import * as fs from "fs";
 
 const { Timeline, generateAnimationStyle } = require("./src/css-animator");
+const dom = require("./src/dom");
 
 function requireUncached(module) {
     delete require.cache[require.resolve(module)];
@@ -27,7 +28,7 @@ export function cssAnimation(options = {}) {
     return {
         name: "compile-animation",
         async buildStart() {
-            this.addWatchFile(path.resolve("./src/animation.css.js"));
+            this.addWatchFile(animScript);
             
             if (options.always === true) {
                 generateAnimationCSS();
@@ -36,6 +37,36 @@ export function cssAnimation(options = {}) {
         async watchChange(id, change) {
             if (id.endsWith("animation.css.js")) {
                 generateAnimationCSS();
+            }
+        },
+        async writeBundle() {
+            
+        }
+    }
+}
+
+export function domIntrospection(options = {}) {
+    const indexFile = path.resolve("./HTML/index.html");
+    
+    async function domProcess() {
+        if (fs.existsSync(indexFile) === false)
+            return;
+        const html = fs.readFileSync(indexFile, { encoding: "utf8" });
+        dom.update(html);
+    }
+    
+    return {
+        name: "dom-introspection",
+        async buildStart() {
+            this.addWatchFile(indexFile);
+            
+            if (options.always === true) {
+                domProcess();
+            }
+        },
+        async watchChange(id, change) {
+            if (id.endsWith("index.html")) {
+                await domProcess();
             }
         },
         async writeBundle() {

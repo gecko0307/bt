@@ -19,6 +19,7 @@
         "async": "^2.6.4",
         "autoprefixer": "^9.8.8",
         "babel-plugin-remove-code": "0.0.6",
+        "cheerio": "^1.0.0-rc.10",
         "es6-template-strings": "^2.0.1",
         "eta": "^1.12.3",
         "fast-glob": "^3.2.11",
