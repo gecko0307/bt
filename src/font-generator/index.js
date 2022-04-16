@@ -3,9 +3,10 @@ const util = require("util");
 const path = require("path");
 const unixify = require("unixify");
 const glob = require("glob-promise");
-const template = require("es6-template-strings");
+//const template = require("es6-template-strings");
 const compile = require("es6-template-strings/compile");
 const resolveToString = require("es6-template-strings/resolve-to-string");
+const Font = require("fonteditor-core").Font;
 
 function requireUncached(module) {
     delete require.cache[require.resolve(module)];
@@ -77,23 +78,65 @@ function generateFonts() {
 
 //
 
-async function fontsList(req) {
-    const fontsDir = unixify(path.resolve("./Fonts"));
-    const pattern = `${fontsDir}/**/*.{ttf,otf}`;
-    const files = await glob.promise(pattern);
-    return {
-        ok: true,
-        message: "",
-        data: {
-            fonts: files.map((file) => path.basename(file))
-        }
-    };
+const fontsPath = path.resolve("./Fonts");
+const fontsListPath = path.resolve("./.data/fonts.json");
+const fontsConfigPath = path.resolve("./.data/fonts.config.json");
+
+async function fontParams(fontPath) {
+    function processName(str){
+        return str.replace(/[ \`\'\"]+/g, "_");
+    }
+
+	const buffer = await fs.readFile(fontPath);
+	const format = path.extname(fontPath).substring(1);
+	const font = Font.create(buffer, { type: format });
+	const fontObject = font.get();
+	const fontNameParams = fontObject["name"];
+	const family = processName(fontNameParams.preferredFamily || fontNameParams.fontFamily || "Unnamed");
+	const subFamily = processName(fontNameParams.preferredSubFamily || fontNameParams.fontSubFamily || "Regular");
+	const name = `${family}_${subFamily}`;
+
+	return { name, family, subFamily };
 }
 
-async function fontsConfig(req) {
-    const configPath = path.resolve("./.data/fonts.config.json");
-    if (await fs.existsSync(configPath) === true) {
-        const config = requireUncached(configPath);
+async function init() {
+    console.log("Font Generator init");
+
+	if (!(await fs.pathExists(fontsConfigPath))){
+		await fs.writeJSON(fontsConfigPath, {});
+	}
+
+    const pattern = `${unixify(fontsPath)}/**/*.{ttf,otf}`;
+    const files = await glob.promise(pattern);
+    const fonts = {};
+    for (const fontPath of files) {
+        const fontName = path.basename(fontPath);
+        const params = await fontParams(fontPath);
+        fonts[fontName] = params;
+    }
+    await fs.writeJSON(fontsListPath, fonts);
+}
+
+async function fontsList(req = {}) {
+    if (await fs.pathExists(fontsListPath)) {
+        const fonts = requireUncached(fontsListPath);
+        return {
+            ok: true,
+            message: "",
+            data: { fonts: fonts }
+        };
+    }
+    else {
+        return {
+            ok: false,
+            message: ".data/fonts.json not found"
+        };
+    }
+}
+
+async function fontsConfig(req = {}) {
+    if (await fs.pathExists(fontsConfigPath)) {
+        const config = requireUncached(fontsConfigPath);
         return {
             ok: true,
             message: "",
@@ -117,6 +160,7 @@ async function generateFonts(req) {
 }
 
 module.exports = {
+    init,
     fontsList,
     fontsConfig,
     generateFonts

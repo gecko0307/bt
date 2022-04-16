@@ -52,7 +52,7 @@ async function init(template) {
     console.log("BannerToolchain init");
     if (await isDirEmpty(cwd) === true) {
         const templatePath = path.join(__dirname, "..", "templates", template);
-        if (await fs.exists(templatePath)) {
+        if (await fs.pathExists(templatePath)) {
             const destPath = path.join(cwd);
             await fs.copy(templatePath, destPath);
             console.log(`Initialized a project with template "${template}"`);

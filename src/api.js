@@ -6,6 +6,10 @@ const methods = {
     "generateFonts": fontGen.generateFonts
 };
 
+async function init() {
+    fontGen.init();
+}
+
 async function handleRequest(request, reply) {
     if (request.body) {
         const body = JSON.parse(request.body);
@@ -23,5 +27,6 @@ async function handleRequest(request, reply) {
 }
 
 module.exports = {
+    init,
     handleRequest
 };

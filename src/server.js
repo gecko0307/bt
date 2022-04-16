@@ -51,6 +51,7 @@ const routes = {
 };
 
 async function listen() {
+    api.init();
     await fastify.listen(9000);
 }
 

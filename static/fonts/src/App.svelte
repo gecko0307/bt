@@ -1,7 +1,7 @@
 <script>
 	import { onMount } from "svelte";
 	
-	let fonts = [];
+	let fonts = {};
 	let config = {};
 	
 	async function apiRequest(data) {
@@ -32,16 +32,6 @@
 		});
 		config = res.data.config;
 		console.log(config);
-
-		//
-		fonts.forEach(function(fontName){
-			config[fontName] = {
-				text: "Привет, мир!",
-				engine: "fec",
-				fontname: "My_Font" // TODO
-			};
-		});
-		console.log(config);
 	});
 </script>
 
@@ -50,9 +40,12 @@
 
 <main>
 	<div id="fonts">
-		{#each fonts as font}
+		<!--
+		{#each fonts.values() as font}
 			<p>{font}</p>
 		{/each}
+		-->
+		<p>{fonts}</p>
 	</div>
 	<div id="buttons">
 		<input type="button" value="Generate" on:click={ generate }/>
