@@ -129,7 +129,7 @@ async function fontsList(req = {}) {
     else {
         return {
             ok: false,
-            message: ".data/fonts.json not found"
+            message: `${fontsListPath} not found`
         };
     }
 }
@@ -148,14 +148,17 @@ async function fontsConfig(req = {}) {
     else {
         return {
             ok: false,
-            message: ".data/fonts.config.json not found"
+            message: `${fontsConfigPath} not found`
         };
     }
 }
 
 async function generateFonts(req) {
+    console.log("Generate fonts");
     const config = req.config;
-    console.log(req);
+    console.log(config);
+    // TODO
+    fs.writeJSON(fontsConfigPath, config);
     return {};
 }
 

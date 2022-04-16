@@ -17,7 +17,6 @@
 			method: "generateFonts",
 			config: config
 		});
-		console.log(res);
 	}
 	
 	onMount(async () => {
@@ -41,6 +40,7 @@
 <main>
 	<div id="fonts">
 		<!--
+		TODO: display fonts
 		{#each fonts.values() as font}
 			<p>{font}</p>
 		{/each}

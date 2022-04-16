@@ -352,8 +352,7 @@ var app = (function () {
     	let config = {};
 
     	async function generate() {
-    		const res = await apiRequest({ method: "generateFonts", config });
-    		console.log(res);
+    		await apiRequest({ method: "generateFonts", config });
     	}
 
     	onMount(async () => {
