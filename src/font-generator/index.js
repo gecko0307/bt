@@ -1,9 +1,11 @@
-const template = require("es6-template-strings");
-const compile = require("es6-template-strings/compile");
-const resolveToString = require("es6-template-strings/resolve-to-string");
 const fs = require("fs");  
 const util = require("util");
 const path = require("path");
+const unixify = require("unixify");
+const glob = require("glob-promise");
+const template = require("es6-template-strings");
+const compile = require("es6-template-strings/compile");
+const resolveToString = require("es6-template-strings/resolve-to-string");
 
 function requireUncached(module) {
     delete require.cache[require.resolve(module)];
@@ -15,7 +17,7 @@ function requireUncached(module) {
 const defaultTemplate = "font.template.css";
 const defaultWhitelist = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890.,:;!?-+*/=><@#¹$%^&()[]{}|";
 
-function processFont(fontsDir, configDir, font) {  
+function processFont(fontsDir, configDir, font) {
     const fontFamily = font.family || "";
     const fontFile = path.join(fontsDir, font.file || "");
     const whitelist = font.whitelist || defaultWhitelist;
@@ -73,4 +75,16 @@ function generateFonts() {
     });
 }
 
-module.exports = generateFonts;
+async function fontsList(options) {
+    const fontsDir = unixify(path.resolve("./Fonts"));
+    const pattern = `${fontsDir}/**/*.{ttf,otf}`;
+    console.log(pattern);
+    const files = await glob.promise(pattern);
+    return {
+        fonts: files.map((file) => path.basename(file))
+    };
+}
+
+module.exports = {
+    fontsList,
+};

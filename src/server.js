@@ -8,7 +8,7 @@ const cwd = process.cwd();
 const fastify = Fastify({
 });
 
-fastify.get("/api", api.handleRequest);
+fastify.post("/api", api.handleRequest);
 
 fastify.register(fastifyStatic, {
     root: path.join(cwd, "HTML")
