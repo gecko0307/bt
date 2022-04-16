@@ -128,14 +128,16 @@ async function fontsConfig(req = {}) {
 }
 
 async function generateFonts(req) {
-    console.log("Generate fonts");
+    console.log("Font generator is running...");
     const config = req.config;
-    console.log(config);
 
     let css = comment;
     Object.keys(config).forEach(function(key) {
         const fontPath = path.join(fontsPath, key);
         const fontOptions = config[key];
+        if (fontOptions.engine === "fec") {
+            console.log("Warning: fonteditor-core is not supported yet, using default engine (glyphhanger)");
+        }
         css += genGlyphhanger(fontPath, fontOptions);
     });
 
