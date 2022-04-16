@@ -2,6 +2,7 @@
 	import { onMount } from "svelte";
 	
 	let fonts = [];
+	let config = {};
 	
 	async function apiRequest(data) {
 		const res = await fetch("/api", {
@@ -10,12 +11,37 @@
 		});
 		return await res.json();
 	}
+
+	async function generate() {
+		const res = await apiRequest({
+			method: "generateFonts",
+			config: config
+		});
+		console.log(res);
+	}
 	
 	onMount(async () => {
-		const res = await apiRequest({
+		let res = await apiRequest({
 			method: "fontsList"
 		});
 		fonts = res.data.fonts;
+		console.log(fonts);
+
+		res = await apiRequest({
+			method: "fontsConfig"
+		});
+		config = res.data.config;
+		console.log(config);
+
+		//
+		fonts.forEach(function(fontName){
+			config[fontName] = {
+				text: "Привет, мир!",
+				engine: "fec",
+				fontname: "My_Font" // TODO
+			};
+		});
+		console.log(config);
 	});
 </script>
 
@@ -27,5 +53,8 @@
 		{#each fonts as font}
 			<p>{font}</p>
 		{/each}
+	</div>
+	<div id="buttons">
+		<input type="button" value="Generate" on:click={ generate }/>
 	</div>
 </main>

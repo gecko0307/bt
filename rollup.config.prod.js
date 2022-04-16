@@ -34,7 +34,7 @@ export default {
             processor: css => postcss([
                     autoprefixer
                 ])
-                .process(css)
+                .process(css, { from: undefined })
                 .then(result => result.css)
         }),
         cssAnimation({ always: true }),

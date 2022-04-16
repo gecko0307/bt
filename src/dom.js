@@ -14,7 +14,7 @@ async function update(html) {
     }).join("\n");
     
     const cachePath = "./.data/.dom.cache";
-    if (fs.exists(cachePath) === true) {
+    if (fs.existsSync(cachePath) === true) {
         const cache = await fs.readFile(cachePath, "utf8");
         if (cache === cacheNew) return;
     }

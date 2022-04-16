@@ -41,6 +41,13 @@ var app = (function () {
     function text(data) {
         return document.createTextNode(data);
     }
+    function space() {
+        return text(' ');
+    }
+    function listen(node, event, handler, options) {
+        node.addEventListener(event, handler, options);
+        return () => node.removeEventListener(event, handler, options);
+    }
     function attr(node, attribute, value) {
         if (value == null)
             node.removeAttribute(attribute);
@@ -287,14 +294,14 @@ var app = (function () {
 
     function get_each_context(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[1] = list[i];
+    	child_ctx[3] = list[i];
     	return child_ctx;
     }
 
-    // (27:2) {#each fonts as font}
+    // (53:2) {#each fonts as font}
     function create_each_block(ctx) {
     	let p;
-    	let t_value = /*font*/ ctx[1] + "";
+    	let t_value = /*font*/ ctx[3] + "";
     	let t;
 
     	return {
@@ -307,7 +314,7 @@ var app = (function () {
     			append(p, t);
     		},
     		p(ctx, dirty) {
-    			if (dirty & /*fonts*/ 1 && t_value !== (t_value = /*font*/ ctx[1] + "")) set_data(t, t_value);
+    			if (dirty & /*fonts*/ 1 && t_value !== (t_value = /*font*/ ctx[3] + "")) set_data(t, t_value);
     		},
     		d(detaching) {
     			if (detaching) detach(p);
@@ -317,7 +324,12 @@ var app = (function () {
 
     function create_fragment(ctx) {
     	let main;
-    	let div;
+    	let div0;
+    	let t;
+    	let div1;
+    	let input;
+    	let mounted;
+    	let dispose;
     	let each_value = /*fonts*/ ctx[0];
     	let each_blocks = [];
 
@@ -328,20 +340,35 @@ var app = (function () {
     	return {
     		c() {
     			main = element("main");
-    			div = element("div");
+    			div0 = element("div");
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].c();
     			}
 
-    			attr(div, "id", "fonts");
+    			t = space();
+    			div1 = element("div");
+    			input = element("input");
+    			attr(div0, "id", "fonts");
+    			attr(input, "type", "button");
+    			input.value = "Generate";
+    			attr(div1, "id", "buttons");
     		},
     		m(target, anchor) {
     			insert(target, main, anchor);
-    			append(main, div);
+    			append(main, div0);
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
-    				each_blocks[i].m(div, null);
+    				each_blocks[i].m(div0, null);
+    			}
+
+    			append(main, t);
+    			append(main, div1);
+    			append(div1, input);
+
+    			if (!mounted) {
+    				dispose = listen(input, "click", /*generate*/ ctx[1]);
+    				mounted = true;
     			}
     		},
     		p(ctx, [dirty]) {
@@ -357,7 +384,7 @@ var app = (function () {
     					} else {
     						each_blocks[i] = create_each_block(child_ctx);
     						each_blocks[i].c();
-    						each_blocks[i].m(div, null);
+    						each_blocks[i].m(div0, null);
     					}
     				}
 
@@ -373,6 +400,8 @@ var app = (function () {
     		d(detaching) {
     			if (detaching) detach(main);
     			destroy_each(each_blocks, detaching);
+    			mounted = false;
+    			dispose();
     		}
     	};
     }
@@ -388,13 +417,35 @@ var app = (function () {
 
     function instance($$self, $$props, $$invalidate) {
     	let fonts = [];
+    	let config = {};
+
+    	async function generate() {
+    		const res = await apiRequest({ method: "generateFonts", config });
+    		console.log(res);
+    	}
 
     	onMount(async () => {
-    		const res = await apiRequest({ method: "fontsList" });
+    		let res = await apiRequest({ method: "fontsList" });
     		$$invalidate(0, fonts = res.data.fonts);
+    		console.log(fonts);
+    		res = await apiRequest({ method: "fontsConfig" });
+    		config = res.data.config;
+    		console.log(config);
+
+    		//
+    		fonts.forEach(function (fontName) {
+    			config[fontName] = {
+    				text: "Привет, мир!",
+    				engine: "fec",
+    				fontname: "My_Font", // TODO
+    				
+    			};
+    		});
+
+    		console.log(config);
     	});
 
-    	return [fonts];
+    	return [fonts, generate];
     }
 
     class App extends SvelteComponent {

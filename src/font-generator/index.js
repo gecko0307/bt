@@ -1,4 +1,4 @@
-const fs = require("fs");  
+const fs = require("fs-extra");  
 const util = require("util");
 const path = require("path");
 const unixify = require("unixify");
@@ -15,7 +15,7 @@ function requireUncached(module) {
 // TODO: update to work with Banny Tools projects
 
 const defaultTemplate = "font.template.css";
-const defaultWhitelist = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890.,:;!?-+*/=><@#¹$%^&()[]{}|";
+const defaultWhitelist = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890.,:;!?-+*/=><@#ï¿½$%^&()[]{}|";
 
 function processFont(fontsDir, configDir, font) {
     const fontFamily = font.family || "";
@@ -77,15 +77,47 @@ function generateFonts() {
 
 //
 
-async function fontsList(options) {
+async function fontsList(req) {
     const fontsDir = unixify(path.resolve("./Fonts"));
     const pattern = `${fontsDir}/**/*.{ttf,otf}`;
     const files = await glob.promise(pattern);
     return {
-        fonts: files.map((file) => path.basename(file))
+        ok: true,
+        message: "",
+        data: {
+            fonts: files.map((file) => path.basename(file))
+        }
     };
+}
+
+async function fontsConfig(req) {
+    const configPath = path.resolve("./.data/fonts.config.json");
+    if (await fs.existsSync(configPath) === true) {
+        const config = requireUncached(configPath);
+        return {
+            ok: true,
+            message: "",
+            data: {
+                config: config
+            }
+        };
+    }
+    else {
+        return {
+            ok: false,
+            message: ".data/fonts.config.json not found"
+        };
+    }
+}
+
+async function generateFonts(req) {
+    const config = req.config;
+    console.log(req);
+    return {};
 }
 
 module.exports = {
     fontsList,
+    fontsConfig,
+    generateFonts
 };

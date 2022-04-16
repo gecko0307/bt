@@ -1,7 +1,9 @@
 const fontGen = require("./font-generator");
 
 const methods = {
-    "fontsList": fontGen.fontsList
+    "fontsList": fontGen.fontsList,
+    "fontsConfig": fontGen.fontsConfig,
+    "generateFonts": fontGen.generateFonts
 };
 
 async function handleRequest(request, reply) {
@@ -10,8 +12,8 @@ async function handleRequest(request, reply) {
         const method = body.method;
         if (method) {
             if (method in methods) {
-                const data = await methods[method](body);
-                return reply.send({ ok: true, message: "", data: data });
+                const res = await methods[method](body);
+                return reply.send(res);
             }
             else return reply.send({ ok: false, message: `Unknown method "${method}"` });
         }
