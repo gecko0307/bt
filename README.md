@@ -6,6 +6,7 @@ Warning: Banner Toolchain is currently undergoing a major refactoring, so not al
 * ✔️ Project initialization, custom templates
 * ✔️ JavaScript module bundling and babeling
 * ✔️ Dev server with file watching and autorefresh
+* ✔️ DOM introspection
 * ✔️ [Sass](https://sass-lang.com/) support
 * ✔️ CSS animation generator that uses simple [GreenSock](https://greensock.com/)-like input expressions
 * ⌛ Web font generator

@@ -9,6 +9,16 @@ async function update(html) {
         ids.push($(this).attr("id"));
     });
     
+    const cacheNew = ids.map(str => {
+        return `id="${str}"`;
+    }).join("\n");
+    
+    const cachePath = "./.data/.dom.cache";
+    if (fs.exists(cachePath) === true) {
+        const cache = await fs.readFile(cachePath, "utf8");
+        if (cache === cacheNew) return;
+    }
+    
     const idConstants = ids.map(str => {
         return `export const ${str} = id("${str}");`;
     });
@@ -24,6 +34,7 @@ ${idConstants.join("\n")}
 		`.trim();
     
     await fs.writeFile("./src/main/dom.js", domModuleStr);
+    await fs.writeFile(cachePath, cacheNew);
     console.info("src/main/dom.js updated");
 }
 
