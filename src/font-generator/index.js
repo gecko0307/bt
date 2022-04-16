@@ -75,10 +75,11 @@ function generateFonts() {
     });
 }
 
+//
+
 async function fontsList(options) {
     const fontsDir = unixify(path.resolve("./Fonts"));
     const pattern = `${fontsDir}/**/*.{ttf,otf}`;
-    console.log(pattern);
     const files = await glob.promise(pattern);
     return {
         fonts: files.map((file) => path.basename(file))

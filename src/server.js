@@ -22,7 +22,7 @@ fastify.register(fastifyStatic, {
 });
 
 fastify.register(fastifyStatic, {
-    root: path.join(__dirname, "..", "static", "fonts"),
+    root: path.join(__dirname, "..", "static", "fonts", "public"),
     prefix: "/fonts",
     redirect: true,
     decorateReply: false
