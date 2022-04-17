@@ -9,7 +9,7 @@ Warning: Banner Toolchain is currently undergoing a major refactoring, so not al
 * ✔️ DOM introspection
 * ✔️ [Sass](https://sass-lang.com/) support
 * ✔️ CSS animation generator that uses simple [GreenSock](https://greensock.com/)-like input expressions
-* ⌛ Web font generator
+* ✔️ Web font generator with subsetting
 * ⌛ Image minimizer
 * ⌛ Banner builder
 * ⌛ Banner preview tools
@@ -45,7 +45,7 @@ Development server runs at `http://localhost:8000/`.
 
 Additional utility server runs at `http://localhost:9000/`, providing helper tools and toolchain API, but it is not meant to be accessed directly. Instead, proxy routes from port 8000 should be used to access the tools:
 * `http://localhost:8000/preview` - preview page (WIP)
-* `http://localhost:8000/fonts` - web font generator (WIP)
+* `http://localhost:8000/fonts` - web font generator
 * `http://localhost:8000/images` or `http://localhost:8000/tuner` - image minimizer (WIP)
 * `http://localhost:8000/mobile` - mobile device emulator to work with Device Orientation API on desktop. This functionality will be reimplemented as a part of `/preview` page in future.
 
