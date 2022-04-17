@@ -52,6 +52,7 @@ export default {
                 console.log("Good luck!");
             },
             proxy: [
+                { from: "/favicon.ico", to: utilServer.routes["favicon"] },
                 { from: "/api", to: utilServer.routes["api"] },
                 { from: "/preview", to: utilServer.routes["preview"] },
                 { from: "/fonts", to: utilServer.routes["fonts"] },

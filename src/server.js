@@ -42,7 +42,15 @@ fastify.register(fastifyStatic, {
     decorateReply: false
 });
 
+fastify.register(fastifyStatic, {
+    root: path.join(__dirname, "..", "static", "server_data"),
+    prefix: "/server_data",
+    redirect: true,
+    decorateReply: false
+});
+
 const routes = {
+    "favicon": "http://localhost:9000/server_data/favicon.ico",
     "api": "http://localhost:9000/api",
     "preview": "http://localhost:9000/preview",
     "fonts": "http://localhost:9000/fonts",
