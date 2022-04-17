@@ -20,7 +20,7 @@
 			overflow: hidden;
 			user-select: none;
 			margin: 0; padding: 0;
-			background-color: #ccc;
+			background-color: #cccccc;
 			-moz-user-select:none;
 			-webkit-user-select:none;
 			overscroll-behavior: none;
@@ -30,7 +30,26 @@
 			-webkit-font-smoothing: antialiased;
 			-webkit-tap-highlight-color: transparent;
 		}
-		
+
+		#resizable_area {
+			position: absolute;
+			width: 375px;
+			height: 667px;
+			background-color: #ffffff;
+			box-sizing: border-box;
+			touch-action: none;
+			border-right: 10px solid #dddddd;
+			border-bottom: 10px solid #dddddd;
+		}
+
+		#banner_container {
+			position: absolute;
+			box-sizing: border-box;
+			width: 100%;
+			height: 100%;
+			background-color: #ffffff;
+		}
+
 		#banner {
 			position: absolute;
 			width: 100%;
@@ -39,7 +58,7 @@
 			left: 0; right: 0;
 			top: 0; bottom: 0;
 			margin: auto;
-			opacity: 0;
+			opacity: 1;
 		}
 		
 		#ui {
@@ -82,20 +101,50 @@
 			background-color: #0063a2;
 		}
 	</style>
+	<script src="interact.min.js"></script>
 </head>
 <body>
-	<iframe id="banner" src="/index.html" frameborder="0" scrolling="no"></iframe>
+	<div id="resizable_area">
+		<div id="banner_container">
+			<iframe id="banner" src="/index.html" frameborder="0" scrolling="no"></iframe>
+		</div>
+	</div>
 	<div id="ui">
 		<div id="timer"><span id="sec">00</span>:<span id="msec">00</span></div>
 		<div id="restart">↻ Restart</div>
 	</div>
 	<script>
 		"use strict";
-		
 		var sec = document.getElementById("sec");
 		var msec = document.getElementById("msec");
 		var restart = document.getElementById("restart");
+		var resizable_area = document.getElementById("resizable_area");
+		var banner_container = document.getElementById("banner_container");
 		var banner = document.getElementById("banner");
+		
+		interact(resizable_area).resizable({
+			edges: { left: false, right: true, bottom: true, top: false },
+			margin: 10,
+			listeners: {
+				move (event) {
+					var target = event.target;
+					target.style.width = event.rect.width + "px";
+					target.style.height = event.rect.height + "px";
+					//target.textContent = Math.round(event.rect.width) + '\u00D7' + Math.round(event.rect.height);
+				}
+			},
+			modifiers: [
+				// keep the edges inside the parent
+				interact.modifiers.restrictEdges({
+					outer: "parent"
+				}),
+				// minimum size
+				interact.modifiers.restrictSize({
+					min: { width: 100, height: 50 }
+				})
+			],
+			inertia: true
+		});
 		
 		function pad(n, size) {
 			var s = String(n);
@@ -115,8 +164,10 @@
 			var bannerWindow = banner.contentWindow;
 			var bannerDocument = bannerWindow.document;
 			var bannerContainer = bannerDocument.getElementById("container");
-			
+
 			bannerContainer.style.margin = "0";
+			resizable_area.style.width = (bannerContainer.offsetWidth + 10) + "px";
+			resizable_area.style.height = (bannerContainer.offsetHeight + 10) + "px";
 			banner.style.opacity = "1";
 			
 			if (timerId != null) clearInterval(timerId);
