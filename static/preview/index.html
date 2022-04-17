@@ -41,24 +41,100 @@
 			margin: auto;
 			opacity: 0;
 		}
+		
+		#ui {
+			position: absolute;
+			padding: 20px;
+			width: 200px;
+			left: auto;
+			right: 0;
+		}
+		
+		#timer {
+			font-family: monospace;
+			font-size: 50px;
+			position: relative;
+			color: #fff;
+			text-shadow: 1px 1px 5px #555;
+		}
+		
+		#msec {
+			font-size: 0.75em;
+		}
+		
+		#restart {
+			position: relative;
+			width: 120px;
+			height: 40px;
+			margin-top: 15px;
+			margin-bottom: 15px;
+			background-color: #00a4f1;
+			font-family: sans-serif;
+			font-size: 20px;
+			line-height: 2em;
+			text-align: center;
+			color: #fff;
+			border-radius: 10px;
+			cursor: pointer;
+		}
+		
+		#restart:active {
+			background-color: #0063a2;
+		}
 	</style>
 </head>
 <body>
 	<iframe id="banner" src="/index.html" frameborder="0" scrolling="no"></iframe>
+	<div id="ui">
+		<div id="timer"><span id="sec">00</span>:<span id="msec">00</span></div>
+		<div id="restart">↻ Restart</div>
+	</div>
 	<script>
 		"use strict";
 		
+		var sec = document.getElementById("sec");
+		var msec = document.getElementById("msec");
+		var restart = document.getElementById("restart");
 		var banner = document.getElementById("banner");
+		
+		function pad(n, size) {
+			var s = String(n);
+			while (s.length < (size || 2)) { s = "0" + s; }
+			return s;
+		}
+		
+		restart.onclick = function() {
+			banner.src = "/index.html";
+		};
+		
+		var timerId = null;
+		var period = 10; // milliseconds
+		var startTime = Date.now();
+		
 		banner.onload = function() {
 			var bannerWindow = banner.contentWindow;
 			var bannerDocument = bannerWindow.document;
 			var bannerContainer = bannerDocument.getElementById("container");
+			
 			bannerContainer.style.margin = "0";
-			
-			//
-			
 			banner.style.opacity = "1";
-		};
+			
+			if (timerId != null) clearInterval(timerId);
+			startTime = Date.now();
+			timerId = setInterval(function tick() {
+				var elapsedTime = Date.now() - startTime;
+				var time = (elapsedTime / 1000).toFixed(3);
+				if (time >= 30) {
+					time = 30;
+				}
+				
+				var integer = Math.floor(time);
+				sec.innerHTML = pad(integer, 2);
+				var decimal = Math.floor((time % 1).toFixed(2) * 100);
+				if (decimal > 99) decimal = 99;
+				msec.innerHTML = pad(decimal, 2);
+			}, period);
+		}
 	</script>
 </body>
 </html>
