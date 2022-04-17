@@ -12,7 +12,7 @@ Warning: Banner Toolchain is currently undergoing a major refactoring, so not al
 * ✔️ Web font generator with subsetting
 * ⌛ Image minimizer
 * ⌛ Banner builder
-* ⌛ Banner preview tools
+* ⌛ Banner preview tools: resizer, timer, event manager, device orientation emulator etc.
 
 ## Installation
 ```
