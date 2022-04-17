@@ -1,10 +1,9 @@
 const fs = require("fs-extra");  
 const path = require("path");
-//const childProcess = require("child_process");
 const unixify = require("unixify");
 const glob = require("glob-promise");
 const Font = require("fonteditor-core").Font;
-const glyphhanger = require("./glyphhanger");
+const fonteditorcore = require("./fonteditorcore");
 
 function requireUncached(module) {
     delete require.cache[require.resolve(module)];
@@ -71,22 +70,18 @@ async function fontsList(req = {}) {
 }
 
 async function fontsConfig(req = {}) {
+    let config = {};
     if (await fs.pathExists(fontsConfigPath)) {
-        const config = requireUncached(fontsConfigPath);
-        return {
-            ok: true,
-            message: "",
-            data: {
-                config: config
-            }
-        };
+        config = requireUncached(fontsConfigPath) || {};
     }
-    else {
-        return {
-            ok: false,
-            message: `${fontsConfigPath} not found`
-        };
-    }
+
+    return {
+        ok: true,
+        message: "",
+        data: {
+            config: config
+        }
+    };
 }
 
 async function generateFonts(req) {
@@ -94,15 +89,26 @@ async function generateFonts(req) {
     const config = req.config;
 
     let css = comment;
-    Object.keys(config).forEach(function(key) {
-        const fontFile = key;
-        const fontOptions = config[key];
-        if (fontOptions.engine === "fec") {
-            // TODO: fonteditor-core support
-            console.log("Warning: fonteditor-core is not supported yet, using default engine (glyphhanger)");
+    for (const fontFile of Object.keys(config)) {
+        const fontOptions = config[fontFile];
+        if (fontOptions.engine !== "fec") {
+            console.log(`Warning: engine ${fontOptions.engine} is not supported yet, using default engine (fonteditor-core)`);
         }
-        css += glyphhanger.generate(fontsPath, fontFile, fontOptions);
-    });
+
+        const fontDataUrl = await fonteditorcore.generate(fontsPath, fontFile, fontOptions);
+
+        // TODO: validate fontOptions.fontname length
+        const fontFace = 
+`@font-face {
+    font-family: "${fontOptions.fontname}";
+    font-weight: normal;
+    font-style: normal;
+    src: url("${fontDataUrl}") format("woff");
+}
+`;
+        css += fontFace;
+    }
+    console.log("Done");
 
     await fs.writeFile(fontsOutputPath, css);
     await fs.writeJSON(fontsConfigPath, config);

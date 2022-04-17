@@ -1,5 +1,8 @@
 import svelte from "rollup-plugin-svelte";
+import css from "rollup-plugin-css-only";
 import resolve from "@rollup/plugin-node-resolve";
+//import commonjs from "@rollup/plugin-commonjs";
+import { terser } from "rollup-plugin-terser";
 
 process.chdir(__dirname);
 
@@ -15,11 +18,22 @@ export default {
 	},
 	plugins: [
 		svelte({
-			dev: !production,
-			css: css => {
-				css.write("public/bundle.css");
+			//dev: !production,
+			//css: css => {
+			//	css.write("public/bundle.css");
+			//}
+			compilerOptions: {
+				dev: !production
 			}
 		}),
-		resolve({ browser: true })
+		css({
+			output: "bundle.css"
+		}),
+		resolve({
+			browser: true,
+			dedupe: ["svelte"]
+		}),
+		//commonjs(),
+		production && terser()
 	]
 };
