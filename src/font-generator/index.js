@@ -20,24 +20,22 @@ async function fontParams(fontPath) {
         return str.replace(/[ \`\'\"]+/g, "_");
     }
 
-	const buffer = await fs.readFile(fontPath);
-	const format = path.extname(fontPath).substring(1);
-	const font = Font.create(buffer, { type: format });
-	const fontObject = font.get();
-	const fontNameParams = fontObject["name"];
-	const family = processName(fontNameParams.preferredFamily || fontNameParams.fontFamily || "Unnamed");
-	const subFamily = processName(fontNameParams.preferredSubFamily || fontNameParams.fontSubFamily || "Regular");
-	const name = `${family}_${subFamily}`;
+    const buffer = await fs.readFile(fontPath);
+    const format = path.extname(fontPath).substring(1);
+    const font = Font.create(buffer, { type: format });
+    const fontObject = font.get();
+    const fontNameParams = fontObject["name"];
+    const family = processName(fontNameParams.preferredFamily || fontNameParams.fontFamily || "Unnamed");
+    const subFamily = processName(fontNameParams.preferredSubFamily || fontNameParams.fontSubFamily || "Regular");
+    const name = `${family}_${subFamily}`;
 
-	return { name, family, subFamily };
+    return { name, family, subFamily };
 }
 
 async function init() {
-    console.log("Font Generator init");
-
-	if (!(await fs.pathExists(fontsConfigPath))){
-		await fs.writeJSON(fontsConfigPath, {});
-	}
+    if (!(await fs.pathExists(fontsConfigPath))){
+        await fs.writeJSON(fontsConfigPath, {});
+    }
 
     const pattern = `${unixify(fontsPath)}/**/*.{ttf,otf}`;
     const files = await glob.promise(pattern);

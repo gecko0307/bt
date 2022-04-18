@@ -3,6 +3,8 @@
 	
 	let fonts = {};
 	let config = {};
+
+	$: disabled = (Object.keys(fonts).length === 0);
 	
 	async function apiRequest(data) {
 		const res = await fetch("/api", {
@@ -55,25 +57,29 @@
 <main>
 	<h1>Web Font Generator</h1>
 	<div id="fonts">
-		{#each Object.keys(fonts) as fontFile}
-			<div class="font">
-				{#if fontFile in config}
-					<h3>{fontFile}</h3>
-					<p>CSS font-family:</p>
-					<p><input type="text" size="45" bind:value={config[fontFile].fontname}></p>
-					<p>Subsetting text:</p>
-					<p><textarea rows="3" cols="45" bind:value={config[fontFile].text}></textarea></p>
-					<p><input type="button" value="❌ Remove" on:click={ () => removeFont(fontFile) }/></p>
-				{:else}
-					<p><input type="button" value="➕ {fontFile}" on:click={ () => useFont(fontFile) }/></p>
-				{/if}
-			</div>
-			<hr>
-		{/each}
+		{#if Object.keys(fonts).length > 0}
+			{#each Object.keys(fonts) as fontFile}
+				<div class="font">
+					{#if fontFile in config}
+						<h3>{fontFile}</h3>
+						<p>CSS font-family:</p>
+						<p><input type="text" size="45" bind:value={config[fontFile].fontname}></p>
+						<p>Subsetting text:</p>
+						<p><textarea rows="3" cols="45" bind:value={config[fontFile].text}></textarea></p>
+						<p><input type="button" value="❌ Remove" on:click={ () => removeFont(fontFile) }/></p>
+					{:else}
+						<p><input type="button" value="➕ {fontFile}" on:click={ () => useFont(fontFile) }/></p>
+					{/if}
+				</div>
+				<hr>
+			{/each}
+		{:else}
+			<p>No fonts found in "Fonts" directory</p>
+		{/if}
 	</div>
 	<div id="buttons">
-		<input type="button" value="⚙️ Generate fonts.css" on:click={ generate }/>
-		<input type="button" value="❌ Clear" on:click={ clear }/>
+		<input {disabled} type="button" value="⚙️ Generate fonts.css" on:click={ generate }/>
+		<input {disabled} type="button" value="❌ Clear" on:click={ clear }/>
 	</div>
 </main>
 
@@ -130,5 +136,9 @@
 	input[type=button]:hover {
 		background-color: #edf5e1;
 		cursor: pointer;
+	}
+	input[type=button]:disabled {
+		border: 1px solid #dddddd;
+		pointer-events: none;
 	}
 </style>

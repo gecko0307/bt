@@ -20,6 +20,12 @@ async function init() {
     fontGen.init();
 }
 
+async function update(subsystem, event, path) {
+    if (subsystem === "fonts") {
+        fontGen.init(); // Update fonts list
+    }
+}
+
 async function handleRequest(request, reply) {
     if (request.body) {
         const body = JSON.parse(request.body);
@@ -38,5 +44,6 @@ async function handleRequest(request, reply) {
 
 module.exports = {
     init,
+    update,
     handleRequest
 };

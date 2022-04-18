@@ -1,6 +1,7 @@
 const path = require("path");
 const Fastify = require("fastify");
 const fastifyStatic = require("fastify-static");
+const chokidar = require("chokidar");
 const api = require("./api");
 
 const cwd = process.cwd();
@@ -57,6 +58,13 @@ const routes = {
     "images": "http://localhost:9000/images",
     "mobile": "http://localhost:9000/mobile?url=/index.html"
 };
+
+const watcher = chokidar.watch(path.join(cwd, "Fonts"));
+watcher.on("all", (event, path) => {
+    if (["add", "change", "unlink"].includes(event)) {
+        api.update("fonts", event, path);
+    }
+});
 
 async function listen() {
     api.init();
