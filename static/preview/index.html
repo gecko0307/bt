@@ -107,6 +107,11 @@
 		.button:active {
 			background-color: #0063a2;
 		}
+
+		#build {
+			pointer-events: none;
+			background-color: #888888;
+		}
 	</style>
 	<script src="interact.min.js"></script>
 </head>
@@ -121,9 +126,15 @@
 		<div id="timer"><span id="sec">00</span>:<span id="msec">00</span></div>
 		<div class="button" id="restart">↻ Restart</div>
 		<hr>
+		<div>Tools</div>
+		<div class="button" id="images">🖼️ Images</div>
+		<div class="button" id="fonts">🗛 Fonts</div>
+		<hr>
 		<div>Capture</div>
 		<div class="button" id="capture">📷 Capture</div>
 		<hr>
+		<div>Builder</div>
+		<div class="button" id="build">📦 Build</div>
 	</div>
 	<script>
 		"use strict";
@@ -137,6 +148,9 @@
 
 		var capture = document.getElementById("capture");
 		var capture_img = document.getElementById("capture_img");
+
+		var images = document.getElementById("images");
+		var fonts = document.getElementById("fonts");
 		
 		interact(resizable_area).resizable({
 			edges: { left: false, right: true, bottom: true, top: false },
@@ -186,6 +200,14 @@
 				width: banner.offsetWidth,
 				height: banner.offsetHeight
 			});
+		};
+
+		images.onclick = function() {
+			window.location.href = "/images";
+		};
+
+		fonts.onclick = function() {
+			window.location.href = "/fonts";
 		};
 		
 		var timerId = null;
