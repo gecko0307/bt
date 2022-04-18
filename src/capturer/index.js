@@ -66,7 +66,8 @@ async function captureFunc() {
     const gifBuffer = gif.out.getData();
     const gifPath = `${captureDir}/fallback.gif`;
     fs.writeFileSync(gifPath, gifBuffer);
-    console.log(`Generated fallback.gif`);
+    const gifSize = (Buffer.byteLength(gifBuffer) / 1024).toFixed(2);
+    console.log(`Generated fallback.gif (${gifSize} kb)`);
     
     // Generate PSD file
     const psdBuffer = writePsdBuffer(psd);
