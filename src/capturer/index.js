@@ -7,7 +7,7 @@ const greensock = require("./greensock");
 
 const cwd = process.cwd();
 
-async function captureFunc() {
+async function captureFunc(options = {}) {
     const captureDir = path.join(cwd, "capture");
     if (!fs.existsSync(captureDir)){
         fs.mkdirSync(captureDir);
@@ -15,7 +15,9 @@ async function captureFunc() {
 
     // Capture frames from GreenSock banner
     const capture = await greensock.capture({
-        outPath: captureDir
+        outPath: captureDir,
+        width: options.width || 0,
+        height: options.height || 0
     });
     
     if (capture.frames.length === 0) {

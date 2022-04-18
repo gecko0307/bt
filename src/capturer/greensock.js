@@ -47,6 +47,9 @@ async function capture(options) {
         }
     });
     
+    if (options.width && options.width !== 0) banner.width = options.width;
+    if (options.height && options.height !== 0) banner.height = options.height;
+    
     result.type = banner.type;
     result.width = banner.width;
     result.height = banner.height;

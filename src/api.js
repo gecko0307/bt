@@ -3,7 +3,7 @@ const imageOpt = require("./image-optimizer");
 const capturer = require("./capturer");
 
 async function capture(req = {}) {
-    const frames = await capturer();
+    const frames = await capturer(req);
     return {
         ok: true,
         message: "",

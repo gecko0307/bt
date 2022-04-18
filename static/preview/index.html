@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>Banner Preview</title>
+	<title>Developer's Preview Tools</title>
 	<style>
 		html {
 			box-sizing: border-box;
@@ -107,11 +107,6 @@
 		.button:active {
 			background-color: #0063a2;
 		}
-
-		#capture_img {
-			width: 100%;
-			height: auto;
-		}
 	</style>
 	<script src="interact.min.js"></script>
 </head>
@@ -128,9 +123,6 @@
 		<hr>
 		<div>Capture</div>
 		<div class="button" id="capture">📷 Capture</div>
-		<div>
-			<img id="capture_img">
-		</div>
 		<hr>
 	</div>
 	<script>
@@ -190,9 +182,10 @@
 
 		capture.onclick = async function() {
 			const res = await apiRequest({
-				method: "capture"
+				method: "capture",
+				width: banner.offsetWidth,
+				height: banner.offsetHeight
 			});
-			capture_img.src = "/capture/fallback.gif";
 		};
 		
 		var timerId = null;
