@@ -5,6 +5,8 @@
 	let config = {};
 
 	$: disabled = (Object.keys(fonts).length === 0);
+
+	let output = "";
 	
 	async function apiRequest(data) {
 		const res = await fetch("/api", {
@@ -33,10 +35,14 @@
 			method: "generateFonts",
 			config: config
 		});
+		if (res.ok && res.output) {
+			output = res.output;
+		}
 	}
 
 	async function clear() {
 		config = {};
+		output = "";
 	}
 	
 	onMount(async () => {
@@ -78,9 +84,16 @@
 		{/if}
 	</div>
 	<div id="buttons">
-		<input {disabled} type="button" value="⚙️ Generate fonts.css" on:click={ generate }/>
-		<input {disabled} type="button" value="❌ Clear" on:click={ clear }/>
+		<p>
+			<input {disabled} type="button" value="⚙️ Generate fonts.css" on:click={ generate }/>
+			<input {disabled} type="button" value="❌ Remove all" on:click={ clear }/>
+		</p>
 	</div>
+	{#if output.length > 0}
+		<div id="output">
+			<p><textarea class="output" rows="3" cols="45" bind:value={output}></textarea></p>
+		</div>
+	{/if}
 </main>
 
 <style>
@@ -140,5 +153,10 @@
 	input[type=button]:disabled {
 		border: 1px solid #dddddd;
 		pointer-events: none;
+	}
+	
+	.output {
+		width: 90%;
+		height: 100px;
 	}
 </style>
