@@ -50,13 +50,21 @@ fastify.register(fastifyStatic, {
     decorateReply: false
 });
 
+fastify.register(fastifyStatic, {
+    root: path.join(cwd, "capture"),
+    prefix: "/capture",
+    redirect: true,
+    decorateReply: false
+});
+
 const routes = {
     "favicon": "http://localhost:9000/server_data/favicon.ico",
     "api": "http://localhost:9000/api",
     "preview": "http://localhost:9000/preview",
     "fonts": "http://localhost:9000/fonts",
     "images": "http://localhost:9000/images",
-    "mobile": "http://localhost:9000/mobile?url=/index.html"
+    "mobile": "http://localhost:9000/mobile?url=/index.html",
+    "capture": "http://localhost:9000/capture"
 };
 
 const watcher = chokidar.watch(path.join(cwd, "Fonts"));

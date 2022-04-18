@@ -67,6 +67,10 @@
 			width: 200px;
 			left: auto;
 			right: 0;
+			font-family: sans-serif;
+			font-size: 15px;
+			color: #ffffff;
+			text-shadow: 1px 1px 5px #555;
 		}
 		
 		#timer {
@@ -81,7 +85,7 @@
 			font-size: 0.75em;
 		}
 		
-		#restart {
+		.button {
 			position: relative;
 			width: 120px;
 			height: 40px;
@@ -95,10 +99,18 @@
 			color: #fff;
 			border-radius: 10px;
 			cursor: pointer;
+			text-shadow: none;
 		}
-		
-		#restart:active {
+		.button:hover {
+			background-color: #37b5f1;
+		}
+		.button:active {
 			background-color: #0063a2;
+		}
+
+		#capture_img {
+			width: 100%;
+			height: auto;
 		}
 	</style>
 	<script src="interact.min.js"></script>
@@ -110,17 +122,29 @@
 		</div>
 	</div>
 	<div id="ui">
+		<div>Timer</div>
 		<div id="timer"><span id="sec">00</span>:<span id="msec">00</span></div>
-		<div id="restart">↻ Restart</div>
+		<div class="button" id="restart">↻ Restart</div>
+		<hr>
+		<div>Capture</div>
+		<div class="button" id="capture">📷 Capture</div>
+		<div>
+			<img id="capture_img">
+		</div>
+		<hr>
 	</div>
 	<script>
 		"use strict";
-		var sec = document.getElementById("sec");
-		var msec = document.getElementById("msec");
-		var restart = document.getElementById("restart");
 		var resizable_area = document.getElementById("resizable_area");
 		var banner_container = document.getElementById("banner_container");
 		var banner = document.getElementById("banner");
+
+		var sec = document.getElementById("sec");
+		var msec = document.getElementById("msec");
+		var restart = document.getElementById("restart");
+
+		var capture = document.getElementById("capture");
+		var capture_img = document.getElementById("capture_img");
 		
 		interact(resizable_area).resizable({
 			edges: { left: false, right: true, bottom: true, top: false },
@@ -151,9 +175,24 @@
 			while (s.length < (size || 2)) { s = "0" + s; }
 			return s;
 		}
+
+		async function apiRequest(data) {
+			var res = await fetch("/api", {
+				method: "POST",
+				body: JSON.stringify(data)
+			});
+			return await res.json();
+		}
 		
 		restart.onclick = function() {
 			banner.src = "/index.html";
+		};
+
+		capture.onclick = async function() {
+			const res = await apiRequest({
+				method: "capture"
+			});
+			capture_img.src = "/capture/fallback.gif";
 		};
 		
 		var timerId = null;

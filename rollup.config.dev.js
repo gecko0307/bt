@@ -59,6 +59,7 @@ export default {
                 { from: "/images", to: utilServer.routes["images"] },
                 { from: "/tuner", to: utilServer.routes["images"] }, // Banny Tools compatibility
                 { from: "/mobile", to: utilServer.routes["mobile"] },
+                { from: "/capture", to: utilServer.routes["capture"] },
             ]
         }),
         livereload({
