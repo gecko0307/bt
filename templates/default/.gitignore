@@ -2,3 +2,4 @@ package.json
 OPEN.cmd
 bundle.cmd
 start-stamper.cmd
+capture/*

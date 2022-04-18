@@ -1,6 +1,16 @@
 const fs = require("fs-extra");
 const path = require("path");
 const puppeteer = require("puppeteer");
+const { writePsdBuffer } = require("ag-psd");
+const { createCanvas, Image } = require("canvas");
+
+async function loadCanvasFromFile(filePath) {
+	const img = new Image();
+	img.src = await fs.readFile(filePath);
+	const canvas = createCanvas(img.width, img.height);
+	canvas.getContext("2d").drawImage(img, 0, 0);
+	return canvas;
+}
 
 async function capture(options) {
     const injectScriptPath = path.join(__dirname, "inject-greensock.js");
@@ -43,15 +53,33 @@ async function capture(options) {
         deviceScaleFactor: 1,
     });
 
-    // TODO: remove files in capture directory
+    const psd = {
+        width: banner.width,
+        height: banner.height,
+        children: []
+    };
+
+    // TODO: remove all files in capture directory
+
     for (let frame = 0; frame < banner.frames.length; frame++) {
         await page.evaluate("window.frames[" + frame + "][0]()"); // run pause function
         const delay = banner.frames[frame][1] / 1000; // frame delay in seconds
-        await page.screenshot({ path: `${options.outPath}/${frame}.png` });
+        const pngPath = `${options.outPath}/${frame}.png`;
+        await page.screenshot({ path: pngPath });
+        psd.children.push({
+            name: `Layer ${frame+1}`,
+            canvas: await loadCanvasFromFile(pngPath)
+        });
     }
     console.log("Generated", banner.frames.length, "frames");
+    
+    // Generate PSD file
+    const buffer = writePsdBuffer(psd);
+    const psdPath = `${options.outPath}/fallback.psd`;
+    fs.writeFileSync(psdPath, buffer);
+    console.log(`Generated ${psdPath}`);
 
-    // TODO: create PSD file
+    // TODO: generate GIF file
 
     await browser.close();
 }
