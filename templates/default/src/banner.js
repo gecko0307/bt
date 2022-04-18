@@ -1,8 +1,15 @@
+import select, { container } from "./main/dom";
+import * as $ from "./main/dom";
+import { frame } from "./main/frame";
 //import "./banner.sass";
 
 const master = gsap.timeline({ id: "MASTER", repeat: -1, paused: true });
 
 function createAnimation(tl) {
+	tl.add(frame(opening, {}), "+=0.0");
+}
+
+function opening(tl){
 	tl.addLabel("start", 0.0);
 }
 
@@ -15,7 +22,6 @@ function open() {
 
 function start() {
 	resize();
-	const container = document.getElementById("container");
 	container.style.opacity = "1";
 	
 	// window.onresize = function() { resize(); };

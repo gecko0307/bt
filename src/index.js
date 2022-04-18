@@ -2,8 +2,8 @@
 const fs = require("fs-extra");
 const path = require("path");
 const { execute } = require("./utils");
+const capturer = require("./capturer");
 //const builder = require("./builder");
-//const capturer = require("./capturer");
 
 const cwd = process.cwd();
 const [,, ...args] = process.argv;
@@ -25,7 +25,7 @@ async function build() {
     console.log("BannerToolchain build (WIP)");
     const code = await runRollup("rollup.config.prod.js");
     if (code === 0) {
-        // TODO: run local Banner Builder if available
+        // TODO: run local Banner Builder if configured to use it
         /*
         console.log(config.platforms);
         if (config.platforms && config.platforms.length > 0) {
@@ -67,8 +67,8 @@ async function init(template) {
 }
 
 async function capture() {
-    console.log("BannerToolchain capture (WIP)");
-    // await capturer(cwd);
+    console.log("BannerToolchain capture");
+    await capturer();
 }
 
 if (args.length > 0) {
