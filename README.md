@@ -10,6 +10,7 @@ Warning: Banner Toolchain is currently undergoing a major refactoring, so not al
 * ✔️ [Sass](https://sass-lang.com/) support
 * ✔️ CSS animation generator that uses simple [GreenSock](https://greensock.com/)-like input expressions
 * ✔️ Web font generator with subsetting
+* ✔️ Capture screenshots of animation in GreenSock banners
 * ⌛ Image minimizer
 * ⌛ Banner builder
 * ⌛ Banner preview tools: resizer, timer, event manager, device orientation emulator etc.
@@ -32,6 +33,10 @@ To run the development server:
 To build banner for publishing (WIP):
 
 `bt build`
+
+To capture screenshots of predefined animation frames (for GreenSock template only):
+
+`bt capture`
 
 ## Templates
 `bt init` will create a project using a default template that uses [GreenSock](https://greensock.com/) animation library. Additionally [Anime.js](https://animejs.com/)-based template is available for fully self-hosted banners with as small size overhead as possible:
