@@ -1,9 +1,19 @@
 const fontGen = require("./font-generator");
+const capturer = require("./capturer");
+
+async function capture(req = {}) {
+    await capturer();
+    return {
+        ok: true,
+        message: ""
+    }
+}
 
 const methods = {
     "fontsList": fontGen.fontsList,
     "fontsConfig": fontGen.fontsConfig,
-    "generateFonts": fontGen.generateFonts
+    "generateFonts": fontGen.generateFonts,
+    "capture": capture
 };
 
 async function init() {

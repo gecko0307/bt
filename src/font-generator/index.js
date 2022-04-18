@@ -112,7 +112,10 @@ async function generateFonts(req) {
 
     await fs.writeFile(fontsOutputPath, css);
     await fs.writeJSON(fontsConfigPath, config);
-    return {};
+    return {
+        ok: true,
+        message: ""
+    }
 }
 
 module.exports = {
