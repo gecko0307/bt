@@ -30,7 +30,7 @@ fastify.register(fastifyStatic, {
 });
 
 fastify.register(fastifyStatic, {
-    root: path.join(__dirname, "..", "static", "images"),
+    root: path.join(__dirname, "..", "static", "images", "public"),
     prefix: "/images",
     redirect: true,
     decorateReply: false

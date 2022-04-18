@@ -55,6 +55,7 @@
         "bt": "src/index.js"
     },
     "scripts": {
-        "frontend:fonts": "rollup --watch --config static/fonts/rollup.config.js"
+        "frontend:fonts": "rollup --watch --config static/fonts/rollup.config.js",
+        "frontend:images": "rollup --watch --config static/images/rollup.config.js"
     }
 }
