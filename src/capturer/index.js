@@ -10,7 +10,7 @@ async function capture() {
         fs.mkdirSync(captureDir);
     }
 
-    await greensock.capture({
+    return await greensock.capture({
         outPath: captureDir
     });
 }
