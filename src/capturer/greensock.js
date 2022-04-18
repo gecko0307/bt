@@ -3,17 +3,20 @@ const path = require("path");
 const puppeteer = require("puppeteer");
 
 async function capture(options) {
-    const injectScriptPath = path.join(__dirname, "inject-greensock.js");
-    const injectScript = await fs.readFile(injectScriptPath, "utf8");
+    const captureFuncPath = path.join(__dirname, "captureGreensock.js");
+    const captureFunc = await fs.readFile(captureFuncPath, "utf8");
+    
+    const deleteDevToolsPath = path.join(__dirname, "deleteDevTools.js");
+    const deleteDevTools = await fs.readFile(deleteDevToolsPath, "utf8");
     
     const result = {
         frames: []
     };
 
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({ headless: true });
     const page = await browser.newPage();
     
-    await page.evaluateOnNewDocument(injectScript);
+    await page.evaluateOnNewDocument(captureFunc);
     try {
         await page.goto("http://localhost:8000/", { waitUntil: ["load", "domcontentloaded", "networkidle0" ] });
     } catch(error) {
@@ -21,6 +24,8 @@ async function capture(options) {
         await browser.close();
         return result;
     }
+    
+    await page.evaluate(deleteDevTools);
     
     const banner = await page.evaluate(() => {
         if (animation !== undefined) {

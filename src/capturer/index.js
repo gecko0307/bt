@@ -67,7 +67,10 @@ async function captureFunc() {
     const gifPath = `${captureDir}/fallback.gif`;
     fs.writeFileSync(gifPath, gifBuffer);
     const gifSize = (Buffer.byteLength(gifBuffer) / 1024).toFixed(2);
-    console.log(`Generated fallback.gif (${gifSize} kb)`);
+    const maxGifSize = 120;
+    const color = (gifSize >= maxGifSize)? "\x1b[1m\x1b[31m" : "\x1b[1m\x1b[32m"; // Red if too large, green if ok
+    outputStr = "Generated fallback.gif (" + color + `${gifSize} kb` + "\x1b[0m" + ")";
+    console.log(outputStr);
     
     // Generate PSD file
     const psdBuffer = writePsdBuffer(psd);
