@@ -1,18 +1,80 @@
 const fs = require("fs-extra");
 const path = require("path");
+const { createCanvas, Image } = require("canvas");
+const { writePsdBuffer } = require("ag-psd");
+const GIFEncoder = require("gifencoder");
 const greensock = require("./greensock");
 
 const cwd = process.cwd();
 
-async function capture() {
+async function captureFunc() {
     const captureDir = path.join(cwd, "capture");
     if (!fs.existsSync(captureDir)){
         fs.mkdirSync(captureDir);
     }
 
-    return await greensock.capture({
+    // Capture frames from GreenSock banner
+    const capture = await greensock.capture({
         outPath: captureDir
     });
+    
+    if (capture.frames.length === 0) {
+        console.log("No frames captured");
+        return [];
+    }
+    else {
+        console.log("Captured", capture.frames.length, "frames");
+    }
+    
+    const psd = {
+        width: capture.width,
+        height: capture.height,
+        children: []
+    };
+    
+    const gif = new GIFEncoder(capture.width, capture.height);
+    gif.start();
+    // TODO: repeat should be in some config
+    gif.setRepeat(0); // 0 for repeat, -1 for no-repeat
+    gif.setQuality(10);
+    
+    let frames = [];
+    
+    // Load frames
+    for (let i = 0; i < capture.frames.length; i++) {
+        const frame = capture.frames[i];
+        
+        const img = new Image();
+        img.src = await fs.readFile(frame.path);
+        const canvas = createCanvas(img.width, img.height);
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0);
+        
+        psd.children.push({
+            name: `#${i+1} (${frame.delay}ms)`,
+            canvas: canvas
+        });
+        
+        gif.setDelay(frame.delay);
+        gif.addFrame(ctx);
+        
+        frames.push(`${i}.png`);
+    }
+    
+    // Generate GIF file
+    gif.finish();
+    const gifBuffer = gif.out.getData();
+    const gifPath = `${captureDir}/fallback.gif`;
+    fs.writeFileSync(gifPath, gifBuffer);
+    console.log(`Generated fallback.gif`);
+    
+    // Generate PSD file
+    const psdBuffer = writePsdBuffer(psd);
+    const psdPath = `${captureDir}/fallback.psd`;
+    fs.writeFileSync(psdPath, psdBuffer);
+    console.log(`Generated fallback.psd`);
+    
+    return frames;
 }
 
-module.exports = capture;
+module.exports = captureFunc;
