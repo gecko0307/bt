@@ -32,7 +32,6 @@ function start() {
 }
 
 function replay() {
-	resetStop();
 	start();
 }
 
