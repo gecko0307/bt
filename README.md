@@ -34,11 +34,11 @@ To build banner for publishing (WIP):
 
 `bt build`
 
-To capture screenshots of predefined animation frames (for GreenSock template only):
+To capture screenshots of predefined animation frames (for GreenSock template only; dev server should be running):
 
 `bt capture`
 
-To capture video (for GreenSock template only):
+To capture video (for GreenSock template only; dev server should be running):
 
 `bt capture video`
 
