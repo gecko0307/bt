@@ -1,5 +1,5 @@
 # 🧰 Banner Toolchain
-HTML banner development tools for Node.js. Automate bundling, optimization and packaging of ads, games and other single page web projects. Inspired by and compatible with [SmartHead](https://github.com/smarthead)'s Banny Tools. Based on [Rollup](https://rollupjs.org/) and [Fastify](https://www.fastify.io/).
+HTML banner development tools for Node.js. Automate bundling, optimization and packaging of animated ads, games and other single page web projects. Inspired by and compatible with [SmartHead](https://github.com/smarthead)'s Banny Tools. Based on [Rollup](https://rollupjs.org/) and [Fastify](https://www.fastify.io/).
 
 Warning: Banner Toolchain is currently undergoing a major refactoring, so not all existing functionality is ready for use.
 
@@ -11,7 +11,7 @@ Warning: Banner Toolchain is currently undergoing a major refactoring, so not al
 * ✔️ Web font generator with subsetting
 * ✔️ Capture individual frames of animation of GreenSock banners. Output PNG, layered PSD and animated GIF
 * ️✔ Capture video of GreenSock banners at 60 fps
-* ⌛ Image minimizer
+* ⌛ Image optimizer
 * ⌛ Banner builder
 * ⌛ Banner preview tools: resizer, timer, event manager, device orientation emulator etc.
 
@@ -55,7 +55,7 @@ Development server runs at `http://localhost:8000/`.
 Additional utility server runs at `http://localhost:9000/`, providing helper tools and toolchain API, but it is not meant to be accessed directly. Instead, proxy routes from port 8000 should be used to access the tools:
 * `http://localhost:8000/preview` - preview page (WIP)
 * `http://localhost:8000/fonts` - web font generator
-* `http://localhost:8000/images` or `http://localhost:8000/tuner` - image minimizer (WIP)
+* `http://localhost:8000/images` or `http://localhost:8000/tuner` - image optimizer (WIP)
 * `http://localhost:8000/mobile` - mobile device emulator to work with Device Orientation API on desktop. This functionality will be reimplemented as a part of `/preview` page in future.
 
 ## Copyright and license
