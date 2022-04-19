@@ -66,9 +66,9 @@ async function init(template) {
     }
 }
 
-async function capture() {
+async function capture(options) {
     console.log("BannerToolchain capture");
-    await capturer();
+    await capturer(options);
 }
 
 if (args.length > 0) {
@@ -77,7 +77,9 @@ if (args.length > 0) {
     else if (args[0] === "run")
         run();
     else if (args[0] === "capture")
-        capture();
+        capture({
+            video: (args[1] === "video")
+        });
     else if (args[0] === "init")
         init(args[1] || "default");
 }

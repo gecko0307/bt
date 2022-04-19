@@ -12,16 +12,22 @@ async function captureFunc(options = {}) {
     if (!fs.existsSync(captureDir)){
         fs.mkdirSync(captureDir);
     }
-
-    // Capture frames from GreenSock banner
+    
+    const captureImages = (options.video !== true);
+    
+    // Capture frames/video from GreenSock banner
     const capture = await greensock.capture({
         outPath: captureDir,
         width: options.width || 0,
-        height: options.height || 0
+        height: options.height || 0,
+        video: options.video || false
     });
     
-    if (capture.frames.length === 0) {
-        console.log("No frames captured");
+    if (!captureImages) {
+        return [];
+    }
+    else if (capture.frames.length === 0) {
+        console.log("No images captured");
         return [];
     }
     else {

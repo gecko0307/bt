@@ -9,7 +9,8 @@ Warning: Banner Toolchain is currently undergoing a major refactoring, so not al
 * ✔️ [Sass](https://sass-lang.com/) support
 * ✔️ CSS animation generator that uses simple [GreenSock](https://greensock.com/)-like input expressions
 * ✔️ Web font generator with subsetting
-* ✔️ Capture individual frames of animation in GreenSock banners. Output PNG, layered PSD and animated GIF
+* ✔️ Capture individual frames of animation of GreenSock banners. Output PNG, layered PSD and animated GIF
+* ️✔ Capture video of GreenSock banners at 60 fps
 * ⌛ Image minimizer
 * ⌛ Banner builder
 * ⌛ Banner preview tools: resizer, timer, event manager, device orientation emulator etc.

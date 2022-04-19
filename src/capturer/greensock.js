@@ -1,6 +1,7 @@
 const fs = require("fs-extra");
 const path = require("path");
 const puppeteer = require("puppeteer");
+const { record } = require("puppeteer-recorder");
 
 async function capture(options) {
     const captureFuncPath = path.join(__dirname, "captureGreensock.js");
@@ -8,6 +9,8 @@ async function capture(options) {
     
     const deleteDevToolsPath = path.join(__dirname, "deleteDevTools.js");
     const deleteDevTools = await fs.readFile(deleteDevToolsPath, "utf8");
+    
+    const videoPath = path.join(options.outPath, "video.webm");
     
     const result = {
         frames: []
@@ -32,11 +35,13 @@ async function capture(options) {
             const bannerType = animation.info.type;
             const bannerVersion = animation.info.version;
             const container = document.getElementById("container");
+            const duration = animation.master.duration();
             return {
                 type: bannerType,
                 version: bannerVersion,
                 width: container.offsetWidth,
                 height: container.offsetHeight,
+                duration: duration,
                 frames: window.frames
             };
         }
@@ -53,6 +58,7 @@ async function capture(options) {
     result.type = banner.type;
     result.width = banner.width;
     result.height = banner.height;
+    result.duration = banner.duration;
     
     if (banner.type !== "gsap") {
         console.log("Error: GreenSock animation not found");
@@ -65,17 +71,45 @@ async function capture(options) {
         height: banner.height,
         deviceScaleFactor: 1,
     });
-
-    for (let frame = 0; frame < banner.frames.length; frame++) {
-        await page.evaluate("window.frames[" + frame + "][0]()"); // run pause function
-        const delay = banner.frames[frame][1]; // frame delay in milliseconds
-        const pngPath = `${options.outPath}/${frame}.png`;
-        await page.screenshot({ path: pngPath });
-        
-        result.frames.push({
-            path: pngPath,
-            delay: delay
+    
+    if (options.video === true) {
+        // Capture video
+        const videoDuration = result.duration || 5;
+        const videoFps = 60;
+        const frameTime = 1.0 / videoFps;
+        console.log(`Capture video: ${videoDuration}s at ${videoFps}fps...`);
+        await record({
+            browser: browser,
+            page: page,
+            output: videoPath,
+            fps: videoFps,
+            frames: videoFps * videoDuration,
+            prepare: async function(browser, page) {
+                // Executed before first capture
+            },
+            render: async function(browser, page, frame) {
+                // Executed before each frame
+                const position = (frame - 1) * frameTime;
+                await page.evaluate((pos) => {
+                    window.animation.master.pause(pos);
+                }, position);
+            }
         });
+        console.log("Generated video.webm");
+    }
+    else {
+        // Capture images
+        for (let frame = 0; frame < banner.frames.length; frame++) {
+            await page.evaluate("window.frames[" + frame + "][0]()"); // run pause function
+            const delay = banner.frames[frame][1]; // frame delay in milliseconds
+            const pngPath = `${options.outPath}/${frame}.png`;
+            await page.screenshot({ path: pngPath });
+            
+            result.frames.push({
+                path: pngPath,
+                delay: delay
+            });
+        }
     }
     
     await browser.close();

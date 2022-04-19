@@ -41,6 +41,8 @@
         "postcss": "^8.4.12",
         "pretty": "^2.0.0",
         "puppeteer": "^13.5.2",
+        "puppeteer-recorder": "^1.0.7",
+        "puppeteer-video-recorder": "^1.0.5",
         "rollup": "^2.70.2",
         "rollup-plugin-css-only": "^3.1.0",
         "rollup-plugin-dev": "^2.0.3",
