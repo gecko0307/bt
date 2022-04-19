@@ -1,7 +1,7 @@
 const fs = require("fs-extra");
 const path = require("path");
 const puppeteer = require("puppeteer");
-const { record } = require("puppeteer-recorder");
+const { record } = require("./puppeteer-recorder");
 
 async function capture(options) {
     const captureFuncPath = path.join(__dirname, "captureGreensock.js");
@@ -102,7 +102,7 @@ async function capture(options) {
         for (let frame = 0; frame < banner.frames.length; frame++) {
             await page.evaluate("window.frames[" + frame + "][0]()"); // run pause function
             const delay = banner.frames[frame][1]; // frame delay in milliseconds
-            const pngPath = `${options.outPath}/${frame}.png`;
+            const pngPath = `${options.outPath}/${frame+1}.png`;
             await page.screenshot({ path: pngPath });
             
             result.frames.push({

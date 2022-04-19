@@ -66,7 +66,7 @@ async function captureFunc(options = {}) {
         gif.setDelay(frame.delay);
         gif.addFrame(ctx);
         
-        frames.push(`${i}.png`);
+        frames.push(`${i+1}.png`);
     }
     
     // Generate GIF file
