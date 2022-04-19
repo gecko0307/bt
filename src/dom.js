@@ -20,7 +20,7 @@ async function update(html) {
     }
     
     const idConstants = ids.map(str => {
-        return `export const ${str} = id("${str}");`;
+        return `export const ${str.replace(/-/g, "_")} = id("${str}");`;
     });
     
     const domModuleStr = `
