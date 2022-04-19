@@ -8,7 +8,7 @@ window._capture = function({ tl, duration = 2.5, delay = "+=0.0" } = {}){
 	
 	window.frames.push([
 		function() {
-			window.animation.master.pause(tl.startTime() + tl.labels[labelName]);
+			window.animation.master.pause(tl.startTime() + tl.labels[labelName], false);
 		},
 		Math.round(duration * 1000)
 	]);

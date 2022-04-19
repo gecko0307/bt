@@ -89,10 +89,10 @@ async function capture(options) {
             },
             render: async function(browser, page, frame) {
                 // Executed before each frame
-                const position = (frame - 1) * frameTime;
-                await page.evaluate((pos) => {
-                    window.animation.master.pause(pos);
-                }, position);
+                const time = (frame - 1) * frameTime;
+                await page.evaluate((t) => {
+                    window.animation.master.pause(t, false);
+                }, time);
             }
         });
         console.log("Generated video.webm");
