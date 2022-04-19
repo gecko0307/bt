@@ -3,11 +3,11 @@ function capture(duration, delay, options) {
 }
 
 export function frame(tlFunc, gsapOptions = {}) {
-    gsapOptions.id = tlFunc.name;
+	gsapOptions.id = tlFunc.name;
 	const tl = gsap.timeline(gsapOptions);
-    // TODO:
+	// TODO:
 	//tl.stop = stop;
-    tl.capture = capture;
+	tl.capture = capture;
 	tlFunc(tl);
 	return tl;
 }
