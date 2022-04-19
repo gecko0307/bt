@@ -32,8 +32,16 @@ async function capture(options) {
     
     const banner = await page.evaluate(() => {
         if (animation !== undefined) {
-            const bannerType = animation.info.type;
-            const bannerVersion = animation.info.version;
+            let bannerType = "gsap";
+            let bannerVersion;
+            if (animation.info) {
+                bannerType = animation.info.type;
+                bannerVersion = animation.info.version;
+            }
+            else {
+                // Old template version
+                bannerVersion = animation.version || 0;
+            }
             const container = document.getElementById("container");
             const duration = animation.master.duration();
             return {
