@@ -17,6 +17,7 @@ async function captureFunc(options = {}) {
     
     // Capture frames/video from GreenSock banner
     const capture = await greensock.capture({
+        url: options.url || "http://localhost:8000/",
         outPath: captureDir,
         width: options.width || 0,
         height: options.height || 0,
@@ -24,6 +25,7 @@ async function captureFunc(options = {}) {
     });
     
     if (!captureImages) {
+        // We don't need PNG and GIF
         return [];
     }
     else if (capture.frames.length === 0) {

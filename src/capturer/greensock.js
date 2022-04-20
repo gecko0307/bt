@@ -12,6 +12,8 @@ async function capture(options) {
     
     const videoPath = path.join(options.outPath, "video.webm");
     
+    const url = options.url || "http://localhost:8000/";
+    
     const result = {
         frames: []
     };
@@ -21,7 +23,7 @@ async function capture(options) {
     
     await page.evaluateOnNewDocument(captureFunc);
     try {
-        await page.goto("http://localhost:8000/", { waitUntil: ["load", "domcontentloaded", "networkidle0" ] });
+        await page.goto(url, { waitUntil: ["load", "domcontentloaded", "networkidle0" ] });
     } catch(error) {
         console.log(error.message);
         await browser.close();
