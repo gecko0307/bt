@@ -1,12 +1,34 @@
+const fs = require("fs-extra"); 
 const path = require("path");
 const Fastify = require("fastify");
 const fastifyStatic = require("fastify-static");
 const chokidar = require("chokidar");
+const mime = require("mime");
 const api = require("./api");
 
 const cwd = process.cwd();
 
-const fastify = Fastify({
+const fastify = Fastify({});
+
+// Request any file relative to banner project root
+fastify.route({ method: "GET", url: "/file",
+    schema: {
+        querystring: {
+            path: { type: "string" }
+        }
+    },
+    handler: async function(request, reply) {
+        const filePath = request.query.path;
+        const absoluteFilePath = path.resolve(`./${filePath}`);
+        if (await fs.pathExists(absoluteFilePath)){
+            const data = await fs.readFile(absoluteFilePath);
+            const mimetype = mime.getType(absoluteFilePath);
+            reply.type(mimetype).send(data);
+        }
+        else {
+            reply.code(404).type("text/html").send("404 Not Found");
+        }
+    }
 });
 
 fastify.post("/api", api.handleRequest);
@@ -59,6 +81,7 @@ fastify.register(fastifyStatic, {
 
 const routes = {
     "favicon": "http://localhost:9000/server_data/favicon.ico",
+    "file": "http://localhost:9000/file",
     "api": "http://localhost:9000/api",
     "preview": "http://localhost:9000/preview",
     "fonts": "http://localhost:9000/fonts",

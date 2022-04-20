@@ -1,5 +1,5 @@
-const fontGen = require("./font-generator");
-const imageOpt = require("./image-optimizer");
+const fontGenerator = require("./font-generator");
+const imageOptimizer = require("./image-optimizer");
 const capturer = require("./capturer");
 
 async function capture(req = {}) {
@@ -12,24 +12,25 @@ async function capture(req = {}) {
 }
 
 const methods = {
-    "fontsList": fontGen.fontsList,
-    "fontsConfig": fontGen.fontsConfig,
-    "generateFonts": fontGen.generateFonts,
+    "fontsList": fontGenerator.fontsList,
+    "fontsConfig": fontGenerator.fontsConfig,
+    "generateFonts": fontGenerator.generateFonts,
     
-    "imagesConfig": imageOpt.imagesConfig,
-    "optimizeImages": imageOpt.optimizeImages,
+    "imagesList": imageOptimizer.imagesList,
+    "imagesConfig": imageOptimizer.imagesConfig,
+    "optimizeImages": imageOptimizer.optimizeImages,
     
     "capture": capture
 };
 
 async function init() {
-    fontGen.init();
-    imageOpt.init();
+    fontGenerator.init();
+    imageOptimizer.init();
 }
 
 async function update(subsystem, event, path) {
     if (subsystem === "fonts") {
-        fontGen.init();
+        fontGenerator.init();
     }
 }
 

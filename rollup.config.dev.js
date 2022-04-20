@@ -53,6 +53,7 @@ export default {
             },
             proxy: [
                 { from: "/favicon.ico", to: utilServer.routes["favicon"] },
+                { from: "/file", to: utilServer.routes["file"] },
                 { from: "/api", to: utilServer.routes["api"] },
                 { from: "/preview", to: utilServer.routes["preview"] },
                 { from: "/fonts", to: utilServer.routes["fonts"] },

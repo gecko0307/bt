@@ -1,5 +1,7 @@
 const fs = require("fs-extra");  
 const path = require("path");
+const unixify = require("unixify");
+const glob = require("glob-promise");
 
 function requireUncached(module) {
     delete require.cache[require.resolve(module)];
@@ -14,6 +16,22 @@ async function init() {
     if (!(await fs.pathExists(imagesConfigPath))){
         await fs.writeJSON(imagesConfigPath, {});
     }
+}
+
+async function imagesList(req = {}) {
+    const pattern = `${unixify(imagesPath)}/**/*.{png,jpg,jpeg,svg}`;
+    const files = await glob.promise(pattern);
+    let images = [];
+    for (const imagePath of files) {
+        const imageFilename = path.basename(imagePath);
+        images.push(imageFilename);
+    }
+
+    return {
+        ok: true,
+        message: "",
+        data: { images: images }
+    };
 }
 
 async function imagesConfig(req = {}) {
@@ -45,6 +63,7 @@ async function optimizeImages(req) {
 
 module.exports = {
     init,
+    imagesList,
     imagesConfig,
     optimizeImages
 };
