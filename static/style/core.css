@@ -44,11 +44,13 @@ input[type=button] {
 	min-width: 40px;
 	height: 35px;
 	padding: 5px 5px;
-	background-color: #fff;
+	margin-right: 5px;
+	background-color: #ffffff;
 	border: 1px solid #379683;
 	border-radius: 4px;
 	font-family: sans-serif;
 	font-size: 15px;
+	float: left;
 }
 input[type=button]:hover {
 	background-color: #edf5e1;
@@ -57,4 +59,25 @@ input[type=button]:hover {
 input[type=button]:disabled {
 	border: 1px solid #dddddd;
 	pointer-events: none;
+}
+
+p {
+	color: #777777;
+	font-size: 12px;
+	margin: 0;
+}
+
+hr {
+	border: none;
+	height: 1px;
+	color: #dddddd; /* old IE */
+	background-color: #dddddd; /* Modern Browsers */
+}
+
+fieldset {
+	border: 1px solid #dddddd;
+	border-radius: 4px;
+	font-family: sans-serif;
+	font-size: 15px;
+	padding: 10px;
 }

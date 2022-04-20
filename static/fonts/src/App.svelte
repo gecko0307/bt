@@ -7,7 +7,7 @@
 	let fonts = {};
 	let config = {};
 
-	$: disabled = (Object.keys(fonts).length === 0);
+	$: disabled = (Object.keys(config).length === 0);
 
 	let output = "";
 	
@@ -49,13 +49,37 @@
 		config = config;
 	}
 
+	async function clearFont(fontFile) {
+		if (fontFile in config) {
+			config[fontFile].text = "";
+		}
+	}
+
+	function isFontNameValid(fontName) {
+		return fontName.length > 0 && fontName.length < 32;
+	}
+
+	function isSubsetTextValid(text) {
+		return text.length > 0;
+	}
+
+	async function isConfigValid() {
+		for (const fontFile of Object.keys(config)) {
+			if (!isFontNameValid(config[fontFile].fontname)) return false;
+			if (!isSubsetTextValid(config[fontFile].text)) return false;
+		}
+		return true;
+	}
+
 	async function generate() {
-		const res = await apiRequest({
-			method: "generateFonts",
-			config: config
-		});
-		if (res.ok && res.output) {
-			output = res.output;
+		if (await isConfigValid()) {
+			const res = await apiRequest({
+				method: "generateFonts",
+				config: config
+			});
+			if (res.ok && res.output) {
+				output = res.output;
+			}
 		}
 	}
 
@@ -85,18 +109,20 @@
 		{#if Object.keys(fonts).length > 0}
 			{#each Object.keys(fonts) as fontFile}
 				<div class="font">
-					{#if fontFile in config}
-						<h3>{fontFile}</h3>
-						<p>CSS font-family:</p>
-						<p><input type="text" size="45" bind:value={config[fontFile].fontname}></p>
-						<p>Subsetting text:</p>
-						<p><textarea rows="3" cols="45" bind:value={config[fontFile].text}></textarea></p>
-						<p><input type="button" value="❌ Remove" on:click={ () => removeFont(fontFile) }/></p>
-					{:else}
-						<p><input type="button" value="➕ {fontFile}" on:click={ () => useFont(fontFile) }/></p>
-					{/if}
+					<fieldset>
+						<legend><b><span class="font-icon">🗛</span> {fontFile}</b></legend>
+						{#if fontFile in config}
+							<p>CSS font-family:</p>
+							<p><input type="text" size="45" class:invalid={!isFontNameValid(config[fontFile].fontname)} bind:value={config[fontFile].fontname}></p>
+							<p>Subsetting text:</p>
+							<p><textarea rows="3" cols="45" class:invalid={!isSubsetTextValid(config[fontFile].text)} bind:value={config[fontFile].text}></textarea></p>
+							<p><input type="button" value="❌ Remove" on:click={ () => removeFont(fontFile) }/></p>
+							<p><input type="button" value="🧹 Clear" on:click={ () => clearFont(fontFile) }/></p>
+						{:else}
+							<p><input type="button" value="➕ Use font" on:click={ () => useFont(fontFile) }/></p>
+						{/if}
+					</fieldset>
 				</div>
-				<hr>
 			{/each}
 		{:else}
 			<p>No fonts found in "Fonts" directory</p>
@@ -119,10 +145,31 @@
 	main {
 		padding: 10px;
 		margin: 0;
+		max-width: 1024px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	#fonts, #buttons {
+		margin-bottom: 20px;
+	}
+
+	.font {
+		margin-top: 15px;
+		margin-bottom: 20px;
+	}
+
+	.invalid {
+		border-color: #ff0000 !important;
+	}
+
+	.font-icon {
+		color: #1dbfff;
 	}
 
 	.output {
-		width: 90%;
-		height: 100px;
+		width: 100%;
+		max-width: 100%;
+		height: 400px;
 	}
 </style>

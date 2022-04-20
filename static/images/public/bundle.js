@@ -534,18 +534,17 @@ var app = (function () {
     			t2 = space();
     			add_location(b, file, 67, 14, 1327);
     			add_location(legend, file, 67, 6, 1319);
-    			attr_dev(img, "class", "thumb_image svelte-as12gw");
+    			attr_dev(img, "class", "thumb_image svelte-yu0cvu");
     			if (!src_url_equal(img.src, img_src_value = "/file?path=Images/" + /*imageFile*/ ctx[7])) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", img_alt_value = /*imageFile*/ ctx[7]);
     			add_location(img, file, 70, 8, 1456);
     			attr_dev(a, "href", a_href_value = "/file?path=Images/" + /*imageFile*/ ctx[7]);
     			attr_dev(a, "target", "_blank");
     			add_location(a, file, 69, 7, 1390);
-    			attr_dev(div0, "class", "thumb svelte-as12gw");
+    			attr_dev(div0, "class", "thumb svelte-yu0cvu");
     			add_location(div0, file, 68, 6, 1362);
-    			attr_dev(fieldset, "class", "svelte-as12gw");
     			add_location(fieldset, file, 66, 5, 1301);
-    			attr_dev(div1, "class", "image svelte-as12gw");
+    			attr_dev(div1, "class", "image svelte-yu0cvu");
     			add_location(div1, file, 65, 4, 1275);
     		},
     		m: function mount(target, anchor) {
@@ -623,7 +622,7 @@ var app = (function () {
     			input = element("input");
     			add_location(h1, file, 61, 1, 1166);
     			attr_dev(div0, "id", "images");
-    			attr_dev(div0, "class", "svelte-as12gw");
+    			attr_dev(div0, "class", "svelte-yu0cvu");
     			add_location(div0, file, 62, 1, 1193);
     			input.disabled = /*disabled*/ ctx[1];
     			attr_dev(input, "type", "button");
@@ -631,7 +630,7 @@ var app = (function () {
     			add_location(input, file, 81, 2, 1707);
     			attr_dev(div1, "id", "buttons");
     			add_location(div1, file, 80, 1, 1685);
-    			attr_dev(main, "class", "svelte-as12gw");
+    			attr_dev(main, "class", "svelte-yu0cvu");
     			add_location(main, file, 60, 0, 1157);
     		},
     		l: function claim(nodes) {

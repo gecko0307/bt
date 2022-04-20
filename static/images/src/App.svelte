@@ -87,6 +87,9 @@
 	main {
 		padding: 10px;
 		margin: 0;
+		max-width: 1024px;
+		margin-left: auto;
+		margin-right: auto;
 	}
 
 	#images {
@@ -98,18 +101,11 @@
 		margin-bottom: 10px;
 	}
 
-	fieldset {
-		border: 1px solid #cccccc;
-		border-radius: 4px;
-		font-family: sans-serif;
-		font-size: 15px;
-		padding: 10px;
-	}
-
 	.thumb {
 		position: relative;
 		width: 50px;
 		height: 50px;
+		padding: 0;
 		border: 1px solid #379683;
 		border-radius: 4px;
 		overflow: hidden;
@@ -121,6 +117,7 @@
 
 	.thumb_image {
 		position: absolute;
+		margin: 0;
 		width: auto;
 		height: 90%;
 		left: -100%;

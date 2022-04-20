@@ -68,6 +68,9 @@ var app = (function () {
     function set_input_value(input, value) {
         input.value = value == null ? '' : value;
     }
+    function toggle_class(element, name, toggle) {
+        element.classList[toggle ? 'add' : 'remove'](name);
+    }
     function custom_event(type, detail, bubbles = false) {
         const e = document.createEvent('CustomEvent');
         e.initCustomEvent(type, bubbles, false, detail);
@@ -396,13 +399,13 @@ var app = (function () {
 
     function get_each_context(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[16] = list[i];
-    	child_ctx[17] = list;
-    	child_ctx[18] = i;
+    	child_ctx[19] = list[i];
+    	child_ctx[20] = list;
+    	child_ctx[21] = i;
     	return child_ctx;
     }
 
-    // (101:2) {:else}
+    // (127:2) {:else}
     function create_else_block_1(ctx) {
     	let p;
 
@@ -410,7 +413,7 @@ var app = (function () {
     		c: function create() {
     			p = element("p");
     			p.textContent = "No fonts found in \"Fonts\" directory";
-    			add_location(p, file, 101, 3, 2265);
+    			add_location(p, file, 127, 3, 3127);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -425,17 +428,17 @@ var app = (function () {
     		block,
     		id: create_else_block_1.name,
     		type: "else",
-    		source: "(101:2) {:else}",
+    		source: "(127:2) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (85:2) {#if Object.keys(fonts).length > 0}
+    // (109:2) {#if Object.keys(fonts).length > 0}
     function create_if_block_1(ctx) {
     	let each_1_anchor;
-    	let each_value = Object.keys(/*fonts*/ ctx[0]);
+    	let each_value = Object.keys(/*fonts*/ ctx[1]);
     	validate_each_argument(each_value);
     	let each_blocks = [];
 
@@ -459,8 +462,8 @@ var app = (function () {
     			insert_dev(target, each_1_anchor, anchor);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*removeFont, Object, fonts, config, useFont*/ 51) {
-    				each_value = Object.keys(/*fonts*/ ctx[0]);
+    			if (dirty & /*clearFont, Object, fonts, removeFont, config, isSubsetTextValid, isFontNameValid, useFont*/ 115) {
+    				each_value = Object.keys(/*fonts*/ ctx[1]);
     				validate_each_argument(each_value);
     				let i;
 
@@ -493,23 +496,22 @@ var app = (function () {
     		block,
     		id: create_if_block_1.name,
     		type: "if",
-    		source: "(85:2) {#if Object.keys(fonts).length > 0}",
+    		source: "(109:2) {#if Object.keys(fonts).length > 0}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (95:5) {:else}
+    // (121:6) {:else}
     function create_else_block(ctx) {
     	let p;
     	let input;
-    	let input_value_value;
     	let mounted;
     	let dispose;
 
-    	function click_handler_1() {
-    		return /*click_handler_1*/ ctx[11](/*fontFile*/ ctx[16]);
+    	function click_handler_2() {
+    		return /*click_handler_2*/ ctx[13](/*fontFile*/ ctx[19]);
     	}
 
     	const block = {
@@ -517,25 +519,21 @@ var app = (function () {
     			p = element("p");
     			input = element("input");
     			attr_dev(input, "type", "button");
-    			input.value = input_value_value = "➕ " + /*fontFile*/ ctx[16];
-    			add_location(input, file, 95, 9, 2119);
-    			add_location(p, file, 95, 6, 2116);
+    			input.value = "➕ Use font";
+    			add_location(input, file, 121, 10, 2974);
+    			add_location(p, file, 121, 7, 2971);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
     			append_dev(p, input);
 
     			if (!mounted) {
-    				dispose = listen_dev(input, "click", click_handler_1, false, false, false);
+    				dispose = listen_dev(input, "click", click_handler_2, false, false, false);
     				mounted = true;
     			}
     		},
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
-
-    			if (dirty & /*fonts*/ 1 && input_value_value !== (input_value_value = "➕ " + /*fontFile*/ ctx[16])) {
-    				prop_dev(input, "value", input_value_value);
-    			}
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(p);
@@ -548,105 +546,116 @@ var app = (function () {
     		block,
     		id: create_else_block.name,
     		type: "else",
-    		source: "(95:5) {:else}",
+    		source: "(121:6) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (88:5) {#if fontFile in config}
+    // (114:6) {#if fontFile in config}
     function create_if_block_2(ctx) {
-    	let h3;
-    	let t0_value = /*fontFile*/ ctx[16] + "";
-    	let t0;
-    	let t1;
     	let p0;
-    	let t3;
+    	let t1;
     	let p1;
     	let input0;
-    	let t4;
+    	let t2;
     	let p2;
-    	let t6;
+    	let t4;
     	let p3;
     	let textarea;
-    	let t7;
+    	let t5;
     	let p4;
     	let input1;
+    	let t6;
+    	let p5;
+    	let input2;
     	let mounted;
     	let dispose;
 
     	function input0_input_handler() {
-    		/*input0_input_handler*/ ctx[8].call(input0, /*fontFile*/ ctx[16]);
+    		/*input0_input_handler*/ ctx[9].call(input0, /*fontFile*/ ctx[19]);
     	}
 
     	function textarea_input_handler() {
-    		/*textarea_input_handler*/ ctx[9].call(textarea, /*fontFile*/ ctx[16]);
+    		/*textarea_input_handler*/ ctx[10].call(textarea, /*fontFile*/ ctx[19]);
     	}
 
     	function click_handler() {
-    		return /*click_handler*/ ctx[10](/*fontFile*/ ctx[16]);
+    		return /*click_handler*/ ctx[11](/*fontFile*/ ctx[19]);
+    	}
+
+    	function click_handler_1() {
+    		return /*click_handler_1*/ ctx[12](/*fontFile*/ ctx[19]);
     	}
 
     	const block = {
     		c: function create() {
-    			h3 = element("h3");
-    			t0 = text(t0_value);
-    			t1 = space();
     			p0 = element("p");
     			p0.textContent = "CSS font-family:";
-    			t3 = space();
+    			t1 = space();
     			p1 = element("p");
     			input0 = element("input");
-    			t4 = space();
+    			t2 = space();
     			p2 = element("p");
     			p2.textContent = "Subsetting text:";
-    			t6 = space();
+    			t4 = space();
     			p3 = element("p");
     			textarea = element("textarea");
-    			t7 = space();
+    			t5 = space();
     			p4 = element("p");
     			input1 = element("input");
-    			add_location(h3, file, 88, 6, 1746);
-    			add_location(p0, file, 89, 6, 1773);
+    			t6 = space();
+    			p5 = element("p");
+    			input2 = element("input");
+    			add_location(p0, file, 114, 7, 2410);
     			attr_dev(input0, "type", "text");
     			attr_dev(input0, "size", "45");
-    			add_location(input0, file, 90, 9, 1807);
-    			add_location(p1, file, 90, 6, 1804);
-    			add_location(p2, file, 91, 6, 1887);
+    			attr_dev(input0, "class", "svelte-lddxb6");
+    			toggle_class(input0, "invalid", !isFontNameValid(/*config*/ ctx[0][/*fontFile*/ ctx[19]].fontname));
+    			add_location(input0, file, 115, 10, 2445);
+    			add_location(p1, file, 115, 7, 2442);
+    			add_location(p2, file, 116, 7, 2586);
     			attr_dev(textarea, "rows", "3");
     			attr_dev(textarea, "cols", "45");
-    			add_location(textarea, file, 92, 9, 1921);
-    			add_location(p3, file, 92, 6, 1918);
+    			attr_dev(textarea, "class", "svelte-lddxb6");
+    			toggle_class(textarea, "invalid", !isSubsetTextValid(/*config*/ ctx[0][/*fontFile*/ ctx[19]].text));
+    			add_location(textarea, file, 117, 10, 2621);
+    			add_location(p3, file, 117, 7, 2618);
     			attr_dev(input1, "type", "button");
     			input1.value = "❌ Remove";
-    			add_location(input1, file, 93, 9, 2011);
-    			add_location(p4, file, 93, 6, 2008);
+    			add_location(input1, file, 118, 10, 2770);
+    			add_location(p4, file, 118, 7, 2767);
+    			attr_dev(input2, "type", "button");
+    			input2.value = "🧹 Clear";
+    			add_location(input2, file, 119, 10, 2865);
+    			add_location(p5, file, 119, 7, 2862);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, h3, anchor);
-    			append_dev(h3, t0);
-    			insert_dev(target, t1, anchor);
     			insert_dev(target, p0, anchor);
-    			insert_dev(target, t3, anchor);
+    			insert_dev(target, t1, anchor);
     			insert_dev(target, p1, anchor);
     			append_dev(p1, input0);
-    			set_input_value(input0, /*config*/ ctx[1][/*fontFile*/ ctx[16]].fontname);
-    			insert_dev(target, t4, anchor);
+    			set_input_value(input0, /*config*/ ctx[0][/*fontFile*/ ctx[19]].fontname);
+    			insert_dev(target, t2, anchor);
     			insert_dev(target, p2, anchor);
-    			insert_dev(target, t6, anchor);
+    			insert_dev(target, t4, anchor);
     			insert_dev(target, p3, anchor);
     			append_dev(p3, textarea);
-    			set_input_value(textarea, /*config*/ ctx[1][/*fontFile*/ ctx[16]].text);
-    			insert_dev(target, t7, anchor);
+    			set_input_value(textarea, /*config*/ ctx[0][/*fontFile*/ ctx[19]].text);
+    			insert_dev(target, t5, anchor);
     			insert_dev(target, p4, anchor);
     			append_dev(p4, input1);
+    			insert_dev(target, t6, anchor);
+    			insert_dev(target, p5, anchor);
+    			append_dev(p5, input2);
 
     			if (!mounted) {
     				dispose = [
     					listen_dev(input0, "input", input0_input_handler),
     					listen_dev(textarea, "input", textarea_input_handler),
-    					listen_dev(input1, "click", click_handler, false, false, false)
+    					listen_dev(input1, "click", click_handler, false, false, false),
+    					listen_dev(input2, "click", click_handler_1, false, false, false)
     				];
 
     				mounted = true;
@@ -654,28 +663,35 @@ var app = (function () {
     		},
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
-    			if (dirty & /*fonts*/ 1 && t0_value !== (t0_value = /*fontFile*/ ctx[16] + "")) set_data_dev(t0, t0_value);
 
-    			if (dirty & /*config, Object, fonts*/ 3 && input0.value !== /*config*/ ctx[1][/*fontFile*/ ctx[16]].fontname) {
-    				set_input_value(input0, /*config*/ ctx[1][/*fontFile*/ ctx[16]].fontname);
+    			if (dirty & /*config, Object, fonts*/ 3 && input0.value !== /*config*/ ctx[0][/*fontFile*/ ctx[19]].fontname) {
+    				set_input_value(input0, /*config*/ ctx[0][/*fontFile*/ ctx[19]].fontname);
+    			}
+
+    			if (dirty & /*isFontNameValid, config, Object, fonts*/ 3) {
+    				toggle_class(input0, "invalid", !isFontNameValid(/*config*/ ctx[0][/*fontFile*/ ctx[19]].fontname));
     			}
 
     			if (dirty & /*config, Object, fonts*/ 3) {
-    				set_input_value(textarea, /*config*/ ctx[1][/*fontFile*/ ctx[16]].text);
+    				set_input_value(textarea, /*config*/ ctx[0][/*fontFile*/ ctx[19]].text);
+    			}
+
+    			if (dirty & /*isSubsetTextValid, config, Object, fonts*/ 3) {
+    				toggle_class(textarea, "invalid", !isSubsetTextValid(/*config*/ ctx[0][/*fontFile*/ ctx[19]].text));
     			}
     		},
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(h3);
-    			if (detaching) detach_dev(t1);
     			if (detaching) detach_dev(p0);
-    			if (detaching) detach_dev(t3);
+    			if (detaching) detach_dev(t1);
     			if (detaching) detach_dev(p1);
-    			if (detaching) detach_dev(t4);
+    			if (detaching) detach_dev(t2);
     			if (detaching) detach_dev(p2);
-    			if (detaching) detach_dev(t6);
+    			if (detaching) detach_dev(t4);
     			if (detaching) detach_dev(p3);
-    			if (detaching) detach_dev(t7);
+    			if (detaching) detach_dev(t5);
     			if (detaching) detach_dev(p4);
+    			if (detaching) detach_dev(t6);
+    			if (detaching) detach_dev(p5);
     			mounted = false;
     			run_all(dispose);
     		}
@@ -685,21 +701,28 @@ var app = (function () {
     		block,
     		id: create_if_block_2.name,
     		type: "if",
-    		source: "(88:5) {#if fontFile in config}",
+    		source: "(114:6) {#if fontFile in config}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (86:3) {#each Object.keys(fonts) as fontFile}
+    // (110:3) {#each Object.keys(fonts) as fontFile}
     function create_each_block(ctx) {
     	let div;
-    	let t;
-    	let hr;
+    	let fieldset;
+    	let legend;
+    	let b;
+    	let span;
+    	let t1;
+    	let t2_value = /*fontFile*/ ctx[19] + "";
+    	let t2;
+    	let t3;
+    	let t4;
 
     	function select_block_type_1(ctx, dirty) {
-    		if (/*fontFile*/ ctx[16] in /*config*/ ctx[1]) return create_if_block_2;
+    		if (/*fontFile*/ ctx[19] in /*config*/ ctx[0]) return create_if_block_2;
     		return create_else_block;
     	}
 
@@ -709,20 +732,39 @@ var app = (function () {
     	const block = {
     		c: function create() {
     			div = element("div");
+    			fieldset = element("fieldset");
+    			legend = element("legend");
+    			b = element("b");
+    			span = element("span");
+    			span.textContent = "🗛";
+    			t1 = space();
+    			t2 = text(t2_value);
+    			t3 = space();
     			if_block.c();
-    			t = space();
-    			hr = element("hr");
-    			attr_dev(div, "class", "font");
-    			add_location(div, file, 86, 4, 1689);
-    			add_location(hr, file, 98, 4, 2233);
+    			t4 = space();
+    			attr_dev(span, "class", "font-icon svelte-lddxb6");
+    			add_location(span, file, 112, 17, 2312);
+    			add_location(b, file, 112, 14, 2309);
+    			add_location(legend, file, 112, 6, 2301);
+    			add_location(fieldset, file, 111, 5, 2283);
+    			attr_dev(div, "class", "font svelte-lddxb6");
+    			add_location(div, file, 110, 4, 2258);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
-    			if_block.m(div, null);
-    			insert_dev(target, t, anchor);
-    			insert_dev(target, hr, anchor);
+    			append_dev(div, fieldset);
+    			append_dev(fieldset, legend);
+    			append_dev(legend, b);
+    			append_dev(b, span);
+    			append_dev(b, t1);
+    			append_dev(b, t2);
+    			append_dev(fieldset, t3);
+    			if_block.m(fieldset, null);
+    			append_dev(div, t4);
     		},
     		p: function update(ctx, dirty) {
+    			if (dirty & /*fonts*/ 2 && t2_value !== (t2_value = /*fontFile*/ ctx[19] + "")) set_data_dev(t2, t2_value);
+
     			if (current_block_type === (current_block_type = select_block_type_1(ctx)) && if_block) {
     				if_block.p(ctx, dirty);
     			} else {
@@ -731,15 +773,13 @@ var app = (function () {
 
     				if (if_block) {
     					if_block.c();
-    					if_block.m(div, null);
+    					if_block.m(fieldset, null);
     				}
     			}
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(div);
     			if_block.d();
-    			if (detaching) detach_dev(t);
-    			if (detaching) detach_dev(hr);
     		}
     	};
 
@@ -747,14 +787,14 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(86:3) {#each Object.keys(fonts) as fontFile}",
+    		source: "(110:3) {#each Object.keys(fonts) as fontFile}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (111:1) {#if output.length > 0}
+    // (137:1) {#if output.length > 0}
     function create_if_block(ctx) {
     	let div;
     	let p;
@@ -767,13 +807,13 @@ var app = (function () {
     			div = element("div");
     			p = element("p");
     			textarea = element("textarea");
-    			attr_dev(textarea, "class", "output svelte-ubh75f");
+    			attr_dev(textarea, "class", "output svelte-lddxb6");
     			attr_dev(textarea, "rows", "3");
     			attr_dev(textarea, "cols", "45");
-    			add_location(textarea, file, 112, 6, 2593);
-    			add_location(p, file, 112, 3, 2590);
+    			add_location(textarea, file, 138, 6, 3455);
+    			add_location(p, file, 138, 3, 3452);
     			attr_dev(div, "id", "output");
-    			add_location(div, file, 111, 2, 2568);
+    			add_location(div, file, 137, 2, 3430);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -782,7 +822,7 @@ var app = (function () {
     			set_input_value(textarea, /*output*/ ctx[2]);
 
     			if (!mounted) {
-    				dispose = listen_dev(textarea, "input", /*textarea_input_handler_1*/ ctx[12]);
+    				dispose = listen_dev(textarea, "input", /*textarea_input_handler_1*/ ctx[14]);
     				mounted = true;
     			}
     		},
@@ -802,7 +842,7 @@ var app = (function () {
     		block,
     		id: create_if_block.name,
     		type: "if",
-    		source: "(111:1) {#if output.length > 0}",
+    		source: "(137:1) {#if output.length > 0}",
     		ctx
     	});
 
@@ -826,8 +866,8 @@ var app = (function () {
     	let dispose;
 
     	function select_block_type(ctx, dirty) {
-    		if (dirty & /*fonts*/ 1) show_if = null;
-    		if (show_if == null) show_if = !!(Object.keys(/*fonts*/ ctx[0]).length > 0);
+    		if (dirty & /*fonts*/ 2) show_if = null;
+    		if (show_if == null) show_if = !!(Object.keys(/*fonts*/ ctx[1]).length > 0);
     		if (show_if) return create_if_block_1;
     		return create_else_block_1;
     	}
@@ -852,22 +892,24 @@ var app = (function () {
     			input1 = element("input");
     			t4 = space();
     			if (if_block1) if_block1.c();
-    			add_location(h1, file, 82, 1, 1555);
+    			add_location(h1, file, 106, 1, 2124);
     			attr_dev(div0, "id", "fonts");
-    			add_location(div0, file, 83, 1, 1585);
+    			attr_dev(div0, "class", "svelte-lddxb6");
+    			add_location(div0, file, 107, 1, 2154);
     			input0.disabled = /*disabled*/ ctx[3];
     			attr_dev(input0, "type", "button");
     			input0.value = "⚙️ Generate fonts.css";
-    			add_location(input0, file, 106, 3, 2358);
+    			add_location(input0, file, 132, 3, 3220);
     			input1.disabled = /*disabled*/ ctx[3];
     			attr_dev(input1, "type", "button");
     			input1.value = "❌ Remove all";
-    			add_location(input1, file, 107, 3, 2448);
-    			add_location(p, file, 105, 2, 2350);
+    			add_location(input1, file, 133, 3, 3310);
+    			add_location(p, file, 131, 2, 3212);
     			attr_dev(div1, "id", "buttons");
-    			add_location(div1, file, 104, 1, 2328);
-    			attr_dev(main, "class", "svelte-ubh75f");
-    			add_location(main, file, 81, 0, 1546);
+    			attr_dev(div1, "class", "svelte-lddxb6");
+    			add_location(div1, file, 130, 1, 3190);
+    			attr_dev(main, "class", "svelte-lddxb6");
+    			add_location(main, file, 105, 0, 2115);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -889,8 +931,8 @@ var app = (function () {
 
     			if (!mounted) {
     				dispose = [
-    					listen_dev(input0, "click", /*generate*/ ctx[6], false, false, false),
-    					listen_dev(input1, "click", /*clear*/ ctx[7], false, false, false)
+    					listen_dev(input0, "click", /*generate*/ ctx[7], false, false, false),
+    					listen_dev(input1, "click", /*clear*/ ctx[8], false, false, false)
     				];
 
     				mounted = true;
@@ -961,6 +1003,14 @@ var app = (function () {
     	return await res.json();
     }
 
+    function isFontNameValid(fontName) {
+    	return fontName.length > 0 && fontName.length < 32;
+    }
+
+    function isSubsetTextValid(text) {
+    	return text.length > 0;
+    }
+
     function instance($$self, $$props, $$invalidate) {
     	let disabled;
     	let { $$slots: slots = {}, $$scope } = $$props;
@@ -972,19 +1022,19 @@ var app = (function () {
 
     	async function updateFonts() {
     		const res = await apiRequest({ method: "fontsList" });
-    		$$invalidate(0, fonts = res.data.fonts);
+    		$$invalidate(1, fonts = res.data.fonts);
     		console.log(fonts);
     	}
 
     	async function updateConfig() {
     		const res = await apiRequest({ method: "fontsConfig" });
-    		$$invalidate(1, config = res.data.config);
+    		$$invalidate(0, config = res.data.config);
     		console.log(config);
     	}
 
     	async function useFont(fontFile) {
     		$$invalidate(
-    			1,
+    			0,
     			config[fontFile] = {
     				text: "",
     				engine: "fec",
@@ -993,24 +1043,41 @@ var app = (function () {
     			config
     		);
 
-    		$$invalidate(1, config);
+    		$$invalidate(0, config);
     	}
 
     	async function removeFont(fontFile) {
     		if (fontFile in config) delete config[fontFile];
-    		$$invalidate(1, config);
+    		$$invalidate(0, config);
+    	}
+
+    	async function clearFont(fontFile) {
+    		if (fontFile in config) {
+    			$$invalidate(0, config[fontFile].text = "", config);
+    		}
+    	}
+
+    	async function isConfigValid() {
+    		for (const fontFile of Object.keys(config)) {
+    			if (!isFontNameValid(config[fontFile].fontname)) return false;
+    			if (!isSubsetTextValid(config[fontFile].text)) return false;
+    		}
+
+    		return true;
     	}
 
     	async function generate() {
-    		const res = await apiRequest({ method: "generateFonts", config });
+    		if (await isConfigValid()) {
+    			const res = await apiRequest({ method: "generateFonts", config });
 
-    		if (res.ok && res.output) {
-    			$$invalidate(2, output = res.output);
+    			if (res.ok && res.output) {
+    				$$invalidate(2, output = res.output);
+    			}
     		}
     	}
 
     	async function clear() {
-    		$$invalidate(1, config = {});
+    		$$invalidate(0, config = {});
     		$$invalidate(2, output = "");
     	}
 
@@ -1037,16 +1104,17 @@ var app = (function () {
 
     	function input0_input_handler(fontFile) {
     		config[fontFile].fontname = this.value;
-    		$$invalidate(1, config);
+    		$$invalidate(0, config);
     	}
 
     	function textarea_input_handler(fontFile) {
     		config[fontFile].text = this.value;
-    		$$invalidate(1, config);
+    		$$invalidate(0, config);
     	}
 
     	const click_handler = fontFile => removeFont(fontFile);
-    	const click_handler_1 = fontFile => useFont(fontFile);
+    	const click_handler_1 = fontFile => clearFont(fontFile);
+    	const click_handler_2 = fontFile => useFont(fontFile);
 
     	function textarea_input_handler_1() {
     		output = this.value;
@@ -1064,6 +1132,10 @@ var app = (function () {
     		updateConfig,
     		useFont,
     		removeFont,
+    		clearFont,
+    		isFontNameValid,
+    		isSubsetTextValid,
+    		isConfigValid,
     		generate,
     		clear,
     		disabled
@@ -1071,8 +1143,8 @@ var app = (function () {
 
     	$$self.$inject_state = $$props => {
     		if ('sse' in $$props) sse = $$props.sse;
-    		if ('fonts' in $$props) $$invalidate(0, fonts = $$props.fonts);
-    		if ('config' in $$props) $$invalidate(1, config = $$props.config);
+    		if ('fonts' in $$props) $$invalidate(1, fonts = $$props.fonts);
+    		if ('config' in $$props) $$invalidate(0, config = $$props.config);
     		if ('output' in $$props) $$invalidate(2, output = $$props.output);
     		if ('disabled' in $$props) $$invalidate(3, disabled = $$props.disabled);
     	};
@@ -1082,24 +1154,26 @@ var app = (function () {
     	}
 
     	$$self.$$.update = () => {
-    		if ($$self.$$.dirty & /*fonts*/ 1) {
-    			$$invalidate(3, disabled = Object.keys(fonts).length === 0);
+    		if ($$self.$$.dirty & /*config*/ 1) {
+    			$$invalidate(3, disabled = Object.keys(config).length === 0);
     		}
     	};
 
     	return [
-    		fonts,
     		config,
+    		fonts,
     		output,
     		disabled,
     		useFont,
     		removeFont,
+    		clearFont,
     		generate,
     		clear,
     		input0_input_handler,
     		textarea_input_handler,
     		click_handler,
     		click_handler_1,
+    		click_handler_2,
     		textarea_input_handler_1
     	];
     }
