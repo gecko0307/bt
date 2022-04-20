@@ -1,1 +1,52 @@
-main.svelte-ii7s09{padding:10px;margin:0}input[type=text].svelte-ii7s09{height:30px;width:380px;padding:0px 5px;margin:5px 0px;background-color:#ffffff;background-image:none;border:1px solid #cccccc;border-radius:4px;font-family:sans-serif;font-size:15px}input[type=text].svelte-ii7s09:focus{outline:none;border-color:#379683}textarea.svelte-ii7s09{width:380px;padding:5px 5px;margin:5px 0px;background-color:#ffffff;background-image:none;border:1px solid #cccccc;border-radius:4px;font-family:sans-serif;font-size:15px}textarea.svelte-ii7s09:focus{outline:none;border-color:#379683}input[type=button].svelte-ii7s09{width:auto;min-width:40px;height:35px;padding:5px 5px;background-color:#fff;border:1px solid #379683;border-radius:4px;font-family:sans-serif;font-size:15px}input[type=button].svelte-ii7s09:hover{background-color:#edf5e1;cursor:pointer}input[type=button].svelte-ii7s09:disabled{border:1px solid #dddddd;pointer-events:none}.output.svelte-ii7s09{width:90%;height:100px}
+main.svelte-ubh75f{padding:10px;margin:0}.output.svelte-ubh75f{width:90%;height:100px}input[type=text] {
+	height: 30px;
+	width: 380px;
+	padding: 0px 5px;
+	margin: 5px 0px;
+	background-color: #ffffff;
+	background-image: none;
+	border: 1px solid #cccccc;
+	border-radius: 4px;
+	font-family: sans-serif;
+	font-size: 15px;
+}
+input[type=text]:focus {
+	outline: none;
+	border-color: #379683;
+}
+
+textarea {
+	width: 380px;
+	padding: 5px 5px;
+	margin: 5px 0px;
+	background-color: #ffffff;
+	background-image: none;
+	border: 1px solid #cccccc;
+	border-radius: 4px;
+	font-family: sans-serif;
+	font-size: 15px;
+}
+textarea:focus {
+	outline: none;
+	border-color: #379683;
+}
+
+input[type=button] {
+	width: auto;
+	min-width: 40px;
+	height: 35px;
+	padding: 5px 5px;
+	background-color: #fff;
+	border: 1px solid #379683;
+	border-radius: 4px;
+	font-family: sans-serif;
+	font-size: 15px;
+}
+input[type=button]:hover {
+	background-color: #edf5e1;
+	cursor: pointer;
+}
+input[type=button]:disabled {
+	border: 1px solid #dddddd;
+	pointer-events: none;
+}

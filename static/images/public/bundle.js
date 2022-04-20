@@ -379,18 +379,17 @@ var app = (function () {
     			t2 = space();
     			div1 = element("div");
     			input = element("input");
-    			add_location(h1, file, 21, 1, 323);
+    			add_location(h1, file, 22, 1, 350);
     			attr_dev(div0, "id", "images");
-    			add_location(div0, file, 22, 1, 350);
+    			add_location(div0, file, 23, 1, 377);
     			input.disabled = /*disabled*/ ctx[0];
     			attr_dev(input, "type", "button");
     			input.value = "⚙️ Optimize";
-    			attr_dev(input, "class", "svelte-45xf1h");
-    			add_location(input, file, 25, 2, 401);
+    			add_location(input, file, 26, 2, 428);
     			attr_dev(div1, "id", "buttons");
-    			add_location(div1, file, 24, 1, 379);
-    			attr_dev(main, "class", "svelte-45xf1h");
-    			add_location(main, file, 20, 0, 314);
+    			add_location(div1, file, 25, 1, 406);
+    			attr_dev(main, "class", "svelte-1afvaiy");
+    			add_location(main, file, 21, 0, 341);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");

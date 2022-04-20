@@ -402,7 +402,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (82:2) {:else}
+    // (83:2) {:else}
     function create_else_block_1(ctx) {
     	let p;
 
@@ -410,7 +410,7 @@ var app = (function () {
     		c: function create() {
     			p = element("p");
     			p.textContent = "No fonts found in \"Fonts\" directory";
-    			add_location(p, file, 82, 3, 1856);
+    			add_location(p, file, 83, 3, 1883);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -425,14 +425,14 @@ var app = (function () {
     		block,
     		id: create_else_block_1.name,
     		type: "else",
-    		source: "(82:2) {:else}",
+    		source: "(83:2) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (66:2) {#if Object.keys(fonts).length > 0}
+    // (67:2) {#if Object.keys(fonts).length > 0}
     function create_if_block_1(ctx) {
     	let each_1_anchor;
     	let each_value = Object.keys(/*fonts*/ ctx[0]);
@@ -493,14 +493,14 @@ var app = (function () {
     		block,
     		id: create_if_block_1.name,
     		type: "if",
-    		source: "(66:2) {#if Object.keys(fonts).length > 0}",
+    		source: "(67:2) {#if Object.keys(fonts).length > 0}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (76:5) {:else}
+    // (77:5) {:else}
     function create_else_block(ctx) {
     	let p;
     	let input;
@@ -518,9 +518,8 @@ var app = (function () {
     			input = element("input");
     			attr_dev(input, "type", "button");
     			input.value = input_value_value = "➕ " + /*fontFile*/ ctx[13];
-    			attr_dev(input, "class", "svelte-ii7s09");
-    			add_location(input, file, 76, 9, 1710);
-    			add_location(p, file, 76, 6, 1707);
+    			add_location(input, file, 77, 9, 1737);
+    			add_location(p, file, 77, 6, 1734);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -549,14 +548,14 @@ var app = (function () {
     		block,
     		id: create_else_block.name,
     		type: "else",
-    		source: "(76:5) {:else}",
+    		source: "(77:5) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (69:5) {#if fontFile in config}
+    // (70:5) {#if fontFile in config}
     function create_if_block_2(ctx) {
     	let h3;
     	let t0_value = /*fontFile*/ ctx[13] + "";
@@ -608,24 +607,21 @@ var app = (function () {
     			t7 = space();
     			p4 = element("p");
     			input1 = element("input");
-    			add_location(h3, file, 69, 6, 1337);
-    			add_location(p0, file, 70, 6, 1364);
+    			add_location(h3, file, 70, 6, 1364);
+    			add_location(p0, file, 71, 6, 1391);
     			attr_dev(input0, "type", "text");
     			attr_dev(input0, "size", "45");
-    			attr_dev(input0, "class", "svelte-ii7s09");
-    			add_location(input0, file, 71, 9, 1398);
-    			add_location(p1, file, 71, 6, 1395);
-    			add_location(p2, file, 72, 6, 1478);
+    			add_location(input0, file, 72, 9, 1425);
+    			add_location(p1, file, 72, 6, 1422);
+    			add_location(p2, file, 73, 6, 1505);
     			attr_dev(textarea, "rows", "3");
     			attr_dev(textarea, "cols", "45");
-    			attr_dev(textarea, "class", "svelte-ii7s09");
-    			add_location(textarea, file, 73, 9, 1512);
-    			add_location(p3, file, 73, 6, 1509);
+    			add_location(textarea, file, 74, 9, 1539);
+    			add_location(p3, file, 74, 6, 1536);
     			attr_dev(input1, "type", "button");
     			input1.value = "❌ Remove";
-    			attr_dev(input1, "class", "svelte-ii7s09");
-    			add_location(input1, file, 74, 9, 1602);
-    			add_location(p4, file, 74, 6, 1599);
+    			add_location(input1, file, 75, 9, 1629);
+    			add_location(p4, file, 75, 6, 1626);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, h3, anchor);
@@ -689,14 +685,14 @@ var app = (function () {
     		block,
     		id: create_if_block_2.name,
     		type: "if",
-    		source: "(69:5) {#if fontFile in config}",
+    		source: "(70:5) {#if fontFile in config}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (67:3) {#each Object.keys(fonts) as fontFile}
+    // (68:3) {#each Object.keys(fonts) as fontFile}
     function create_each_block(ctx) {
     	let div;
     	let t;
@@ -717,8 +713,8 @@ var app = (function () {
     			t = space();
     			hr = element("hr");
     			attr_dev(div, "class", "font");
-    			add_location(div, file, 67, 4, 1280);
-    			add_location(hr, file, 79, 4, 1824);
+    			add_location(div, file, 68, 4, 1307);
+    			add_location(hr, file, 80, 4, 1851);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -751,14 +747,14 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(67:3) {#each Object.keys(fonts) as fontFile}",
+    		source: "(68:3) {#each Object.keys(fonts) as fontFile}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (92:1) {#if output.length > 0}
+    // (93:1) {#if output.length > 0}
     function create_if_block(ctx) {
     	let div;
     	let p;
@@ -771,13 +767,13 @@ var app = (function () {
     			div = element("div");
     			p = element("p");
     			textarea = element("textarea");
-    			attr_dev(textarea, "class", "output svelte-ii7s09");
+    			attr_dev(textarea, "class", "output svelte-ubh75f");
     			attr_dev(textarea, "rows", "3");
     			attr_dev(textarea, "cols", "45");
-    			add_location(textarea, file, 93, 6, 2184);
-    			add_location(p, file, 93, 3, 2181);
+    			add_location(textarea, file, 94, 6, 2211);
+    			add_location(p, file, 94, 3, 2208);
     			attr_dev(div, "id", "output");
-    			add_location(div, file, 92, 2, 2159);
+    			add_location(div, file, 93, 2, 2186);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -806,7 +802,7 @@ var app = (function () {
     		block,
     		id: create_if_block.name,
     		type: "if",
-    		source: "(92:1) {#if output.length > 0}",
+    		source: "(93:1) {#if output.length > 0}",
     		ctx
     	});
 
@@ -856,24 +852,22 @@ var app = (function () {
     			input1 = element("input");
     			t4 = space();
     			if (if_block1) if_block1.c();
-    			add_location(h1, file, 63, 1, 1146);
+    			add_location(h1, file, 64, 1, 1173);
     			attr_dev(div0, "id", "fonts");
-    			add_location(div0, file, 64, 1, 1176);
+    			add_location(div0, file, 65, 1, 1203);
     			input0.disabled = /*disabled*/ ctx[3];
     			attr_dev(input0, "type", "button");
     			input0.value = "⚙️ Generate fonts.css";
-    			attr_dev(input0, "class", "svelte-ii7s09");
-    			add_location(input0, file, 87, 3, 1949);
+    			add_location(input0, file, 88, 3, 1976);
     			input1.disabled = /*disabled*/ ctx[3];
     			attr_dev(input1, "type", "button");
     			input1.value = "❌ Remove all";
-    			attr_dev(input1, "class", "svelte-ii7s09");
-    			add_location(input1, file, 88, 3, 2039);
-    			add_location(p, file, 86, 2, 1941);
+    			add_location(input1, file, 89, 3, 2066);
+    			add_location(p, file, 87, 2, 1968);
     			attr_dev(div1, "id", "buttons");
-    			add_location(div1, file, 85, 1, 1919);
-    			attr_dev(main, "class", "svelte-ii7s09");
-    			add_location(main, file, 62, 0, 1137);
+    			add_location(div1, file, 86, 1, 1946);
+    			attr_dev(main, "class", "svelte-ubh75f");
+    			add_location(main, file, 63, 0, 1164);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
