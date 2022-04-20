@@ -3,6 +3,7 @@
 	import "style/core.css";
 	
 	let images = [];
+	let config = {};
 
 	$: disabled = (images.length === 0);
 	
@@ -23,6 +24,12 @@
 		});
 		images = res.data.images;
 		console.log(images);
+
+		res = await apiRequest({
+			method: "imagesConfig"
+		});
+		config = res.data.config;
+		console.log(config);
 	});
 </script>
 

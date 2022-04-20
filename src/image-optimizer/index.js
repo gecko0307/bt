@@ -14,7 +14,10 @@ const imagesOutputPath = path.resolve("./HTML/assets");
 
 async function init() {
     if (!(await fs.pathExists(imagesConfigPath))){
-        await fs.writeJSON(imagesConfigPath, {});
+        await fs.writeJSON(imagesConfigPath, {
+            images: {},
+            ultimate: true
+        });
     }
 }
 
