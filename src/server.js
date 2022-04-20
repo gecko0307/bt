@@ -87,15 +87,15 @@ fastify.register(fastifyStatic, {
 });
 
 fastify.register(fastifyStatic, {
-    root: path.join(__dirname, "..", "static", "mobile"),
-    prefix: "/mobile",
+    root: path.join(__dirname, "..", "static", "images", "public"),
+    prefix: "/tuner",
     redirect: true,
     decorateReply: false
 });
 
 fastify.register(fastifyStatic, {
-    root: path.join(cwd, "capture"),
-    prefix: "/capture",
+    root: path.join(__dirname, "..", "static", "mobile"),
+    prefix: "/mobile",
     redirect: true,
     decorateReply: false
 });

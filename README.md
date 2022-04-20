@@ -50,13 +50,14 @@ To capture video (for GreenSock template only; dev server should be running):
 You can also add your own templates to `templates` directory and use them.
 
 ## Server tools (WIP)
-Development server runs at `http://localhost:8000/`.
-
-Additional utility server runs at `http://localhost:9000/`, providing helper tools and toolchain API, but it is not meant to be accessed directly. Instead, proxy routes from port 8000 should be used to access the tools:
-* `http://localhost:8000/preview` - preview page (WIP)
+Development server runs at `http://localhost:8000/` and serves project's `HTML` directory. Additional services are available at the following routes:
+* `http://localhost:8000/preview` - developer's preview page (WIP)
 * `http://localhost:8000/fonts` - web font generator
 * `http://localhost:8000/images` or `http://localhost:8000/tuner` - image optimizer (WIP)
-* `http://localhost:8000/mobile` - mobile device emulator to work with Device Orientation API on desktop. This functionality will be reimplemented as a part of `/preview` page in future.
+* `http://localhost:8000/mobile` - mobile device emulator to work with Device Orientation API on desktop. This functionality will be reimplemented as a part of `/preview` page in future
+* `http://localhost:8000/api` - toolchain API (see [src/api.js](https://github.com/gecko0307/bt/blob/master/src/api.js) for details)
+* `http://localhost:8000/sse` - server-side events (SSE) interface. Currently provides only file watcher event system which can be used like this: `http://localhost:8000/sse?events=watcher`. These events are emitted when `Fonts` or `Images` directories change
+* `http://localhost:8000/file?path=your/path` - retrieves any file relative to project root (a directory where dev server runs).
 
 ## Copyright and license
 Copyright (c) 2020-2022 Timur Gafarov. Distributed under the MIT license.
