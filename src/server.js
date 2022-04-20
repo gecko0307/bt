@@ -126,6 +126,5 @@ async function listen(options) {
 }
 
 module.exports = {
-    //routes,
     listen
 };
