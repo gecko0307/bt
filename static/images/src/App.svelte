@@ -78,9 +78,13 @@
 		position: relative;
 		width: 50px;
 		height: 50px;
-		border: 1px solid #cccccc;
+		border: 1px solid #379683;
 		border-radius: 4px;
 		overflow: hidden;
+	}
+	.thumb:hover {
+		background-color: #edf5e1;
+		cursor: pointer;
 	}
 
 	.thumb_image {
