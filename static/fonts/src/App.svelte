@@ -2,6 +2,8 @@
 	import { onMount } from "svelte";
 	import "style/core.css";
 	
+	let sse;
+
 	let fonts = {};
 	let config = {};
 
@@ -15,6 +17,22 @@
 			body: JSON.stringify(data)
 		});
 		return await res.json();
+	}
+
+	async function updateFonts() {
+		const res = await apiRequest({
+			method: "fontsList"
+		});
+		fonts = res.data.fonts;
+		console.log(fonts);
+	}
+
+	async function updateConfig() {
+		const res = await apiRequest({
+			method: "fontsConfig"
+		});
+		config = res.data.config;
+		console.log(config);
 	}
 
 	async function useFont(fontFile) {
@@ -47,17 +65,17 @@
 	}
 	
 	onMount(async () => {
-		let res = await apiRequest({
-			method: "fontsList"
-		});
-		fonts = res.data.fonts;
-		console.log(fonts);
+		await updateFonts();
+		await updateConfig();
 
-		res = await apiRequest({
-			method: "fontsConfig"
-		});
-		config = res.data.config;
-		console.log(config);
+		sse = new EventSource("/sse?events=watcher");
+		sse.onmessage = async function(event) {
+			const data = JSON.parse(event.data);
+			if (data.subsystem === "fonts") {
+				console.log(data);
+				await updateFonts();
+			}
+		};
 	});
 </script>
 

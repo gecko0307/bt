@@ -12,6 +12,34 @@ const imagesPath = path.resolve("./Images");
 const imagesConfigPath = path.resolve("./.data/tuner.config.json");
 const imagesOutputPath = path.resolve("./HTML/assets");
 
+const imageDefaultOptions = {
+    quality: 100,
+    scale: 1,
+    original: {
+        weight: 0,
+        hash: ""
+    },
+    compressed: {
+        weight: 0,
+        unzipped: 0
+    },
+    ultimated: true,
+    options: {
+        outputFormat: "",
+        compress: {
+            paletteDithering: "wuquant",
+            imageDithering: "atkinson",
+            lossless: false,
+            grayscale: false,
+            progressive: false,
+            pretty: false,
+            inline: false
+        },
+        outputWidth: 0,
+        outputHeight: 0
+    }
+};
+
 async function init() {
     if (!(await fs.pathExists(imagesConfigPath))){
         await fs.writeJSON(imagesConfigPath, {
@@ -19,6 +47,10 @@ async function init() {
             ultimate: true
         });
     }
+}
+
+async function update() {
+    //
 }
 
 async function imagesList(req = {}) {
@@ -66,6 +98,7 @@ async function optimizeImages(req) {
 
 module.exports = {
     init,
+    update,
     imagesList,
     imagesConfig,
     optimizeImages

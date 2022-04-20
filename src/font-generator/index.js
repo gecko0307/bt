@@ -48,6 +48,10 @@ async function init() {
     await fs.writeJSON(fontsListPath, fonts);
 }
 
+async function update() {
+    await init();
+}
+
 async function fontsList(req = {}) {
     if (await fs.pathExists(fontsListPath)) {
         const fonts = requireUncached(fontsListPath);
@@ -119,6 +123,7 @@ async function generateFonts(req) {
 
 module.exports = {
     init,
+    update,
     fontsList,
     fontsConfig,
     generateFonts

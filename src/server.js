@@ -1,5 +1,6 @@
 const fs = require("fs-extra"); 
 const path = require("path");
+const { EventEmitter, on } = require("events");
 const Fastify = require("fastify");
 const fastifyStatic = require("fastify-static");
 const chokidar = require("chokidar");
@@ -8,7 +9,19 @@ const api = require("./api");
 
 const cwd = process.cwd();
 
+const eventEmitter = new EventEmitter();
+
 const fastify = Fastify({});
+fastify.register(require("fastify-sse-v2"));
+
+fastify.get("/favicon.ico", function(request, reply) {
+    return reply.sendFile(path.join(__dirname, "..", "static", "server_data", "favicon.ico"));
+});
+
+// Banner project's HTML directory
+fastify.register(fastifyStatic, {
+    root: path.join(cwd, "HTML")
+});
 
 // Request any file relative to banner project root
 fastify.route({ method: "GET", url: "/file",
@@ -31,10 +44,25 @@ fastify.route({ method: "GET", url: "/file",
     }
 });
 
+// API handler
 fastify.post("/api", api.handleRequest);
 
-fastify.register(fastifyStatic, {
-    root: path.join(cwd, "HTML")
+// SSE interface for server events
+// Example: /sse?events=watcher
+fastify.route({ method: "GET", url: "/sse",
+    schema: {
+        querystring: {
+            events: { type: "string" }
+        }
+    },
+    handler: async function(request, reply) {
+        const eventName = request.query.events;
+        reply.sse((async function * source() {
+            for await (const event of on(eventEmitter, eventName)) {
+                yield { event: event.name, data: JSON.stringify(event[0])};
+            }
+        })());
+    }
 });
 
 fastify.register(fastifyStatic, {
@@ -66,43 +94,38 @@ fastify.register(fastifyStatic, {
 });
 
 fastify.register(fastifyStatic, {
-    root: path.join(__dirname, "..", "static", "server_data"),
-    prefix: "/server_data",
-    redirect: true,
-    decorateReply: false
-});
-
-fastify.register(fastifyStatic, {
     root: path.join(cwd, "capture"),
     prefix: "/capture",
     redirect: true,
     decorateReply: false
 });
 
-const routes = {
-    "favicon": "http://localhost:9000/server_data/favicon.ico",
-    "file": "http://localhost:9000/file",
-    "api": "http://localhost:9000/api",
-    "preview": "http://localhost:9000/preview",
-    "fonts": "http://localhost:9000/fonts",
-    "images": "http://localhost:9000/images",
-    "mobile": "http://localhost:9000/mobile?url=/index.html",
-    "capture": "http://localhost:9000/capture"
-};
+//
 
-const watcher = chokidar.watch(path.join(cwd, "Fonts"));
-watcher.on("all", (event, path) => {
+const watcherFonts = chokidar.watch(path.join(cwd, "Fonts"));
+watcherFonts.on("all", async (event, path) => {
     if (["add", "change", "unlink"].includes(event)) {
-        api.update("fonts", event, path);
+        await api.update("fonts", event, path);
+        eventEmitter.emit("watcher", { subsystem: "fonts", event: event, path: path });
     }
 });
 
-async function listen() {
+const watcherImages = chokidar.watch(path.join(cwd, "Images"));
+watcherImages.on("all", async (event, path) => {
+    if (["add", "change", "unlink"].includes(event)) {
+        await api.update("images", event, path);
+        eventEmitter.emit("watcher", { subsystem: "images", event: event, path: path });
+    }
+});
+
+async function listen(options) {
     api.init();
-    await fastify.listen(9000);
+    await fastify.listen(8000);
+    console.log("Listening on http://localhost:8000/");
+    if (options.onListen) options.onListen(fastify);
 }
 
 module.exports = {
-    routes,
+    //routes,
     listen
 };

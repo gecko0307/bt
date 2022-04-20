@@ -30,7 +30,10 @@ async function init() {
 
 async function update(subsystem, event, path) {
     if (subsystem === "fonts") {
-        fontGenerator.init();
+        await fontGenerator.update();
+    }
+    else if (subsystem === "images") {
+        await imageOptimizer.update();
     }
 }
 

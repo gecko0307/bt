@@ -1,6 +1,8 @@
 <script>
 	import { onMount } from "svelte";
 	import "style/core.css";
+
+	let sse;
 	
 	let images = [];
 	let config = {};
@@ -14,22 +16,45 @@
 		});
 		return await res.json();
 	}
-	
-	function optimize() {
-	}
-	
-	onMount(async () => {
-		let res = await apiRequest({
+
+	async function updateImages() {
+		const res = await apiRequest({
 			method: "imagesList"
 		});
 		images = res.data.images;
 		console.log(images);
+	}
 
-		res = await apiRequest({
+	async function updateConfig() {
+		const res = await apiRequest({
 			method: "imagesConfig"
 		});
 		config = res.data.config;
 		console.log(config);
+	}
+	
+	async function optimize() {
+		const res = await apiRequest({
+			method: "optimizeImages",
+			config: config
+		});
+		if (res.ok && res.output) {
+			//
+		}
+	}
+	
+	onMount(async () => {
+		await updateImages();
+		await updateConfig();
+
+		sse = new EventSource("/sse?events=watcher");
+		sse.onmessage = async function(event) {
+			const data = JSON.parse(event.data);
+			if (data.subsystem === "images") {
+				console.log(data);
+				await updateImages();
+			}
+		};
 	});
 </script>
 

@@ -401,11 +401,11 @@ var app = (function () {
 
     function get_each_context(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[3] = list[i];
+    	child_ctx[7] = list[i];
     	return child_ctx;
     }
 
-    // (52:2) {:else}
+    // (77:2) {:else}
     function create_else_block(ctx) {
     	let p;
 
@@ -413,7 +413,7 @@ var app = (function () {
     		c: function create() {
     			p = element("p");
     			p.textContent = "No images found in \"Images\" directory";
-    			add_location(p, file, 52, 3, 1095);
+    			add_location(p, file, 77, 3, 1620);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -428,14 +428,14 @@ var app = (function () {
     		block,
     		id: create_else_block.name,
     		type: "else",
-    		source: "(52:2) {:else}",
+    		source: "(77:2) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (39:2) {#if images.length > 0}
+    // (64:2) {#if images.length > 0}
     function create_if_block(ctx) {
     	let each_1_anchor;
     	let each_value = /*images*/ ctx[0];
@@ -496,20 +496,20 @@ var app = (function () {
     		block,
     		id: create_if_block.name,
     		type: "if",
-    		source: "(39:2) {#if images.length > 0}",
+    		source: "(64:2) {#if images.length > 0}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (40:3) {#each images as imageFile}
+    // (65:3) {#each images as imageFile}
     function create_each_block(ctx) {
     	let div1;
     	let fieldset;
     	let legend;
     	let b;
-    	let t0_value = /*imageFile*/ ctx[3] + "";
+    	let t0_value = /*imageFile*/ ctx[7] + "";
     	let t0;
     	let t1;
     	let div0;
@@ -532,21 +532,21 @@ var app = (function () {
     			a = element("a");
     			img = element("img");
     			t2 = space();
-    			add_location(b, file, 42, 14, 802);
-    			add_location(legend, file, 42, 6, 794);
+    			add_location(b, file, 67, 14, 1327);
+    			add_location(legend, file, 67, 6, 1319);
     			attr_dev(img, "class", "thumb_image svelte-as12gw");
-    			if (!src_url_equal(img.src, img_src_value = "/file?path=Images/" + /*imageFile*/ ctx[3])) attr_dev(img, "src", img_src_value);
-    			attr_dev(img, "alt", img_alt_value = /*imageFile*/ ctx[3]);
-    			add_location(img, file, 45, 8, 931);
-    			attr_dev(a, "href", a_href_value = "/file?path=Images/" + /*imageFile*/ ctx[3]);
+    			if (!src_url_equal(img.src, img_src_value = "/file?path=Images/" + /*imageFile*/ ctx[7])) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", img_alt_value = /*imageFile*/ ctx[7]);
+    			add_location(img, file, 70, 8, 1456);
+    			attr_dev(a, "href", a_href_value = "/file?path=Images/" + /*imageFile*/ ctx[7]);
     			attr_dev(a, "target", "_blank");
-    			add_location(a, file, 44, 7, 865);
+    			add_location(a, file, 69, 7, 1390);
     			attr_dev(div0, "class", "thumb svelte-as12gw");
-    			add_location(div0, file, 43, 6, 837);
+    			add_location(div0, file, 68, 6, 1362);
     			attr_dev(fieldset, "class", "svelte-as12gw");
-    			add_location(fieldset, file, 41, 5, 776);
+    			add_location(fieldset, file, 66, 5, 1301);
     			attr_dev(div1, "class", "image svelte-as12gw");
-    			add_location(div1, file, 40, 4, 750);
+    			add_location(div1, file, 65, 4, 1275);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div1, anchor);
@@ -561,17 +561,17 @@ var app = (function () {
     			append_dev(div1, t2);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*images*/ 1 && t0_value !== (t0_value = /*imageFile*/ ctx[3] + "")) set_data_dev(t0, t0_value);
+    			if (dirty & /*images*/ 1 && t0_value !== (t0_value = /*imageFile*/ ctx[7] + "")) set_data_dev(t0, t0_value);
 
-    			if (dirty & /*images*/ 1 && !src_url_equal(img.src, img_src_value = "/file?path=Images/" + /*imageFile*/ ctx[3])) {
+    			if (dirty & /*images*/ 1 && !src_url_equal(img.src, img_src_value = "/file?path=Images/" + /*imageFile*/ ctx[7])) {
     				attr_dev(img, "src", img_src_value);
     			}
 
-    			if (dirty & /*images*/ 1 && img_alt_value !== (img_alt_value = /*imageFile*/ ctx[3])) {
+    			if (dirty & /*images*/ 1 && img_alt_value !== (img_alt_value = /*imageFile*/ ctx[7])) {
     				attr_dev(img, "alt", img_alt_value);
     			}
 
-    			if (dirty & /*images*/ 1 && a_href_value !== (a_href_value = "/file?path=Images/" + /*imageFile*/ ctx[3])) {
+    			if (dirty & /*images*/ 1 && a_href_value !== (a_href_value = "/file?path=Images/" + /*imageFile*/ ctx[7])) {
     				attr_dev(a, "href", a_href_value);
     			}
     		},
@@ -584,7 +584,7 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(40:3) {#each images as imageFile}",
+    		source: "(65:3) {#each images as imageFile}",
     		ctx
     	});
 
@@ -621,18 +621,18 @@ var app = (function () {
     			t2 = space();
     			div1 = element("div");
     			input = element("input");
-    			add_location(h1, file, 36, 1, 641);
+    			add_location(h1, file, 61, 1, 1166);
     			attr_dev(div0, "id", "images");
     			attr_dev(div0, "class", "svelte-as12gw");
-    			add_location(div0, file, 37, 1, 668);
+    			add_location(div0, file, 62, 1, 1193);
     			input.disabled = /*disabled*/ ctx[1];
     			attr_dev(input, "type", "button");
     			input.value = "⚙️ Optimize";
-    			add_location(input, file, 56, 2, 1182);
+    			add_location(input, file, 81, 2, 1707);
     			attr_dev(div1, "id", "buttons");
-    			add_location(div1, file, 55, 1, 1160);
+    			add_location(div1, file, 80, 1, 1685);
     			attr_dev(main, "class", "svelte-as12gw");
-    			add_location(main, file, 35, 0, 632);
+    			add_location(main, file, 60, 0, 1157);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -648,7 +648,7 @@ var app = (function () {
     			append_dev(div1, input);
 
     			if (!mounted) {
-    				dispose = listen_dev(input, "click", optimize, false, false, false);
+    				dispose = listen_dev(input, "click", /*optimize*/ ctx[2], false, false, false);
     				mounted = true;
     			}
     		},
@@ -699,24 +699,45 @@ var app = (function () {
     	return await res.json();
     }
 
-    function optimize() {
-    	
-    }
-
     function instance($$self, $$props, $$invalidate) {
     	let disabled;
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('App', slots, []);
+    	let sse;
     	let images = [];
     	let config = {};
 
-    	onMount(async () => {
-    		let res = await apiRequest({ method: "imagesList" });
+    	async function updateImages() {
+    		const res = await apiRequest({ method: "imagesList" });
     		$$invalidate(0, images = res.data.images);
     		console.log(images);
-    		res = await apiRequest({ method: "imagesConfig" });
+    	}
+
+    	async function updateConfig() {
+    		const res = await apiRequest({ method: "imagesConfig" });
     		config = res.data.config;
     		console.log(config);
+    	}
+
+    	async function optimize() {
+    		const res = await apiRequest({ method: "optimizeImages", config });
+
+    		if (res.ok && res.output) ; //
+    	}
+
+    	onMount(async () => {
+    		await updateImages();
+    		await updateConfig();
+    		sse = new EventSource("/sse?events=watcher");
+
+    		sse.onmessage = async function (event) {
+    			const data = JSON.parse(event.data);
+
+    			if (data.subsystem === "images") {
+    				console.log(data);
+    				await updateImages();
+    			}
+    		};
     	});
 
     	const writable_props = [];
@@ -727,14 +748,18 @@ var app = (function () {
 
     	$$self.$capture_state = () => ({
     		onMount,
+    		sse,
     		images,
     		config,
     		apiRequest,
+    		updateImages,
+    		updateConfig,
     		optimize,
     		disabled
     	});
 
     	$$self.$inject_state = $$props => {
+    		if ('sse' in $$props) sse = $$props.sse;
     		if ('images' in $$props) $$invalidate(0, images = $$props.images);
     		if ('config' in $$props) config = $$props.config;
     		if ('disabled' in $$props) $$invalidate(1, disabled = $$props.disabled);
@@ -750,7 +775,7 @@ var app = (function () {
     		}
     	};
 
-    	return [images, disabled];
+    	return [images, disabled, optimize];
     }
 
     class App extends SvelteComponentDev {
