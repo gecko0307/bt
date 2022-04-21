@@ -132,6 +132,7 @@ async function imagesConfig(req = {}) {
 }
 
 const imageCompressors = {
+    "png": require("./compressors/png"),
     "jpg": require("./compressors/jpg"),
     "webp": require("./compressors/webp"),
     "svg": require("./compressors/svg")
@@ -139,9 +140,9 @@ const imageCompressors = {
 
 const converters = {
 	"png": {
-		//"png": imageCompressors["png"], // png -> png
+		"png": imageCompressors["png"], // png -> png
 		//"jpg": require("./png2jpeg"), // png -> jpg
-		//"svg": require("./smartsvg"), // png -> svg
+		//"svg": require("./png2svg"), // png -> svg
 		"webp": imageCompressors["webp"] // png -> webp
 	},
 
@@ -162,15 +163,19 @@ const converters = {
 	}
 };
 
+async function fallbackCompressor(inputStream, options) {
+    return inputStream;
+}
+
 function imageCompressorFunction(inputFormat, outputFormat) {
     if (inputFormat in converters) {
         const inpConverter = converters[inputFormat];
         if (outputFormat in inpConverter) {
             return inpConverter[outputFormat];
         }
-        else return undefined;
+        else return fallbackCompressor;
     }
-    else return undefined;
+    else return fallbackCompressor;
 }
 
 async function compress(options) {
@@ -204,17 +209,12 @@ async function optimizeImages(req) {
         const outputPath = path.join(imagesOutputPath, imageFile.split(".")[0] + "." + outputFormat);
         if (await fs.pathExists(inputPath)) {
             const compressor = imageCompressorFunction(inputFormat, outputFormat);
-            if (compressor) {
-                compressOptionsArr.push({
-                    inputPath: inputPath,
-                    outputPath: outputPath,
-                    imageOptions: imageOptions,
-                    compressor: compressor
-                });
-            }
-            else {
-                // TODO: error
-            }
+            compressOptionsArr.push({
+                inputPath: inputPath,
+                outputPath: outputPath,
+                imageOptions: imageOptions,
+                compressor: compressor
+            });
         }
         else {
             // TODO: error

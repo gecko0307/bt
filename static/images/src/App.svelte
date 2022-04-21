@@ -9,10 +9,6 @@
 	let config = {};
 
 	$: disabled = (images.length === 0);
-
-	function ext(filename) {
-		return filename.substring(filename.lastIndexOf(".") + 1);
-	}
 	
 	async function apiRequest(data) {
 		const res = await fetch("/api", {

@@ -1718,7 +1718,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (80:2) {:else}
+    // (76:2) {:else}
     function create_else_block(ctx) {
     	let p;
 
@@ -1726,7 +1726,7 @@ var app = (function () {
     		c: function create() {
     			p = element("p");
     			p.textContent = "No images found in \"Images\" directory";
-    			add_location(p, file, 80, 3, 1679);
+    			add_location(p, file, 76, 3, 1585);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -1743,14 +1743,14 @@ var app = (function () {
     		block,
     		id: create_else_block.name,
     		type: "else",
-    		source: "(80:2) {:else}",
+    		source: "(76:2) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (69:2) {#if images.length > 0}
+    // (65:2) {#if images.length > 0}
     function create_if_block(ctx) {
     	let each_1_anchor;
     	let current;
@@ -1839,14 +1839,14 @@ var app = (function () {
     		block,
     		id: create_if_block.name,
     		type: "if",
-    		source: "(69:2) {#if images.length > 0}",
+    		source: "(65:2) {#if images.length > 0}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (71:4) {#if imageFile in config}
+    // (67:4) {#if imageFile in config}
     function create_if_block_1(ctx) {
     	let div;
     	let fieldset;
@@ -1877,11 +1877,11 @@ var app = (function () {
     			t1 = space();
     			create_component(imagesettings.$$.fragment);
     			t2 = space();
-    			add_location(b, file, 73, 15, 1509);
-    			add_location(legend, file, 73, 7, 1501);
-    			add_location(fieldset, file, 72, 6, 1482);
+    			add_location(b, file, 69, 15, 1415);
+    			add_location(legend, file, 69, 7, 1407);
+    			add_location(fieldset, file, 68, 6, 1388);
     			attr_dev(div, "class", "image svelte-rgpylm");
-    			add_location(div, file, 71, 5, 1455);
+    			add_location(div, file, 67, 5, 1361);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -1920,14 +1920,14 @@ var app = (function () {
     		block,
     		id: create_if_block_1.name,
     		type: "if",
-    		source: "(71:4) {#if imageFile in config}",
+    		source: "(67:4) {#if imageFile in config}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (70:3) {#each images as imageFile}
+    // (66:3) {#each images as imageFile}
     function create_each_block(ctx) {
     	let if_block_anchor;
     	let current;
@@ -1986,7 +1986,7 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(70:3) {#each images as imageFile}",
+    		source: "(66:3) {#each images as imageFile}",
     		ctx
     	});
 
@@ -2028,18 +2028,18 @@ var app = (function () {
     			t2 = space();
     			div1 = element("div");
     			input = element("input");
-    			add_location(h1, file, 66, 1, 1314);
+    			add_location(h1, file, 62, 1, 1220);
     			attr_dev(div0, "id", "images");
     			attr_dev(div0, "class", "svelte-rgpylm");
-    			add_location(div0, file, 67, 1, 1341);
+    			add_location(div0, file, 63, 1, 1247);
     			input.disabled = /*disabled*/ ctx[2];
     			attr_dev(input, "type", "button");
     			input.value = "⚙️ Optimize";
-    			add_location(input, file, 84, 2, 1766);
+    			add_location(input, file, 80, 2, 1672);
     			attr_dev(div1, "id", "buttons");
-    			add_location(div1, file, 83, 1, 1744);
+    			add_location(div1, file, 79, 1, 1650);
     			attr_dev(main, "class", "svelte-rgpylm");
-    			add_location(main, file, 65, 0, 1305);
+    			add_location(main, file, 61, 0, 1211);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -2119,10 +2119,6 @@ var app = (function () {
     	return block;
     }
 
-    function ext(filename) {
-    	return filename.substring(filename.lastIndexOf(".") + 1);
-    }
-
     async function apiRequest(data) {
     	const res = await fetch("/api", {
     		method: "POST",
@@ -2185,7 +2181,6 @@ var app = (function () {
     		sse,
     		images,
     		config,
-    		ext,
     		apiRequest,
     		updateImages,
     		updateConfig,
