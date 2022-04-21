@@ -1,3 +1,23 @@
+input[type=number] {
+	height: 30px;
+	max-width: 80px;
+	padding: 0px 5px;
+	background-color: #ffffff;
+	background-image: none;
+	border: 1px solid #cccccc;
+	border-radius: 4px;
+	font-family: sans-serif;
+	font-size: 15px;
+}
+input[type=number]:focus {
+	outline: none;
+	border-color: #379683;
+}
+input[type=number]:disabled {
+	border: 1px solid #dddddd;
+	pointer-events: none;
+}
+
 input[type=text] {
 	height: 30px;
 	width: 380px;
@@ -35,6 +55,26 @@ textarea:focus {
 	border-color: #379683;
 }
 textarea:disabled {
+	border: 1px solid #dddddd;
+	pointer-events: none;
+}
+
+select {
+	height: 30px;
+	width: auto;
+	padding: 0px 5px;
+	background-color: #ffffff;
+	background-image: none;
+	border: 1px solid #cccccc;
+	border-radius: 4px;
+	font-family: sans-serif;
+	font-size: 15px;
+}
+select:focus {
+	outline: none;
+	border-color: #379683;
+}
+select:disabled {
 	border: 1px solid #dddddd;
 	pointer-events: none;
 }
@@ -85,5 +125,5 @@ fieldset {
 .row {
 	display: flex;
 	flex-direction: row;
-	gap: 10px;
+	gap: 15px;
 }

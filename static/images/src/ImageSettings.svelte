@@ -6,6 +6,12 @@
 
 	$: imagePath = "Images/" + filename;
 
+	$: inputFormat = filename.substring(filename.lastIndexOf(".") + 1);
+    $: canConvertToPNG = inputFormat === "png" || inputFormat === "svg";
+    $: canConvertToJPEG = inputFormat === "png" || inputFormat === "jpg" || inputFormat === "svg";
+    $: canConvertToWebP = inputFormat === "png" || inputFormat === "jpg" || inputFormat === "svg" || inputFormat === "webp";
+    $: canConvertToSVG = inputFormat === "png" || inputFormat === "svg";
+
 	$: pngOnly = (data.options.outputFormat === "png");
 	$: jpgOnly = (data.options.outputFormat === "jpg");
 	$: svgOnly = (data.options.outputFormat === "svg");
@@ -17,7 +23,10 @@
         if (fmt === "webp") return "Quality";
         else if (fmt === "jpg") return "Quality";
         else if (fmt === "png") return "Quality";
-        else if (fmt === "svg") return "Precision";
+        else if (fmt === "svg") {
+            if (inputFormat === "png") return "Quality";
+            else return "Precision";
+        }
     }
 
 	onMount(async () => {
@@ -35,10 +44,18 @@
         <div class="widget anyFormat">
             <p>Format</p>
             <select bind:value={data.options.outputFormat}>
-                <option value="png">PNG</option>
-                <option value="jpg">JPEG</option>
-                <option value="webp">WebP</option>
-                <option value="svg">SVG</option>
+                {#if canConvertToPNG}
+                    <option value="png">PNG</option>
+                {/if}
+                {#if canConvertToJPEG}
+                    <option value="jpg">JPEG</option>
+                {/if}
+                {#if canConvertToWebP}
+                    <option value="webp">WebP</option>
+                {/if}
+                {#if canConvertToSVG}
+                    <option value="svg">SVG</option>
+                {/if}
             </select>
         </div>
 
@@ -106,12 +123,30 @@
             </div>
         {/if}
 
+        {#if inputFormat === "svg"}
+            <div class="widget anyFormat">
+                <p>Width</p>
+                <input type="number" min="1" step="1" bind:value={data.options.outputWidth}>
+            </div>
+            <div class="widget anyFormat">
+                <p>Height</p>
+                <input type="number" min="1" step="1" bind:value={data.options.outputHeight}>
+            </div>
+        {/if}
+
         <div class="widget anyFormat" style="padding-top: 14px">
             <label>
                 <input type="checkbox" bind:checked={data.options.compress.inline} />
                 Inline
             </label>
         </div>
+
+        {#if data.options.compress.inline}
+            <div class="widget anyFormat">
+                <p>CSS selector</p>
+                <input type="text" bind:value={data.options.compress.selector} />
+            </div>
+        {/if}
     </div>
 </main>
 
@@ -157,6 +192,10 @@
 		margin-top: auto;
 		margin-bottom: auto;
 	}
+
+    input[type=text] {
+        max-width: 80px; 
+    }
 
 	input[type=range] {
 		flex: auto;
