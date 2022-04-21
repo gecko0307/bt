@@ -2,6 +2,8 @@ const fs = require("fs-extra");
 const path = require("path");
 const unixify = require("unixify");
 const glob = require("glob-promise");
+const dcp = require("duplex-child-process");
+const mozjpeg = require("mozjpeg-binaries");
 
 function requireUncached(module) {
     delete require.cache[require.resolve(module)];
@@ -14,6 +16,10 @@ function streamToFile(stream, outputPath) {
 		.on("finish", () => resolve("ok"))
 		.on("error", err => reject(err));
 	});
+}
+
+function spawnAsStream(filename, args) {
+	return dcp.spawn(filename, args);
 }
 
 const imagesPath = path.resolve("./Images");
@@ -85,6 +91,13 @@ async function imagesConfig(req = {}) {
     if (await fs.pathExists(imagesConfigPath)) {
         config = requireUncached(imagesConfigPath) || {};
     }
+    
+    const images = await inputImages();
+    for (const imageFile of images) {
+        if (!(imageFile in config)) {
+            config[imageFile] = { ...imageDefaultOptions };
+        }
+    }
 
     return {
         ok: true,
@@ -95,9 +108,16 @@ async function imagesConfig(req = {}) {
     };
 }
 
-async function jpegCompressorStream(inputPath, options) {
-    console.log("TODO");
-    return inputPath;
+async function jpegCompressorStream(inputStream, options) {
+    const compressOpts = options.options.compress;
+	// MozJPEG compressor stream
+	const mjpegArgs = [];
+	if (options.quality) mjpegArgs.push("-quality", options.quality);
+	if (compressOpts.grayscale) mjpegArgs.push("-grayscale");
+	if (compressOpts.progressive) mjpegArgs.push("-progressive");
+	else mjpegArgs.push("-baseline");
+	const jpegStream = inputStream.pipe(spawnAsStream(mozjpeg.cjpeg, mjpegArgs));
+    return jpegStream;
 }
 
 const imageCompressors = {
@@ -135,9 +155,9 @@ async function optimizeImages(req) {
             const outputPath = path.join(imagesOutputPath, imageFile);
             if (await fs.pathExists(inputPath)) {
                 compressOptionsArr.push({
-                    inputPath,
-                    outputPath,
-                    imageOptions,
+                    inputPath: inputPath,
+                    outputPath: outputPath,
+                    imageOptions: imageOptions,
                     compressor: imageCompressors[inputFormat]
                 });
             }

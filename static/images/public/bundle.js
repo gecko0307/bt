@@ -70,8 +70,25 @@ var app = (function () {
         else if (node.getAttribute(attribute) !== value)
             node.setAttribute(attribute, value);
     }
+    function to_number(value) {
+        return value === '' ? null : +value;
+    }
     function children(element) {
         return Array.from(element.childNodes);
+    }
+    function set_input_value(input, value) {
+        input.value = value == null ? '' : value;
+    }
+    function set_style(node, key, value, important) {
+        if (value === null) {
+            node.style.removeProperty(key);
+        }
+        else {
+            node.style.setProperty(key, value, important ? 'important' : '');
+        }
+    }
+    function toggle_class(element, name, toggle) {
+        element.classList[toggle ? 'add' : 'remove'](name);
     }
     function custom_event(type, detail, bubbles = false) {
         const e = document.createEvent('CustomEvent');
@@ -401,11 +418,13 @@ var app = (function () {
 
     function get_each_context(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[7] = list[i];
+    	child_ctx[13] = list[i];
+    	child_ctx[14] = list;
+    	child_ctx[15] = i;
     	return child_ctx;
     }
 
-    // (77:2) {:else}
+    // (110:2) {:else}
     function create_else_block(ctx) {
     	let p;
 
@@ -413,7 +432,7 @@ var app = (function () {
     		c: function create() {
     			p = element("p");
     			p.textContent = "No images found in \"Images\" directory";
-    			add_location(p, file, 77, 3, 1620);
+    			add_location(p, file, 110, 3, 2903);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -428,14 +447,14 @@ var app = (function () {
     		block,
     		id: create_else_block.name,
     		type: "else",
-    		source: "(77:2) {:else}",
+    		source: "(110:2) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (64:2) {#if images.length > 0}
+    // (76:2) {#if images.length > 0}
     function create_if_block(ctx) {
     	let each_1_anchor;
     	let each_value = /*images*/ ctx[0];
@@ -462,7 +481,7 @@ var app = (function () {
     			insert_dev(target, each_1_anchor, anchor);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*images*/ 1) {
+    			if (dirty & /*ext, images, config*/ 3) {
     				each_value = /*images*/ ctx[0];
     				validate_each_argument(each_value);
     				let i;
@@ -496,22 +515,23 @@ var app = (function () {
     		block,
     		id: create_if_block.name,
     		type: "if",
-    		source: "(64:2) {#if images.length > 0}",
+    		source: "(76:2) {#if images.length > 0}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (65:3) {#each images as imageFile}
-    function create_each_block(ctx) {
-    	let div1;
+    // (78:4) {#if imageFile in config}
+    function create_if_block_1(ctx) {
+    	let div6;
     	let fieldset;
     	let legend;
     	let b;
-    	let t0_value = /*imageFile*/ ctx[7] + "";
+    	let t0_value = /*imageFile*/ ctx[13] + "";
     	let t0;
     	let t1;
+    	let div5;
     	let div0;
     	let a;
     	let img;
@@ -519,63 +539,271 @@ var app = (function () {
     	let img_alt_value;
     	let a_href_value;
     	let t2;
+    	let div1;
+    	let p;
+    	let t4;
+    	let input0;
+    	let t5;
+    	let div2;
+    	let input1;
+    	let t6;
+    	let div3;
+    	let label0;
+    	let input2;
+    	let t7;
+    	let t8;
+    	let div4;
+    	let label1;
+    	let input3;
+    	let t9;
+    	let t10;
+    	let mounted;
+    	let dispose;
+
+    	function input0_change_input_handler() {
+    		/*input0_change_input_handler*/ ctx[4].call(input0, /*imageFile*/ ctx[13]);
+    	}
+
+    	function input1_input_handler() {
+    		/*input1_input_handler*/ ctx[5].call(input1, /*imageFile*/ ctx[13]);
+    	}
+
+    	function input2_change_handler() {
+    		/*input2_change_handler*/ ctx[6].call(input2, /*imageFile*/ ctx[13]);
+    	}
+
+    	function func() {
+    		return /*func*/ ctx[7](/*imageFile*/ ctx[13]);
+    	}
+
+    	function input3_change_handler() {
+    		/*input3_change_handler*/ ctx[8].call(input3, /*imageFile*/ ctx[13]);
+    	}
+
+    	function func_1() {
+    		return /*func_1*/ ctx[9](/*imageFile*/ ctx[13]);
+    	}
 
     	const block = {
     		c: function create() {
-    			div1 = element("div");
+    			div6 = element("div");
     			fieldset = element("fieldset");
     			legend = element("legend");
     			b = element("b");
     			t0 = text(t0_value);
     			t1 = space();
+    			div5 = element("div");
     			div0 = element("div");
     			a = element("a");
     			img = element("img");
     			t2 = space();
-    			add_location(b, file, 67, 14, 1327);
-    			add_location(legend, file, 67, 6, 1319);
-    			attr_dev(img, "class", "thumb_image svelte-yu0cvu");
-    			if (!src_url_equal(img.src, img_src_value = "/file?path=Images/" + /*imageFile*/ ctx[7])) attr_dev(img, "src", img_src_value);
-    			attr_dev(img, "alt", img_alt_value = /*imageFile*/ ctx[7]);
-    			add_location(img, file, 70, 8, 1456);
-    			attr_dev(a, "href", a_href_value = "/file?path=Images/" + /*imageFile*/ ctx[7]);
+    			div1 = element("div");
+    			p = element("p");
+    			p.textContent = "Quality";
+    			t4 = space();
+    			input0 = element("input");
+    			t5 = space();
+    			div2 = element("div");
+    			input1 = element("input");
+    			t6 = space();
+    			div3 = element("div");
+    			label0 = element("label");
+    			input2 = element("input");
+    			t7 = text("Progressive");
+    			t8 = space();
+    			div4 = element("div");
+    			label1 = element("label");
+    			input3 = element("input");
+    			t9 = text("Grayscale");
+    			t10 = space();
+    			add_location(b, file, 80, 15, 1660);
+    			add_location(legend, file, 80, 7, 1652);
+    			attr_dev(img, "class", "thumb_image svelte-1gglsns");
+    			if (!src_url_equal(img.src, img_src_value = "/file?path=Images/" + /*imageFile*/ ctx[13])) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", img_alt_value = /*imageFile*/ ctx[13]);
+    			add_location(img, file, 84, 10, 1821);
+    			attr_dev(a, "href", a_href_value = "/file?path=Images/" + /*imageFile*/ ctx[13]);
     			attr_dev(a, "target", "_blank");
-    			add_location(a, file, 69, 7, 1390);
-    			attr_dev(div0, "class", "thumb svelte-yu0cvu");
-    			add_location(div0, file, 68, 6, 1362);
-    			add_location(fieldset, file, 66, 5, 1301);
-    			attr_dev(div1, "class", "image svelte-yu0cvu");
-    			add_location(div1, file, 65, 4, 1275);
+    			add_location(a, file, 83, 9, 1753);
+    			attr_dev(div0, "class", "thumb svelte-1gglsns");
+    			add_location(div0, file, 82, 8, 1723);
+    			add_location(p, file, 88, 9, 1972);
+    			attr_dev(input0, "type", "range");
+    			attr_dev(input0, "min", "0");
+    			attr_dev(input0, "max", "100");
+    			attr_dev(input0, "step", "1");
+    			attr_dev(input0, "class", "svelte-1gglsns");
+    			add_location(input0, file, 89, 9, 1997);
+    			attr_dev(div1, "class", "widget");
+    			add_location(div1, file, 87, 8, 1941);
+    			attr_dev(input1, "type", "number");
+    			attr_dev(input1, "min", "0");
+    			attr_dev(input1, "max", "100");
+    			attr_dev(input1, "step", "1");
+    			add_location(input1, file, 92, 9, 2166);
+    			attr_dev(div2, "class", "widget");
+    			set_style(div2, "padding-top", "14px");
+    			add_location(div2, file, 91, 8, 2109);
+    			attr_dev(input2, "type", "checkbox");
+    			attr_dev(input2, "name", "happy");
+    			attr_dev(input2, "class", "svelte-1gglsns");
+    			add_location(input2, file, 96, 10, 2403);
+    			add_location(label0, file, 95, 9, 2384);
+    			attr_dev(div3, "class", "widget svelte-1gglsns");
+    			set_style(div3, "padding-top", "14px");
+    			toggle_class(div3, "jpegOnly", func);
+    			add_location(div3, file, 94, 8, 2279);
+    			attr_dev(input3, "type", "checkbox");
+    			attr_dev(input3, "name", "happy");
+    			attr_dev(input3, "class", "svelte-1gglsns");
+    			add_location(input3, file, 101, 10, 2679);
+    			add_location(label1, file, 100, 9, 2660);
+    			attr_dev(div4, "class", "widget svelte-1gglsns");
+    			set_style(div4, "padding-top", "14px");
+    			toggle_class(div4, "jpegOnly", func_1);
+    			add_location(div4, file, 99, 8, 2555);
+    			attr_dev(div5, "class", "row svelte-1gglsns");
+    			add_location(div5, file, 81, 7, 1696);
+    			add_location(fieldset, file, 79, 6, 1633);
+    			attr_dev(div6, "class", "image svelte-1gglsns");
+    			add_location(div6, file, 78, 5, 1606);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, div1, anchor);
-    			append_dev(div1, fieldset);
+    			insert_dev(target, div6, anchor);
+    			append_dev(div6, fieldset);
     			append_dev(fieldset, legend);
     			append_dev(legend, b);
     			append_dev(b, t0);
     			append_dev(fieldset, t1);
-    			append_dev(fieldset, div0);
+    			append_dev(fieldset, div5);
+    			append_dev(div5, div0);
     			append_dev(div0, a);
     			append_dev(a, img);
-    			append_dev(div1, t2);
-    		},
-    		p: function update(ctx, dirty) {
-    			if (dirty & /*images*/ 1 && t0_value !== (t0_value = /*imageFile*/ ctx[7] + "")) set_data_dev(t0, t0_value);
+    			append_dev(div5, t2);
+    			append_dev(div5, div1);
+    			append_dev(div1, p);
+    			append_dev(div1, t4);
+    			append_dev(div1, input0);
+    			set_input_value(input0, /*config*/ ctx[1][/*imageFile*/ ctx[13]].quality);
+    			append_dev(div5, t5);
+    			append_dev(div5, div2);
+    			append_dev(div2, input1);
+    			set_input_value(input1, /*config*/ ctx[1][/*imageFile*/ ctx[13]].quality);
+    			append_dev(div5, t6);
+    			append_dev(div5, div3);
+    			append_dev(div3, label0);
+    			append_dev(label0, input2);
+    			set_input_value(input2, /*config*/ ctx[1][/*imageFile*/ ctx[13]].options.compress.progressive);
+    			append_dev(label0, t7);
+    			append_dev(div5, t8);
+    			append_dev(div5, div4);
+    			append_dev(div4, label1);
+    			append_dev(label1, input3);
+    			set_input_value(input3, /*config*/ ctx[1][/*imageFile*/ ctx[13]].options.compress.grayscale);
+    			append_dev(label1, t9);
+    			append_dev(div6, t10);
 
-    			if (dirty & /*images*/ 1 && !src_url_equal(img.src, img_src_value = "/file?path=Images/" + /*imageFile*/ ctx[7])) {
+    			if (!mounted) {
+    				dispose = [
+    					listen_dev(input0, "change", input0_change_input_handler),
+    					listen_dev(input0, "input", input0_change_input_handler),
+    					listen_dev(input1, "input", input1_input_handler),
+    					listen_dev(input2, "change", input2_change_handler),
+    					listen_dev(input3, "change", input3_change_handler)
+    				];
+
+    				mounted = true;
+    			}
+    		},
+    		p: function update(new_ctx, dirty) {
+    			ctx = new_ctx;
+    			if (dirty & /*images*/ 1 && t0_value !== (t0_value = /*imageFile*/ ctx[13] + "")) set_data_dev(t0, t0_value);
+
+    			if (dirty & /*images*/ 1 && !src_url_equal(img.src, img_src_value = "/file?path=Images/" + /*imageFile*/ ctx[13])) {
     				attr_dev(img, "src", img_src_value);
     			}
 
-    			if (dirty & /*images*/ 1 && img_alt_value !== (img_alt_value = /*imageFile*/ ctx[7])) {
+    			if (dirty & /*images*/ 1 && img_alt_value !== (img_alt_value = /*imageFile*/ ctx[13])) {
     				attr_dev(img, "alt", img_alt_value);
     			}
 
-    			if (dirty & /*images*/ 1 && a_href_value !== (a_href_value = "/file?path=Images/" + /*imageFile*/ ctx[7])) {
+    			if (dirty & /*images*/ 1 && a_href_value !== (a_href_value = "/file?path=Images/" + /*imageFile*/ ctx[13])) {
     				attr_dev(a, "href", a_href_value);
+    			}
+
+    			if (dirty & /*config, images*/ 3) {
+    				set_input_value(input0, /*config*/ ctx[1][/*imageFile*/ ctx[13]].quality);
+    			}
+
+    			if (dirty & /*config, images*/ 3 && to_number(input1.value) !== /*config*/ ctx[1][/*imageFile*/ ctx[13]].quality) {
+    				set_input_value(input1, /*config*/ ctx[1][/*imageFile*/ ctx[13]].quality);
+    			}
+
+    			if (dirty & /*config, images*/ 3) {
+    				set_input_value(input2, /*config*/ ctx[1][/*imageFile*/ ctx[13]].options.compress.progressive);
+    			}
+
+    			if (dirty & /*ext, images*/ 1) {
+    				toggle_class(div3, "jpegOnly", func);
+    			}
+
+    			if (dirty & /*config, images*/ 3) {
+    				set_input_value(input3, /*config*/ ctx[1][/*imageFile*/ ctx[13]].options.compress.grayscale);
+    			}
+
+    			if (dirty & /*ext, images*/ 1) {
+    				toggle_class(div4, "jpegOnly", func_1);
     			}
     		},
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(div1);
+    			if (detaching) detach_dev(div6);
+    			mounted = false;
+    			run_all(dispose);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block_1.name,
+    		type: "if",
+    		source: "(78:4) {#if imageFile in config}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (77:3) {#each images as imageFile}
+    function create_each_block(ctx) {
+    	let if_block_anchor;
+    	let if_block = /*imageFile*/ ctx[13] in /*config*/ ctx[1] && create_if_block_1(ctx);
+
+    	const block = {
+    		c: function create() {
+    			if (if_block) if_block.c();
+    			if_block_anchor = empty();
+    		},
+    		m: function mount(target, anchor) {
+    			if (if_block) if_block.m(target, anchor);
+    			insert_dev(target, if_block_anchor, anchor);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (/*imageFile*/ ctx[13] in /*config*/ ctx[1]) {
+    				if (if_block) {
+    					if_block.p(ctx, dirty);
+    				} else {
+    					if_block = create_if_block_1(ctx);
+    					if_block.c();
+    					if_block.m(if_block_anchor.parentNode, if_block_anchor);
+    				}
+    			} else if (if_block) {
+    				if_block.d(1);
+    				if_block = null;
+    			}
+    		},
+    		d: function destroy(detaching) {
+    			if (if_block) if_block.d(detaching);
+    			if (detaching) detach_dev(if_block_anchor);
     		}
     	};
 
@@ -583,7 +811,7 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(65:3) {#each images as imageFile}",
+    		source: "(77:3) {#each images as imageFile}",
     		ctx
     	});
 
@@ -620,18 +848,18 @@ var app = (function () {
     			t2 = space();
     			div1 = element("div");
     			input = element("input");
-    			add_location(h1, file, 61, 1, 1166);
+    			add_location(h1, file, 73, 1, 1465);
     			attr_dev(div0, "id", "images");
-    			attr_dev(div0, "class", "svelte-yu0cvu");
-    			add_location(div0, file, 62, 1, 1193);
-    			input.disabled = /*disabled*/ ctx[1];
+    			attr_dev(div0, "class", "svelte-1gglsns");
+    			add_location(div0, file, 74, 1, 1492);
+    			input.disabled = /*disabled*/ ctx[2];
     			attr_dev(input, "type", "button");
     			input.value = "⚙️ Optimize";
-    			add_location(input, file, 81, 2, 1707);
+    			add_location(input, file, 114, 2, 2990);
     			attr_dev(div1, "id", "buttons");
-    			add_location(div1, file, 80, 1, 1685);
-    			attr_dev(main, "class", "svelte-yu0cvu");
-    			add_location(main, file, 60, 0, 1157);
+    			add_location(div1, file, 113, 1, 2968);
+    			attr_dev(main, "class", "svelte-1gglsns");
+    			add_location(main, file, 72, 0, 1456);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -647,7 +875,7 @@ var app = (function () {
     			append_dev(div1, input);
 
     			if (!mounted) {
-    				dispose = listen_dev(input, "click", /*optimize*/ ctx[2], false, false, false);
+    				dispose = listen_dev(input, "click", /*optimize*/ ctx[3], false, false, false);
     				mounted = true;
     			}
     		},
@@ -664,8 +892,8 @@ var app = (function () {
     				}
     			}
 
-    			if (dirty & /*disabled*/ 2) {
-    				prop_dev(input, "disabled", /*disabled*/ ctx[1]);
+    			if (dirty & /*disabled*/ 4) {
+    				prop_dev(input, "disabled", /*disabled*/ ctx[2]);
     			}
     		},
     		i: noop,
@@ -687,6 +915,10 @@ var app = (function () {
     	});
 
     	return block;
+    }
+
+    function ext(filename) {
+    	return filename.substring(filename.lastIndexOf(".") + 1);
     }
 
     async function apiRequest(data) {
@@ -714,7 +946,7 @@ var app = (function () {
 
     	async function updateConfig() {
     		const res = await apiRequest({ method: "imagesConfig" });
-    		config = res.data.config;
+    		$$invalidate(1, config = res.data.config);
     		console.log(config);
     	}
 
@@ -745,11 +977,36 @@ var app = (function () {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console_1.warn(`<App> was created with unknown prop '${key}'`);
     	});
 
+    	function input0_change_input_handler(imageFile) {
+    		config[imageFile].quality = to_number(this.value);
+    		$$invalidate(1, config);
+    	}
+
+    	function input1_input_handler(imageFile) {
+    		config[imageFile].quality = to_number(this.value);
+    		$$invalidate(1, config);
+    	}
+
+    	function input2_change_handler(imageFile) {
+    		config[imageFile].options.compress.progressive = this.value;
+    		$$invalidate(1, config);
+    	}
+
+    	const func = imageFile => ext(imageFile) === "jpg";
+
+    	function input3_change_handler(imageFile) {
+    		config[imageFile].options.compress.grayscale = this.value;
+    		$$invalidate(1, config);
+    	}
+
+    	const func_1 = imageFile => ext(imageFile) === "jpg";
+
     	$$self.$capture_state = () => ({
     		onMount,
     		sse,
     		images,
     		config,
+    		ext,
     		apiRequest,
     		updateImages,
     		updateConfig,
@@ -760,8 +1017,8 @@ var app = (function () {
     	$$self.$inject_state = $$props => {
     		if ('sse' in $$props) sse = $$props.sse;
     		if ('images' in $$props) $$invalidate(0, images = $$props.images);
-    		if ('config' in $$props) config = $$props.config;
-    		if ('disabled' in $$props) $$invalidate(1, disabled = $$props.disabled);
+    		if ('config' in $$props) $$invalidate(1, config = $$props.config);
+    		if ('disabled' in $$props) $$invalidate(2, disabled = $$props.disabled);
     	};
 
     	if ($$props && "$$inject" in $$props) {
@@ -770,11 +1027,22 @@ var app = (function () {
 
     	$$self.$$.update = () => {
     		if ($$self.$$.dirty & /*images*/ 1) {
-    			$$invalidate(1, disabled = images.length === 0);
+    			$$invalidate(2, disabled = images.length === 0);
     		}
     	};
 
-    	return [images, disabled, optimize];
+    	return [
+    		images,
+    		config,
+    		disabled,
+    		optimize,
+    		input0_change_input_handler,
+    		input1_input_handler,
+    		input2_change_handler,
+    		func,
+    		input3_change_handler,
+    		func_1
+    	];
     }
 
     class App extends SvelteComponentDev {

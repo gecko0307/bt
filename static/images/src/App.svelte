@@ -8,6 +8,18 @@
 	let config = {};
 
 	$: disabled = (images.length === 0);
+
+	/*
+	$: ext = filename.substring(filename.lastIndexOf(".") + 1);
+	$: pngOnly = (ext !== "png");
+	$: jpegOnly = (ext !== "jpg");
+	$: svgOnly = (ext !== "svg");
+	$: webpOnly = (ext !== "webp");
+	*/
+
+	function ext(filename) {
+		return filename.substring(filename.lastIndexOf(".") + 1);
+	}
 	
 	async function apiRequest(data) {
 		const res = await fetch("/api", {
@@ -63,16 +75,37 @@
 	<div id="images">
 		{#if images.length > 0}
 			{#each images as imageFile}
-				<div class="image">
-					<fieldset>
-						<legend><b>{imageFile}</b></legend>
-						<div class="thumb">
-							<a href="/file?path=Images/{imageFile}" target="_blank">
-								<img class="thumb_image" src="/file?path=Images/{imageFile}" alt="{imageFile}">
-							</a>
-						</div>
-					</fieldset>
-				</div>
+				{#if imageFile in config}
+					<div class="image">
+						<fieldset>
+							<legend><b>{imageFile}</b></legend>
+							<div class="row">
+								<div class="thumb">
+									<a href="/file?path=Images/{imageFile}" target="_blank">
+										<img class="thumb_image" src="/file?path=Images/{imageFile}" alt="{imageFile}">
+									</a>
+								</div>
+								<div class="widget">
+									<p>Quality</p>
+									<input type="range" min="0" max="100" step="1" bind:value={config[imageFile].quality}>
+								</div>
+								<div class="widget" style="padding-top: 14px">
+									<input type="number" min="0" max="100" step="1" bind:value={config[imageFile].quality}>
+								</div>
+								<div class="widget" style="padding-top: 14px" class:jpegOnly={() => ext(imageFile) === "jpg"}>
+									<label>
+										<input type="checkbox" name="happy" bind:value={config[imageFile].options.compress.progressive}>Progressive
+									</label>
+								</div>
+								<div class="widget" style="padding-top: 14px" class:jpegOnly={() => ext(imageFile) === "jpg"}>
+									<label>
+										<input type="checkbox" name="happy" bind:value={config[imageFile].options.compress.grayscale}>Grayscale
+									</label>
+								</div>
+							</div>
+						</fieldset>
+					</div>
+				{/if}
 			{/each}
 		{:else}
 			<p>No images found in "Images" directory</p>
@@ -87,7 +120,7 @@
 	main {
 		padding: 10px;
 		margin: 0;
-		max-width: 1024px;
+		max-width: 1280px;
 		margin-left: auto;
 		margin-right: auto;
 	}
@@ -96,9 +129,19 @@
 		margin-bottom: 20px;
 	}
 
+	.pngOnly, .jpegOnly, .svgOnly, .webpOnly {
+		display: none;
+	}
+
 	.image {
 		margin-top: 15px;
 		margin-bottom: 10px;
+	}
+
+	.row {
+		display: flex;
+		flex-direction: row;
+		gap: 10px;
 	}
 
 	.thumb {
@@ -128,5 +171,14 @@
 		bottom: -100%;
 		margin-top: auto;
 		margin-bottom: auto;
+	}
+
+	input[type=range] {
+		flex: auto;
+		min-width: 200px;
+	}
+
+	input[type=checkbox] {
+		margin-right: 5px;
 	}
 </style>
