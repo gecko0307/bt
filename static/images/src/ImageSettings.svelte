@@ -6,6 +6,7 @@
 
 	$: imagePath = "Images/" + filename;
 
+    //$: outputFormat = data.options.outputFormat;
 	$: inputFormat = filename.substring(filename.lastIndexOf(".") + 1);
     $: canConvertToPNG = inputFormat === "png" || inputFormat === "svg";
     $: canConvertToJPEG = inputFormat === "png" || inputFormat === "jpg" || inputFormat === "svg";
@@ -59,7 +60,7 @@
             </select>
         </div>
 
-        {#if !data.options.compress.lossless}
+        {#if !data.options.compress.lossless && data.options.outputFormat !== "svg"}
             <div class="widget anyFormat">
                 <p>{qualityText}</p>
                 <input type="range" min="1" max="100" step="1" bind:value={data.quality}>
@@ -123,7 +124,7 @@
             </div>
         {/if}
 
-        {#if inputFormat === "svg"}
+        {#if inputFormat === "svg" && data.options.outputFormat !== "svg" }
             <div class="widget anyFormat">
                 <p>Width</p>
                 <input type="number" min="1" step="1" bind:value={data.options.outputWidth}>

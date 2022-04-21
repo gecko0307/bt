@@ -92,6 +92,16 @@ async function imagesConfig(req = {}) {
             const inputFormat = path.extname(imageFile).substring(1).toLowerCase();
             config[imageFile] = {
                 quality: 100,
+                scale: 1,
+                original: {
+                    weight: 0,
+                    hash: ""
+                },
+                compressed: {
+                    weight: 0,
+                    unzipped: 0
+                },
+                ultimated: true,
                 options: {
                     outputFormat: inputFormat,
                     compress: {
@@ -102,7 +112,9 @@ async function imagesConfig(req = {}) {
                         progressive: false,
                         pretty: false,
                         inline: false
-                    }
+                    },
+                    outputWidth: 0,
+                    outputHeight: 0
                 }
             };
         }
@@ -121,7 +133,8 @@ async function imagesConfig(req = {}) {
 
 const imageCompressors = {
     "jpg": require("./compressors/jpg"),
-    "webp": require("./compressors/webp")
+    "webp": require("./compressors/webp"),
+    "svg": require("./compressors/svg")
 };
 
 const converters = {
@@ -137,14 +150,12 @@ const converters = {
 		"webp": imageCompressors["webp"] // jpg -> webp
 	},
 
-    /*
 	"svg": {
 		"svg": imageCompressors["svg"], // svg -> svg
-		"png": require("./svg2png"), // svg -> png
-		"jpg": require("./svg2jpeg"), // svg -> jpg
-		"webp": require("./svg2webp") // svg -> webp
+		//"png": require("./svg2png"), // svg -> png
+		//"jpg": require("./svg2jpeg"), // svg -> jpg
+		//"webp": require("./svg2webp") // svg -> webp
 	},
-    */
 
 	"webp": {
 		"webp": imageCompressors["webp"] // webp -> webp

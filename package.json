@@ -37,6 +37,7 @@
         "fastify-static": "^4.6.1",
         "fonteditor-core": "^2.1.8",
         "fs-extra": "^9.1.0",
+        "get-stream": "^6.0.1",
         "gifencoder": "^2.0.1",
         "glob": "^7.1.6",
         "glob-promise": "^4.2.2",
@@ -55,6 +56,7 @@
         "rollup-plugin-terser": "^7.0.2",
         "spaces-to-tabs": "0.0.3",
         "svelte": "^3.47.0",
+        "svgo": "^2.8.0",
         "unixify": "^1.0.0"
     },
     "bin": {
