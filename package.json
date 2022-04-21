@@ -28,6 +28,8 @@
         "canvas": "^2.9.1",
         "cheerio": "^1.0.0-rc.10",
         "chokidar": "^3.5.3",
+        "command-exists": "^1.2.9",
+        "cwebp": "^2.0.5",
         "duplex-child-process": "^1.0.1",
         "fast-glob": "^3.2.11",
         "fastify": "^3.28.0",

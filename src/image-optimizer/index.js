@@ -2,8 +2,6 @@ const fs = require("fs-extra");
 const path = require("path");
 const unixify = require("unixify");
 const glob = require("glob-promise");
-const dcp = require("duplex-child-process");
-const mozjpeg = require("mozjpeg-binaries");
 
 function requireUncached(module) {
     delete require.cache[require.resolve(module)];
@@ -16,10 +14,6 @@ function streamToFile(stream, outputPath) {
 		.on("finish", () => resolve("ok"))
 		.on("error", err => reject(err));
 	});
-}
-
-function spawnAsStream(filename, args) {
-	return dcp.spawn(filename, args);
 }
 
 const imagesPath = path.resolve("./Images");
@@ -125,21 +119,48 @@ async function imagesConfig(req = {}) {
     };
 }
 
-async function jpegCompressorStream(inputStream, options) {
-    const compressOpts = options.options.compress;
-	// MozJPEG compressor stream
-	const mjpegArgs = [];
-	if (options.quality) mjpegArgs.push("-quality", options.quality);
-	if (compressOpts.grayscale) mjpegArgs.push("-grayscale");
-	if (compressOpts.progressive) mjpegArgs.push("-progressive");
-	else mjpegArgs.push("-baseline");
-	const jpegStream = inputStream.pipe(spawnAsStream(mozjpeg.cjpeg, mjpegArgs));
-    return jpegStream;
-}
-
 const imageCompressors = {
-    "jpg": jpegCompressorStream
+    "jpg": require("./compressors/jpg"),
+    "webp": require("./compressors/webp")
 };
+
+const converters = {
+	"png": {
+		//"png": imageCompressors["png"], // png -> png
+		//"jpg": require("./png2jpeg"), // png -> jpg
+		//"svg": require("./smartsvg"), // png -> svg
+		"webp": imageCompressors["webp"] // png -> webp
+	},
+
+	"jpg": {
+		"jpg": imageCompressors["jpg"], // jpg -> jpg
+		"webp": imageCompressors["webp"] // jpg -> webp
+	},
+
+    /*
+	"svg": {
+		"svg": imageCompressors["svg"], // svg -> svg
+		"png": require("./svg2png"), // svg -> png
+		"jpg": require("./svg2jpeg"), // svg -> jpg
+		"webp": require("./svg2webp") // svg -> webp
+	},
+    */
+
+	"webp": {
+		"webp": imageCompressors["webp"] // webp -> webp
+	}
+};
+
+function imageCompressorFunction(inputFormat, outputFormat) {
+    if (inputFormat in converters) {
+        const inpConverter = converters[inputFormat];
+        if (outputFormat in inpConverter) {
+            return inpConverter[outputFormat];
+        }
+        else return undefined;
+    }
+    else return undefined;
+}
 
 async function compress(options) {
     const inputStream = fs.createReadStream(options.inputPath);
@@ -154,7 +175,6 @@ async function optimizeImages(req) {
     
     const config = req.config;
     const images = await inputImages();
-    console.log(images);
 
     if (!(await fs.pathExists(imagesOutputPath))){
         await fs.mkdir(imagesOutputPath);
@@ -169,23 +189,24 @@ async function optimizeImages(req) {
         const inputFormat = path.extname(imageFile).substring(1).toLowerCase();
         const outputFormat = config[imageFile].options.outputFormat;
         console.log(`${inputFormat} -> ${outputFormat}`);
-        if (inputFormat in imageCompressors) {
-            const inputPath = path.join(imagesPath, imageFile);
-            const outputPath = path.join(imagesOutputPath, imageFile);
-            if (await fs.pathExists(inputPath)) {
+        const inputPath = path.join(imagesPath, imageFile);
+        const outputPath = path.join(imagesOutputPath, imageFile.split(".")[0] + "." + outputFormat);
+        if (await fs.pathExists(inputPath)) {
+            const compressor = imageCompressorFunction(inputFormat, outputFormat);
+            if (compressor) {
                 compressOptionsArr.push({
                     inputPath: inputPath,
                     outputPath: outputPath,
                     imageOptions: imageOptions,
-                    compressor: imageCompressors[inputFormat]
+                    compressor: compressor
                 });
             }
             else {
-                // TODO
+                // TODO: error
             }
         }
         else {
-            // TODO
+            // TODO: error
         }
     }
 

@@ -42,13 +42,15 @@
             </select>
         </div>
 
-        <div class="widget anyFormat">
-            <p>{qualityText}</p>
-            <input type="range" min="1" max="100" step="1" bind:value={data.quality}>
-        </div>
-        <div class="widget anyFormat" style="padding-top: 14px">
-            <input type="number" min="1" max="100" step="1" bind:value={data.quality}>
-        </div>
+        {#if !data.options.compress.lossless}
+            <div class="widget anyFormat">
+                <p>{qualityText}</p>
+                <input type="range" min="1" max="100" step="1" bind:value={data.quality}>
+            </div>
+            <div class="widget anyFormat" style="padding-top: 14px">
+                <input type="number" min="1" max="100" step="1" bind:value={data.quality}>
+            </div>
+        {/if}
 
         <div class="widget" class:jpgOnly style="padding-top: 14px">
             <label>
@@ -69,7 +71,7 @@
             </label>
         </div>
 
-        <div class="widget" class:pngOnly style="padding-top: 14px">
+        <div class="widget" class:pngOnly class:webpOnly style="padding-top: 14px">
             <label>
                 <input type="checkbox" bind:checked={data.options.compress.lossless} />
                 Lossless
