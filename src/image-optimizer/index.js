@@ -95,9 +95,26 @@ async function imagesConfig(req = {}) {
     const images = await inputImages();
     for (const imageFile of images) {
         if (!(imageFile in config)) {
-            config[imageFile] = { ...imageDefaultOptions };
+            const inputFormat = path.extname(imageFile).substring(1).toLowerCase();
+            config[imageFile] = {
+                quality: 100,
+                options: {
+                    outputFormat: inputFormat,
+                    compress: {
+                        paletteDithering: "wuquant",
+                        imageDithering: "atkinson",
+                        lossless: false,
+                        grayscale: false,
+                        progressive: false,
+                        pretty: false,
+                        inline: false
+                    }
+                }
+            };
         }
     }
+
+    await fs.writeJSON(imagesConfigPath, config);
 
     return {
         ok: true,
@@ -148,8 +165,10 @@ async function optimizeImages(req) {
 
     for (const imageFile of images) {
         console.log(imageFile);
-        const imageOptions = config[imageFile] || imageDefaultOptions;
+        const imageOptions = config[imageFile] || { ...imageDefaultOptions };
         const inputFormat = path.extname(imageFile).substring(1).toLowerCase();
+        const outputFormat = config[imageFile].options.outputFormat;
+        console.log(`${inputFormat} -> ${outputFormat}`);
         if (inputFormat in imageCompressors) {
             const inputPath = path.join(imagesPath, imageFile);
             const outputPath = path.join(imagesOutputPath, imageFile);

@@ -81,3 +81,9 @@ fieldset {
 	font-size: 15px;
 	padding: 10px;
 }
+
+.row {
+	display: flex;
+	flex-direction: row;
+	gap: 10px;
+}
