@@ -8,6 +8,14 @@ function requireUncached(module) {
     return require(module);
 }
 
+function streamToFile(stream, outputPath) {
+	return new Promise((resolve, reject) => {
+		stream.pipe(fs.createWriteStream(outputPath))
+		.on("finish", () => resolve("ok"))
+		.on("error", err => reject(err));
+	});
+}
+
 const imagesPath = path.resolve("./Images");
 const imagesConfigPath = path.resolve("./.data/tuner.config.json");
 const imagesOutputPath = path.resolve("./HTML/assets");
@@ -53,19 +61,22 @@ async function update() {
     //
 }
 
-async function imagesList(req = {}) {
-    const pattern = `${unixify(imagesPath)}/**/*.{png,jpg,jpeg,svg}`;
+async function inputImages() {
+    const pattern = `${unixify(imagesPath)}/**/*.{png,jpg,svg}`;
     const files = await glob.promise(pattern);
     let images = [];
     for (const imagePath of files) {
         const imageFilename = path.basename(imagePath);
         images.push(imageFilename);
     }
+    return images;
+}
 
+async function imagesList(req = {}) {
     return {
         ok: true,
         message: "",
-        data: { images: images }
+        data: { images: await inputImages() }
     };
 }
 
@@ -84,10 +95,76 @@ async function imagesConfig(req = {}) {
     };
 }
 
+async function jpegCompressorStream(inputPath, options) {
+    console.log("TODO");
+    return inputPath;
+}
+
+const imageCompressors = {
+    "jpg": jpegCompressorStream
+};
+
+async function compress(options) {
+    const inputStream = fs.createReadStream(options.inputPath);
+    const outputStream = await options.compressor(inputStream, options.imageOptions);
+    await streamToFile(outputStream, options.outputPath);
+    console.log(`Saved to ${options.outputPath}`);
+    // TODO: keep smallest file
+}
+
 async function optimizeImages(req) {
     console.log("Image Optimizer is running...");
     
     const config = req.config;
+    const images = await inputImages();
+    console.log(images);
+
+    if (!(await fs.pathExists(imagesOutputPath))){
+        await fs.mkdir(imagesOutputPath);
+    }
+
+    // TODO: add promises to array, then run in chunks
+    const compressOptionsArr = [];
+
+    for (const imageFile of images) {
+        console.log(imageFile);
+        const imageOptions = config[imageFile] || imageDefaultOptions;
+        const inputFormat = path.extname(imageFile).substring(1).toLowerCase();
+        if (inputFormat in imageCompressors) {
+            const inputPath = path.join(imagesPath, imageFile);
+            const outputPath = path.join(imagesOutputPath, imageFile);
+            if (await fs.pathExists(inputPath)) {
+                compressOptionsArr.push({
+                    inputPath,
+                    outputPath,
+                    imageOptions,
+                    compressor: imageCompressors[inputFormat]
+                });
+            }
+            else {
+                // TODO
+            }
+        }
+        else {
+            // TODO
+        }
+    }
+
+    try {
+		const chunkSize = 10;
+		if (compressOptionsArr.length < chunkSize){
+			await Promise.all(compressOptionsArr.map(opts => compress(opts)));
+		}
+		else {
+			const chunks = chunkArray(compressOptionsArr, chunkSize);
+			for (const chunk of chunks) {
+				await Promise.all(chunk.map(opts => compress(opts)));
+			}
+		}
+	}
+    catch(e) {
+		console.log(e.message);
+	}
     
     await fs.writeJSON(imagesConfigPath, config);
     return {
