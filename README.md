@@ -62,4 +62,6 @@ Development server runs at `http://localhost:8000/` and serves project's `HTML` 
 * `http://localhost:8000/file?path=your/path` - retrieves any file relative to project root (a directory where dev server runs).
 
 ## Copyright and license
-Copyright (c) 2020-2022 Timur Gafarov. Distributed under the MIT license.
+Copyright (C) 2020-2022 Timur Gafarov. Distributed under the MIT license.
+
+WebGL modules are based on [lightgl.js](https://github.com/evanw/lightgl.js). Copyright (C) 2011 by Evan Wallace.
