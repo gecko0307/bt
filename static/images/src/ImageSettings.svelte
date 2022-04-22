@@ -1,6 +1,7 @@
 <script>
     import { onMount } from "svelte";
 	import "style/core.css";
+
 	export let filename = "";
 	export let data = {};
 
@@ -121,6 +122,13 @@
 					<option value="rgbquant">RGBQuant</option>
 					<option value="wuquant" selected>WuQuant</option>
 				</select>
+            </div>
+        {/if}
+
+        {#if inputFormat === "svg" && data.options.outputFormat === "jpg" }
+            <div class="widget anyFormat">
+                <p>Background</p>
+                <input type="color" bind:value={data.options.compress.backgroundColor} >
             </div>
         {/if}
 

@@ -101,6 +101,25 @@ input[type=button]:disabled {
 	pointer-events: none;
 }
 
+input[type=color] {
+	height: 30px;
+	width: 70px;
+	background-color: #ffffff;
+	background-image: none;
+	border: 1px solid #cccccc;
+	border-radius: 4px;
+	font-family: sans-serif;
+	font-size: 15px;
+}
+input[type=color]:focus {
+	outline: none;
+	border-color: #379683;
+}
+input[type=color]:disabled {
+	border: 1px solid #dddddd;
+	pointer-events: none;
+}
+
 p {
 	color: #777777;
 	font-size: 12px;

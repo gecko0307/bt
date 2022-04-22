@@ -34,7 +34,8 @@ const imageDefaultOptions = {
             grayscale: false,
             progressive: false,
             pretty: false,
-            inline: false
+            inline: false,
+            backgroundColor: "#ffffff"
         },
         outputWidth: 0,
         outputHeight: 0
