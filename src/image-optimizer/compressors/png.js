@@ -1,21 +1,11 @@
 const fs = require("fs-extra");
 const path = require("path");
-const PNG = require("pngjs").PNG;
+const decodePNG = require("./png-decoder");
 const imageq = require("image-q");
 const PngQuant = require("pngquant");
 const util = require("util");
 const execFile = util.promisify(require("child_process").execFile);
 const { nanoid } = require("nanoid");
-
-function decodePNG(inputStream) {
-	return new Promise((resolve, reject) => {
-		inputStream.pipe(new PNG())
-		.on("parsed", function(){
-			resolve(this);
-		})
-		.on("error", err => reject(err));
-	});
-}
 
 async function compress(inputStream, options) {
 	const compressOpts = options.options.compress;
@@ -55,6 +45,5 @@ async function compress(inputStream, options) {
 
 	return outStream;
 }
-
 
 module.exports = compress;

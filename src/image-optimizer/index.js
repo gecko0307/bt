@@ -134,7 +134,7 @@ const imageCompressors = {
 const converters = {
 	"png": {
 		"png": imageCompressors["png"], // png -> png
-		//"jpg": require("./png2jpeg"), // png -> jpg
+		"jpg": require("./compressors/png2jpg"), // png -> jpg
 		//"svg": require("./png2svg"), // png -> svg
 		"webp": imageCompressors["webp"] // png -> webp
 	},
@@ -147,8 +147,8 @@ const converters = {
 	"svg": {
 		"svg": imageCompressors["svg"], // svg -> svg
 		"png": require("./compressors/svg2png"), // svg -> png
-		//"jpg": require("./svg2jpeg"), // svg -> jpg
-		//"webp": require("./svg2webp") // svg -> webp
+		"jpg": require("./compressors/svg2jpg"), // svg -> jpg
+		"webp": require("./compressors/svg2webp") // svg -> webp
 	},
 
 	"webp": {
