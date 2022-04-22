@@ -585,7 +585,7 @@ var app = (function () {
     	return block;
     }
 
-    // (63:8) {#if !data.options.compress.lossless && data.options.outputFormat !== "svg"}
+    // (63:8) {#if !data.options.compress.lossless && !(inputFormat === "svg" && data.options.outputFormat === "svg")}
     function create_if_block_3(ctx) {
     	let div0;
     	let p;
@@ -608,23 +608,23 @@ var app = (function () {
     			t2 = space();
     			div1 = element("div");
     			input1 = element("input");
-    			add_location(p, file$1, 64, 16, 2363);
+    			add_location(p, file$1, 64, 16, 2391);
     			attr_dev(input0, "type", "range");
     			attr_dev(input0, "min", "1");
     			attr_dev(input0, "max", "100");
     			attr_dev(input0, "step", "1");
     			attr_dev(input0, "class", "svelte-qcmiaf");
-    			add_location(input0, file$1, 65, 16, 2401);
+    			add_location(input0, file$1, 65, 16, 2429);
     			attr_dev(div0, "class", "widget anyFormat svelte-qcmiaf");
-    			add_location(div0, file$1, 63, 12, 2315);
+    			add_location(div0, file$1, 63, 12, 2343);
     			attr_dev(input1, "type", "number");
     			attr_dev(input1, "min", "1");
     			attr_dev(input1, "max", "100");
     			attr_dev(input1, "step", "1");
-    			add_location(input1, file$1, 68, 16, 2582);
+    			add_location(input1, file$1, 68, 16, 2610);
     			attr_dev(div1, "class", "widget anyFormat svelte-qcmiaf");
     			set_style(div1, "padding-top", "14px");
-    			add_location(div1, file$1, 67, 12, 2508);
+    			add_location(div1, file$1, 67, 12, 2536);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div0, anchor);
@@ -672,7 +672,7 @@ var app = (function () {
     		block,
     		id: create_if_block_3.name,
     		type: "if",
-    		source: "(63:8) {#if !data.options.compress.lossless && data.options.outputFormat !== \\\"svg\\\"}",
+    		source: "(63:8) {#if !data.options.compress.lossless && !(inputFormat === \\\"svg\\\" && data.options.outputFormat === \\\"svg\\\")}",
     		ctx
     	});
 
@@ -751,65 +751,65 @@ var app = (function () {
     			option13.textContent = "RGBQuant";
     			option14 = element("option");
     			option14.textContent = "WuQuant";
-    			add_location(p0, file$1, 100, 16, 3789);
+    			add_location(p0, file$1, 100, 16, 3817);
     			option0.__value = "nearest";
     			option0.value = option0.__value;
-    			add_location(option0, file$1, 102, 20, 3903);
+    			add_location(option0, file$1, 102, 20, 3931);
     			option1.__value = "riemersma";
     			option1.value = option1.__value;
-    			add_location(option1, file$1, 103, 5, 3950);
+    			add_location(option1, file$1, 103, 5, 3978);
     			option2.__value = "floyd-steinberg";
     			option2.value = option2.__value;
-    			add_location(option2, file$1, 104, 5, 4001);
+    			add_location(option2, file$1, 104, 5, 4029);
     			option3.__value = "false-floyd-steinberg";
     			option3.value = option3.__value;
-    			add_location(option3, file$1, 105, 5, 4064);
+    			add_location(option3, file$1, 105, 5, 4092);
     			option4.__value = "stucki";
     			option4.value = option4.__value;
-    			add_location(option4, file$1, 106, 5, 4139);
+    			add_location(option4, file$1, 106, 5, 4167);
     			option5.__value = "atkinson";
     			option5.value = option5.__value;
     			option5.selected = true;
-    			add_location(option5, file$1, 107, 5, 4184);
+    			add_location(option5, file$1, 107, 5, 4212);
     			option6.__value = "burkes";
     			option6.value = option6.__value;
-    			add_location(option6, file$1, 108, 5, 4242);
+    			add_location(option6, file$1, 108, 5, 4270);
     			option7.__value = "sierra";
     			option7.value = option7.__value;
-    			add_location(option7, file$1, 109, 5, 4287);
+    			add_location(option7, file$1, 109, 5, 4315);
     			option8.__value = "two-sierra";
     			option8.value = option8.__value;
-    			add_location(option8, file$1, 110, 5, 4332);
+    			add_location(option8, file$1, 110, 5, 4360);
     			option9.__value = "sierra-lite";
     			option9.value = option9.__value;
-    			add_location(option9, file$1, 111, 5, 4385);
+    			add_location(option9, file$1, 111, 5, 4413);
     			option10.__value = "jarvis";
     			option10.value = option10.__value;
-    			add_location(option10, file$1, 112, 5, 4440);
+    			add_location(option10, file$1, 112, 5, 4468);
     			if (/*data*/ ctx[0].options.compress.imageDithering === void 0) add_render_callback(() => /*select0_change_handler*/ ctx[20].call(select0));
-    			add_location(select0, file$1, 101, 16, 3823);
+    			add_location(select0, file$1, 101, 16, 3851);
     			attr_dev(div0, "class", "widget svelte-qcmiaf");
     			toggle_class(div0, "pngOnly", /*pngOnly*/ ctx[7]);
-    			add_location(div0, file$1, 99, 12, 3737);
-    			add_location(p1, file$1, 116, 16, 4591);
+    			add_location(div0, file$1, 99, 12, 3765);
+    			add_location(p1, file$1, 116, 16, 4619);
     			option11.__value = "neuquant";
     			option11.value = option11.__value;
-    			add_location(option11, file$1, 118, 5, 4703);
+    			add_location(option11, file$1, 118, 5, 4731);
     			option12.__value = "neuquant-float";
     			option12.value = option12.__value;
-    			add_location(option12, file$1, 119, 5, 4752);
+    			add_location(option12, file$1, 119, 5, 4780);
     			option13.__value = "rgbquant";
     			option13.value = option13.__value;
-    			add_location(option13, file$1, 120, 5, 4815);
+    			add_location(option13, file$1, 120, 5, 4843);
     			option14.__value = "wuquant";
     			option14.value = option14.__value;
     			option14.selected = true;
-    			add_location(option14, file$1, 121, 5, 4864);
+    			add_location(option14, file$1, 121, 5, 4892);
     			if (/*data*/ ctx[0].options.compress.paletteDithering === void 0) add_render_callback(() => /*select1_change_handler*/ ctx[21].call(select1));
-    			add_location(select1, file$1, 117, 16, 4636);
+    			add_location(select1, file$1, 117, 16, 4664);
     			attr_dev(div1, "class", "widget svelte-qcmiaf");
     			toggle_class(div1, "pngOnly", /*pngOnly*/ ctx[7]);
-    			add_location(div1, file$1, 115, 12, 4539);
+    			add_location(div1, file$1, 115, 12, 4567);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div0, anchor);
@@ -912,20 +912,20 @@ var app = (function () {
     			p1.textContent = "Height";
     			t4 = space();
     			input1 = element("input");
-    			add_location(p0, file$1, 128, 16, 5104);
+    			add_location(p0, file$1, 128, 16, 5132);
     			attr_dev(input0, "type", "number");
     			attr_dev(input0, "min", "1");
     			attr_dev(input0, "step", "1");
-    			add_location(input0, file$1, 129, 16, 5134);
+    			add_location(input0, file$1, 129, 16, 5162);
     			attr_dev(div0, "class", "widget anyFormat svelte-qcmiaf");
-    			add_location(div0, file$1, 127, 12, 5056);
-    			add_location(p1, file$1, 132, 16, 5292);
+    			add_location(div0, file$1, 127, 12, 5084);
+    			add_location(p1, file$1, 132, 16, 5320);
     			attr_dev(input1, "type", "number");
     			attr_dev(input1, "min", "1");
     			attr_dev(input1, "step", "1");
-    			add_location(input1, file$1, 133, 16, 5323);
+    			add_location(input1, file$1, 133, 16, 5351);
     			attr_dev(div1, "class", "widget anyFormat svelte-qcmiaf");
-    			add_location(div1, file$1, 131, 12, 5244);
+    			add_location(div1, file$1, 131, 12, 5272);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div0, anchor);
@@ -994,12 +994,12 @@ var app = (function () {
     			p.textContent = "CSS selector";
     			t1 = space();
     			input = element("input");
-    			add_location(p, file$1, 146, 16, 5781);
+    			add_location(p, file$1, 146, 16, 5809);
     			attr_dev(input, "type", "text");
     			attr_dev(input, "class", "svelte-qcmiaf");
-    			add_location(input, file$1, 147, 16, 5818);
+    			add_location(input, file$1, 147, 16, 5846);
     			attr_dev(div, "class", "widget anyFormat svelte-qcmiaf");
-    			add_location(div, file$1, 145, 12, 5733);
+    			add_location(div, file$1, 145, 12, 5761);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -1087,7 +1087,7 @@ var app = (function () {
     	let if_block1 = /*canConvertToJPEG*/ ctx[10] && create_if_block_6(ctx);
     	let if_block2 = /*canConvertToWebP*/ ctx[9] && create_if_block_5(ctx);
     	let if_block3 = /*canConvertToSVG*/ ctx[8] && create_if_block_4(ctx);
-    	let if_block4 = !/*data*/ ctx[0].options.compress.lossless && /*data*/ ctx[0].options.outputFormat !== "svg" && create_if_block_3(ctx);
+    	let if_block4 = !/*data*/ ctx[0].options.compress.lossless && !(/*inputFormat*/ ctx[2] === "svg" && /*data*/ ctx[0].options.outputFormat === "svg") && create_if_block_3(ctx);
     	let if_block5 = !/*data*/ ctx[0].options.compress.lossless && create_if_block_2(ctx);
     	let if_block6 = /*inputFormat*/ ctx[2] === "svg" && /*data*/ ctx[0].options.outputFormat !== "svg" && create_if_block_1$1(ctx);
     	let if_block7 = /*data*/ ctx[0].options.compress.inline && create_if_block$1(ctx);
@@ -1161,44 +1161,44 @@ var app = (function () {
     			add_location(div1, file$1, 44, 8, 1587);
     			attr_dev(input0, "type", "checkbox");
     			attr_dev(input0, "class", "svelte-qcmiaf");
-    			add_location(input0, file$1, 74, 16, 2802);
-    			add_location(label0, file$1, 73, 12, 2777);
+    			add_location(input0, file$1, 74, 16, 2830);
+    			add_location(label0, file$1, 73, 12, 2805);
     			attr_dev(div2, "class", "widget svelte-qcmiaf");
     			set_style(div2, "padding-top", "14px");
     			toggle_class(div2, "jpgOnly", /*jpgOnly*/ ctx[6]);
-    			add_location(div2, file$1, 72, 8, 2703);
+    			add_location(div2, file$1, 72, 8, 2731);
     			attr_dev(input1, "type", "checkbox");
     			attr_dev(input1, "class", "svelte-qcmiaf");
-    			add_location(input1, file$1, 79, 16, 3034);
-    			add_location(label1, file$1, 78, 12, 3009);
+    			add_location(input1, file$1, 79, 16, 3062);
+    			add_location(label1, file$1, 78, 12, 3037);
     			attr_dev(div3, "class", "widget svelte-qcmiaf");
     			set_style(div3, "padding-top", "14px");
     			toggle_class(div3, "jpgOnly", /*jpgOnly*/ ctx[6]);
-    			add_location(div3, file$1, 77, 8, 2935);
+    			add_location(div3, file$1, 77, 8, 2963);
     			attr_dev(input2, "type", "checkbox");
     			attr_dev(input2, "class", "svelte-qcmiaf");
-    			add_location(input2, file$1, 86, 16, 3282);
-    			add_location(label2, file$1, 85, 12, 3257);
+    			add_location(input2, file$1, 86, 16, 3310);
+    			add_location(label2, file$1, 85, 12, 3285);
     			attr_dev(div4, "class", "widget svelte-qcmiaf");
     			set_style(div4, "padding-top", "14px");
     			toggle_class(div4, "svgOnly", /*svgOnly*/ ctx[5]);
-    			add_location(div4, file$1, 84, 8, 3183);
+    			add_location(div4, file$1, 84, 8, 3211);
     			attr_dev(input3, "type", "checkbox");
     			attr_dev(input3, "class", "svelte-qcmiaf");
-    			add_location(input3, file$1, 93, 16, 3539);
-    			add_location(label3, file$1, 92, 12, 3514);
+    			add_location(input3, file$1, 93, 16, 3567);
+    			add_location(label3, file$1, 92, 12, 3542);
     			attr_dev(div5, "class", "widget svelte-qcmiaf");
     			set_style(div5, "padding-top", "14px");
     			toggle_class(div5, "pngOnly", /*pngOnly*/ ctx[7]);
     			toggle_class(div5, "webpOnly", /*webpOnly*/ ctx[4]);
-    			add_location(div5, file$1, 91, 8, 3425);
+    			add_location(div5, file$1, 91, 8, 3453);
     			attr_dev(input4, "type", "checkbox");
     			attr_dev(input4, "class", "svelte-qcmiaf");
-    			add_location(input4, file$1, 139, 16, 5542);
-    			add_location(label4, file$1, 138, 12, 5517);
+    			add_location(input4, file$1, 139, 16, 5570);
+    			add_location(label4, file$1, 138, 12, 5545);
     			attr_dev(div6, "class", "widget anyFormat svelte-qcmiaf");
     			set_style(div6, "padding-top", "14px");
-    			add_location(div6, file$1, 137, 8, 5447);
+    			add_location(div6, file$1, 137, 8, 5475);
     			attr_dev(div7, "class", "row");
     			add_location(div7, file$1, 37, 4, 1343);
     			attr_dev(main, "class", "svelte-qcmiaf");
@@ -1339,7 +1339,7 @@ var app = (function () {
     				select_option(select, /*data*/ ctx[0].options.outputFormat);
     			}
 
-    			if (!/*data*/ ctx[0].options.compress.lossless && /*data*/ ctx[0].options.outputFormat !== "svg") {
+    			if (!/*data*/ ctx[0].options.compress.lossless && !(/*inputFormat*/ ctx[2] === "svg" && /*data*/ ctx[0].options.outputFormat === "svg")) {
     				if (if_block4) {
     					if_block4.p(ctx, dirty);
     				} else {

@@ -104,7 +104,8 @@ async function imagesConfig(req = {}) {
                         grayscale: false,
                         progressive: false,
                         pretty: false,
-                        inline: false
+                        inline: false,
+                        backgroundColor: "#ffffff"
                     },
                     outputWidth: 0,
                     outputHeight: 0
@@ -135,7 +136,7 @@ const converters = {
 	"png": {
 		"png": imageCompressors["png"], // png -> png
 		"jpg": require("./compressors/png2jpg"), // png -> jpg
-		//"svg": require("./png2svg"), // png -> svg
+		"svg": require("./compressors/png2svg"), // png -> svg
 		"webp": imageCompressors["webp"] // png -> webp
 	},
 

@@ -1,4 +1,4 @@
-main.svelte-rgpylm{padding:10px;margin:0;max-width:1280px;margin-left:auto;margin-right:auto}#images.svelte-rgpylm{margin-bottom:20px}.image.svelte-rgpylm{margin-top:15px;margin-bottom:10px}input[type=number] {
+main.svelte-rgpylm{padding:10px;margin:0;max-width:1280px;margin-left:auto;margin-right:auto}#images.svelte-rgpylm{margin-bottom:20px}.image.svelte-rgpylm{margin-top:15px;margin-bottom:10px}main.svelte-qcmiaf{padding:0;margin:0}.widget.svelte-qcmiaf{display:none}.pngOnly.svelte-qcmiaf,.jpgOnly.svelte-qcmiaf,.svgOnly.svelte-qcmiaf,.webpOnly.svelte-qcmiaf,.anyFormat.svelte-qcmiaf{display:block !important}.thumb.svelte-qcmiaf{position:relative;width:50px;height:50px;padding:0;border:1px solid #379683;border-radius:4px;overflow:hidden}.thumb.svelte-qcmiaf:hover{background-color:#edf5e1;cursor:pointer}.thumb_image.svelte-qcmiaf{position:absolute;margin:0;width:auto;height:90%;left:-100%;right:-100%;margin-left:auto;margin-right:auto;top:-100%;bottom:-100%;margin-top:auto;margin-bottom:auto}input[type=text].svelte-qcmiaf{max-width:80px}input[type=range].svelte-qcmiaf{flex:auto;min-width:200px}input[type=checkbox].svelte-qcmiaf{margin-right:5px}input[type=number] {
 	height: 30px;
 	max-width: 80px;
 	padding: 0px 5px;
@@ -127,4 +127,3 @@ fieldset {
 	flex-direction: row;
 	gap: 15px;
 }
-main.svelte-qcmiaf{padding:0;margin:0}.widget.svelte-qcmiaf{display:none}.pngOnly.svelte-qcmiaf,.jpgOnly.svelte-qcmiaf,.svgOnly.svelte-qcmiaf,.webpOnly.svelte-qcmiaf,.anyFormat.svelte-qcmiaf{display:block !important}.thumb.svelte-qcmiaf{position:relative;width:50px;height:50px;padding:0;border:1px solid #379683;border-radius:4px;overflow:hidden}.thumb.svelte-qcmiaf:hover{background-color:#edf5e1;cursor:pointer}.thumb_image.svelte-qcmiaf{position:absolute;margin:0;width:auto;height:90%;left:-100%;right:-100%;margin-left:auto;margin-right:auto;top:-100%;bottom:-100%;margin-top:auto;margin-bottom:auto}input[type=text].svelte-qcmiaf{max-width:80px}input[type=range].svelte-qcmiaf{flex:auto;min-width:200px}input[type=checkbox].svelte-qcmiaf{margin-right:5px}

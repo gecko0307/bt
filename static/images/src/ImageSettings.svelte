@@ -60,7 +60,7 @@
             </select>
         </div>
 
-        {#if !data.options.compress.lossless && data.options.outputFormat !== "svg"}
+        {#if !data.options.compress.lossless && !(inputFormat === "svg" && data.options.outputFormat === "svg")}
             <div class="widget anyFormat">
                 <p>{qualityText}</p>
                 <input type="range" min="1" max="100" step="1" bind:value={data.quality}>
