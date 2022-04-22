@@ -405,7 +405,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (127:2) {:else}
+    // (129:2) {:else}
     function create_else_block_1(ctx) {
     	let p;
 
@@ -413,7 +413,7 @@ var app = (function () {
     		c: function create() {
     			p = element("p");
     			p.textContent = "No fonts found in \"Fonts\" directory";
-    			add_location(p, file, 127, 3, 3127);
+    			add_location(p, file, 129, 3, 3194);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -428,14 +428,14 @@ var app = (function () {
     		block,
     		id: create_else_block_1.name,
     		type: "else",
-    		source: "(127:2) {:else}",
+    		source: "(129:2) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (109:2) {#if Object.keys(fonts).length > 0}
+    // (111:2) {#if Object.keys(fonts).length > 0}
     function create_if_block_1(ctx) {
     	let each_1_anchor;
     	let each_value = Object.keys(/*fonts*/ ctx[1]);
@@ -496,14 +496,14 @@ var app = (function () {
     		block,
     		id: create_if_block_1.name,
     		type: "if",
-    		source: "(109:2) {#if Object.keys(fonts).length > 0}",
+    		source: "(111:2) {#if Object.keys(fonts).length > 0}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (121:6) {:else}
+    // (123:6) {:else}
     function create_else_block(ctx) {
     	let p;
     	let input;
@@ -520,8 +520,8 @@ var app = (function () {
     			input = element("input");
     			attr_dev(input, "type", "button");
     			input.value = "➕ Use font";
-    			add_location(input, file, 121, 10, 2974);
-    			add_location(p, file, 121, 7, 2971);
+    			add_location(input, file, 123, 10, 3041);
+    			add_location(p, file, 123, 7, 3038);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -546,14 +546,14 @@ var app = (function () {
     		block,
     		id: create_else_block.name,
     		type: "else",
-    		source: "(121:6) {:else}",
+    		source: "(123:6) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (114:6) {#if fontFile in config}
+    // (116:6) {#if fontFile in config}
     function create_if_block_2(ctx) {
     	let p0;
     	let t1;
@@ -608,28 +608,28 @@ var app = (function () {
     			t6 = space();
     			p5 = element("p");
     			input2 = element("input");
-    			add_location(p0, file, 114, 7, 2410);
+    			add_location(p0, file, 116, 7, 2477);
     			attr_dev(input0, "type", "text");
     			attr_dev(input0, "size", "45");
     			attr_dev(input0, "class", "svelte-lddxb6");
     			toggle_class(input0, "invalid", !isFontNameValid(/*config*/ ctx[0][/*fontFile*/ ctx[19]].fontname));
-    			add_location(input0, file, 115, 10, 2445);
-    			add_location(p1, file, 115, 7, 2442);
-    			add_location(p2, file, 116, 7, 2586);
+    			add_location(input0, file, 117, 10, 2512);
+    			add_location(p1, file, 117, 7, 2509);
+    			add_location(p2, file, 118, 7, 2653);
     			attr_dev(textarea, "rows", "3");
     			attr_dev(textarea, "cols", "45");
     			attr_dev(textarea, "class", "svelte-lddxb6");
     			toggle_class(textarea, "invalid", !isSubsetTextValid(/*config*/ ctx[0][/*fontFile*/ ctx[19]].text));
-    			add_location(textarea, file, 117, 10, 2621);
-    			add_location(p3, file, 117, 7, 2618);
+    			add_location(textarea, file, 119, 10, 2688);
+    			add_location(p3, file, 119, 7, 2685);
     			attr_dev(input1, "type", "button");
     			input1.value = "❌ Remove";
-    			add_location(input1, file, 118, 10, 2770);
-    			add_location(p4, file, 118, 7, 2767);
+    			add_location(input1, file, 120, 10, 2837);
+    			add_location(p4, file, 120, 7, 2834);
     			attr_dev(input2, "type", "button");
     			input2.value = "🧹 Clear";
-    			add_location(input2, file, 119, 10, 2865);
-    			add_location(p5, file, 119, 7, 2862);
+    			add_location(input2, file, 121, 10, 2932);
+    			add_location(p5, file, 121, 7, 2929);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p0, anchor);
@@ -701,14 +701,14 @@ var app = (function () {
     		block,
     		id: create_if_block_2.name,
     		type: "if",
-    		source: "(114:6) {#if fontFile in config}",
+    		source: "(116:6) {#if fontFile in config}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (110:3) {#each Object.keys(fonts) as fontFile}
+    // (112:3) {#each Object.keys(fonts) as fontFile}
     function create_each_block(ctx) {
     	let div;
     	let fieldset;
@@ -743,12 +743,12 @@ var app = (function () {
     			if_block.c();
     			t4 = space();
     			attr_dev(span, "class", "font-icon svelte-lddxb6");
-    			add_location(span, file, 112, 17, 2312);
-    			add_location(b, file, 112, 14, 2309);
-    			add_location(legend, file, 112, 6, 2301);
-    			add_location(fieldset, file, 111, 5, 2283);
+    			add_location(span, file, 114, 17, 2379);
+    			add_location(b, file, 114, 14, 2376);
+    			add_location(legend, file, 114, 6, 2368);
+    			add_location(fieldset, file, 113, 5, 2350);
     			attr_dev(div, "class", "font svelte-lddxb6");
-    			add_location(div, file, 110, 4, 2258);
+    			add_location(div, file, 112, 4, 2325);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -787,14 +787,14 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(110:3) {#each Object.keys(fonts) as fontFile}",
+    		source: "(112:3) {#each Object.keys(fonts) as fontFile}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (137:1) {#if output.length > 0}
+    // (139:1) {#if output.length > 0}
     function create_if_block(ctx) {
     	let div;
     	let p;
@@ -810,10 +810,10 @@ var app = (function () {
     			attr_dev(textarea, "class", "output svelte-lddxb6");
     			attr_dev(textarea, "rows", "3");
     			attr_dev(textarea, "cols", "45");
-    			add_location(textarea, file, 138, 6, 3455);
-    			add_location(p, file, 138, 3, 3452);
+    			add_location(textarea, file, 140, 6, 3522);
+    			add_location(p, file, 140, 3, 3519);
     			attr_dev(div, "id", "output");
-    			add_location(div, file, 137, 2, 3430);
+    			add_location(div, file, 139, 2, 3497);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -842,7 +842,7 @@ var app = (function () {
     		block,
     		id: create_if_block.name,
     		type: "if",
-    		source: "(137:1) {#if output.length > 0}",
+    		source: "(139:1) {#if output.length > 0}",
     		ctx
     	});
 
@@ -892,24 +892,24 @@ var app = (function () {
     			input1 = element("input");
     			t4 = space();
     			if (if_block1) if_block1.c();
-    			add_location(h1, file, 106, 1, 2124);
+    			add_location(h1, file, 108, 1, 2191);
     			attr_dev(div0, "id", "fonts");
     			attr_dev(div0, "class", "svelte-lddxb6");
-    			add_location(div0, file, 107, 1, 2154);
+    			add_location(div0, file, 109, 1, 2221);
     			input0.disabled = /*disabled*/ ctx[3];
     			attr_dev(input0, "type", "button");
     			input0.value = "⚙️ Generate fonts.css";
-    			add_location(input0, file, 132, 3, 3220);
+    			add_location(input0, file, 134, 3, 3287);
     			input1.disabled = /*disabled*/ ctx[3];
     			attr_dev(input1, "type", "button");
     			input1.value = "❌ Remove all";
-    			add_location(input1, file, 133, 3, 3310);
-    			add_location(p, file, 131, 2, 3212);
+    			add_location(input1, file, 135, 3, 3377);
+    			add_location(p, file, 133, 2, 3279);
     			attr_dev(div1, "id", "buttons");
     			attr_dev(div1, "class", "svelte-lddxb6");
-    			add_location(div1, file, 130, 1, 3190);
+    			add_location(div1, file, 132, 1, 3257);
     			attr_dev(main, "class", "svelte-lddxb6");
-    			add_location(main, file, 105, 0, 2115);
+    			add_location(main, file, 107, 0, 2182);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -1090,9 +1090,12 @@ var app = (function () {
     			const data = JSON.parse(event.data);
 
     			if (data.subsystem === "fonts") {
-    				console.log(data);
     				await updateFonts();
     			}
+    		};
+
+    		sse.onerror = function (error) {
+    			console.error("EventSource failed: ", error);
     		};
     	});
 

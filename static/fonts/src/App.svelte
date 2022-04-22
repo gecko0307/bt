@@ -96,9 +96,11 @@
 		sse.onmessage = async function(event) {
 			const data = JSON.parse(event.data);
 			if (data.subsystem === "fonts") {
-				console.log(data);
 				await updateFonts();
 			}
+		};
+		sse.onerror = function(error) {
+			console.error("EventSource failed: ", error);
 		};
 	});
 </script>
