@@ -2,6 +2,7 @@ var app = (function () {
     'use strict';
 
     function noop() { }
+    const identity = x => x;
     function add_location(element, file, line, column, char) {
         element.__svelte_meta = {
             loc: { file, line, column, char }
@@ -33,8 +34,60 @@ var app = (function () {
     function is_empty(obj) {
         return Object.keys(obj).length === 0;
     }
+
+    const is_client = typeof window !== 'undefined';
+    let now = is_client
+        ? () => window.performance.now()
+        : () => Date.now();
+    let raf = is_client ? cb => requestAnimationFrame(cb) : noop;
+
+    const tasks = new Set();
+    function run_tasks(now) {
+        tasks.forEach(task => {
+            if (!task.c(now)) {
+                tasks.delete(task);
+                task.f();
+            }
+        });
+        if (tasks.size !== 0)
+            raf(run_tasks);
+    }
+    /**
+     * Creates a new task that runs on each raf frame
+     * until it returns a falsy value or is aborted
+     */
+    function loop(callback) {
+        let task;
+        if (tasks.size === 0)
+            raf(run_tasks);
+        return {
+            promise: new Promise(fulfill => {
+                tasks.add(task = { c: callback, f: fulfill });
+            }),
+            abort() {
+                tasks.delete(task);
+            }
+        };
+    }
     function append(target, node) {
         target.appendChild(node);
+    }
+    function get_root_for_style(node) {
+        if (!node)
+            return document;
+        const root = node.getRootNode ? node.getRootNode() : node.ownerDocument;
+        if (root && root.host) {
+            return root;
+        }
+        return node.ownerDocument;
+    }
+    function append_empty_stylesheet(node) {
+        const style_element = element('style');
+        append_stylesheet(get_root_for_style(node), style_element);
+        return style_element.sheet;
+    }
+    function append_stylesheet(node, style) {
+        append(node.head || node, style);
     }
     function insert(target, node, anchor) {
         target.insertBefore(node, anchor || null);
@@ -108,6 +161,72 @@ var app = (function () {
         const e = document.createEvent('CustomEvent');
         e.initCustomEvent(type, bubbles, false, detail);
         return e;
+    }
+
+    // we need to store the information for multiple documents because a Svelte application could also contain iframes
+    // https://github.com/sveltejs/svelte/issues/3624
+    const managed_styles = new Map();
+    let active = 0;
+    // https://github.com/darkskyapp/string-hash/blob/master/index.js
+    function hash(str) {
+        let hash = 5381;
+        let i = str.length;
+        while (i--)
+            hash = ((hash << 5) - hash) ^ str.charCodeAt(i);
+        return hash >>> 0;
+    }
+    function create_style_information(doc, node) {
+        const info = { stylesheet: append_empty_stylesheet(node), rules: {} };
+        managed_styles.set(doc, info);
+        return info;
+    }
+    function create_rule(node, a, b, duration, delay, ease, fn, uid = 0) {
+        const step = 16.666 / duration;
+        let keyframes = '{\n';
+        for (let p = 0; p <= 1; p += step) {
+            const t = a + (b - a) * ease(p);
+            keyframes += p * 100 + `%{${fn(t, 1 - t)}}\n`;
+        }
+        const rule = keyframes + `100% {${fn(b, 1 - b)}}\n}`;
+        const name = `__svelte_${hash(rule)}_${uid}`;
+        const doc = get_root_for_style(node);
+        const { stylesheet, rules } = managed_styles.get(doc) || create_style_information(doc, node);
+        if (!rules[name]) {
+            rules[name] = true;
+            stylesheet.insertRule(`@keyframes ${name} ${rule}`, stylesheet.cssRules.length);
+        }
+        const animation = node.style.animation || '';
+        node.style.animation = `${animation ? `${animation}, ` : ''}${name} ${duration}ms linear ${delay}ms 1 both`;
+        active += 1;
+        return name;
+    }
+    function delete_rule(node, name) {
+        const previous = (node.style.animation || '').split(', ');
+        const next = previous.filter(name
+            ? anim => anim.indexOf(name) < 0 // remove specific animation
+            : anim => anim.indexOf('__svelte') === -1 // remove all Svelte animations
+        );
+        const deleted = previous.length - next.length;
+        if (deleted) {
+            node.style.animation = next.join(', ');
+            active -= deleted;
+            if (!active)
+                clear_rules();
+        }
+    }
+    function clear_rules() {
+        raf(() => {
+            if (active)
+                return;
+            managed_styles.forEach(info => {
+                const { stylesheet } = info;
+                let i = stylesheet.cssRules.length;
+                while (i--)
+                    stylesheet.deleteRule(i);
+                info.rules = {};
+            });
+            managed_styles.clear();
+        });
     }
 
     let current_component;
@@ -204,6 +323,20 @@ var app = (function () {
             $$.after_update.forEach(add_render_callback);
         }
     }
+
+    let promise;
+    function wait() {
+        if (!promise) {
+            promise = Promise.resolve();
+            promise.then(() => {
+                promise = null;
+            });
+        }
+        return promise;
+    }
+    function dispatch(node, direction, kind) {
+        node.dispatchEvent(custom_event(`${direction ? 'intro' : 'outro'}${kind}`));
+    }
     const outroing = new Set();
     let outros;
     function group_outros() {
@@ -240,6 +373,112 @@ var app = (function () {
             });
             block.o(local);
         }
+    }
+    const null_transition = { duration: 0 };
+    function create_bidirectional_transition(node, fn, params, intro) {
+        let config = fn(node, params);
+        let t = intro ? 0 : 1;
+        let running_program = null;
+        let pending_program = null;
+        let animation_name = null;
+        function clear_animation() {
+            if (animation_name)
+                delete_rule(node, animation_name);
+        }
+        function init(program, duration) {
+            const d = (program.b - t);
+            duration *= Math.abs(d);
+            return {
+                a: t,
+                b: program.b,
+                d,
+                duration,
+                start: program.start,
+                end: program.start + duration,
+                group: program.group
+            };
+        }
+        function go(b) {
+            const { delay = 0, duration = 300, easing = identity, tick = noop, css } = config || null_transition;
+            const program = {
+                start: now() + delay,
+                b
+            };
+            if (!b) {
+                // @ts-ignore todo: improve typings
+                program.group = outros;
+                outros.r += 1;
+            }
+            if (running_program || pending_program) {
+                pending_program = program;
+            }
+            else {
+                // if this is an intro, and there's a delay, we need to do
+                // an initial tick and/or apply CSS animation immediately
+                if (css) {
+                    clear_animation();
+                    animation_name = create_rule(node, t, b, duration, delay, easing, css);
+                }
+                if (b)
+                    tick(0, 1);
+                running_program = init(program, duration);
+                add_render_callback(() => dispatch(node, b, 'start'));
+                loop(now => {
+                    if (pending_program && now > pending_program.start) {
+                        running_program = init(pending_program, duration);
+                        pending_program = null;
+                        dispatch(node, running_program.b, 'start');
+                        if (css) {
+                            clear_animation();
+                            animation_name = create_rule(node, t, running_program.b, running_program.duration, 0, easing, config.css);
+                        }
+                    }
+                    if (running_program) {
+                        if (now >= running_program.end) {
+                            tick(t = running_program.b, 1 - t);
+                            dispatch(node, running_program.b, 'end');
+                            if (!pending_program) {
+                                // we're done
+                                if (running_program.b) {
+                                    // intro — we can tidy up immediately
+                                    clear_animation();
+                                }
+                                else {
+                                    // outro — needs to be coordinated
+                                    if (!--running_program.group.r)
+                                        run_all(running_program.group.c);
+                                }
+                            }
+                            running_program = null;
+                        }
+                        else if (now >= running_program.start) {
+                            const p = now - running_program.start;
+                            t = running_program.a + running_program.d * easing(p / running_program.duration);
+                            tick(t, 1 - t);
+                        }
+                    }
+                    return !!(running_program || pending_program);
+                });
+            }
+        }
+        return {
+            run(b) {
+                if (is_function(config)) {
+                    wait().then(() => {
+                        // @ts-ignore
+                        config = config();
+                        go(b);
+                    });
+                }
+                else {
+                    go(b);
+                }
+            },
+            end() {
+                clear_animation();
+                running_program = pending_program = null;
+            }
+        };
     }
 
     const globals = (typeof window !== 'undefined'
@@ -458,6 +697,16 @@ var app = (function () {
         $inject_state() { }
     }
 
+    function fade(node, { delay = 0, duration = 400, easing = identity } = {}) {
+        const o = +getComputedStyle(node).opacity;
+        return {
+            delay,
+            duration,
+            easing,
+            css: t => `opacity: ${t * o}`
+        };
+    }
+
     /* src\ImageSettings.svelte generated by Svelte v3.47.0 */
     const file$1 = "src\\ImageSettings.svelte";
 
@@ -471,7 +720,7 @@ var app = (function () {
     			option.textContent = "PNG";
     			option.__value = "png";
     			option.value = option.__value;
-    			add_location(option, file$1, 48, 20, 1766);
+    			add_location(option, file$1, 48, 20, 1773);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
@@ -502,7 +751,7 @@ var app = (function () {
     			option.textContent = "JPEG";
     			option.__value = "jpg";
     			option.value = option.__value;
-    			add_location(option, file$1, 51, 20, 1883);
+    			add_location(option, file$1, 51, 20, 1890);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
@@ -533,7 +782,7 @@ var app = (function () {
     			option.textContent = "WebP";
     			option.__value = "webp";
     			option.value = option.__value;
-    			add_location(option, file$1, 54, 20, 2001);
+    			add_location(option, file$1, 54, 20, 2008);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
@@ -555,7 +804,7 @@ var app = (function () {
     }
 
     // (57:16) {#if canConvertToSVG}
-    function create_if_block_4(ctx) {
+    function create_if_block_4$1(ctx) {
     	let option;
 
     	const block = {
@@ -564,7 +813,7 @@ var app = (function () {
     			option.textContent = "SVG";
     			option.__value = "svg";
     			option.value = option.__value;
-    			add_location(option, file$1, 57, 20, 2119);
+    			add_location(option, file$1, 57, 20, 2126);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
@@ -576,7 +825,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block_4.name,
+    		id: create_if_block_4$1.name,
     		type: "if",
     		source: "(57:16) {#if canConvertToSVG}",
     		ctx
@@ -586,7 +835,7 @@ var app = (function () {
     }
 
     // (63:8) {#if !data.options.compress.lossless && !(inputFormat === "svg" && data.options.outputFormat === "svg")}
-    function create_if_block_3(ctx) {
+    function create_if_block_3$1(ctx) {
     	let div0;
     	let p;
     	let t0;
@@ -608,23 +857,23 @@ var app = (function () {
     			t2 = space();
     			div1 = element("div");
     			input1 = element("input");
-    			add_location(p, file$1, 64, 16, 2391);
+    			add_location(p, file$1, 64, 16, 2398);
     			attr_dev(input0, "type", "range");
     			attr_dev(input0, "min", "1");
     			attr_dev(input0, "max", "100");
     			attr_dev(input0, "step", "1");
     			attr_dev(input0, "class", "svelte-qcmiaf");
-    			add_location(input0, file$1, 65, 16, 2429);
+    			add_location(input0, file$1, 65, 16, 2436);
     			attr_dev(div0, "class", "widget anyFormat svelte-qcmiaf");
-    			add_location(div0, file$1, 63, 12, 2343);
+    			add_location(div0, file$1, 63, 12, 2350);
     			attr_dev(input1, "type", "number");
     			attr_dev(input1, "min", "1");
     			attr_dev(input1, "max", "100");
     			attr_dev(input1, "step", "1");
-    			add_location(input1, file$1, 68, 16, 2610);
+    			add_location(input1, file$1, 68, 16, 2617);
     			attr_dev(div1, "class", "widget anyFormat svelte-qcmiaf");
     			set_style(div1, "padding-top", "14px");
-    			add_location(div1, file$1, 67, 12, 2536);
+    			add_location(div1, file$1, 67, 12, 2543);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div0, anchor);
@@ -670,7 +919,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block_3.name,
+    		id: create_if_block_3$1.name,
     		type: "if",
     		source: "(63:8) {#if !data.options.compress.lossless && !(inputFormat === \\\"svg\\\" && data.options.outputFormat === \\\"svg\\\")}",
     		ctx
@@ -680,7 +929,7 @@ var app = (function () {
     }
 
     // (99:8) {#if !data.options.compress.lossless}
-    function create_if_block_2(ctx) {
+    function create_if_block_2$1(ctx) {
     	let div0;
     	let p0;
     	let t1;
@@ -751,65 +1000,65 @@ var app = (function () {
     			option13.textContent = "RGBQuant";
     			option14 = element("option");
     			option14.textContent = "WuQuant";
-    			add_location(p0, file$1, 100, 16, 3817);
+    			add_location(p0, file$1, 100, 16, 3824);
     			option0.__value = "nearest";
     			option0.value = option0.__value;
-    			add_location(option0, file$1, 102, 20, 3931);
+    			add_location(option0, file$1, 102, 20, 3938);
     			option1.__value = "riemersma";
     			option1.value = option1.__value;
-    			add_location(option1, file$1, 103, 5, 3978);
+    			add_location(option1, file$1, 103, 5, 3985);
     			option2.__value = "floyd-steinberg";
     			option2.value = option2.__value;
-    			add_location(option2, file$1, 104, 5, 4029);
+    			add_location(option2, file$1, 104, 5, 4036);
     			option3.__value = "false-floyd-steinberg";
     			option3.value = option3.__value;
-    			add_location(option3, file$1, 105, 5, 4092);
+    			add_location(option3, file$1, 105, 5, 4099);
     			option4.__value = "stucki";
     			option4.value = option4.__value;
-    			add_location(option4, file$1, 106, 5, 4167);
+    			add_location(option4, file$1, 106, 5, 4174);
     			option5.__value = "atkinson";
     			option5.value = option5.__value;
     			option5.selected = true;
-    			add_location(option5, file$1, 107, 5, 4212);
+    			add_location(option5, file$1, 107, 5, 4219);
     			option6.__value = "burkes";
     			option6.value = option6.__value;
-    			add_location(option6, file$1, 108, 5, 4270);
+    			add_location(option6, file$1, 108, 5, 4277);
     			option7.__value = "sierra";
     			option7.value = option7.__value;
-    			add_location(option7, file$1, 109, 5, 4315);
+    			add_location(option7, file$1, 109, 5, 4322);
     			option8.__value = "two-sierra";
     			option8.value = option8.__value;
-    			add_location(option8, file$1, 110, 5, 4360);
+    			add_location(option8, file$1, 110, 5, 4367);
     			option9.__value = "sierra-lite";
     			option9.value = option9.__value;
-    			add_location(option9, file$1, 111, 5, 4413);
+    			add_location(option9, file$1, 111, 5, 4420);
     			option10.__value = "jarvis";
     			option10.value = option10.__value;
-    			add_location(option10, file$1, 112, 5, 4468);
+    			add_location(option10, file$1, 112, 5, 4475);
     			if (/*data*/ ctx[0].options.compress.imageDithering === void 0) add_render_callback(() => /*select0_change_handler*/ ctx[20].call(select0));
-    			add_location(select0, file$1, 101, 16, 3851);
+    			add_location(select0, file$1, 101, 16, 3858);
     			attr_dev(div0, "class", "widget svelte-qcmiaf");
     			toggle_class(div0, "pngOnly", /*pngOnly*/ ctx[7]);
-    			add_location(div0, file$1, 99, 12, 3765);
-    			add_location(p1, file$1, 116, 16, 4619);
+    			add_location(div0, file$1, 99, 12, 3772);
+    			add_location(p1, file$1, 116, 16, 4626);
     			option11.__value = "neuquant";
     			option11.value = option11.__value;
-    			add_location(option11, file$1, 118, 5, 4731);
+    			add_location(option11, file$1, 118, 5, 4738);
     			option12.__value = "neuquant-float";
     			option12.value = option12.__value;
-    			add_location(option12, file$1, 119, 5, 4780);
+    			add_location(option12, file$1, 119, 5, 4787);
     			option13.__value = "rgbquant";
     			option13.value = option13.__value;
-    			add_location(option13, file$1, 120, 5, 4843);
+    			add_location(option13, file$1, 120, 5, 4850);
     			option14.__value = "wuquant";
     			option14.value = option14.__value;
     			option14.selected = true;
-    			add_location(option14, file$1, 121, 5, 4892);
+    			add_location(option14, file$1, 121, 5, 4899);
     			if (/*data*/ ctx[0].options.compress.paletteDithering === void 0) add_render_callback(() => /*select1_change_handler*/ ctx[21].call(select1));
-    			add_location(select1, file$1, 117, 16, 4664);
+    			add_location(select1, file$1, 117, 16, 4671);
     			attr_dev(div1, "class", "widget svelte-qcmiaf");
     			toggle_class(div1, "pngOnly", /*pngOnly*/ ctx[7]);
-    			add_location(div1, file$1, 115, 12, 4567);
+    			add_location(div1, file$1, 115, 12, 4574);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div0, anchor);
@@ -876,7 +1125,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block_2.name,
+    		id: create_if_block_2$1.name,
     		type: "if",
     		source: "(99:8) {#if !data.options.compress.lossless}",
     		ctx
@@ -912,20 +1161,20 @@ var app = (function () {
     			p1.textContent = "Height";
     			t4 = space();
     			input1 = element("input");
-    			add_location(p0, file$1, 128, 16, 5132);
+    			add_location(p0, file$1, 128, 16, 5139);
     			attr_dev(input0, "type", "number");
     			attr_dev(input0, "min", "1");
     			attr_dev(input0, "step", "1");
-    			add_location(input0, file$1, 129, 16, 5162);
+    			add_location(input0, file$1, 129, 16, 5169);
     			attr_dev(div0, "class", "widget anyFormat svelte-qcmiaf");
-    			add_location(div0, file$1, 127, 12, 5084);
-    			add_location(p1, file$1, 132, 16, 5320);
+    			add_location(div0, file$1, 127, 12, 5091);
+    			add_location(p1, file$1, 132, 16, 5327);
     			attr_dev(input1, "type", "number");
     			attr_dev(input1, "min", "1");
     			attr_dev(input1, "step", "1");
-    			add_location(input1, file$1, 133, 16, 5351);
+    			add_location(input1, file$1, 133, 16, 5358);
     			attr_dev(div1, "class", "widget anyFormat svelte-qcmiaf");
-    			add_location(div1, file$1, 131, 12, 5272);
+    			add_location(div1, file$1, 131, 12, 5279);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div0, anchor);
@@ -994,12 +1243,12 @@ var app = (function () {
     			p.textContent = "CSS selector";
     			t1 = space();
     			input = element("input");
-    			add_location(p, file$1, 146, 16, 5809);
+    			add_location(p, file$1, 146, 16, 5816);
     			attr_dev(input, "type", "text");
     			attr_dev(input, "class", "svelte-qcmiaf");
-    			add_location(input, file$1, 147, 16, 5846);
+    			add_location(input, file$1, 147, 16, 5853);
     			attr_dev(div, "class", "widget anyFormat svelte-qcmiaf");
-    			add_location(div, file$1, 145, 12, 5761);
+    			add_location(div, file$1, 145, 12, 5768);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -1086,9 +1335,9 @@ var app = (function () {
     	let if_block0 = /*canConvertToPNG*/ ctx[11] && create_if_block_7(ctx);
     	let if_block1 = /*canConvertToJPEG*/ ctx[10] && create_if_block_6(ctx);
     	let if_block2 = /*canConvertToWebP*/ ctx[9] && create_if_block_5(ctx);
-    	let if_block3 = /*canConvertToSVG*/ ctx[8] && create_if_block_4(ctx);
-    	let if_block4 = !/*data*/ ctx[0].options.compress.lossless && !(/*inputFormat*/ ctx[2] === "svg" && /*data*/ ctx[0].options.outputFormat === "svg") && create_if_block_3(ctx);
-    	let if_block5 = !/*data*/ ctx[0].options.compress.lossless && create_if_block_2(ctx);
+    	let if_block3 = /*canConvertToSVG*/ ctx[8] && create_if_block_4$1(ctx);
+    	let if_block4 = !/*data*/ ctx[0].options.compress.lossless && !(/*inputFormat*/ ctx[2] === "svg" && /*data*/ ctx[0].options.outputFormat === "svg") && create_if_block_3$1(ctx);
+    	let if_block5 = !/*data*/ ctx[0].options.compress.lossless && create_if_block_2$1(ctx);
     	let if_block6 = /*inputFormat*/ ctx[2] === "svg" && /*data*/ ctx[0].options.outputFormat !== "svg" && create_if_block_1$1(ctx);
     	let if_block7 = /*data*/ ctx[0].options.compress.inline && create_if_block$1(ctx);
 
@@ -1102,7 +1351,7 @@ var app = (function () {
     			t0 = space();
     			div1 = element("div");
     			p = element("p");
-    			p.textContent = "Format";
+    			p.textContent = "Output format";
     			t2 = space();
     			select = element("select");
     			if (if_block0) if_block0.c();
@@ -1156,49 +1405,49 @@ var app = (function () {
     			add_location(div0, file$1, 38, 8, 1370);
     			add_location(p, file$1, 45, 12, 1631);
     			if (/*data*/ ctx[0].options.outputFormat === void 0) add_render_callback(() => /*select_change_handler*/ ctx[13].call(select));
-    			add_location(select, file$1, 46, 12, 1658);
+    			add_location(select, file$1, 46, 12, 1665);
     			attr_dev(div1, "class", "widget anyFormat svelte-qcmiaf");
     			add_location(div1, file$1, 44, 8, 1587);
     			attr_dev(input0, "type", "checkbox");
     			attr_dev(input0, "class", "svelte-qcmiaf");
-    			add_location(input0, file$1, 74, 16, 2830);
-    			add_location(label0, file$1, 73, 12, 2805);
+    			add_location(input0, file$1, 74, 16, 2837);
+    			add_location(label0, file$1, 73, 12, 2812);
     			attr_dev(div2, "class", "widget svelte-qcmiaf");
     			set_style(div2, "padding-top", "14px");
     			toggle_class(div2, "jpgOnly", /*jpgOnly*/ ctx[6]);
-    			add_location(div2, file$1, 72, 8, 2731);
+    			add_location(div2, file$1, 72, 8, 2738);
     			attr_dev(input1, "type", "checkbox");
     			attr_dev(input1, "class", "svelte-qcmiaf");
-    			add_location(input1, file$1, 79, 16, 3062);
-    			add_location(label1, file$1, 78, 12, 3037);
+    			add_location(input1, file$1, 79, 16, 3069);
+    			add_location(label1, file$1, 78, 12, 3044);
     			attr_dev(div3, "class", "widget svelte-qcmiaf");
     			set_style(div3, "padding-top", "14px");
     			toggle_class(div3, "jpgOnly", /*jpgOnly*/ ctx[6]);
-    			add_location(div3, file$1, 77, 8, 2963);
+    			add_location(div3, file$1, 77, 8, 2970);
     			attr_dev(input2, "type", "checkbox");
     			attr_dev(input2, "class", "svelte-qcmiaf");
-    			add_location(input2, file$1, 86, 16, 3310);
-    			add_location(label2, file$1, 85, 12, 3285);
+    			add_location(input2, file$1, 86, 16, 3317);
+    			add_location(label2, file$1, 85, 12, 3292);
     			attr_dev(div4, "class", "widget svelte-qcmiaf");
     			set_style(div4, "padding-top", "14px");
     			toggle_class(div4, "svgOnly", /*svgOnly*/ ctx[5]);
-    			add_location(div4, file$1, 84, 8, 3211);
+    			add_location(div4, file$1, 84, 8, 3218);
     			attr_dev(input3, "type", "checkbox");
     			attr_dev(input3, "class", "svelte-qcmiaf");
-    			add_location(input3, file$1, 93, 16, 3567);
-    			add_location(label3, file$1, 92, 12, 3542);
+    			add_location(input3, file$1, 93, 16, 3574);
+    			add_location(label3, file$1, 92, 12, 3549);
     			attr_dev(div5, "class", "widget svelte-qcmiaf");
     			set_style(div5, "padding-top", "14px");
     			toggle_class(div5, "pngOnly", /*pngOnly*/ ctx[7]);
     			toggle_class(div5, "webpOnly", /*webpOnly*/ ctx[4]);
-    			add_location(div5, file$1, 91, 8, 3453);
+    			add_location(div5, file$1, 91, 8, 3460);
     			attr_dev(input4, "type", "checkbox");
     			attr_dev(input4, "class", "svelte-qcmiaf");
-    			add_location(input4, file$1, 139, 16, 5570);
-    			add_location(label4, file$1, 138, 12, 5545);
+    			add_location(input4, file$1, 139, 16, 5577);
+    			add_location(label4, file$1, 138, 12, 5552);
     			attr_dev(div6, "class", "widget anyFormat svelte-qcmiaf");
     			set_style(div6, "padding-top", "14px");
-    			add_location(div6, file$1, 137, 8, 5475);
+    			add_location(div6, file$1, 137, 8, 5482);
     			attr_dev(div7, "class", "row");
     			add_location(div7, file$1, 37, 4, 1343);
     			attr_dev(main, "class", "svelte-qcmiaf");
@@ -1326,7 +1575,7 @@ var app = (function () {
 
     			if (/*canConvertToSVG*/ ctx[8]) {
     				if (if_block3) ; else {
-    					if_block3 = create_if_block_4(ctx);
+    					if_block3 = create_if_block_4$1(ctx);
     					if_block3.c();
     					if_block3.m(select, null);
     				}
@@ -1343,7 +1592,7 @@ var app = (function () {
     				if (if_block4) {
     					if_block4.p(ctx, dirty);
     				} else {
-    					if_block4 = create_if_block_3(ctx);
+    					if_block4 = create_if_block_3$1(ctx);
     					if_block4.c();
     					if_block4.m(div7, t4);
     				}
@@ -1392,7 +1641,7 @@ var app = (function () {
     				if (if_block5) {
     					if_block5.p(ctx, dirty);
     				} else {
-    					if_block5 = create_if_block_2(ctx);
+    					if_block5 = create_if_block_2$1(ctx);
     					if_block5.c();
     					if_block5.m(div7, t13);
     				}
@@ -1714,11 +1963,11 @@ var app = (function () {
 
     function get_each_context(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[7] = list[i];
+    	child_ctx[11] = list[i];
     	return child_ctx;
     }
 
-    // (76:2) {:else}
+    // (91:3) {:else}
     function create_else_block(ctx) {
     	let p;
 
@@ -1726,7 +1975,7 @@ var app = (function () {
     		c: function create() {
     			p = element("p");
     			p.textContent = "No images found in \"Images\" directory";
-    			add_location(p, file, 76, 3, 1585);
+    			add_location(p, file, 91, 4, 1912);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -1743,15 +1992,15 @@ var app = (function () {
     		block,
     		id: create_else_block.name,
     		type: "else",
-    		source: "(76:2) {:else}",
+    		source: "(91:3) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (65:2) {#if images.length > 0}
-    function create_if_block(ctx) {
+    // (80:3) {#if images.length > 0}
+    function create_if_block_3(ctx) {
     	let each_1_anchor;
     	let current;
     	let each_value = /*images*/ ctx[0];
@@ -1837,22 +2086,22 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block.name,
+    		id: create_if_block_3.name,
     		type: "if",
-    		source: "(65:2) {#if images.length > 0}",
+    		source: "(80:3) {#if images.length > 0}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (67:4) {#if imageFile in config}
-    function create_if_block_1(ctx) {
+    // (82:5) {#if imageFile in config}
+    function create_if_block_4(ctx) {
     	let div;
     	let fieldset;
     	let legend;
     	let b;
-    	let t0_value = /*imageFile*/ ctx[7] + "";
+    	let t0_value = /*imageFile*/ ctx[11] + "";
     	let t0;
     	let t1;
     	let imagesettings;
@@ -1861,8 +2110,8 @@ var app = (function () {
 
     	imagesettings = new ImageSettings({
     			props: {
-    				filename: /*imageFile*/ ctx[7],
-    				data: /*config*/ ctx[1][/*imageFile*/ ctx[7]]
+    				filename: /*imageFile*/ ctx[11],
+    				data: /*config*/ ctx[1][/*imageFile*/ ctx[11]]
     			},
     			$$inline: true
     		});
@@ -1877,11 +2126,11 @@ var app = (function () {
     			t1 = space();
     			create_component(imagesettings.$$.fragment);
     			t2 = space();
-    			add_location(b, file, 69, 15, 1415);
-    			add_location(legend, file, 69, 7, 1407);
-    			add_location(fieldset, file, 68, 6, 1388);
-    			attr_dev(div, "class", "image svelte-rgpylm");
-    			add_location(div, file, 67, 5, 1361);
+    			add_location(b, file, 84, 16, 1735);
+    			add_location(legend, file, 84, 8, 1727);
+    			add_location(fieldset, file, 83, 7, 1707);
+    			attr_dev(div, "class", "image svelte-vb9upo");
+    			add_location(div, file, 82, 6, 1679);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -1895,10 +2144,10 @@ var app = (function () {
     			current = true;
     		},
     		p: function update(ctx, dirty) {
-    			if ((!current || dirty & /*images*/ 1) && t0_value !== (t0_value = /*imageFile*/ ctx[7] + "")) set_data_dev(t0, t0_value);
+    			if ((!current || dirty & /*images*/ 1) && t0_value !== (t0_value = /*imageFile*/ ctx[11] + "")) set_data_dev(t0, t0_value);
     			const imagesettings_changes = {};
-    			if (dirty & /*images*/ 1) imagesettings_changes.filename = /*imageFile*/ ctx[7];
-    			if (dirty & /*config, images*/ 3) imagesettings_changes.data = /*config*/ ctx[1][/*imageFile*/ ctx[7]];
+    			if (dirty & /*images*/ 1) imagesettings_changes.filename = /*imageFile*/ ctx[11];
+    			if (dirty & /*config, images*/ 3) imagesettings_changes.data = /*config*/ ctx[1][/*imageFile*/ ctx[11]];
     			imagesettings.$set(imagesettings_changes);
     		},
     		i: function intro(local) {
@@ -1918,20 +2167,20 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block_1.name,
+    		id: create_if_block_4.name,
     		type: "if",
-    		source: "(67:4) {#if imageFile in config}",
+    		source: "(82:5) {#if imageFile in config}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (66:3) {#each images as imageFile}
+    // (81:4) {#each images as imageFile}
     function create_each_block(ctx) {
     	let if_block_anchor;
     	let current;
-    	let if_block = /*imageFile*/ ctx[7] in /*config*/ ctx[1] && create_if_block_1(ctx);
+    	let if_block = /*imageFile*/ ctx[11] in /*config*/ ctx[1] && create_if_block_4(ctx);
 
     	const block = {
     		c: function create() {
@@ -1944,7 +2193,7 @@ var app = (function () {
     			current = true;
     		},
     		p: function update(ctx, dirty) {
-    			if (/*imageFile*/ ctx[7] in /*config*/ ctx[1]) {
+    			if (/*imageFile*/ ctx[11] in /*config*/ ctx[1]) {
     				if (if_block) {
     					if_block.p(ctx, dirty);
 
@@ -1952,7 +2201,7 @@ var app = (function () {
     						transition_in(if_block, 1);
     					}
     				} else {
-    					if_block = create_if_block_1(ctx);
+    					if_block = create_if_block_4(ctx);
     					if_block.c();
     					transition_in(if_block, 1);
     					if_block.m(if_block_anchor.parentNode, if_block_anchor);
@@ -1986,7 +2235,284 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(66:3) {#each images as imageFile}",
+    		source: "(81:4) {#each images as imageFile}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (99:1) {#if optimizing || error}
+    function create_if_block(ctx) {
+    	let div1;
+    	let div0;
+    	let t0;
+    	let t1;
+    	let div1_transition;
+    	let current;
+    	let if_block0 = /*optimizing*/ ctx[2] && create_if_block_2(ctx);
+    	let if_block1 = /*error*/ ctx[3] && create_if_block_1(ctx);
+
+    	const block = {
+    		c: function create() {
+    			div1 = element("div");
+    			div0 = element("div");
+    			t0 = space();
+    			if (if_block0) if_block0.c();
+    			t1 = space();
+    			if (if_block1) if_block1.c();
+    			attr_dev(div0, "id", "overlay-bg");
+    			attr_dev(div0, "class", "svelte-vb9upo");
+    			add_location(div0, file, 100, 3, 2190);
+    			attr_dev(div1, "id", "overlay");
+    			attr_dev(div1, "class", "svelte-vb9upo");
+    			add_location(div1, file, 99, 2, 2129);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div1, anchor);
+    			append_dev(div1, div0);
+    			append_dev(div1, t0);
+    			if (if_block0) if_block0.m(div1, null);
+    			append_dev(div1, t1);
+    			if (if_block1) if_block1.m(div1, null);
+    			current = true;
+    		},
+    		p: function update(ctx, dirty) {
+    			if (/*optimizing*/ ctx[2]) {
+    				if (if_block0) {
+    					if (dirty & /*optimizing*/ 4) {
+    						transition_in(if_block0, 1);
+    					}
+    				} else {
+    					if_block0 = create_if_block_2(ctx);
+    					if_block0.c();
+    					transition_in(if_block0, 1);
+    					if_block0.m(div1, t1);
+    				}
+    			} else if (if_block0) {
+    				group_outros();
+
+    				transition_out(if_block0, 1, 1, () => {
+    					if_block0 = null;
+    				});
+
+    				check_outros();
+    			}
+
+    			if (/*error*/ ctx[3]) {
+    				if (if_block1) {
+    					if_block1.p(ctx, dirty);
+
+    					if (dirty & /*error*/ 8) {
+    						transition_in(if_block1, 1);
+    					}
+    				} else {
+    					if_block1 = create_if_block_1(ctx);
+    					if_block1.c();
+    					transition_in(if_block1, 1);
+    					if_block1.m(div1, null);
+    				}
+    			} else if (if_block1) {
+    				group_outros();
+
+    				transition_out(if_block1, 1, 1, () => {
+    					if_block1 = null;
+    				});
+
+    				check_outros();
+    			}
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(if_block0);
+    			transition_in(if_block1);
+
+    			add_render_callback(() => {
+    				if (!div1_transition) div1_transition = create_bidirectional_transition(div1, fade, { duration: 100 }, true);
+    				div1_transition.run(1);
+    			});
+
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(if_block0);
+    			transition_out(if_block1);
+    			if (!div1_transition) div1_transition = create_bidirectional_transition(div1, fade, { duration: 100 }, false);
+    			div1_transition.run(0);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div1);
+    			if (if_block0) if_block0.d();
+    			if (if_block1) if_block1.d();
+    			if (detaching && div1_transition) div1_transition.end();
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block.name,
+    		type: "if",
+    		source: "(99:1) {#if optimizing || error}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (102:3) {#if optimizing}
+    function create_if_block_2(ctx) {
+    	let img;
+    	let img_src_value;
+    	let img_transition;
+    	let current;
+
+    	const block = {
+    		c: function create() {
+    			img = element("img");
+    			attr_dev(img, "id", "preloader");
+    			if (!src_url_equal(img.src, img_src_value = "images/preloader.svg")) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", "preloader");
+    			attr_dev(img, "class", "svelte-vb9upo");
+    			add_location(img, file, 102, 4, 2244);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, img, anchor);
+    			current = true;
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+
+    			add_render_callback(() => {
+    				if (!img_transition) img_transition = create_bidirectional_transition(img, fade, { duration: 100 }, true);
+    				img_transition.run(1);
+    			});
+
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			if (!img_transition) img_transition = create_bidirectional_transition(img, fade, { duration: 100 }, false);
+    			img_transition.run(0);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(img);
+    			if (detaching && img_transition) img_transition.end();
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block_2.name,
+    		type: "if",
+    		source: "(102:3) {#if optimizing}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (105:3) {#if error}
+    function create_if_block_1(ctx) {
+    	let div0;
+    	let t0;
+    	let br0;
+    	let br1;
+    	let t1;
+    	let t2;
+    	let div0_transition;
+    	let t3;
+    	let div1;
+    	let img;
+    	let img_src_value;
+    	let div1_transition;
+    	let current;
+    	let mounted;
+    	let dispose;
+
+    	const block = {
+    		c: function create() {
+    			div0 = element("div");
+    			t0 = text("😞 Error!");
+    			br0 = element("br");
+    			br1 = element("br");
+    			t1 = space();
+    			t2 = text(/*errorMessage*/ ctx[4]);
+    			t3 = space();
+    			div1 = element("div");
+    			img = element("img");
+    			add_location(br0, file, 106, 14, 2443);
+    			add_location(br1, file, 106, 18, 2447);
+    			attr_dev(div0, "id", "error");
+    			attr_dev(div0, "class", "svelte-vb9upo");
+    			add_location(div0, file, 105, 4, 2375);
+    			attr_dev(img, "id", "close-bg");
+    			if (!src_url_equal(img.src, img_src_value = "images/close.svg")) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", "close");
+    			attr_dev(img, "class", "svelte-vb9upo");
+    			add_location(img, file, 110, 5, 2577);
+    			attr_dev(div1, "id", "close");
+    			attr_dev(div1, "class", "svelte-vb9upo");
+    			add_location(div1, file, 109, 4, 2492);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div0, anchor);
+    			append_dev(div0, t0);
+    			append_dev(div0, br0);
+    			append_dev(div0, br1);
+    			append_dev(div0, t1);
+    			append_dev(div0, t2);
+    			insert_dev(target, t3, anchor);
+    			insert_dev(target, div1, anchor);
+    			append_dev(div1, img);
+    			current = true;
+
+    			if (!mounted) {
+    				dispose = listen_dev(div1, "click", /*closeOverlay*/ ctx[7], false, false, false);
+    				mounted = true;
+    			}
+    		},
+    		p: function update(ctx, dirty) {
+    			if (!current || dirty & /*errorMessage*/ 16) set_data_dev(t2, /*errorMessage*/ ctx[4]);
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+
+    			add_render_callback(() => {
+    				if (!div0_transition) div0_transition = create_bidirectional_transition(div0, fade, { duration: 100 }, true);
+    				div0_transition.run(1);
+    			});
+
+    			add_render_callback(() => {
+    				if (!div1_transition) div1_transition = create_bidirectional_transition(div1, fade, { duration: 100 }, true);
+    				div1_transition.run(1);
+    			});
+
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			if (!div0_transition) div0_transition = create_bidirectional_transition(div0, fade, { duration: 100 }, false);
+    			div0_transition.run(0);
+    			if (!div1_transition) div1_transition = create_bidirectional_transition(div1, fade, { duration: 100 }, false);
+    			div1_transition.run(0);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div0);
+    			if (detaching && div0_transition) div0_transition.end();
+    			if (detaching) detach_dev(t3);
+    			if (detaching) detach_dev(div1);
+    			if (detaching && div1_transition) div1_transition.end();
+    			mounted = false;
+    			dispose();
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block_1.name,
+    		type: "if",
+    		source: "(105:3) {#if error}",
     		ctx
     	});
 
@@ -1995,18 +2521,20 @@ var app = (function () {
 
     function create_fragment(ctx) {
     	let main;
+    	let div2;
     	let h1;
     	let t1;
     	let div0;
     	let current_block_type_index;
-    	let if_block;
+    	let if_block0;
     	let t2;
     	let div1;
     	let input;
+    	let t3;
     	let current;
     	let mounted;
     	let dispose;
-    	const if_block_creators = [create_if_block, create_else_block];
+    	const if_block_creators = [create_if_block_3, create_else_block];
     	const if_blocks = [];
 
     	function select_block_type(ctx, dirty) {
@@ -2015,48 +2543,58 @@ var app = (function () {
     	}
 
     	current_block_type_index = select_block_type(ctx);
-    	if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+    	if_block0 = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+    	let if_block1 = (/*optimizing*/ ctx[2] || /*error*/ ctx[3]) && create_if_block(ctx);
 
     	const block = {
     		c: function create() {
     			main = element("main");
+    			div2 = element("div");
     			h1 = element("h1");
     			h1.textContent = "Image Optimizer";
     			t1 = space();
     			div0 = element("div");
-    			if_block.c();
+    			if_block0.c();
     			t2 = space();
     			div1 = element("div");
     			input = element("input");
-    			add_location(h1, file, 62, 1, 1220);
+    			t3 = space();
+    			if (if_block1) if_block1.c();
+    			add_location(h1, file, 77, 2, 1533);
     			attr_dev(div0, "id", "images");
-    			attr_dev(div0, "class", "svelte-rgpylm");
-    			add_location(div0, file, 63, 1, 1247);
-    			input.disabled = /*disabled*/ ctx[2];
+    			attr_dev(div0, "class", "svelte-vb9upo");
+    			add_location(div0, file, 78, 2, 1561);
+    			input.disabled = /*disabled*/ ctx[5];
     			attr_dev(input, "type", "button");
     			input.value = "⚙️ Optimize";
-    			add_location(input, file, 80, 2, 1672);
+    			add_location(input, file, 95, 3, 2003);
     			attr_dev(div1, "id", "buttons");
-    			add_location(div1, file, 79, 1, 1650);
-    			attr_dev(main, "class", "svelte-rgpylm");
-    			add_location(main, file, 61, 0, 1211);
+    			add_location(div1, file, 94, 2, 1980);
+    			attr_dev(div2, "id", "ui");
+    			attr_dev(div2, "class", "svelte-vb9upo");
+    			add_location(div2, file, 76, 1, 1516);
+    			attr_dev(main, "class", "svelte-vb9upo");
+    			add_location(main, file, 75, 0, 1507);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, main, anchor);
-    			append_dev(main, h1);
-    			append_dev(main, t1);
-    			append_dev(main, div0);
+    			append_dev(main, div2);
+    			append_dev(div2, h1);
+    			append_dev(div2, t1);
+    			append_dev(div2, div0);
     			if_blocks[current_block_type_index].m(div0, null);
-    			append_dev(main, t2);
-    			append_dev(main, div1);
+    			append_dev(div2, t2);
+    			append_dev(div2, div1);
     			append_dev(div1, input);
+    			append_dev(main, t3);
+    			if (if_block1) if_block1.m(main, null);
     			current = true;
 
     			if (!mounted) {
-    				dispose = listen_dev(input, "click", /*optimize*/ ctx[3], false, false, false);
+    				dispose = listen_dev(input, "click", /*optimize*/ ctx[6], false, false, false);
     				mounted = true;
     			}
     		},
@@ -2074,35 +2612,61 @@ var app = (function () {
     				});
 
     				check_outros();
-    				if_block = if_blocks[current_block_type_index];
+    				if_block0 = if_blocks[current_block_type_index];
 
-    				if (!if_block) {
-    					if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
-    					if_block.c();
+    				if (!if_block0) {
+    					if_block0 = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+    					if_block0.c();
     				} else {
-    					if_block.p(ctx, dirty);
+    					if_block0.p(ctx, dirty);
     				}
 
-    				transition_in(if_block, 1);
-    				if_block.m(div0, null);
+    				transition_in(if_block0, 1);
+    				if_block0.m(div0, null);
     			}
 
-    			if (!current || dirty & /*disabled*/ 4) {
-    				prop_dev(input, "disabled", /*disabled*/ ctx[2]);
+    			if (!current || dirty & /*disabled*/ 32) {
+    				prop_dev(input, "disabled", /*disabled*/ ctx[5]);
+    			}
+
+    			if (/*optimizing*/ ctx[2] || /*error*/ ctx[3]) {
+    				if (if_block1) {
+    					if_block1.p(ctx, dirty);
+
+    					if (dirty & /*optimizing, error*/ 12) {
+    						transition_in(if_block1, 1);
+    					}
+    				} else {
+    					if_block1 = create_if_block(ctx);
+    					if_block1.c();
+    					transition_in(if_block1, 1);
+    					if_block1.m(main, null);
+    				}
+    			} else if (if_block1) {
+    				group_outros();
+
+    				transition_out(if_block1, 1, 1, () => {
+    					if_block1 = null;
+    				});
+
+    				check_outros();
     			}
     		},
     		i: function intro(local) {
     			if (current) return;
-    			transition_in(if_block);
+    			transition_in(if_block0);
+    			transition_in(if_block1);
     			current = true;
     		},
     		o: function outro(local) {
-    			transition_out(if_block);
+    			transition_out(if_block0);
+    			transition_out(if_block1);
     			current = false;
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(main);
     			if_blocks[current_block_type_index].d();
+    			if (if_block1) if_block1.d();
     			mounted = false;
     			dispose();
     		}
@@ -2135,6 +2699,9 @@ var app = (function () {
     	let sse;
     	let images = [];
     	let config = {};
+    	let optimizing = false;
+    	let error = false;
+    	let errorMessage = "";
 
     	async function updateImages() {
     		const res = await apiRequest({ method: "imagesList" });
@@ -2149,9 +2716,21 @@ var app = (function () {
     	}
 
     	async function optimize() {
+    		$$invalidate(2, optimizing = true);
     		const res = await apiRequest({ method: "optimizeImages", config });
 
-    		if (res.ok && res.output) ; //
+    		if (!res.ok) {
+    			$$invalidate(3, error = true);
+    			$$invalidate(4, errorMessage = res.message);
+    		}
+
+    		$$invalidate(2, optimizing = false);
+    	}
+
+    	async function closeOverlay() {
+    		$$invalidate(3, error = false);
+    		$$invalidate(4, errorMessage = "");
+    		$$invalidate(2, optimizing = false);
     	}
 
     	onMount(async () => {
@@ -2177,14 +2756,19 @@ var app = (function () {
 
     	$$self.$capture_state = () => ({
     		onMount,
+    		fade,
     		ImageSettings,
     		sse,
     		images,
     		config,
+    		optimizing,
+    		error,
+    		errorMessage,
     		apiRequest,
     		updateImages,
     		updateConfig,
     		optimize,
+    		closeOverlay,
     		disabled
     	});
 
@@ -2192,7 +2776,10 @@ var app = (function () {
     		if ('sse' in $$props) sse = $$props.sse;
     		if ('images' in $$props) $$invalidate(0, images = $$props.images);
     		if ('config' in $$props) $$invalidate(1, config = $$props.config);
-    		if ('disabled' in $$props) $$invalidate(2, disabled = $$props.disabled);
+    		if ('optimizing' in $$props) $$invalidate(2, optimizing = $$props.optimizing);
+    		if ('error' in $$props) $$invalidate(3, error = $$props.error);
+    		if ('errorMessage' in $$props) $$invalidate(4, errorMessage = $$props.errorMessage);
+    		if ('disabled' in $$props) $$invalidate(5, disabled = $$props.disabled);
     	};
 
     	if ($$props && "$$inject" in $$props) {
@@ -2201,11 +2788,20 @@ var app = (function () {
 
     	$$self.$$.update = () => {
     		if ($$self.$$.dirty & /*images*/ 1) {
-    			$$invalidate(2, disabled = images.length === 0);
+    			$$invalidate(5, disabled = images.length === 0);
     		}
     	};
 
-    	return [images, config, disabled, optimize];
+    	return [
+    		images,
+    		config,
+    		optimizing,
+    		error,
+    		errorMessage,
+    		disabled,
+    		optimize,
+    		closeOverlay
+    	];
     }
 
     class App extends SvelteComponentDev {

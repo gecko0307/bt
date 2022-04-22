@@ -190,7 +190,6 @@ async function optimizeImages(req) {
         await fs.mkdir(imagesOutputPath);
     }
 
-    // TODO: add promises to array, then run in chunks
     const compressOptionsArr = [];
 
     for (const imageFile of images) {
@@ -198,7 +197,7 @@ async function optimizeImages(req) {
         const imageOptions = config[imageFile] || { ...imageDefaultOptions };
         const inputFormat = path.extname(imageFile).substring(1).toLowerCase();
         const outputFormat = config[imageFile].options.outputFormat;
-        console.log(`${inputFormat} -> ${outputFormat}`);
+        //console.log(`${inputFormat} -> ${outputFormat}`);
         const inputPath = path.join(imagesPath, imageFile);
         const outputPath = path.join(imagesOutputPath, imageFile.split(".")[0] + "." + outputFormat);
         if (await fs.pathExists(inputPath)) {
@@ -212,12 +211,18 @@ async function optimizeImages(req) {
         }
         else {
             // TODO: error
+            const errorMsg = `No such file: ${inputPath}`
+            console.log(errorMsg);
+            return {
+                ok: false,
+                message: errorMsg
+            }
         }
     }
 
     try {
 		const chunkSize = 10;
-		if (compressOptionsArr.length < chunkSize){
+		if (compressOptionsArr.length < chunkSize) {
 			await Promise.all(compressOptionsArr.map(opts => compress(opts)));
 		}
 		else {
@@ -229,8 +234,12 @@ async function optimizeImages(req) {
 	}
     catch(e) {
 		console.log(e.message);
+        return {
+            ok: false,
+            message: e.message
+        }
 	}
-    
+
     await fs.writeJSON(imagesConfigPath, config);
     return {
         ok: true,

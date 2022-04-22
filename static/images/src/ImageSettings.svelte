@@ -43,7 +43,7 @@
         </div>
 
         <div class="widget anyFormat">
-            <p>Format</p>
+            <p>Output format</p>
             <select bind:value={data.options.outputFormat}>
                 {#if canConvertToPNG}
                     <option value="png">PNG</option>
