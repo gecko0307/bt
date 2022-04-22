@@ -686,13 +686,13 @@ var app = (function () {
 
     function get_each_context(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[22] = list[i];
-    	child_ctx[23] = list;
-    	child_ctx[24] = i;
+    	child_ctx[23] = list[i];
+    	child_ctx[24] = list;
+    	child_ctx[25] = i;
     	return child_ctx;
     }
 
-    // (143:3) {:else}
+    // (150:3) {:else}
     function create_else_block_1(ctx) {
     	let p;
 
@@ -700,7 +700,7 @@ var app = (function () {
     		c: function create() {
     			p = element("p");
     			p.textContent = "No fonts found in \"Fonts\" directory";
-    			add_location(p, file, 143, 4, 3475);
+    			add_location(p, file, 150, 4, 3615);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -715,15 +715,15 @@ var app = (function () {
     		block,
     		id: create_else_block_1.name,
     		type: "else",
-    		source: "(143:3) {:else}",
+    		source: "(150:3) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (125:3) {#if Object.keys(fonts).length > 0}
-    function create_if_block_3(ctx) {
+    // (132:3) {#if Object.keys(fonts).length > 0}
+    function create_if_block_4(ctx) {
     	let each_1_anchor;
     	let each_value = Object.keys(/*fonts*/ ctx[1]);
     	validate_each_argument(each_value);
@@ -749,7 +749,7 @@ var app = (function () {
     			insert_dev(target, each_1_anchor, anchor);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*clearFont, Object, fonts, removeFont, config, isSubsetTextValid, isFontNameValid, useFont*/ 451) {
+    			if (dirty & /*clearFont, Object, fonts, removeFont, config, isSubsetTextValid, isFontNameValid, useFont*/ 899) {
     				each_value = Object.keys(/*fonts*/ ctx[1]);
     				validate_each_argument(each_value);
     				let i;
@@ -781,16 +781,16 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block_3.name,
+    		id: create_if_block_4.name,
     		type: "if",
-    		source: "(125:3) {#if Object.keys(fonts).length > 0}",
+    		source: "(132:3) {#if Object.keys(fonts).length > 0}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (137:7) {:else}
+    // (144:7) {:else}
     function create_else_block(ctx) {
     	let p;
     	let input;
@@ -798,7 +798,7 @@ var app = (function () {
     	let dispose;
 
     	function click_handler_2() {
-    		return /*click_handler_2*/ ctx[16](/*fontFile*/ ctx[22]);
+    		return /*click_handler_2*/ ctx[17](/*fontFile*/ ctx[23]);
     	}
 
     	const block = {
@@ -807,8 +807,8 @@ var app = (function () {
     			input = element("input");
     			attr_dev(input, "type", "button");
     			input.value = "➕ Use font";
-    			add_location(input, file, 137, 11, 3316);
-    			add_location(p, file, 137, 8, 3313);
+    			add_location(input, file, 144, 11, 3456);
+    			add_location(p, file, 144, 8, 3453);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -833,15 +833,15 @@ var app = (function () {
     		block,
     		id: create_else_block.name,
     		type: "else",
-    		source: "(137:7) {:else}",
+    		source: "(144:7) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (130:7) {#if fontFile in config}
-    function create_if_block_4(ctx) {
+    // (137:7) {#if fontFile in config}
+    function create_if_block_5(ctx) {
     	let p0;
     	let t1;
     	let p1;
@@ -861,19 +861,19 @@ var app = (function () {
     	let dispose;
 
     	function input0_input_handler() {
-    		/*input0_input_handler*/ ctx[12].call(input0, /*fontFile*/ ctx[22]);
+    		/*input0_input_handler*/ ctx[13].call(input0, /*fontFile*/ ctx[23]);
     	}
 
     	function textarea_input_handler() {
-    		/*textarea_input_handler*/ ctx[13].call(textarea, /*fontFile*/ ctx[22]);
+    		/*textarea_input_handler*/ ctx[14].call(textarea, /*fontFile*/ ctx[23]);
     	}
 
     	function click_handler() {
-    		return /*click_handler*/ ctx[14](/*fontFile*/ ctx[22]);
+    		return /*click_handler*/ ctx[15](/*fontFile*/ ctx[23]);
     	}
 
     	function click_handler_1() {
-    		return /*click_handler_1*/ ctx[15](/*fontFile*/ ctx[22]);
+    		return /*click_handler_1*/ ctx[16](/*fontFile*/ ctx[23]);
     	}
 
     	const block = {
@@ -895,41 +895,41 @@ var app = (function () {
     			t6 = space();
     			p5 = element("p");
     			input2 = element("input");
-    			add_location(p0, file, 130, 8, 2745);
+    			add_location(p0, file, 137, 8, 2885);
     			attr_dev(input0, "type", "text");
     			attr_dev(input0, "size", "45");
     			attr_dev(input0, "class", "svelte-1i9pqhz");
-    			toggle_class(input0, "invalid", !isFontNameValid(/*config*/ ctx[0][/*fontFile*/ ctx[22]].fontname));
-    			add_location(input0, file, 131, 11, 2781);
-    			add_location(p1, file, 131, 8, 2778);
-    			add_location(p2, file, 132, 8, 2923);
+    			toggle_class(input0, "invalid", !isFontNameValid(/*config*/ ctx[0][/*fontFile*/ ctx[23]].fontname));
+    			add_location(input0, file, 138, 11, 2921);
+    			add_location(p1, file, 138, 8, 2918);
+    			add_location(p2, file, 139, 8, 3063);
     			attr_dev(textarea, "rows", "3");
     			attr_dev(textarea, "cols", "45");
     			attr_dev(textarea, "class", "svelte-1i9pqhz");
-    			toggle_class(textarea, "invalid", !isSubsetTextValid(/*config*/ ctx[0][/*fontFile*/ ctx[22]].text));
-    			add_location(textarea, file, 133, 11, 2959);
-    			add_location(p3, file, 133, 8, 2956);
+    			toggle_class(textarea, "invalid", !isSubsetTextValid(/*config*/ ctx[0][/*fontFile*/ ctx[23]].text));
+    			add_location(textarea, file, 140, 11, 3099);
+    			add_location(p3, file, 140, 8, 3096);
     			attr_dev(input1, "type", "button");
     			input1.value = "❌ Remove";
-    			add_location(input1, file, 134, 11, 3109);
-    			add_location(p4, file, 134, 8, 3106);
+    			add_location(input1, file, 141, 11, 3249);
+    			add_location(p4, file, 141, 8, 3246);
     			attr_dev(input2, "type", "button");
     			input2.value = "🧹 Clear";
-    			add_location(input2, file, 135, 11, 3205);
-    			add_location(p5, file, 135, 8, 3202);
+    			add_location(input2, file, 142, 11, 3345);
+    			add_location(p5, file, 142, 8, 3342);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p0, anchor);
     			insert_dev(target, t1, anchor);
     			insert_dev(target, p1, anchor);
     			append_dev(p1, input0);
-    			set_input_value(input0, /*config*/ ctx[0][/*fontFile*/ ctx[22]].fontname);
+    			set_input_value(input0, /*config*/ ctx[0][/*fontFile*/ ctx[23]].fontname);
     			insert_dev(target, t2, anchor);
     			insert_dev(target, p2, anchor);
     			insert_dev(target, t4, anchor);
     			insert_dev(target, p3, anchor);
     			append_dev(p3, textarea);
-    			set_input_value(textarea, /*config*/ ctx[0][/*fontFile*/ ctx[22]].text);
+    			set_input_value(textarea, /*config*/ ctx[0][/*fontFile*/ ctx[23]].text);
     			insert_dev(target, t5, anchor);
     			insert_dev(target, p4, anchor);
     			append_dev(p4, input1);
@@ -951,20 +951,20 @@ var app = (function () {
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
 
-    			if (dirty & /*config, Object, fonts*/ 3 && input0.value !== /*config*/ ctx[0][/*fontFile*/ ctx[22]].fontname) {
-    				set_input_value(input0, /*config*/ ctx[0][/*fontFile*/ ctx[22]].fontname);
+    			if (dirty & /*config, Object, fonts*/ 3 && input0.value !== /*config*/ ctx[0][/*fontFile*/ ctx[23]].fontname) {
+    				set_input_value(input0, /*config*/ ctx[0][/*fontFile*/ ctx[23]].fontname);
     			}
 
     			if (dirty & /*isFontNameValid, config, Object, fonts*/ 3) {
-    				toggle_class(input0, "invalid", !isFontNameValid(/*config*/ ctx[0][/*fontFile*/ ctx[22]].fontname));
+    				toggle_class(input0, "invalid", !isFontNameValid(/*config*/ ctx[0][/*fontFile*/ ctx[23]].fontname));
     			}
 
     			if (dirty & /*config, Object, fonts*/ 3) {
-    				set_input_value(textarea, /*config*/ ctx[0][/*fontFile*/ ctx[22]].text);
+    				set_input_value(textarea, /*config*/ ctx[0][/*fontFile*/ ctx[23]].text);
     			}
 
     			if (dirty & /*isSubsetTextValid, config, Object, fonts*/ 3) {
-    				toggle_class(textarea, "invalid", !isSubsetTextValid(/*config*/ ctx[0][/*fontFile*/ ctx[22]].text));
+    				toggle_class(textarea, "invalid", !isSubsetTextValid(/*config*/ ctx[0][/*fontFile*/ ctx[23]].text));
     			}
     		},
     		d: function destroy(detaching) {
@@ -986,16 +986,16 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block_4.name,
+    		id: create_if_block_5.name,
     		type: "if",
-    		source: "(130:7) {#if fontFile in config}",
+    		source: "(137:7) {#if fontFile in config}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (126:4) {#each Object.keys(fonts) as fontFile}
+    // (133:4) {#each Object.keys(fonts) as fontFile}
     function create_each_block(ctx) {
     	let div;
     	let fieldset;
@@ -1003,13 +1003,13 @@ var app = (function () {
     	let b;
     	let span;
     	let t1;
-    	let t2_value = /*fontFile*/ ctx[22] + "";
+    	let t2_value = /*fontFile*/ ctx[23] + "";
     	let t2;
     	let t3;
     	let t4;
 
     	function select_block_type_1(ctx, dirty) {
-    		if (/*fontFile*/ ctx[22] in /*config*/ ctx[0]) return create_if_block_4;
+    		if (/*fontFile*/ ctx[23] in /*config*/ ctx[0]) return create_if_block_5;
     		return create_else_block;
     	}
 
@@ -1030,12 +1030,12 @@ var app = (function () {
     			if_block.c();
     			t4 = space();
     			attr_dev(span, "class", "font-icon svelte-1i9pqhz");
-    			add_location(span, file, 128, 18, 2645);
-    			add_location(b, file, 128, 15, 2642);
-    			add_location(legend, file, 128, 7, 2634);
-    			add_location(fieldset, file, 127, 6, 2615);
+    			add_location(span, file, 135, 18, 2785);
+    			add_location(b, file, 135, 15, 2782);
+    			add_location(legend, file, 135, 7, 2774);
+    			add_location(fieldset, file, 134, 6, 2755);
     			attr_dev(div, "class", "font svelte-1i9pqhz");
-    			add_location(div, file, 126, 5, 2589);
+    			add_location(div, file, 133, 5, 2729);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -1050,7 +1050,7 @@ var app = (function () {
     			append_dev(div, t4);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*fonts*/ 2 && t2_value !== (t2_value = /*fontFile*/ ctx[22] + "")) set_data_dev(t2, t2_value);
+    			if (dirty & /*fonts*/ 2 && t2_value !== (t2_value = /*fontFile*/ ctx[23] + "")) set_data_dev(t2, t2_value);
 
     			if (current_block_type === (current_block_type = select_block_type_1(ctx)) && if_block) {
     				if_block.p(ctx, dirty);
@@ -1074,15 +1074,15 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(126:4) {#each Object.keys(fonts) as fontFile}",
+    		source: "(133:4) {#each Object.keys(fonts) as fontFile}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (153:2) {#if output.length > 0}
-    function create_if_block_2(ctx) {
+    // (160:2) {#if output.length > 0}
+    function create_if_block_3(ctx) {
     	let div;
     	let p;
     	let textarea;
@@ -1097,10 +1097,10 @@ var app = (function () {
     			attr_dev(textarea, "class", "output svelte-1i9pqhz");
     			attr_dev(textarea, "rows", "3");
     			attr_dev(textarea, "cols", "45");
-    			add_location(textarea, file, 154, 7, 3814);
-    			add_location(p, file, 154, 4, 3811);
+    			add_location(textarea, file, 161, 7, 3954);
+    			add_location(p, file, 161, 4, 3951);
     			attr_dev(div, "id", "output");
-    			add_location(div, file, 153, 3, 3788);
+    			add_location(div, file, 160, 3, 3928);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -1109,7 +1109,7 @@ var app = (function () {
     			set_input_value(textarea, /*output*/ ctx[2]);
 
     			if (!mounted) {
-    				dispose = listen_dev(textarea, "input", /*textarea_input_handler_1*/ ctx[17]);
+    				dispose = listen_dev(textarea, "input", /*textarea_input_handler_1*/ ctx[18]);
     				mounted = true;
     			}
     		},
@@ -1127,63 +1127,90 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block_2.name,
+    		id: create_if_block_3.name,
     		type: "if",
-    		source: "(153:2) {#if output.length > 0}",
+    		source: "(160:2) {#if output.length > 0}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (159:1) {#if error}
+    // (166:1) {#if generating || error}
     function create_if_block(ctx) {
     	let div1;
     	let div0;
-    	let t;
+    	let t0;
+    	let t1;
     	let div1_transition;
     	let current;
-    	let if_block = /*error*/ ctx[3] && create_if_block_1(ctx);
+    	let if_block0 = /*generating*/ ctx[3] && create_if_block_2(ctx);
+    	let if_block1 = /*error*/ ctx[4] && create_if_block_1(ctx);
 
     	const block = {
     		c: function create() {
     			div1 = element("div");
     			div0 = element("div");
-    			t = space();
-    			if (if_block) if_block.c();
+    			t0 = space();
+    			if (if_block0) if_block0.c();
+    			t1 = space();
+    			if (if_block1) if_block1.c();
     			attr_dev(div0, "id", "overlay-bg");
     			attr_dev(div0, "class", "svelte-1i9pqhz");
-    			add_location(div0, file, 160, 3, 4001);
+    			add_location(div0, file, 167, 3, 4155);
     			attr_dev(div1, "id", "overlay");
     			attr_dev(div1, "class", "svelte-1i9pqhz");
-    			add_location(div1, file, 159, 2, 3940);
+    			add_location(div1, file, 166, 2, 4094);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div1, anchor);
     			append_dev(div1, div0);
-    			append_dev(div1, t);
-    			if (if_block) if_block.m(div1, null);
+    			append_dev(div1, t0);
+    			if (if_block0) if_block0.m(div1, null);
+    			append_dev(div1, t1);
+    			if (if_block1) if_block1.m(div1, null);
     			current = true;
     		},
     		p: function update(ctx, dirty) {
-    			if (/*error*/ ctx[3]) {
-    				if (if_block) {
-    					if_block.p(ctx, dirty);
-
-    					if (dirty & /*error*/ 8) {
-    						transition_in(if_block, 1);
+    			if (/*generating*/ ctx[3]) {
+    				if (if_block0) {
+    					if (dirty & /*generating*/ 8) {
+    						transition_in(if_block0, 1);
     					}
     				} else {
-    					if_block = create_if_block_1(ctx);
-    					if_block.c();
-    					transition_in(if_block, 1);
-    					if_block.m(div1, null);
+    					if_block0 = create_if_block_2(ctx);
+    					if_block0.c();
+    					transition_in(if_block0, 1);
+    					if_block0.m(div1, t1);
     				}
-    			} else if (if_block) {
+    			} else if (if_block0) {
     				group_outros();
 
-    				transition_out(if_block, 1, 1, () => {
-    					if_block = null;
+    				transition_out(if_block0, 1, 1, () => {
+    					if_block0 = null;
+    				});
+
+    				check_outros();
+    			}
+
+    			if (/*error*/ ctx[4]) {
+    				if (if_block1) {
+    					if_block1.p(ctx, dirty);
+
+    					if (dirty & /*error*/ 16) {
+    						transition_in(if_block1, 1);
+    					}
+    				} else {
+    					if_block1 = create_if_block_1(ctx);
+    					if_block1.c();
+    					transition_in(if_block1, 1);
+    					if_block1.m(div1, null);
+    				}
+    			} else if (if_block1) {
+    				group_outros();
+
+    				transition_out(if_block1, 1, 1, () => {
+    					if_block1 = null;
     				});
 
     				check_outros();
@@ -1191,7 +1218,8 @@ var app = (function () {
     		},
     		i: function intro(local) {
     			if (current) return;
-    			transition_in(if_block);
+    			transition_in(if_block0);
+    			transition_in(if_block1);
 
     			add_render_callback(() => {
     				if (!div1_transition) div1_transition = create_bidirectional_transition(div1, fade, { duration: 100 }, true);
@@ -1201,14 +1229,16 @@ var app = (function () {
     			current = true;
     		},
     		o: function outro(local) {
-    			transition_out(if_block);
+    			transition_out(if_block0);
+    			transition_out(if_block1);
     			if (!div1_transition) div1_transition = create_bidirectional_transition(div1, fade, { duration: 100 }, false);
     			div1_transition.run(0);
     			current = false;
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(div1);
-    			if (if_block) if_block.d();
+    			if (if_block0) if_block0.d();
+    			if (if_block1) if_block1.d();
     			if (detaching && div1_transition) div1_transition.end();
     		}
     	};
@@ -1217,14 +1247,65 @@ var app = (function () {
     		block,
     		id: create_if_block.name,
     		type: "if",
-    		source: "(159:1) {#if error}",
+    		source: "(166:1) {#if generating || error}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (162:3) {#if error}
+    // (169:3) {#if generating}
+    function create_if_block_2(ctx) {
+    	let img;
+    	let img_src_value;
+    	let img_transition;
+    	let current;
+
+    	const block = {
+    		c: function create() {
+    			img = element("img");
+    			attr_dev(img, "id", "preloader");
+    			if (!src_url_equal(img.src, img_src_value = "images/preloader.svg")) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", "preloader");
+    			add_location(img, file, 169, 4, 4209);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, img, anchor);
+    			current = true;
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+
+    			add_render_callback(() => {
+    				if (!img_transition) img_transition = create_bidirectional_transition(img, fade, { duration: 100 }, true);
+    				img_transition.run(1);
+    			});
+
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			if (!img_transition) img_transition = create_bidirectional_transition(img, fade, { duration: 100 }, false);
+    			img_transition.run(0);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(img);
+    			if (detaching && img_transition) img_transition.end();
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block_2.name,
+    		type: "if",
+    		source: "(169:3) {#if generating}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (172:3) {#if error}
     function create_if_block_1(ctx) {
     	let div0;
     	let t0;
@@ -1249,23 +1330,23 @@ var app = (function () {
     			br0 = element("br");
     			br1 = element("br");
     			t1 = space();
-    			t2 = text(/*errorMessage*/ ctx[4]);
+    			t2 = text(/*errorMessage*/ ctx[5]);
     			t3 = space();
     			div1 = element("div");
     			img = element("img");
-    			add_location(br0, file, 163, 14, 4118);
-    			add_location(br1, file, 163, 18, 4122);
+    			add_location(br0, file, 173, 14, 4408);
+    			add_location(br1, file, 173, 18, 4412);
     			attr_dev(div0, "id", "error");
     			attr_dev(div0, "class", "svelte-1i9pqhz");
-    			add_location(div0, file, 162, 4, 4050);
+    			add_location(div0, file, 172, 4, 4340);
     			attr_dev(img, "id", "close-bg");
     			if (!src_url_equal(img.src, img_src_value = "images/close.svg")) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", "close");
     			attr_dev(img, "class", "svelte-1i9pqhz");
-    			add_location(img, file, 167, 5, 4252);
+    			add_location(img, file, 177, 5, 4542);
     			attr_dev(div1, "id", "close");
     			attr_dev(div1, "class", "svelte-1i9pqhz");
-    			add_location(div1, file, 166, 4, 4167);
+    			add_location(div1, file, 176, 4, 4457);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div0, anchor);
@@ -1280,12 +1361,12 @@ var app = (function () {
     			current = true;
 
     			if (!mounted) {
-    				dispose = listen_dev(div1, "click", /*closeOverlay*/ ctx[11], false, false, false);
+    				dispose = listen_dev(div1, "click", /*closeOverlay*/ ctx[12], false, false, false);
     				mounted = true;
     			}
     		},
     		p: function update(ctx, dirty) {
-    			if (!current || dirty & /*errorMessage*/ 16) set_data_dev(t2, /*errorMessage*/ ctx[4]);
+    			if (!current || dirty & /*errorMessage*/ 32) set_data_dev(t2, /*errorMessage*/ ctx[5]);
     		},
     		i: function intro(local) {
     			if (current) return;
@@ -1324,7 +1405,7 @@ var app = (function () {
     		block,
     		id: create_if_block_1.name,
     		type: "if",
-    		source: "(162:3) {#if error}",
+    		source: "(172:3) {#if error}",
     		ctx
     	});
 
@@ -1353,14 +1434,14 @@ var app = (function () {
     	function select_block_type(ctx, dirty) {
     		if (dirty & /*fonts*/ 2) show_if = null;
     		if (show_if == null) show_if = !!(Object.keys(/*fonts*/ ctx[1]).length > 0);
-    		if (show_if) return create_if_block_3;
+    		if (show_if) return create_if_block_4;
     		return create_else_block_1;
     	}
 
     	let current_block_type = select_block_type(ctx, -1);
     	let if_block0 = current_block_type(ctx);
-    	let if_block1 = /*output*/ ctx[2].length > 0 && create_if_block_2(ctx);
-    	let if_block2 = /*error*/ ctx[3] && create_if_block(ctx);
+    	let if_block1 = /*output*/ ctx[2].length > 0 && create_if_block_3(ctx);
+    	let if_block2 = (/*generating*/ ctx[3] || /*error*/ ctx[4]) && create_if_block(ctx);
 
     	const block = {
     		c: function create() {
@@ -1381,27 +1462,27 @@ var app = (function () {
     			if (if_block1) if_block1.c();
     			t5 = space();
     			if (if_block2) if_block2.c();
-    			add_location(h1, file, 122, 2, 2451);
+    			add_location(h1, file, 129, 2, 2591);
     			attr_dev(div0, "id", "fonts");
     			attr_dev(div0, "class", "svelte-1i9pqhz");
-    			add_location(div0, file, 123, 2, 2482);
-    			input0.disabled = /*disabled*/ ctx[5];
+    			add_location(div0, file, 130, 2, 2622);
+    			input0.disabled = /*disabled*/ ctx[6];
     			attr_dev(input0, "type", "button");
     			input0.value = "⚙️ Generate fonts.css";
-    			add_location(input0, file, 148, 4, 3573);
-    			input1.disabled = /*disabled*/ ctx[5];
+    			add_location(input0, file, 155, 4, 3713);
+    			input1.disabled = /*disabled*/ ctx[6];
     			attr_dev(input1, "type", "button");
     			input1.value = "❌ Remove all";
-    			add_location(input1, file, 149, 4, 3664);
-    			add_location(p, file, 147, 3, 3564);
+    			add_location(input1, file, 156, 4, 3804);
+    			add_location(p, file, 154, 3, 3704);
     			attr_dev(div1, "id", "buttons");
     			attr_dev(div1, "class", "svelte-1i9pqhz");
-    			add_location(div1, file, 146, 2, 3541);
+    			add_location(div1, file, 153, 2, 3681);
     			attr_dev(div2, "id", "ui");
     			attr_dev(div2, "class", "svelte-1i9pqhz");
-    			add_location(div2, file, 121, 1, 2434);
+    			add_location(div2, file, 128, 1, 2574);
     			attr_dev(main, "class", "svelte-1i9pqhz");
-    			add_location(main, file, 120, 0, 2425);
+    			add_location(main, file, 127, 0, 2565);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -1427,8 +1508,8 @@ var app = (function () {
 
     			if (!mounted) {
     				dispose = [
-    					listen_dev(input0, "click", /*generate*/ ctx[9], false, false, false),
-    					listen_dev(input1, "click", /*clear*/ ctx[10], false, false, false)
+    					listen_dev(input0, "click", /*generate*/ ctx[10], false, false, false),
+    					listen_dev(input1, "click", /*clear*/ ctx[11], false, false, false)
     				];
 
     				mounted = true;
@@ -1447,19 +1528,19 @@ var app = (function () {
     				}
     			}
 
-    			if (!current || dirty & /*disabled*/ 32) {
-    				prop_dev(input0, "disabled", /*disabled*/ ctx[5]);
+    			if (!current || dirty & /*disabled*/ 64) {
+    				prop_dev(input0, "disabled", /*disabled*/ ctx[6]);
     			}
 
-    			if (!current || dirty & /*disabled*/ 32) {
-    				prop_dev(input1, "disabled", /*disabled*/ ctx[5]);
+    			if (!current || dirty & /*disabled*/ 64) {
+    				prop_dev(input1, "disabled", /*disabled*/ ctx[6]);
     			}
 
     			if (/*output*/ ctx[2].length > 0) {
     				if (if_block1) {
     					if_block1.p(ctx, dirty);
     				} else {
-    					if_block1 = create_if_block_2(ctx);
+    					if_block1 = create_if_block_3(ctx);
     					if_block1.c();
     					if_block1.m(div2, null);
     				}
@@ -1468,11 +1549,11 @@ var app = (function () {
     				if_block1 = null;
     			}
 
-    			if (/*error*/ ctx[3]) {
+    			if (/*generating*/ ctx[3] || /*error*/ ctx[4]) {
     				if (if_block2) {
     					if_block2.p(ctx, dirty);
 
-    					if (dirty & /*error*/ 8) {
+    					if (dirty & /*generating, error*/ 24) {
     						transition_in(if_block2, 1);
     					}
     				} else {
@@ -1546,6 +1627,7 @@ var app = (function () {
     	let fonts = {};
     	let config = {};
     	let output = "";
+    	let generating = false;
     	let error = false;
     	let errorMessage = "";
 
@@ -1596,16 +1678,23 @@ var app = (function () {
     	}
 
     	async function generate() {
+    		$$invalidate(3, generating = true);
+
     		if (await isConfigValid()) {
     			const res = await apiRequest({ method: "generateFonts", config });
 
     			if (res.ok) {
     				if (res.output) $$invalidate(2, output = res.output);
     			} else {
-    				$$invalidate(3, error = true);
-    				$$invalidate(4, errorMessage = res.message);
+    				$$invalidate(4, error = true);
+    				$$invalidate(5, errorMessage = res.message);
     			}
+    		} else {
+    			$$invalidate(4, error = true);
+    			$$invalidate(5, errorMessage = "Invalid input");
     		}
+
+    		$$invalidate(3, generating = false);
     	}
 
     	async function clear() {
@@ -1614,8 +1703,8 @@ var app = (function () {
     	}
 
     	async function closeOverlay() {
-    		$$invalidate(3, error = false);
-    		$$invalidate(4, errorMessage = "");
+    		$$invalidate(4, error = false);
+    		$$invalidate(5, errorMessage = "");
     	}
 
     	onMount(async () => {
@@ -1668,6 +1757,7 @@ var app = (function () {
     		fonts,
     		config,
     		output,
+    		generating,
     		error,
     		errorMessage,
     		apiRequest,
@@ -1690,9 +1780,10 @@ var app = (function () {
     		if ('fonts' in $$props) $$invalidate(1, fonts = $$props.fonts);
     		if ('config' in $$props) $$invalidate(0, config = $$props.config);
     		if ('output' in $$props) $$invalidate(2, output = $$props.output);
-    		if ('error' in $$props) $$invalidate(3, error = $$props.error);
-    		if ('errorMessage' in $$props) $$invalidate(4, errorMessage = $$props.errorMessage);
-    		if ('disabled' in $$props) $$invalidate(5, disabled = $$props.disabled);
+    		if ('generating' in $$props) $$invalidate(3, generating = $$props.generating);
+    		if ('error' in $$props) $$invalidate(4, error = $$props.error);
+    		if ('errorMessage' in $$props) $$invalidate(5, errorMessage = $$props.errorMessage);
+    		if ('disabled' in $$props) $$invalidate(6, disabled = $$props.disabled);
     	};
 
     	if ($$props && "$$inject" in $$props) {
@@ -1701,7 +1792,7 @@ var app = (function () {
 
     	$$self.$$.update = () => {
     		if ($$self.$$.dirty & /*config*/ 1) {
-    			$$invalidate(5, disabled = Object.keys(config).length === 0);
+    			$$invalidate(6, disabled = Object.keys(config).length === 0);
     		}
     	};
 
@@ -1709,6 +1800,7 @@ var app = (function () {
     		config,
     		fonts,
     		output,
+    		generating,
     		error,
     		errorMessage,
     		disabled,

@@ -12,6 +12,7 @@
 
 	let output = "";
 
+	let generating = false;
 	let error = false;
 	let errorMessage = "";
 	
@@ -76,6 +77,7 @@
 	}
 
 	async function generate() {
+		generating = true;
 		if (await isConfigValid()) {
 			const res = await apiRequest({
 				method: "generateFonts",
@@ -89,6 +91,11 @@
 				errorMessage = res.message;
 			}
 		}
+		else {
+			error = true;
+			errorMessage = "Invalid input";
+		}
+		generating = false;
 	}
 
 	async function clear() {
@@ -156,9 +163,12 @@
 			</div>
 		{/if}
 	</div>
-	{#if error}
+	{#if generating || error}
 		<div id="overlay" transition:fade="{{ duration: 100 }}">
 			<div id="overlay-bg"></div>
+			{#if generating}
+				<img id="preloader" src="images/preloader.svg" alt="preloader" transition:fade={{ duration: 100 }}>
+			{/if}
 			{#if error}
 				<div id="error" transition:fade={{ duration: 100 }}>
 					😞 Error!<br><br>
