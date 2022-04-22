@@ -2,7 +2,7 @@ const fs = require("fs-extra");
 const path = require("path");
 const unixify = require("unixify");
 const glob = require("glob-promise");
-const { streamToFile } = require("./utils");
+const { streamToFile, copySmallestFile } = require("./utils");
 
 function requireUncached(module) {
     delete require.cache[require.resolve(module)];
@@ -177,8 +177,11 @@ async function compress(options) {
     const inputStream = fs.createReadStream(options.inputPath);
     const outputStream = await options.compressor(inputStream, options.imageOptions);
     await streamToFile(outputStream, options.outputPath);
+
     console.log(`Saved to ${options.outputPath}`);
-    // TODO: keep smallest file
+
+    if (options.outputFormat === options.inputFormat)
+        await copySmallestFile(options.inputPath, options.outputPath, options.outputPath);
 }
 
 async function optimizeImages(req) {
@@ -205,12 +208,13 @@ async function optimizeImages(req) {
             compressOptionsArr.push({
                 inputPath: inputPath,
                 outputPath: outputPath,
+                inputFormat: inputFormat,
+                outputFormat: outputFormat,
                 imageOptions: imageOptions,
                 compressor: compressor
             });
         }
         else {
-            // TODO: error
             const errorMsg = `No such file: ${inputPath}`
             console.log(errorMsg);
             return {

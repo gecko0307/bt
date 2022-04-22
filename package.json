@@ -43,6 +43,7 @@
         "gifencoder": "^2.0.1",
         "glob": "^7.1.6",
         "glob-promise": "^4.2.2",
+        "gzip-size": "^6.0.0",
         "image-q": "^4.0.0",
         "jpeg-js": "^0.4.3",
         "jsdom": "^16.7.0",
