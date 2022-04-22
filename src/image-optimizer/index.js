@@ -133,28 +133,28 @@ const imageCompressors = {
 };
 
 const converters = {
-	"png": {
-		"png": imageCompressors["png"], // png -> png
-		"jpg": require("./compressors/png2jpg"), // png -> jpg
-		"svg": require("./compressors/png2svg"), // png -> svg
-		"webp": imageCompressors["webp"] // png -> webp
-	},
+    "png": {
+        "png": imageCompressors["png"], // png -> png
+        "jpg": require("./compressors/png2jpg"), // png -> jpg
+        "svg": require("./compressors/png2svg"), // png -> svg
+        "webp": imageCompressors["webp"] // png -> webp
+    },
 
-	"jpg": {
-		"jpg": imageCompressors["jpg"], // jpg -> jpg
-		"webp": imageCompressors["webp"] // jpg -> webp
-	},
+    "jpg": {
+        "jpg": imageCompressors["jpg"], // jpg -> jpg
+        "webp": imageCompressors["webp"] // jpg -> webp
+    },
 
-	"svg": {
-		"svg": imageCompressors["svg"], // svg -> svg
-		"png": require("./compressors/svg2png"), // svg -> png
-		"jpg": require("./compressors/svg2jpg"), // svg -> jpg
-		"webp": require("./compressors/svg2webp") // svg -> webp
-	},
+    "svg": {
+        "svg": imageCompressors["svg"], // svg -> svg
+        "png": require("./compressors/svg2png"), // svg -> png
+        "jpg": require("./compressors/svg2jpg"), // svg -> jpg
+        "webp": require("./compressors/svg2webp") // svg -> webp
+    },
 
-	"webp": {
-		"webp": imageCompressors["webp"] // webp -> webp
-	}
+    "webp": {
+        "webp": imageCompressors["webp"] // webp -> webp
+    }
 };
 
 async function fallbackCompressor(inputStream, options) {
@@ -197,7 +197,6 @@ async function optimizeImages(req) {
         const imageOptions = config[imageFile] || { ...imageDefaultOptions };
         const inputFormat = path.extname(imageFile).substring(1).toLowerCase();
         const outputFormat = config[imageFile].options.outputFormat;
-        //console.log(`${inputFormat} -> ${outputFormat}`);
         const inputPath = path.join(imagesPath, imageFile);
         const outputPath = path.join(imagesOutputPath, imageFile.split(".")[0] + "." + outputFormat);
         if (await fs.pathExists(inputPath)) {
@@ -221,24 +220,24 @@ async function optimizeImages(req) {
     }
 
     try {
-		const chunkSize = 10;
-		if (compressOptionsArr.length < chunkSize) {
-			await Promise.all(compressOptionsArr.map(opts => compress(opts)));
-		}
-		else {
-			const chunks = chunkArray(compressOptionsArr, chunkSize);
-			for (const chunk of chunks) {
-				await Promise.all(chunk.map(opts => compress(opts)));
-			}
-		}
-	}
+        const chunkSize = 10;
+        if (compressOptionsArr.length < chunkSize) {
+            await Promise.all(compressOptionsArr.map(opts => compress(opts)));
+        }
+        else {
+            const chunks = chunkArray(compressOptionsArr, chunkSize);
+            for (const chunk of chunks) {
+                await Promise.all(chunk.map(opts => compress(opts)));
+            }
+        }
+    }
     catch(e) {
-		console.log(e.message);
+        console.log(e.message);
         return {
             ok: false,
             message: e.message
         }
-	}
+    }
 
     await fs.writeJSON(imagesConfigPath, config);
     return {

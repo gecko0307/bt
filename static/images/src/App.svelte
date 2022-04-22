@@ -129,6 +129,7 @@
 		position: absolute;
 		padding: 10px;
 		margin: 0;
+		width: 95%;
 		max-width: 1280px;
 		left: -100%;
 		right: -100%;

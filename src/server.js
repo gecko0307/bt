@@ -1,6 +1,6 @@
 const fs = require("fs-extra"); 
 const path = require("path");
-const { EventEmitter, on } = require("events");
+const { EventEmitter } = require("events");
 const { EventIterator } = require("event-iterator");
 const Fastify = require("fastify");
 const fastifyStatic = require("fastify-static");
@@ -51,7 +51,6 @@ fastify.post("/api", api.handleRequest);
 // SSE interface for server events
 // Example: /sse?events=watcher
 fastify.get("/sse", function(request, reply) {
-    console.log("New SSE connection");
     const eventName = request.query.events;
     // TODO: validate eventName
 
@@ -64,7 +63,6 @@ fastify.get("/sse", function(request, reply) {
         eventEmitter.on(eventName, cb);
             reply.raw.on("close", () => {
                 eventEmitter.removeListener(eventName, cb);
-                console.log("SSE connection closed");
             });
             return () => eventEmitter.removeListener(eventName, cb);
         })
