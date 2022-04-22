@@ -1,6 +1,7 @@
 const fs = require("fs-extra"); 
 const path = require("path");
 const { EventEmitter, on } = require("events");
+const { EventIterator } = require("event-iterator");
 const Fastify = require("fastify");
 const fastifyStatic = require("fastify-static");
 const chokidar = require("chokidar");
@@ -10,9 +11,6 @@ const api = require("./api");
 const cwd = process.cwd();
 
 const eventEmitter = new EventEmitter();
-const eventListeners = {
-    watcher: on(eventEmitter, "watcher")
-};
 
 const fastify = Fastify({});
 fastify.register(require("fastify-sse-v2"), { retryDelay: 1000 });
@@ -53,18 +51,24 @@ fastify.post("/api", api.handleRequest);
 // SSE interface for server events
 // Example: /sse?events=watcher
 fastify.get("/sse", function(request, reply) {
+    console.log("New SSE connection");
     const eventName = request.query.events;
-    if (!(eventName in eventListeners)) {
-        reply.code(400).send(new Error("Invalid event listener"));
-    }
-    else {
-        const listener = eventListeners[eventName];
-        reply.sse((async function* source() {
-            for await (const event of listener) {
-                yield { event: event.name, data: JSON.stringify(event[0])};
-            }
-        })());
-    }
+    // TODO: validate eventName
+
+    reply.sse(new EventIterator(({push}) => {
+        const cb = (data) => {
+            const json = JSON.stringify(data);
+            push({ data: json });
+        };
+
+        eventEmitter.on(eventName, cb);
+            reply.raw.on("close", () => {
+                eventEmitter.removeListener(eventName, cb);
+                console.log("SSE connection closed");
+            });
+            return () => eventEmitter.removeListener(eventName, cb);
+        })
+    );
 });
 
 fastify.register(fastifyStatic, {
@@ -114,7 +118,6 @@ watcherFonts.on("all", async (event, path) => {
 
 const watcherImages = chokidar.watch(path.join(cwd, "Images"));
 watcherImages.on("all", async (event, path) => {
-    console.log(event);
     if (["add", "change", "unlink"].includes(event)) {
         await api.update("images", event, path);
         eventEmitter.emit("watcher", { subsystem: "images", event: event, path: path });

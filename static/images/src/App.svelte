@@ -66,9 +66,11 @@
 		sse.onmessage = async function(event) {
 			const data = JSON.parse(event.data);
 			if (data.subsystem === "images") {
-				console.log(data);
 				await updateImages();
 			}
+		};
+		sse.onerror = function(error) {
+			console.error("EventSource failed: ", error);
 		};
 	});
 </script>
