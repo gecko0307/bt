@@ -10,9 +10,12 @@ const api = require("./api");
 const cwd = process.cwd();
 
 const eventEmitter = new EventEmitter();
+const eventListeners = {
+    watcher: on(eventEmitter, "watcher")
+};
 
 const fastify = Fastify({});
-fastify.register(require("fastify-sse-v2"));
+fastify.register(require("fastify-sse-v2"), { retryDelay: 1000 });
 
 fastify.get("/favicon.ico", function(request, reply) {
     return reply.sendFile(path.join(__dirname, "..", "static", "server_data", "favicon.ico"));
@@ -49,16 +52,15 @@ fastify.post("/api", api.handleRequest);
 
 // SSE interface for server events
 // Example: /sse?events=watcher
-fastify.route({ method: "GET", url: "/sse",
-    schema: {
-        querystring: {
-            events: { type: "string" }
-        }
-    },
-    handler: async function(request, reply) {
-        const eventName = request.query.events;
-        reply.sse((async function * source() {
-            for await (const event of on(eventEmitter, eventName)) {
+fastify.get("/sse", function(request, reply) {
+    const eventName = request.query.events;
+    if (!(eventName in eventListeners)) {
+        reply.code(400).send(new Error("Invalid event listener"));
+    }
+    else {
+        const listener = eventListeners[eventName];
+        reply.sse((async function* source() {
+            for await (const event of listener) {
                 yield { event: event.name, data: JSON.stringify(event[0])};
             }
         })());
@@ -112,6 +114,7 @@ watcherFonts.on("all", async (event, path) => {
 
 const watcherImages = chokidar.watch(path.join(cwd, "Images"));
 watcherImages.on("all", async (event, path) => {
+    console.log(event);
     if (["add", "change", "unlink"].includes(event)) {
         await api.update("images", event, path);
         eventEmitter.emit("watcher", { subsystem: "images", event: event, path: path });
