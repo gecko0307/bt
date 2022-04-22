@@ -96,8 +96,8 @@
             </label>
         </div>
 
-        {#if !data.options.compress.lossless}
-            <div class="widget" class:pngOnly>
+        {#if (data.options.outputFormat === "png" && !data.options.compress.lossless) || (inputFormat === "png" && data.options.outputFormat === "svg")}
+            <div class="widget anyFormat">
                 <p>Dithering</p>
                 <select bind:value={data.options.compress.imageDithering}>
                     <option value="nearest">Nearest</option>
@@ -113,7 +113,7 @@
 					<option value="jarvis">Jarvis</option>
                 </select>
             </div>
-            <div class="widget" class:pngOnly>
+            <div class="widget anyFormat">
                 <p>Palette quantization</p>
                 <select bind:value={data.options.compress.paletteDithering}>
 					<option value="neuquant">NeuQuant</option>
@@ -206,4 +206,8 @@
 	input[type=checkbox] {
 		margin-right: 5px;
 	}
+
+    input[type=number] {
+	    max-width: 60px;
+    }
 </style>
