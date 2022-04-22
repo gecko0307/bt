@@ -7,6 +7,7 @@ Warning: Banner Toolchain is currently undergoing a major refactoring, so not al
 * ✔️ JavaScript module bundling and babeling
 * ✔️ Dev server with file watching and autorefresh
 * ✔️ [Sass](https://sass-lang.com/) support
+* ✔️ Built-in simple 3D engine based on WebGL
 * ✔️ CSS animation generator that uses simple [GreenSock](https://greensock.com/)-like input expressions
 * ✔️ Web font generator with subsetting
 * ✔️ Capture individual frames of animation of GreenSock banners. Output PNG, layered PSD and animated GIF
