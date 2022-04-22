@@ -12,10 +12,11 @@ const svgoPlugins = [
 ];
 
 async function compress(inputStream, options) {
+    const compressOpts = options.options.compress;
     const svgStr = await getStringFromStream(inputStream);
     const result = svgo.optimize(svgStr, {
         plugins: svgoPlugins,
-        js2svg: { pretty: options.pretty, indent: "\t" },
+        js2svg: { pretty: compressOpts.pretty, indent: "\t" },
         multipass: true,
     });
     return stringToStream(result.data);
