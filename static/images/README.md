@@ -1,5 +1,10 @@
 # Image Optimizer
-Reduces size of PNG, JPEG and SVG images, converts between formats, generates WebP images.
+All-in-one image manipulation and conversion tool.
+* Greatly reduces size of PNG and JPEG files without much quality loss
+* Optimizes SVG
+* Generates WebP
+* Converts between formats
+* Generates inline base64-encoded CSS background-images.
 
 Available at `http://localhost:8000/images` or `http://localhost:8000/tuner`.
 
