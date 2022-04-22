@@ -55,13 +55,15 @@ You can also add your own templates to `templates` directory and use them.
 Development server runs at `http://localhost:8000/` and serves project's `HTML` directory. Additional services are available at the following routes:
 * `http://localhost:8000/preview` - developer's preview page (WIP)
 * `http://localhost:8000/fonts` - web font generator
-* `http://localhost:8000/images` or `http://localhost:8000/tuner` - image optimizer (WIP)
+* `http://localhost:8000/images` or `http://localhost:8000/tuner` - image optimizer
 * `http://localhost:8000/mobile` - mobile device emulator to work with Device Orientation API on desktop. This functionality will be reimplemented as a part of `/preview` page in future
 * `http://localhost:8000/api` - toolchain API (see [src/api.js](https://github.com/gecko0307/bt/blob/master/src/api.js) for details)
 * `http://localhost:8000/sse` - server-side events (SSE) interface. Currently provides only file watcher event system which can be used like this: `http://localhost:8000/sse?events=watcher`. These events are emitted when `Fonts` or `Images` directories change
 * `http://localhost:8000/file?path=your/path` - retrieves any file relative to project root (a directory where dev server runs).
 
 ## Copyright and license
-Copyright (C) 2020-2022 Timur Gafarov. Distributed under the MIT license.
+Banner Toolchain. Copyright (C) 2020-2022 Timur Gafarov. Distributed under the MIT license.
 
-WebGL modules are based on [lightgl.js](https://github.com/evanw/lightgl.js). Copyright (C) 2011 by Evan Wallace.
+cwebp. Copyright 2011 Google Inc. Distributed under the BSD license.
+
+WebGL modules are based on [lightgl.js](https://github.com/evanw/lightgl.js). Copyright (C) 2011 by Evan Wallace. Distributed under the MIT license.
