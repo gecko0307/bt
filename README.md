@@ -13,7 +13,7 @@ Warning: Banner Toolchain is currently undergoing a major refactoring, so not al
 * ✔️ Web font generator with subsetting
 * ✔️ Capture individual frames of animation of GreenSock banners. Output PNG, layered PSD and animated GIF
 * ️✔ Capture video of GreenSock banners at 60 fps
-* ⌛ Image optimizer
+* ✔ Image optimizer
 * ⌛ Banner builder
 * ⌛ Banner preview tools: resizer, timer, event manager, device orientation emulator etc.
 
