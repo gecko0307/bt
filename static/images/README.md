@@ -8,7 +8,7 @@ All-in-one image manipulation and conversion tool.
 
 Available at `http://localhost:8000/images` or `http://localhost:8000/tuner`.
 
-Put your fonts to `Images` directory of the project.
+Put your files to `Images` directory of the project.
 
 Generator's frontend is written in [Svelte](https://svelte.dev/). To make edits to the frontend, run the following in this directory:
 
