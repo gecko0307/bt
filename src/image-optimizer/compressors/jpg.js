@@ -1,9 +1,5 @@
 const mozjpeg = require("mozjpeg-binaries");
-const dcp = require("duplex-child-process");
-
-function spawnAsStream(filename, args) {
-	return dcp.spawn(filename, args);
-}
+const { spawnAsStream } = require("../utils");
 
 async function compress(inputStream, options) {
     const compressOpts = options.options.compress;

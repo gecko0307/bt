@@ -1,14 +1,6 @@
-const Readable = require("stream").Readable;
 const getStringFromStream = require("get-stream");
 const svgo = require("svgo");
-
-function stringToStream(str) {
-    const stream = new Readable();
-    stream._read = () => {};
-    stream.push(str);
-    stream.push(null);
-    return stream;
-}
+const { stringToStream } = require("../utils");
 
 const svgoPlugins = [
     "preset-default",

@@ -1,15 +1,8 @@
-const Readable = require("stream").Readable;
 const getStringFromStream = require("get-stream");
 const svg2png = require("svg2png");
 const svgCompressor = require("./svg");
 const pngCompressor = require("./png");
-
-function bufferToStream(buffer) {
-    const stream = new Readable();
-    stream.push(buffer);
-    stream.push(null);
-    return stream;
-}
+const { bufferToStream } = require("../utils");
 
 async function convert(inputStream, options) {
     const svg2pngOptions = {};

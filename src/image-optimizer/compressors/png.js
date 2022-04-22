@@ -1,27 +1,11 @@
 const fs = require("fs-extra");
 const path = require("path");
-const Readable = require("stream").Readable;
 const PNG = require("pngjs").PNG;
 const imageq = require("image-q");
 const PngQuant = require("pngquant");
 const util = require("util");
 const execFile = util.promisify(require("child_process").execFile);
 const { nanoid } = require("nanoid");
-
-function streamToFile(stream, outputPath) {
-	return new Promise((resolve, reject) => {
-		stream.pipe(fs.createWriteStream(outputPath))
-		.on("finish", () => resolve("ok"))
-		.on("error", err => reject(err));
-	});
-}
-
-function bufferToStream(buffer) {
-	const stream = new Readable();
-	stream.push(buffer);
-	stream.push(null);
-	return stream;
-}
 
 function decodePNG(inputStream) {
 	return new Promise((resolve, reject) => {

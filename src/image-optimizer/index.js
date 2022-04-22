@@ -2,18 +2,11 @@ const fs = require("fs-extra");
 const path = require("path");
 const unixify = require("unixify");
 const glob = require("glob-promise");
+const { streamToFile } = require("./utils");
 
 function requireUncached(module) {
     delete require.cache[require.resolve(module)];
     return require(module);
-}
-
-function streamToFile(stream, outputPath) {
-	return new Promise((resolve, reject) => {
-		stream.pipe(fs.createWriteStream(outputPath))
-		.on("finish", () => resolve("ok"))
-		.on("error", err => reject(err));
-	});
 }
 
 const imagesPath = path.resolve("./Images");
