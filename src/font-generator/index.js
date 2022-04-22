@@ -112,8 +112,6 @@ async function generateFonts(req) {
             css += fontFace;
         }
         console.log("Done");
-
-        throw new Error("Fuck!");
     
         await fs.writeFile(fontsOutputPath, css);
         await fs.writeJSON(fontsConfigPath, config);
