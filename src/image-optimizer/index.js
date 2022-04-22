@@ -2,6 +2,7 @@ const fs = require("fs-extra");
 const path = require("path");
 const unixify = require("unixify");
 const glob = require("glob-promise");
+const mime = require("mime");
 const { streamToFile, copySmallestFile } = require("./utils");
 
 function requireUncached(module) {
@@ -12,6 +13,7 @@ function requireUncached(module) {
 const imagesPath = path.resolve("./Images");
 const imagesConfigPath = path.resolve("./.data/tuner.config.json");
 const imagesOutputPath = path.resolve("./HTML/assets");
+const inlineImagesPath = path.resolve("./HTML/inline_images.css");
 
 const imageDefaultOptions = {
     quality: 100,
@@ -106,6 +108,7 @@ async function imagesConfig(req = {}) {
                         progressive: false,
                         pretty: false,
                         inline: false,
+                        selector: "",
                         backgroundColor: "#ffffff"
                     },
                     outputWidth: 0,
@@ -243,6 +246,32 @@ async function optimizeImages(req) {
             message: e.message
         }
     }
+
+    // Generate inline images
+    let inlineImages = "";
+    for (const compressEntry of compressOptionsArr) {
+        const imageOptions = compressEntry.imageOptions;
+        const inline = imageOptions.options.compress.inline || false;
+        if (inline) {
+            const imagePath = compressEntry.outputPath;
+            const content = await fs.readFile(imagePath);
+            const base64Str = content.toString("base64");
+            const mimetype = mime.getType(imagePath);
+            const dataStr = `data:${mimetype};base64,${base64Str}`;
+            const name = path.parse(imagePath).name;
+            const defaultSelector = `.${name}`;
+            let cssSelector = defaultSelector;
+            const configSelector = imageOptions.options.compress.selector;
+            if (configSelector) {
+                if (configSelector.length > 0) cssSelector = configSelector;
+            }
+            console.log(`Base64 encode file ${imagePath} as ${cssSelector}`);
+            const cssRule = `${cssSelector} { background-image: url("${dataStr}"); }`;
+            inlineImages += cssRule + "\n\n";
+        }
+    }
+    console.log("Write", inlineImagesPath);
+    await fs.writeFile(inlineImagesPath, inlineImages);
 
     await fs.writeJSON(imagesConfigPath, config);
     return {

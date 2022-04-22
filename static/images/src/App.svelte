@@ -130,7 +130,7 @@
 		padding: 10px;
 		margin: 0;
 		width: 95%;
-		max-width: 1280px;
+		max-width: 1440px;
 		left: -100%;
 		right: -100%;
 		margin-left: auto;

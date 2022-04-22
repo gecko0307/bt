@@ -862,17 +862,17 @@ var app = (function () {
     			attr_dev(input0, "min", "1");
     			attr_dev(input0, "max", "100");
     			attr_dev(input0, "step", "1");
-    			attr_dev(input0, "class", "svelte-1n8n1g");
+    			attr_dev(input0, "class", "svelte-qi42l6");
     			add_location(input0, file$1, 66, 16, 2438);
-    			attr_dev(div0, "class", "widget anyFormat svelte-1n8n1g");
+    			attr_dev(div0, "class", "widget anyFormat svelte-qi42l6");
     			add_location(div0, file$1, 64, 12, 2352);
     			attr_dev(input1, "type", "number");
     			attr_dev(input1, "min", "1");
     			attr_dev(input1, "max", "100");
     			attr_dev(input1, "step", "1");
-    			attr_dev(input1, "class", "svelte-1n8n1g");
+    			attr_dev(input1, "class", "svelte-qi42l6");
     			add_location(input1, file$1, 69, 16, 2619);
-    			attr_dev(div1, "class", "widget anyFormat svelte-1n8n1g");
+    			attr_dev(div1, "class", "widget anyFormat svelte-qi42l6");
     			set_style(div1, "padding-top", "14px");
     			add_location(div1, file$1, 68, 12, 2545);
     		},
@@ -1038,7 +1038,7 @@ var app = (function () {
     			add_location(option10, file$1, 113, 5, 4580);
     			if (/*data*/ ctx[0].options.compress.imageDithering === void 0) add_render_callback(() => /*select0_change_handler*/ ctx[20].call(select0));
     			add_location(select0, file$1, 102, 16, 3963);
-    			attr_dev(div0, "class", "widget anyFormat svelte-1n8n1g");
+    			attr_dev(div0, "class", "widget anyFormat svelte-qi42l6");
     			add_location(div0, file$1, 100, 12, 3881);
     			add_location(p1, file$1, 117, 16, 4727);
     			option11.__value = "neuquant";
@@ -1056,7 +1056,7 @@ var app = (function () {
     			add_location(option14, file$1, 122, 5, 5000);
     			if (/*data*/ ctx[0].options.compress.paletteDithering === void 0) add_render_callback(() => /*select1_change_handler*/ ctx[21].call(select1));
     			add_location(select1, file$1, 118, 16, 4772);
-    			attr_dev(div1, "class", "widget anyFormat svelte-1n8n1g");
+    			attr_dev(div1, "class", "widget anyFormat svelte-qi42l6");
     			add_location(div1, file$1, 116, 12, 4679);
     		},
     		m: function mount(target, anchor) {
@@ -1144,7 +1144,7 @@ var app = (function () {
     			add_location(p, file$1, 129, 16, 5240);
     			attr_dev(input, "type", "color");
     			add_location(input, file$1, 130, 16, 5275);
-    			attr_dev(div, "class", "widget anyFormat svelte-1n8n1g");
+    			attr_dev(div, "class", "widget anyFormat svelte-qi42l6");
     			add_location(div, file$1, 128, 12, 5192);
     		},
     		m: function mount(target, anchor) {
@@ -1213,17 +1213,17 @@ var app = (function () {
     			attr_dev(input0, "type", "number");
     			attr_dev(input0, "min", "1");
     			attr_dev(input0, "step", "1");
-    			attr_dev(input0, "class", "svelte-1n8n1g");
+    			attr_dev(input0, "class", "svelte-qi42l6");
     			add_location(input0, file$1, 137, 16, 5553);
-    			attr_dev(div0, "class", "widget anyFormat svelte-1n8n1g");
+    			attr_dev(div0, "class", "widget anyFormat svelte-qi42l6");
     			add_location(div0, file$1, 135, 12, 5475);
     			add_location(p1, file$1, 140, 16, 5711);
     			attr_dev(input1, "type", "number");
     			attr_dev(input1, "min", "1");
     			attr_dev(input1, "step", "1");
-    			attr_dev(input1, "class", "svelte-1n8n1g");
+    			attr_dev(input1, "class", "svelte-qi42l6");
     			add_location(input1, file$1, 141, 16, 5742);
-    			attr_dev(div1, "class", "widget anyFormat svelte-1n8n1g");
+    			attr_dev(div1, "class", "widget anyFormat svelte-qi42l6");
     			add_location(div1, file$1, 139, 12, 5663);
     		},
     		m: function mount(target, anchor) {
@@ -1295,9 +1295,9 @@ var app = (function () {
     			input = element("input");
     			add_location(p, file$1, 154, 16, 6200);
     			attr_dev(input, "type", "text");
-    			attr_dev(input, "class", "svelte-1n8n1g");
+    			attr_dev(input, "class", "svelte-qi42l6");
     			add_location(input, file$1, 155, 16, 6237);
-    			attr_dev(div, "class", "widget anyFormat svelte-1n8n1g");
+    			attr_dev(div, "class", "widget anyFormat svelte-qi42l6");
     			add_location(div, file$1, 153, 12, 6152);
     		},
     		m: function mount(target, anchor) {
@@ -1448,63 +1448,63 @@ var app = (function () {
     			t16 = text("\r\n                Inline");
     			t17 = space();
     			if (if_block8) if_block8.c();
-    			attr_dev(img, "class", "thumb_image svelte-1n8n1g");
+    			attr_dev(img, "class", "thumb_image svelte-qi42l6");
     			if (!src_url_equal(img.src, img_src_value = "/file?path=" + /*imagePath*/ ctx[12])) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", /*filename*/ ctx[1]);
     			add_location(img, file$1, 41, 16, 1472);
     			attr_dev(a, "href", a_href_value = "/file?path=" + /*imagePath*/ ctx[12]);
     			attr_dev(a, "target", "_blank");
     			add_location(a, file$1, 40, 12, 1405);
-    			attr_dev(div0, "class", "thumb svelte-1n8n1g");
+    			attr_dev(div0, "class", "thumb svelte-qi42l6");
     			add_location(div0, file$1, 39, 8, 1372);
     			add_location(p, file$1, 46, 12, 1633);
     			if (/*data*/ ctx[0].options.outputFormat === void 0) add_render_callback(() => /*select_change_handler*/ ctx[13].call(select));
     			add_location(select, file$1, 47, 12, 1667);
-    			attr_dev(div1, "class", "widget anyFormat svelte-1n8n1g");
+    			attr_dev(div1, "class", "widget anyFormat svelte-qi42l6");
     			add_location(div1, file$1, 45, 8, 1589);
     			attr_dev(input0, "type", "checkbox");
-    			attr_dev(input0, "class", "svelte-1n8n1g");
+    			attr_dev(input0, "class", "svelte-qi42l6");
     			add_location(input0, file$1, 75, 16, 2839);
     			add_location(label0, file$1, 74, 12, 2814);
-    			attr_dev(div2, "class", "widget svelte-1n8n1g");
+    			attr_dev(div2, "class", "widget svelte-qi42l6");
     			set_style(div2, "padding-top", "14px");
     			toggle_class(div2, "jpgOnly", /*jpgOnly*/ ctx[6]);
     			add_location(div2, file$1, 73, 8, 2740);
     			attr_dev(input1, "type", "checkbox");
-    			attr_dev(input1, "class", "svelte-1n8n1g");
+    			attr_dev(input1, "class", "svelte-qi42l6");
     			add_location(input1, file$1, 80, 16, 3071);
     			add_location(label1, file$1, 79, 12, 3046);
-    			attr_dev(div3, "class", "widget svelte-1n8n1g");
+    			attr_dev(div3, "class", "widget svelte-qi42l6");
     			set_style(div3, "padding-top", "14px");
     			toggle_class(div3, "jpgOnly", /*jpgOnly*/ ctx[6]);
     			add_location(div3, file$1, 78, 8, 2972);
     			attr_dev(input2, "type", "checkbox");
-    			attr_dev(input2, "class", "svelte-1n8n1g");
+    			attr_dev(input2, "class", "svelte-qi42l6");
     			add_location(input2, file$1, 87, 16, 3319);
     			add_location(label2, file$1, 86, 12, 3294);
-    			attr_dev(div4, "class", "widget svelte-1n8n1g");
+    			attr_dev(div4, "class", "widget svelte-qi42l6");
     			set_style(div4, "padding-top", "14px");
     			toggle_class(div4, "svgOnly", /*svgOnly*/ ctx[5]);
     			add_location(div4, file$1, 85, 8, 3220);
     			attr_dev(input3, "type", "checkbox");
-    			attr_dev(input3, "class", "svelte-1n8n1g");
+    			attr_dev(input3, "class", "svelte-qi42l6");
     			add_location(input3, file$1, 94, 16, 3576);
     			add_location(label3, file$1, 93, 12, 3551);
-    			attr_dev(div5, "class", "widget svelte-1n8n1g");
+    			attr_dev(div5, "class", "widget svelte-qi42l6");
     			set_style(div5, "padding-top", "14px");
     			toggle_class(div5, "pngOnly", /*pngOnly*/ ctx[7]);
     			toggle_class(div5, "webpOnly", /*webpOnly*/ ctx[4]);
     			add_location(div5, file$1, 92, 8, 3462);
     			attr_dev(input4, "type", "checkbox");
-    			attr_dev(input4, "class", "svelte-1n8n1g");
+    			attr_dev(input4, "class", "svelte-qi42l6");
     			add_location(input4, file$1, 147, 16, 5961);
     			add_location(label4, file$1, 146, 12, 5936);
-    			attr_dev(div6, "class", "widget anyFormat svelte-1n8n1g");
+    			attr_dev(div6, "class", "widget anyFormat svelte-qi42l6");
     			set_style(div6, "padding-top", "14px");
     			add_location(div6, file$1, 145, 8, 5866);
     			attr_dev(div7, "class", "row");
     			add_location(div7, file$1, 38, 4, 1345);
-    			attr_dev(main, "class", "svelte-1n8n1g");
+    			attr_dev(main, "class", "svelte-qi42l6");
     			add_location(main, file$1, 37, 0, 1333);
     		},
     		l: function claim(nodes) {
@@ -2205,7 +2205,7 @@ var app = (function () {
     			add_location(b, file, 86, 16, 1802);
     			add_location(legend, file, 86, 8, 1794);
     			add_location(fieldset, file, 85, 7, 1774);
-    			attr_dev(div, "class", "image svelte-1kth1ek");
+    			attr_dev(div, "class", "image svelte-1dsjtxa");
     			add_location(div, file, 84, 6, 1746);
     		},
     		m: function mount(target, anchor) {
@@ -2338,10 +2338,10 @@ var app = (function () {
     			t1 = space();
     			if (if_block1) if_block1.c();
     			attr_dev(div0, "id", "overlay-bg");
-    			attr_dev(div0, "class", "svelte-1kth1ek");
+    			attr_dev(div0, "class", "svelte-1dsjtxa");
     			add_location(div0, file, 102, 3, 2257);
     			attr_dev(div1, "id", "overlay");
-    			attr_dev(div1, "class", "svelte-1kth1ek");
+    			attr_dev(div1, "class", "svelte-1dsjtxa");
     			add_location(div1, file, 101, 2, 2196);
     		},
     		m: function mount(target, anchor) {
@@ -2449,7 +2449,7 @@ var app = (function () {
     			attr_dev(img, "id", "preloader");
     			if (!src_url_equal(img.src, img_src_value = "images/preloader.svg")) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", "preloader");
-    			attr_dev(img, "class", "svelte-1kth1ek");
+    			attr_dev(img, "class", "svelte-1dsjtxa");
     			add_location(img, file, 104, 4, 2311);
     		},
     		m: function mount(target, anchor) {
@@ -2520,15 +2520,15 @@ var app = (function () {
     			add_location(br0, file, 108, 14, 2510);
     			add_location(br1, file, 108, 18, 2514);
     			attr_dev(div0, "id", "error");
-    			attr_dev(div0, "class", "svelte-1kth1ek");
+    			attr_dev(div0, "class", "svelte-1dsjtxa");
     			add_location(div0, file, 107, 4, 2442);
     			attr_dev(img, "id", "close-bg");
     			if (!src_url_equal(img.src, img_src_value = "images/close.svg")) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", "close");
-    			attr_dev(img, "class", "svelte-1kth1ek");
+    			attr_dev(img, "class", "svelte-1dsjtxa");
     			add_location(img, file, 112, 5, 2644);
     			attr_dev(div1, "id", "close");
-    			attr_dev(div1, "class", "svelte-1kth1ek");
+    			attr_dev(div1, "class", "svelte-1dsjtxa");
     			add_location(div1, file, 111, 4, 2559);
     		},
     		m: function mount(target, anchor) {
@@ -2638,7 +2638,7 @@ var app = (function () {
     			if (if_block1) if_block1.c();
     			add_location(h1, file, 79, 2, 1600);
     			attr_dev(div0, "id", "images");
-    			attr_dev(div0, "class", "svelte-1kth1ek");
+    			attr_dev(div0, "class", "svelte-1dsjtxa");
     			add_location(div0, file, 80, 2, 1628);
     			input.disabled = /*disabled*/ ctx[5];
     			attr_dev(input, "type", "button");
@@ -2647,9 +2647,9 @@ var app = (function () {
     			attr_dev(div1, "id", "buttons");
     			add_location(div1, file, 96, 2, 2047);
     			attr_dev(div2, "id", "ui");
-    			attr_dev(div2, "class", "svelte-1kth1ek");
+    			attr_dev(div2, "class", "svelte-1dsjtxa");
     			add_location(div2, file, 78, 1, 1583);
-    			attr_dev(main, "class", "svelte-1kth1ek");
+    			attr_dev(main, "class", "svelte-1dsjtxa");
     			add_location(main, file, 77, 0, 1574);
     		},
     		l: function claim(nodes) {

@@ -218,4 +218,9 @@
     input[type=number] {
 	    max-width: 60px;
     }
+
+    input[type=text] {
+        max-width: 170px;
+    	margin-top: 0;
+    }
 </style>

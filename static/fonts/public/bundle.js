@@ -898,14 +898,14 @@ var app = (function () {
     			add_location(p0, file, 137, 8, 2885);
     			attr_dev(input0, "type", "text");
     			attr_dev(input0, "size", "45");
-    			attr_dev(input0, "class", "svelte-1i9pqhz");
+    			attr_dev(input0, "class", "svelte-19tnp6f");
     			toggle_class(input0, "invalid", !isFontNameValid(/*config*/ ctx[0][/*fontFile*/ ctx[23]].fontname));
     			add_location(input0, file, 138, 11, 2921);
     			add_location(p1, file, 138, 8, 2918);
     			add_location(p2, file, 139, 8, 3063);
     			attr_dev(textarea, "rows", "3");
     			attr_dev(textarea, "cols", "45");
-    			attr_dev(textarea, "class", "svelte-1i9pqhz");
+    			attr_dev(textarea, "class", "svelte-19tnp6f");
     			toggle_class(textarea, "invalid", !isSubsetTextValid(/*config*/ ctx[0][/*fontFile*/ ctx[23]].text));
     			add_location(textarea, file, 140, 11, 3099);
     			add_location(p3, file, 140, 8, 3096);
@@ -1029,12 +1029,12 @@ var app = (function () {
     			t3 = space();
     			if_block.c();
     			t4 = space();
-    			attr_dev(span, "class", "font-icon svelte-1i9pqhz");
+    			attr_dev(span, "class", "font-icon svelte-19tnp6f");
     			add_location(span, file, 135, 18, 2785);
     			add_location(b, file, 135, 15, 2782);
     			add_location(legend, file, 135, 7, 2774);
     			add_location(fieldset, file, 134, 6, 2755);
-    			attr_dev(div, "class", "font svelte-1i9pqhz");
+    			attr_dev(div, "class", "font svelte-19tnp6f");
     			add_location(div, file, 133, 5, 2729);
     		},
     		m: function mount(target, anchor) {
@@ -1094,7 +1094,7 @@ var app = (function () {
     			div = element("div");
     			p = element("p");
     			textarea = element("textarea");
-    			attr_dev(textarea, "class", "output svelte-1i9pqhz");
+    			attr_dev(textarea, "class", "output svelte-19tnp6f");
     			attr_dev(textarea, "rows", "3");
     			attr_dev(textarea, "cols", "45");
     			add_location(textarea, file, 161, 7, 3954);
@@ -1156,10 +1156,10 @@ var app = (function () {
     			t1 = space();
     			if (if_block1) if_block1.c();
     			attr_dev(div0, "id", "overlay-bg");
-    			attr_dev(div0, "class", "svelte-1i9pqhz");
+    			attr_dev(div0, "class", "svelte-19tnp6f");
     			add_location(div0, file, 167, 3, 4155);
     			attr_dev(div1, "id", "overlay");
-    			attr_dev(div1, "class", "svelte-1i9pqhz");
+    			attr_dev(div1, "class", "svelte-19tnp6f");
     			add_location(div1, file, 166, 2, 4094);
     		},
     		m: function mount(target, anchor) {
@@ -1337,15 +1337,15 @@ var app = (function () {
     			add_location(br0, file, 173, 14, 4408);
     			add_location(br1, file, 173, 18, 4412);
     			attr_dev(div0, "id", "error");
-    			attr_dev(div0, "class", "svelte-1i9pqhz");
+    			attr_dev(div0, "class", "svelte-19tnp6f");
     			add_location(div0, file, 172, 4, 4340);
     			attr_dev(img, "id", "close-bg");
     			if (!src_url_equal(img.src, img_src_value = "images/close.svg")) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", "close");
-    			attr_dev(img, "class", "svelte-1i9pqhz");
+    			attr_dev(img, "class", "svelte-19tnp6f");
     			add_location(img, file, 177, 5, 4542);
     			attr_dev(div1, "id", "close");
-    			attr_dev(div1, "class", "svelte-1i9pqhz");
+    			attr_dev(div1, "class", "svelte-19tnp6f");
     			add_location(div1, file, 176, 4, 4457);
     		},
     		m: function mount(target, anchor) {
@@ -1464,7 +1464,7 @@ var app = (function () {
     			if (if_block2) if_block2.c();
     			add_location(h1, file, 129, 2, 2591);
     			attr_dev(div0, "id", "fonts");
-    			attr_dev(div0, "class", "svelte-1i9pqhz");
+    			attr_dev(div0, "class", "svelte-19tnp6f");
     			add_location(div0, file, 130, 2, 2622);
     			input0.disabled = /*disabled*/ ctx[6];
     			attr_dev(input0, "type", "button");
@@ -1476,12 +1476,12 @@ var app = (function () {
     			add_location(input1, file, 156, 4, 3804);
     			add_location(p, file, 154, 3, 3704);
     			attr_dev(div1, "id", "buttons");
-    			attr_dev(div1, "class", "svelte-1i9pqhz");
+    			attr_dev(div1, "class", "svelte-19tnp6f");
     			add_location(div1, file, 153, 2, 3681);
     			attr_dev(div2, "id", "ui");
-    			attr_dev(div2, "class", "svelte-1i9pqhz");
+    			attr_dev(div2, "class", "svelte-19tnp6f");
     			add_location(div2, file, 128, 1, 2574);
-    			attr_dev(main, "class", "svelte-1i9pqhz");
+    			attr_dev(main, "class", "svelte-19tnp6f");
     			add_location(main, file, 127, 0, 2565);
     		},
     		l: function claim(nodes) {
