@@ -211,8 +211,9 @@ async function optimizeImages(req) {
             let ignoreFile = false;
             if (imageFile in oldConfig) {
                 const original = oldConfig[imageFile].original;
-                if (original) {
-                    if (original.hash === conf.original.hash && outputFormat === inputFormat)
+                const oldOutputFormat = oldConfig[imageFile].options.outputFormat;
+                if (original && oldOutputFormat.length > 0) {
+                    if (original.hash === conf.original.hash && outputFormat === oldOutputFormat)
                         ignoreFile = true;
                 }
             }
@@ -286,7 +287,7 @@ async function optimizeImages(req) {
                     if (configSelector.length > 0) cssSelector = configSelector;
                 }
                 console.log(`Base64 encode file ${outputFile} as ${cssSelector}`);
-                const cssRule = `${cssSelector} { background-image: url("${dataStr}"); }`;
+                const cssRule = `/* ${outputFile} */\n${cssSelector} { background-image: url("${dataStr}"); }`;
                 inlineImages += cssRule + "\n\n";
             }
 
