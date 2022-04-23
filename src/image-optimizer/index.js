@@ -3,6 +3,7 @@ const path = require("path");
 const unixify = require("unixify");
 const glob = require("glob-promise");
 const mime = require("mime");
+const { fillMissing } = require("object-fill-missing-keys");
 const { fileSize, fileHash, streamToFile, copySmallestFile } = require("./utils");
 
 function requireUncached(module) {
@@ -24,9 +25,9 @@ const imageDefaultOptions = {
     },
     compressed: {
         weight: 0,
-        unzipped: 0
+        unzipped: 0,
+        hash: ""
     },
-    ultimated: true,
     options: {
         outputFormat: "",
         compress: {
@@ -37,11 +38,13 @@ const imageDefaultOptions = {
             progressive: false,
             pretty: false,
             inline: false,
+            selector: "",
             backgroundColor: "#ffffff"
         },
         outputWidth: 0,
         outputHeight: 0
-    }
+    },
+    ultimated: true,
 };
 
 async function init() {
@@ -84,42 +87,14 @@ async function imagesConfig(req = {}) {
     
     const images = await inputImages();
     for (const imageFile of images) {
-        if (!(imageFile in config)) {
-            const inputFormat = path.extname(imageFile).substring(1).toLowerCase();
-            config[imageFile] = {
-                quality: 100,
-                scale: 1,
-                original: {
-                    weight: 0,
-                    hash: ""
-                },
-                compressed: {
-                    weight: 0,
-                    unzipped: 0,
-                    hash: ""
-                },
-                ultimated: true,
-                options: {
-                    outputFormat: inputFormat,
-                    compress: {
-                        paletteDithering: "wuquant",
-                        imageDithering: "atkinson",
-                        lossless: false,
-                        grayscale: false,
-                        progressive: false,
-                        pretty: false,
-                        inline: false,
-                        selector: "",
-                        backgroundColor: "#ffffff"
-                    },
-                    outputWidth: 0,
-                    outputHeight: 0
-                }
-            };
-        }
-        else {
-            // TODO: add missing properties to config[imageFile]
-        }
+        const conf = config[imageFile] || {};
+        const result = fillMissing(conf, imageDefaultOptions);
+
+        const inputFormat = path.extname(imageFile).substring(1).toLowerCase();
+        if (result.options.outputFormat.length === 0)
+            result.options.outputFormat = inputFormat;
+        
+        config[imageFile] = result;
     }
 
     await fs.writeJSON(imagesConfigPath, config, { spaces: "\t" });

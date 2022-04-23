@@ -50,6 +50,7 @@
         "mime": "^2.6.0",
         "mozjpeg-binaries": "^2.1.0",
         "nanoid": "^3.3.3",
+        "object-fill-missing-keys": "^8.1.0",
         "opener": "^1.5.2",
         "pngjs": "^6.0.0",
         "pngquant": "^4.0.0",
