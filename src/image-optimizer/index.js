@@ -71,15 +71,7 @@ async function inputImages() {
     return images;
 }
 
-async function imagesList(req = {}) {
-    return {
-        ok: true,
-        message: "",
-        data: { images: await inputImages() }
-    };
-}
-
-async function imagesConfig(req = {}) {
+async function getConfig() {
     let config = {};
     if (await fs.pathExists(imagesConfigPath)) {
         config = requireUncached(imagesConfigPath) || {};
@@ -97,8 +89,20 @@ async function imagesConfig(req = {}) {
         config[imageFile] = result;
     }
 
-    await fs.writeJSON(imagesConfigPath, config, { spaces: "\t" });
+    return config;
+}
 
+async function imagesList(req = {}) {
+    return {
+        ok: true,
+        message: "",
+        data: { images: await inputImages() }
+    };
+}
+
+async function imagesConfig(req = {}) {
+    const config = await getConfig();
+    await fs.writeJSON(imagesConfigPath, config, { spaces: "\t" });
     return {
         ok: true,
         message: "",
@@ -177,6 +181,8 @@ function chunkArray(myArray, chunk_size){
 
 async function optimizeImages(req) {
     console.log("Image Optimizer is running...");
+
+    const oldConfig = await getConfig();
     
     const config = req.config;
     const images = await inputImages();
@@ -188,7 +194,6 @@ async function optimizeImages(req) {
     const compressOptionsArr = [];
 
     for (const imageFile of images) {
-        console.log(imageFile);
         const conf = config[imageFile];
         const imageOptions = conf || { ...imageDefaultOptions };
         const inputFormat = path.extname(imageFile).substring(1).toLowerCase();
@@ -196,22 +201,37 @@ async function optimizeImages(req) {
         if (outputFormat.length === 0) conf.options.outputFormat = inputFormat;
         const inputPath = path.join(imagesPath, imageFile);
         const outputPath = path.join(imagesOutputPath, imageFile.split(".")[0] + "." + outputFormat);
-        // TODO: don't compress if input didn't change
         if (await fs.pathExists(inputPath)) {
             conf.original = {
                 weight: await fileSize(inputPath, false),
                 hash: await fileHash(inputPath)
             };
 
-            const compressor = imageCompressorFunction(inputFormat, outputFormat);
-            compressOptionsArr.push({
-                inputPath: inputPath,
-                outputPath: outputPath,
-                inputFormat: inputFormat,
-                outputFormat: outputFormat,
-                imageOptions: imageOptions,
-                compressor: compressor
-            });
+            // Don't compress if input file didn't change
+            let ignoreFile = false;
+            if (imageFile in oldConfig) {
+                const original = oldConfig[imageFile].original;
+                if (original) {
+                    if (original.hash === conf.original.hash && outputFormat === inputFormat)
+                        ignoreFile = true;
+                }
+            }
+
+            if (ignoreFile === false) {
+                console.log(`Compresing ${imageFile}...`);
+                const compressor = imageCompressorFunction(inputFormat, outputFormat);
+                compressOptionsArr.push({
+                    inputPath: inputPath,
+                    outputPath: outputPath,
+                    inputFormat: inputFormat,
+                    outputFormat: outputFormat,
+                    imageOptions: imageOptions,
+                    compressor: compressor
+                });
+            }
+            else {
+                console.log(`Ignoring ${imageFile}`);
+            }
         }
         else {
             const errorMsg = `No such file: ${inputPath}`
@@ -243,12 +263,33 @@ async function optimizeImages(req) {
         }
     }
 
-    // Write output metadata
+    // Generate inline images, write output metadata
+    let inlineImages = "";
     for (const imageFile of images) {
         const conf = config[imageFile];
         const outputFormat = conf.options.outputFormat;
         const outputPath = path.join(imagesOutputPath, imageFile.split(".")[0] + "." + outputFormat);
+        const outputFile = path.basename(outputPath);
+
         if (await fs.pathExists(outputPath)) {
+            const inline = conf.options.compress.inline || false;
+            if (inline) {
+                const content = await fs.readFile(outputPath);
+                const base64Str = content.toString("base64");
+                const mimetype = mime.getType(outputPath);
+                const dataStr = `data:${mimetype};base64,${base64Str}`;
+                const name = path.parse(outputPath).name;
+                const defaultSelector = `.${name}`;
+                let cssSelector = defaultSelector;
+                const configSelector = conf.options.compress.selector;
+                if (configSelector) {
+                    if (configSelector.length > 0) cssSelector = configSelector;
+                }
+                console.log(`Base64 encode file ${outputFile} as ${cssSelector}`);
+                const cssRule = `${cssSelector} { background-image: url("${dataStr}"); }`;
+                inlineImages += cssRule + "\n\n";
+            }
+
             conf.compressed = {
                 weight: await fileSize(outputPath, true),
                 unzipped: await fileSize(outputPath, false),
@@ -261,30 +302,6 @@ async function optimizeImages(req) {
                 unzipped: 0,
                 hash: ""
             };
-        }
-    }
-
-    // Generate inline images
-    let inlineImages = "";
-    for (const compressEntry of compressOptionsArr) {
-        const imageOptions = compressEntry.imageOptions;
-        const inline = imageOptions.options.compress.inline || false;
-        if (inline) {
-            const imagePath = compressEntry.outputPath;
-            const content = await fs.readFile(imagePath);
-            const base64Str = content.toString("base64");
-            const mimetype = mime.getType(imagePath);
-            const dataStr = `data:${mimetype};base64,${base64Str}`;
-            const name = path.parse(imagePath).name;
-            const defaultSelector = `.${name}`;
-            let cssSelector = defaultSelector;
-            const configSelector = imageOptions.options.compress.selector;
-            if (configSelector) {
-                if (configSelector.length > 0) cssSelector = configSelector;
-            }
-            console.log(`Base64 encode file ${imagePath} as ${cssSelector}`);
-            const cssRule = `${cssSelector} { background-image: url("${dataStr}"); }`;
-            inlineImages += cssRule + "\n\n";
         }
     }
     console.log("Write", inlineImagesPath);
