@@ -4,6 +4,7 @@ const getStringFromStream = require("get-stream");
 const { Base64Encode } = require("base64-stream");
 const dcp = require("duplex-child-process");
 const gzip = require("gzip-size");
+const crypto = require("crypto");
 
 function bufferToStream(buffer) {
     const stream = new Readable();
@@ -44,6 +45,17 @@ async function fileSize(filename, zip = false){
 	}
 }
 
+function fileHash(filename) {
+	return new Promise((resolve, reject) =>
+		fs.createReadStream(filename)
+			.on("error", reject)
+			.pipe(crypto.createHash("sha256").setEncoding("hex"))
+			.once("finish", function () {
+				resolve(this.read());
+			})
+	);
+}
+
 async function copySmallestFile(path1, path2, resultPath, zip = true) {
 	const size1 = await fileSize(path1, zip);
 	const size2 = await fileSize(path2, zip);
@@ -62,5 +74,6 @@ module.exports = {
     streamToBase64,
     spawnAsStream,
     fileSize,
+    fileHash,
     copySmallestFile
 };

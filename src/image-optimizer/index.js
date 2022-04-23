@@ -3,7 +3,7 @@ const path = require("path");
 const unixify = require("unixify");
 const glob = require("glob-promise");
 const mime = require("mime");
-const { streamToFile, copySmallestFile } = require("./utils");
+const { fileSize, fileHash, streamToFile, copySmallestFile } = require("./utils");
 
 function requireUncached(module) {
     delete require.cache[require.resolve(module)];
@@ -95,7 +95,8 @@ async function imagesConfig(req = {}) {
                 },
                 compressed: {
                     weight: 0,
-                    unzipped: 0
+                    unzipped: 0,
+                    hash: ""
                 },
                 ultimated: true,
                 options: {
@@ -116,9 +117,12 @@ async function imagesConfig(req = {}) {
                 }
             };
         }
+        else {
+            // TODO: add missing properties to config[imageFile]
+        }
     }
 
-    await fs.writeJSON(imagesConfigPath, config);
+    await fs.writeJSON(imagesConfigPath, config, { spaces: "\t" });
 
     return {
         ok: true,
@@ -187,6 +191,15 @@ async function compress(options) {
         await copySmallestFile(options.inputPath, options.outputPath, options.outputPath);
 }
 
+function chunkArray(myArray, chunk_size){
+	const arr = [...myArray];
+	const results = [];
+	while (arr.length) {
+		results.push(arr.splice(0, chunk_size));
+	}
+	return results;
+}
+
 async function optimizeImages(req) {
     console.log("Image Optimizer is running...");
     
@@ -201,12 +214,20 @@ async function optimizeImages(req) {
 
     for (const imageFile of images) {
         console.log(imageFile);
-        const imageOptions = config[imageFile] || { ...imageDefaultOptions };
+        const conf = config[imageFile];
+        const imageOptions = conf || { ...imageDefaultOptions };
         const inputFormat = path.extname(imageFile).substring(1).toLowerCase();
-        const outputFormat = config[imageFile].options.outputFormat;
+        const outputFormat = conf.options.outputFormat;
+        if (outputFormat.length === 0) conf.options.outputFormat = inputFormat;
         const inputPath = path.join(imagesPath, imageFile);
         const outputPath = path.join(imagesOutputPath, imageFile.split(".")[0] + "." + outputFormat);
+        // TODO: don't compress if input didn't change
         if (await fs.pathExists(inputPath)) {
+            conf.original = {
+                weight: await fileSize(inputPath, false),
+                hash: await fileHash(inputPath)
+            };
+
             const compressor = imageCompressorFunction(inputFormat, outputFormat);
             compressOptionsArr.push({
                 inputPath: inputPath,
@@ -247,6 +268,27 @@ async function optimizeImages(req) {
         }
     }
 
+    // Write output metadata
+    for (const imageFile of images) {
+        const conf = config[imageFile];
+        const outputFormat = conf.options.outputFormat;
+        const outputPath = path.join(imagesOutputPath, imageFile.split(".")[0] + "." + outputFormat);
+        if (await fs.pathExists(outputPath)) {
+            conf.compressed = {
+                weight: await fileSize(outputPath, true),
+                unzipped: await fileSize(outputPath, false),
+                hash: await fileHash(outputPath)
+            };
+        }
+        else {
+            conf.compressed = {
+                weight: 0,
+                unzipped: 0,
+                hash: ""
+            };
+        }
+    }
+
     // Generate inline images
     let inlineImages = "";
     for (const compressEntry of compressOptionsArr) {
@@ -273,7 +315,7 @@ async function optimizeImages(req) {
     console.log("Write", inlineImagesPath);
     await fs.writeFile(inlineImagesPath, inlineImages);
 
-    await fs.writeJSON(imagesConfigPath, config);
+    await fs.writeJSON(imagesConfigPath, config, { spaces: "\t" });
     return {
         ok: true,
         message: ""
