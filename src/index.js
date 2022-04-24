@@ -1,9 +1,8 @@
 #!/usr/bin/env node
 const fs = require("fs-extra");
 const path = require("path");
-const { execute } = require("./utils");
 const capturer = require("./capturer");
-//const builder = require("./builder");
+const builder = require("./builder");
 
 const cwd = process.cwd();
 const [,, ...args] = process.argv;
@@ -14,42 +13,19 @@ async function isDirEmpty(dirname) {
     });
 }
 
-async function runRollup(rollupConfig, options = []) {
-    const rollup = path.join(__dirname, "..", "node_modules", ".bin", "rollup");
-    const rollupConfigPath = path.join(__dirname, "..", rollupConfig);
-    const code = await execute(rollup, ["-c", rollupConfigPath, ...options]);
-    return code;
+async function build(options = { platform: "publish", version: "v1" }) {
+    console.log("BannerToolchain build");
+    await builder(options);
 }
 
-async function build() {
-    console.log("BannerToolchain build (WIP)");
-    const code = await runRollup("rollup.config.prod.js");
-    if (code === 0) {
-        // TODO: run local Banner Builder if configured to use it
-        /*
-        console.log(config.platforms);
-        if (config.platforms && config.platforms.length > 0) {
-            for (const platform of config.platforms) {
-                await builder("", "dist", platform, "dist_" + platform + ".zip");
-            }
-        }
-        else {
-            await builder("", "dist", "undefined", "dist.zip");
-        }
-        */
-    }
-    else {
-        console.log("Build failed!");
-    }
-}
-
-async function run() {
+async function run(options = {}) {
     console.log("BannerToolchain run");
     const code = await runRollup("rollup.config.dev.js", ["-m", "--watch"]);
 }
 
-async function init(template) {
+async function init(options = { template: "default" }) {
     console.log("BannerToolchain init");
+    const template = options.template || "default";
     if (await isDirEmpty(cwd) === true) {
         const templatePath = path.join(__dirname, "..", "templates", template);
         if (await fs.pathExists(templatePath)) {
@@ -72,14 +48,23 @@ async function capture(options) {
 }
 
 if (args.length > 0) {
-    if (args[0] === "build")
-        build();
-    else if (args[0] === "run")
-        run();
-    else if (args[0] === "capture")
+    if (args[0] === "init") {
+        init({
+            options: args[1] || "default"
+        });
+    }
+    else if (args[0] === "run") {
+        run({});
+    }
+    else if (args[0] === "capture") {
         capture({
             video: (args[1] === "video")
         });
-    else if (args[0] === "init")
-        init(args[1] || "default");
+    }
+    else if (args[0] === "build") {
+        build({
+            platform: args[1] || "publish", 
+            version: args[2] || "v1"
+        });
+    }
 }

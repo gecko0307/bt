@@ -1,8 +1,8 @@
 const { spawn } = require("child_process");
 
-function execute(cmd, options) {
+function execute(cmd, options, spawnOptions = {}) {
     return new Promise(function(resolve, reject) {
-        const p = spawn(cmd, options, {shell: true});
+        const p = spawn(cmd, options, { shell: true, ...spawnOptions });
         
         p.stdout.on("data", function(data) {
             process.stdout.write(data.toString());
