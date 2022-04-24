@@ -1,6 +1,7 @@
 const fs = require("fs-extra");
 const path = require("path");
 const Zip = require("adm-zip");
+const { JSDOM } = require("jsdom");
 const { fillMissing } = require("object-fill-missing-keys");
 const { execute } = require("../utils");
 const platforms = require("./platforms");
@@ -13,7 +14,6 @@ const builderConfigPath = path.resolve("./.data/builder.config.json");
 const configDefault = {
     brand: "",
     campaign: "banner",
-    size: "240x400",
     platform: "publish",
     version: "v1"
 };
@@ -38,7 +38,6 @@ async function build(options = { platform: "publish" }) {
         config = requireUncached(builderConfigPath) || {};
     }
     config = fillMissing(config, configDefault);
-    console.log(config);
 
     if (options.platform === "publish") {
         options.platform = config.platform;
@@ -63,27 +62,6 @@ async function build(options = { platform: "publish" }) {
         const inputPath = path.join(cwd, "HTML");
         const outputPath = path.join(cwd, "build");
 
-        let bannerName = "banner";
-        if (config.brand.length > 0) {
-            bannerName = config.brand;
-            if (config.campaign.length > 0) bannerName += "_" + config.campaign;
-        }
-        else if (config.campaign.length > 0) {
-            bannerName = config.campaign;
-        }
-
-        let size = "";
-        if (config.size) {
-            size = "_" + config.size;
-        }
-
-        let platform = "";
-        if (options.platform !== "publish") {
-            platform = "_" + options.platform;
-        }
-
-        const zipFilename = `${bannerName}${size}${platform}_${config.version}.zip`;
-        const zipPath = path.join(cwd, "dist", zipFilename);
         const builderPath = "E:/SmartHead/internal/builder/Gulp-builder_1.4";
 
         if (!(await fs.pathExists(builderPath))) {
@@ -101,6 +79,41 @@ async function build(options = { platform: "publish" }) {
         }
         else {
             console.log("Build finished!");
+
+            // Get index.html
+            const htmlPath = path.resolve("./build/index.html");
+            // TODO: check if htmlPath exists
+            const html = await fs.readFile(htmlPath);
+            const dom = new JSDOM(html, { resources: "usable" });
+            const container = dom.window.document.getElementById("container");
+            const style = dom.window.getComputedStyle(container);
+            const width = style.getPropertyValue("width");
+            const height = style.getPropertyValue("height");
+            const w = width.replace(/px/g, "").replace(/%/g, "P");
+            const h = height.replace(/px/g, "").replace(/%/g, "P");
+            let bannerSize = `_${w}x${h}`;
+            if (config.size) {
+                bannerSize = "_" + config.size;
+            }
+
+            // Make archive name
+            let bannerName = "banner";
+            if (config.brand.length > 0) {
+                bannerName = config.brand;
+                if (config.campaign.length > 0) bannerName += "_" + config.campaign;
+            }
+            else if (config.campaign.length > 0) {
+                bannerName = config.campaign;
+            }
+    
+            let platform = "";
+            if (options.platform !== "publish") {
+                platform = "_" + options.platform;
+            }
+    
+            const zipFilename = `${bannerName}${bannerSize}${platform}_${config.version}.zip`;
+            const zipPath = path.join(cwd, "dist", zipFilename);
+
             const zip = new Zip();
             const files = await fs.readdir(outputPath);
             files.forEach(filename => {
