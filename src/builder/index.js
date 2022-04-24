@@ -1,11 +1,22 @@
 const fs = require("fs-extra");
 const path = require("path");
 const Zip = require("adm-zip");
+const { fillMissing } = require("object-fill-missing-keys");
 const { execute } = require("../utils");
 const platforms = require("./platforms");
 const runRollup = require("../rollup");
 
 const cwd = process.cwd();
+
+const builderConfigPath = path.resolve("./.data/builder.config.json");
+
+const configDefault = {
+    brand: "",
+    campaign: "banner",
+    size: "240x400",
+    platform: "publish",
+    version: "v1"
+};
 
 function formatBytes(bytes, decimals = 2) {
     if (bytes === 0) return '0 bytes';
@@ -16,7 +27,23 @@ function formatBytes(bytes, decimals = 2) {
     return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
 }
 
-async function build(options = { platform: "publish", version: "v1" }) {
+function requireUncached(module) {
+    delete require.cache[require.resolve(module)];
+    return require(module);
+}
+
+async function build(options = { platform: "publish" }) {
+    let config = {};
+    if (await fs.pathExists(builderConfigPath)) {
+        config = requireUncached(builderConfigPath) || {};
+    }
+    config = fillMissing(config, configDefault);
+    console.log(config);
+
+    if (options.platform === "publish") {
+        options.platform = config.platform;
+    }
+    
     let platformName = "Unknown";
     let technicalRequirements = "publish";
     let technicalRequirementsName = "Undefined";
@@ -30,13 +57,32 @@ async function build(options = { platform: "publish", version: "v1" }) {
     }
     console.log("Platform:", platformName, `(${options.platform})`);
     console.log("Technical requirements:", technicalRequirementsName, `(${technicalRequirements})`);
-    console.log("Version:", options.version);
+    console.log("Version:", config.version);
     const code = await runRollup("rollup.config.prod.js");
     if (code === 0) {
         const inputPath = path.join(cwd, "HTML");
         const outputPath = path.join(cwd, "build");
-        // TODO: make name from brand/campaign
-        const zipFilename = `banner_${options.platform}_${options.version}.zip`;
+
+        let bannerName = "banner";
+        if (config.brand.length > 0) {
+            bannerName = config.brand;
+            if (config.campaign.length > 0) bannerName += "_" + config.campaign;
+        }
+        else if (config.campaign.length > 0) {
+            bannerName = config.campaign;
+        }
+
+        let size = "";
+        if (config.size) {
+            size = "_" + config.size;
+        }
+
+        let platform = "";
+        if (options.platform !== "publish") {
+            platform = "_" + options.platform;
+        }
+
+        const zipFilename = `${bannerName}${size}${platform}_${config.version}.zip`;
         const zipPath = path.join(cwd, "dist", zipFilename);
         const builderPath = "E:/SmartHead/internal/builder/Gulp-builder_1.4";
 
