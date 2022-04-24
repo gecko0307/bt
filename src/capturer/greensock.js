@@ -10,7 +10,8 @@ async function capture(options) {
     const deleteDevToolsPath = path.join(__dirname, "deleteDevTools.js");
     const deleteDevTools = await fs.readFile(deleteDevToolsPath, "utf8");
     
-    const videoPath = path.join(options.outPath, "video.webm");
+    const videoFilename = "video.mp4";
+    const videoPath = path.join(options.outPath, videoFilename);
     
     const url = options.url || "http://localhost:8000/";
     
@@ -105,7 +106,7 @@ async function capture(options) {
                 }, time);
             }
         });
-        console.log("Generated video.webm");
+        console.log(`Generated ${videoFilename}`);
     }
     else {
         // Capture images
