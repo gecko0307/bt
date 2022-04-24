@@ -35,7 +35,7 @@ To run the development server:
 
 To build banner for publishing (WIP):
 
-`bt build`
+`bt build <platform>`
 
 To capture screenshots of predefined animation frames (for GreenSock template only; dev server should be running):
 
