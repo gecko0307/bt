@@ -60,7 +60,8 @@ Development server runs at `http://localhost:8000/` and serves project's `HTML` 
 * `http://localhost:8000/mobile` - mobile device emulator to work with Device Orientation API on desktop. This functionality will be reimplemented as a part of `/preview` page in future
 * `http://localhost:8000/api` - toolchain API (see [src/api.js](https://github.com/gecko0307/bt/blob/master/src/api.js) for details)
 * `http://localhost:8000/sse` - server-side events (SSE) interface. Currently provides only file watcher event system which can be used like this: `http://localhost:8000/sse?events=watcher`. These events are emitted when `Fonts` or `Images` directories change
-* `http://localhost:8000/file?path=your/path` - retrieves any file relative to project root (a directory where dev server runs).
+* `http://localhost:8000/file?path=your/path` - retrieves any file relative to project root (a directory where dev server runs)
+* `http://localhost:8000/build` - serves `build` directory with latest deploy-ready banner build.
 
 ## Copyright and license
 Banner Toolchain. Copyright (C) 2020-2022 Timur Gafarov. Distributed under the MIT license.
