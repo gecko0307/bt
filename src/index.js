@@ -3,6 +3,7 @@ const fs = require("fs-extra");
 const path = require("path");
 const capturer = require("./capturer");
 const builder = require("./builder");
+const runRollup = require("./rollup");
 
 const cwd = process.cwd();
 const [,, ...args] = process.argv;

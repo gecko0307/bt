@@ -24,6 +24,14 @@ fastify.register(fastifyStatic, {
     root: path.join(cwd, "HTML")
 });
 
+//  Banner project's build directory (builded banner)
+fastify.register(fastifyStatic, {
+    root: path.join(cwd, "build"),
+    prefix: "/build",
+    redirect: true,
+    decorateReply: false
+});
+
 // Request any file relative to banner project root
 fastify.route({ method: "GET", url: "/file",
     schema: {
