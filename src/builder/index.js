@@ -54,6 +54,9 @@ async function build(options = { platform: "publish", gulpBuilderPath: "" }) {
             technicalRequirementsName = platforms[technicalRequirements].name;
         }
     }
+    else {
+        technicalRequirements = options.platform;
+    }
     console.log("Platform:", platformName, `(${options.platform})`);
     console.log("Technical requirements:", technicalRequirementsName, `(${technicalRequirements})`);
     console.log("Version:", config.version);
@@ -71,7 +74,7 @@ async function build(options = { platform: "publish", gulpBuilderPath: "" }) {
 
         console.log(`Using Gulp-builder in ${builderPath}`);
         const builderCode = await execute("npm", 
-            ["run", "gulp", "--", "--task", `"${options.platform}"`, "--input", `"${inputPath}/"`, "--output", `"${outputPath}/"`, "--skip"], 
+            ["run", "gulp", "--", "--task", `"${technicalRequirements}"`, "--input", `"${inputPath}/"`, "--output", `"${outputPath}/"`, "--skip"], 
             { cwd: builderPath }
         );
         if (builderCode !== 0) {

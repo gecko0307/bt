@@ -13,6 +13,34 @@ const Zip = require("adm-zip");
 
 const platformProcessors = {
     dcm: require("./dcm")
+    /*
+        TODO - basic platforms:
+        adfox
+        adform
+        admitad
+        adrime
+        adriver
+        adwords
+        rambler
+        yandex
+        yandex-direct
+        bestseller
+        cityads
+        studio
+        dca
+        womensnetwork
+        getintent
+        mail
+        mytarget
+        nativeroll
+        otm
+        rbc
+        sizmek
+        soloway
+        weborama
+        
+        Aliases are in platforms.js
+    */
 };
 
 async function build(inputDir, outputDir, platform, zipName = "") {

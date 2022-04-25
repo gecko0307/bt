@@ -1,3 +1,6 @@
+/*
+ * Prepare for Display & Video 360 aka DoubleClick Campaign Manager (DCM)
+ */
 function prepare(document) {
     const head = document.getElementsByTagName("head")[0];
     const body = document.getElementsByTagName("body")[0];
