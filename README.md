@@ -16,7 +16,7 @@ The main reason I created this was to replace an in-house tool with my own so th
 * ✔ Generate inline base64-encoded CSS background-images for fully self-contained banners
 * ✔️ Web font generator with subsetting
 * ⌛ Banner Builder
-* ⌛ Banner preview tools: resizer, timer, event manager, device orientation emulator etc.
+* ⌛ Banner preview tools: resizer, timer, event manager, etc.
 
 ## Installation
 ```
@@ -33,12 +33,6 @@ To run the development server:
 
 `bt run`
 
-To build banner for publishing (WIP, relies on a proprietary external tool at the moment):
-
-`bt build <platform>`
-
-where `<platform>` is one of the supported ad platforms (see [platforms.js](https://github.com/gecko0307/bt/blob/master/src/builder/platforms.js) for details).
-
 To capture screenshots of predefined animation frames (for GreenSock template only; dev server should be running):
 
 `bt capture <resolution>`
@@ -46,6 +40,12 @@ To capture screenshots of predefined animation frames (for GreenSock template on
 To capture video (for GreenSock template only; dev server should be running):
 
 `bt capture video <resolution>`
+
+To build banner for publishing (WIP, relies on a proprietary external tool at the moment):
+
+`bt build <platform>`
+
+where `<platform>` is one of the supported ad platforms (see [platforms.js](https://github.com/gecko0307/bt/blob/master/src/builder/platforms.js) for details).
 
 ## Templates
 `bt init` will create a project using a default template that uses [GreenSock](https://greensock.com/) animation library. Additionally [Anime.js](https://animejs.com/)-based template is available for fully self-hosted banners with as small size overhead as possible:
