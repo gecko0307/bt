@@ -68,6 +68,7 @@ async function init(options = { template: "default" }) {
 
 async function capture(options) {
     console.log("BannerToolchain capture");
+    console.log(`${options.width}x${options.height}`);
     await capturer(options);
 }
 
@@ -81,8 +82,22 @@ if (args.length > 0) {
         run({});
     }
     else if (args[0] === "capture") {
+        let width = 0;
+        let height = 0;
+        let video = args.includes("video");
+        const resolution = /([0-9]+)x([0-9]+)/;
+        for (arg of args) {
+            const m = arg.match(resolution);
+            if (m) {
+                width = parseInt(m[1]);
+                height = parseInt(m[2]);
+                break;
+            }
+        }
         capture({
-            video: (args[1] === "video")
+            video: video,
+            width: width,
+            height: height
         });
     }
     else if (args[0] === "build") {
