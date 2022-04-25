@@ -76,17 +76,20 @@ async function getConfig() {
     if (await fs.pathExists(imagesConfigPath)) {
         config = requireUncached(imagesConfigPath) || {};
     }
+    if (!("images" in config)) {
+        config.images = {};
+    }
     
     const images = await inputImages();
     for (const imageFile of images) {
-        const conf = config[imageFile] || {};
+        const conf = config.images[imageFile] || {};
         const result = fillMissing(conf, imageDefaultOptions);
 
         const inputFormat = path.extname(imageFile).substring(1).toLowerCase();
         if (result.options.outputFormat.length === 0)
             result.options.outputFormat = inputFormat;
         
-        config[imageFile] = result;
+        config.images[imageFile] = result;
     }
 
     return config;
@@ -194,7 +197,7 @@ async function optimizeImages(req) {
     const compressOptionsArr = [];
 
     for (const imageFile of images) {
-        const conf = config[imageFile];
+        const conf = config.images[imageFile];
         const imageOptions = conf || { ...imageDefaultOptions };
         const inputFormat = path.extname(imageFile).substring(1).toLowerCase();
         const outputFormat = conf.options.outputFormat;
@@ -269,7 +272,7 @@ async function optimizeImages(req) {
     // Generate inline images, write output metadata
     let inlineImages = "";
     for (const imageFile of images) {
-        const conf = config[imageFile];
+        const conf = config.images[imageFile];
         const outputFormat = conf.options.outputFormat;
         const outputPath = path.join(imagesOutputPath, imageFile.split(".")[0] + "." + outputFormat);
         const outputFile = path.basename(outputPath);

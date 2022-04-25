@@ -1,23 +1,23 @@
 <script>
     import { onMount } from "svelte";
-	import "style/core.css";
+    import "style/core.css";
 
-	export let filename = "";
-	export let data = {};
+    export let filename = "";
+    export let data = {};
 
-	$: imagePath = "Images/" + filename;
+    $: imagePath = "Images/" + filename;
 
     //$: outputFormat = data.options.outputFormat;
-	$: inputFormat = filename.substring(filename.lastIndexOf(".") + 1);
+    $: inputFormat = filename.substring(filename.lastIndexOf(".") + 1);
     $: canConvertToPNG = inputFormat === "png" || inputFormat === "svg";
     $: canConvertToJPEG = inputFormat === "png" || inputFormat === "jpg" || inputFormat === "svg";
     $: canConvertToWebP = inputFormat === "png" || inputFormat === "jpg" || inputFormat === "svg" || inputFormat === "webp";
     $: canConvertToSVG = inputFormat === "png" || inputFormat === "svg";
 
-	$: pngOnly = (data.options.outputFormat === "png");
-	$: jpgOnly = (data.options.outputFormat === "jpg");
-	$: svgOnly = (data.options.outputFormat === "svg");
-	$: webpOnly = (data.options.outputFormat === "webp");
+    $: pngOnly = (data.options.outputFormat === "png");
+    $: jpgOnly = (data.options.outputFormat === "jpg");
+    $: svgOnly = (data.options.outputFormat === "svg");
+    $: webpOnly = (data.options.outputFormat === "webp");
 
     $: qualityText = _qualityText(data.options.outputFormat);
 
@@ -31,8 +31,8 @@
         }
     }
 
-	onMount(async () => {
-	});
+    onMount(async () => {
+    });
 </script>
 
 <main>
@@ -102,26 +102,26 @@
                 <p>Dithering</p>
                 <select bind:value={data.options.compress.imageDithering}>
                     <option value="nearest">Nearest</option>
-					<option value="riemersma">Riemersma</option>
-					<option value="floyd-steinberg">Floyd-Steinberg</option>
-					<option value="false-floyd-steinberg">False Floyd-Steinberg</option>
-					<option value="stucki">Stucki</option>
-					<option value="atkinson" selected>Atkinson</option>
-					<option value="burkes">Burkes</option>
-					<option value="sierra">Sierra</option>
-					<option value="two-sierra">Two-Sierra</option>
-					<option value="sierra-lite">Sierra Lite</option>
-					<option value="jarvis">Jarvis</option>
+                    <option value="riemersma">Riemersma</option>
+                    <option value="floyd-steinberg">Floyd-Steinberg</option>
+                    <option value="false-floyd-steinberg">False Floyd-Steinberg</option>
+                    <option value="stucki">Stucki</option>
+                    <option value="atkinson" selected>Atkinson</option>
+                    <option value="burkes">Burkes</option>
+                    <option value="sierra">Sierra</option>
+                    <option value="two-sierra">Two-Sierra</option>
+                    <option value="sierra-lite">Sierra Lite</option>
+                    <option value="jarvis">Jarvis</option>
                 </select>
             </div>
             <div class="widget anyFormat">
                 <p>Palette quantization</p>
                 <select bind:value={data.options.compress.paletteDithering}>
-					<option value="neuquant">NeuQuant</option>
-					<option value="neuquant-float">NeuQuant (float)</option>
-					<option value="rgbquant">RGBQuant</option>
-					<option value="wuquant" selected>WuQuant</option>
-				</select>
+                    <option value="neuquant">NeuQuant</option>
+                    <option value="neuquant-float">NeuQuant (float)</option>
+                    <option value="rgbquant">RGBQuant</option>
+                    <option value="wuquant" selected>WuQuant</option>
+                </select>
             </div>
         {/if}
 
@@ -161,66 +161,66 @@
 
 <style>
     main {
-		padding: 0;
-		margin: 0;
-	}
+        padding: 0;
+        margin: 0;
+    }
 
     .widget {
         display: none;
     }
 
-	.pngOnly, .jpgOnly, .svgOnly, .webpOnly, .anyFormat {
-		display: block !important;
-	}
+    .pngOnly, .jpgOnly, .svgOnly, .webpOnly, .anyFormat {
+        display: block !important;
+    }
 
-	.thumb {
-		position: relative;
-		width: 50px;
-		height: 50px;
-		padding: 0;
-		border: 1px solid #379683;
-		border-radius: 4px;
-		overflow: hidden;
-	}
-	.thumb:hover {
-		background-color: #edf5e1;
-		cursor: pointer;
-	}
+    .thumb {
+        position: relative;
+        width: 50px;
+        height: 50px;
+        padding: 0;
+        border: 1px solid #379683;
+        border-radius: 4px;
+        overflow: hidden;
+    }
+    .thumb:hover {
+        background-color: #edf5e1;
+        cursor: pointer;
+    }
 
-	.thumb_image {
-		position: absolute;
-		margin: 0;
-		width: auto;
-		height: 90%;
-		left: -100%;
-		right: -100%;
-		margin-left: auto;
-		margin-right: auto;
-		top: -100%;
-		bottom: -100%;
-		margin-top: auto;
-		margin-bottom: auto;
-	}
+    .thumb_image {
+        position: absolute;
+        margin: 0;
+        width: auto;
+        height: 90%;
+        left: -100%;
+        right: -100%;
+        margin-left: auto;
+        margin-right: auto;
+        top: -100%;
+        bottom: -100%;
+        margin-top: auto;
+        margin-bottom: auto;
+    }
 
     input[type=text] {
         max-width: 80px; 
     }
 
-	input[type=range] {
-		flex: auto;
-		min-width: 200px;
-	}
+    input[type=range] {
+        flex: auto;
+        min-width: 200px;
+    }
 
-	input[type=checkbox] {
-		margin-right: 5px;
-	}
+    input[type=checkbox] {
+        margin-right: 5px;
+    }
 
     input[type=number] {
-	    max-width: 60px;
+        max-width: 60px;
     }
 
     input[type=text] {
         max-width: 170px;
-    	margin-top: 0;
+        margin-top: 0;
     }
 </style>
