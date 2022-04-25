@@ -1,21 +1,21 @@
 # 🧰 Banner Toolchain
-HTML banner development tools for Node.js. Automate bundling, optimization and packaging of animated ads, games and other single page web projects. Inspired by and compatible with [SmartHead](https://github.com/smarthead)'s Banny Tools. Based on [Rollup](https://rollupjs.org/) and [Fastify](https://www.fastify.io/).
+HTML banner development tools for Node.js. Automate bundling and packaging of animated ads, games and other single page web projects with a focus on size minimization. Inspired by and compatible with [SmartHead](https://github.com/smarthead)'s Banny Tools. Based on [Rollup](https://rollupjs.org/) and [Fastify](https://www.fastify.io/) framework.
 
-Warning: Banner Toolchain is currently undergoing a major refactoring, so not all existing functionality is ready for use.
+The main reason I created this was to replace an in-house tool with my own so that I could run old banners and start new projects with a compatible layout.
 
 * ✔️ Project initialization, custom templates
 * ✔️ JavaScript module bundling and babeling
 * ✔️ Dev server with file watching and autorefresh
 * ✔️ [Sass](https://sass-lang.com/) support
-* ✔️ [GreenSock](https://greensock.com/) animation
+* ✔️ [GreenSock](https://greensock.com/) animation support
 * ✔️ Built-in simple 3D engine based on WebGL
 * ✔️ CSS animation generator that uses simple GreenSock-like input expressions
-* ✔️ Web font generator with subsetting
 * ✔️ Capture individual frames of animation of GreenSock banners. Output PNG, layered PSD and animated GIF
-* ️✔ Capture high-quality videos of GreenSock banners at 60 fps
-* ✔ Image optimizer and converter
-* ✔ Generate inline base64-encoded CSS background-images
-* ⌛ Banner builder
+* ️✔ Capture high-quality MPEG-4 videos of GreenSock banners at 60 fps
+* ✔ Built-in Image Optimizer & Converter - reduce size of PNG, JPEG and SVG images with full control over quality trade-off
+* ✔ Generate inline base64-encoded CSS background-images for fully self-contained banners
+* ✔️ Web font generator with subsetting
+* ⌛ Banner Builder
 * ⌛ Banner preview tools: resizer, timer, event manager, device orientation emulator etc.
 
 ## Installation
@@ -33,7 +33,7 @@ To run the development server:
 
 `bt run`
 
-To build banner for publishing (WIP, relies on proprietary external tool at the moment):
+To build banner for publishing (WIP, relies on a proprietary external tool at the moment):
 
 `bt build <platform>`
 
@@ -67,8 +67,8 @@ Development server runs at `http://localhost:8000/` and serves project's `HTML` 
 
 ## Copyright and license
 * Banner Toolchain. Copyright (c) 2020-2022 Timur Gafarov. Distributed under the MIT license.
-* cwebp. Copyright (c) 2011 Google Inc. Distributed under the BSD 3-Clause License.
-* Efficient Compression Tool (ECT). Copyright (c) Felix Hanau. Distributed under the Apache License.
-* Highlight.js. Copyright (c) 2006 Ivan Sagalaev. Distributed under the BSD 3-Clause License.
-* Puppeteer Recorder. Copyright (c) 2017 Clipisode. Distributed under the MIT license.
+* [cwebp](https://github.com/webmproject/libwebp/blob/main/examples/cwebp.c). Copyright (c) 2011 Google Inc. Distributed under the BSD 3-Clause License.
+* [Efficient Compression Tool (ECT)](https://github.com/fhanau/Efficient-Compression-Tool). Copyright (c) Felix Hanau. Distributed under the Apache License.
+* [Highlight.js](https://highlightjs.org/). Copyright (c) 2006 Ivan Sagalaev. Distributed under the BSD 3-Clause License.
+* [Puppeteer Recorder](https://github.com/clipisode/puppeteer-recorder). Copyright (c) 2017 Clipisode. Distributed under the MIT license.
 * [lightgl.js](https://github.com/evanw/lightgl.js). Copyright (C) 2011 by Evan Wallace. Distributed under the MIT license.
