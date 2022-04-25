@@ -25,6 +25,8 @@ npm link
 ```
 
 ## Basic usage
+BT is a single command line tool that performs several different tasks.
+
 To create a new banner in an empty directory:
 
 `bt init`
