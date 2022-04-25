@@ -18,6 +18,8 @@ The main reason I created this was to replace an in-house tool with my own so th
 * ⌛ Banner Builder - prepares banner for publishing on advertising platforms
 * ⌛ Banner preview tools: resizer, timer, event manager, etc.
 
+[![Screenshot1](https://github.com/gecko0307/bt/raw/master/assets/image-optimizer.png)](https://github.com/gecko0307/bt/raw/master/assets/image-optimizer.png)
+
 ## Installation
 ```
 npm install
