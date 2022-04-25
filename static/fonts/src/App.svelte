@@ -15,6 +15,8 @@
 	let generating = false;
 	let error = false;
 	let errorMessage = "";
+
+	let css;
 	
 	async function apiRequest(data) {
 		const res = await fetch("/api", {
@@ -84,7 +86,12 @@
 				config: config
 			});
 			if (res.ok) {
-				if (res.output) output = res.output;
+				if (res.output) {
+					output = res.output;
+					css.innerHTML = output;
+					hljs.highlightElement(css, {language: "css"});
+					css.style.display = "block";
+				}
 			}
 			else {
 				error = true;
@@ -96,6 +103,10 @@
 			errorMessage = "Invalid input";
 		}
 		generating = false;
+	}
+
+	async function onUpdateCSS() {
+		console.log("!");
 	}
 
 	async function clear() {
@@ -122,6 +133,8 @@
 		sse.onerror = function(error) {
 			console.error("EventSource failed: ", error);
 		};
+
+		css.style.display = "none";
 	});
 </script>
 
@@ -157,11 +170,9 @@
 				<input {disabled} type="button" value="❌ Remove all" on:click={ clear }/>
 			</p>
 		</div>
-		{#if output.length > 0}
-			<div id="output">
-				<p><textarea class="output" rows="3" cols="45" bind:value={output}></textarea></p>
-			</div>
-		{/if}
+		<div id="output">
+			<pre><code class="code" bind:this={css}></code></pre>
+		</div>
 	</div>
 	{#if generating || error}
 		<div id="overlay" transition:fade="{{ duration: 100 }}">
@@ -192,7 +203,8 @@
 
 	#ui {
 		position: absolute;
-		padding: 10px;
+		/* padding: 10px; */
+		padding: 0;
 		margin: 0;
 		width: 95%;
 		max-width: 1024px;
@@ -203,6 +215,7 @@
 	}
 
 	#fonts, #buttons {
+		width: 100%;
 		margin-bottom: 20px;
 	}
 
@@ -219,10 +232,19 @@
 		color: #1dbfff;
 	}
 
-	.output {
+	#output {
+		display: block;
+		position: relative;
 		width: 100%;
-		max-width: 100%;
-		height: 400px;
+		padding: 0;
+		margin: 0;
+		overflow: auto;
+		overflow-wrap: anywhere;
+	}
+
+	.code {
+		border: 1px solid #cccccc;
+		border-radius: 4px;
 	}
 
 	#overlay {

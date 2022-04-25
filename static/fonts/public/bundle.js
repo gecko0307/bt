@@ -686,13 +686,13 @@ var app = (function () {
 
     function get_each_context(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[23] = list[i];
-    	child_ctx[24] = list;
-    	child_ctx[25] = i;
+    	child_ctx[24] = list[i];
+    	child_ctx[25] = list;
+    	child_ctx[26] = i;
     	return child_ctx;
     }
 
-    // (150:3) {:else}
+    // (163:3) {:else}
     function create_else_block_1(ctx) {
     	let p;
 
@@ -700,7 +700,7 @@ var app = (function () {
     		c: function create() {
     			p = element("p");
     			p.textContent = "No fonts found in \"Fonts\" directory";
-    			add_location(p, file, 150, 4, 3615);
+    			add_location(p, file, 163, 4, 3854);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -715,15 +715,15 @@ var app = (function () {
     		block,
     		id: create_else_block_1.name,
     		type: "else",
-    		source: "(150:3) {:else}",
+    		source: "(163:3) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (132:3) {#if Object.keys(fonts).length > 0}
-    function create_if_block_4(ctx) {
+    // (145:3) {#if Object.keys(fonts).length > 0}
+    function create_if_block_3(ctx) {
     	let each_1_anchor;
     	let each_value = Object.keys(/*fonts*/ ctx[1]);
     	validate_each_argument(each_value);
@@ -781,16 +781,16 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block_4.name,
+    		id: create_if_block_3.name,
     		type: "if",
-    		source: "(132:3) {#if Object.keys(fonts).length > 0}",
+    		source: "(145:3) {#if Object.keys(fonts).length > 0}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (144:7) {:else}
+    // (157:7) {:else}
     function create_else_block(ctx) {
     	let p;
     	let input;
@@ -798,7 +798,7 @@ var app = (function () {
     	let dispose;
 
     	function click_handler_2() {
-    		return /*click_handler_2*/ ctx[17](/*fontFile*/ ctx[23]);
+    		return /*click_handler_2*/ ctx[17](/*fontFile*/ ctx[24]);
     	}
 
     	const block = {
@@ -807,8 +807,8 @@ var app = (function () {
     			input = element("input");
     			attr_dev(input, "type", "button");
     			input.value = "➕ Use font";
-    			add_location(input, file, 144, 11, 3456);
-    			add_location(p, file, 144, 8, 3453);
+    			add_location(input, file, 157, 11, 3695);
+    			add_location(p, file, 157, 8, 3692);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -833,15 +833,15 @@ var app = (function () {
     		block,
     		id: create_else_block.name,
     		type: "else",
-    		source: "(144:7) {:else}",
+    		source: "(157:7) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (137:7) {#if fontFile in config}
-    function create_if_block_5(ctx) {
+    // (150:7) {#if fontFile in config}
+    function create_if_block_4(ctx) {
     	let p0;
     	let t1;
     	let p1;
@@ -861,19 +861,19 @@ var app = (function () {
     	let dispose;
 
     	function input0_input_handler() {
-    		/*input0_input_handler*/ ctx[13].call(input0, /*fontFile*/ ctx[23]);
+    		/*input0_input_handler*/ ctx[13].call(input0, /*fontFile*/ ctx[24]);
     	}
 
     	function textarea_input_handler() {
-    		/*textarea_input_handler*/ ctx[14].call(textarea, /*fontFile*/ ctx[23]);
+    		/*textarea_input_handler*/ ctx[14].call(textarea, /*fontFile*/ ctx[24]);
     	}
 
     	function click_handler() {
-    		return /*click_handler*/ ctx[15](/*fontFile*/ ctx[23]);
+    		return /*click_handler*/ ctx[15](/*fontFile*/ ctx[24]);
     	}
 
     	function click_handler_1() {
-    		return /*click_handler_1*/ ctx[16](/*fontFile*/ ctx[23]);
+    		return /*click_handler_1*/ ctx[16](/*fontFile*/ ctx[24]);
     	}
 
     	const block = {
@@ -895,41 +895,41 @@ var app = (function () {
     			t6 = space();
     			p5 = element("p");
     			input2 = element("input");
-    			add_location(p0, file, 137, 8, 2885);
+    			add_location(p0, file, 150, 8, 3124);
     			attr_dev(input0, "type", "text");
     			attr_dev(input0, "size", "45");
-    			attr_dev(input0, "class", "svelte-19tnp6f");
-    			toggle_class(input0, "invalid", !isFontNameValid(/*config*/ ctx[0][/*fontFile*/ ctx[23]].fontname));
-    			add_location(input0, file, 138, 11, 2921);
-    			add_location(p1, file, 138, 8, 2918);
-    			add_location(p2, file, 139, 8, 3063);
+    			attr_dev(input0, "class", "svelte-1by7p8g");
+    			toggle_class(input0, "invalid", !isFontNameValid(/*config*/ ctx[0][/*fontFile*/ ctx[24]].fontname));
+    			add_location(input0, file, 151, 11, 3160);
+    			add_location(p1, file, 151, 8, 3157);
+    			add_location(p2, file, 152, 8, 3302);
     			attr_dev(textarea, "rows", "3");
     			attr_dev(textarea, "cols", "45");
-    			attr_dev(textarea, "class", "svelte-19tnp6f");
-    			toggle_class(textarea, "invalid", !isSubsetTextValid(/*config*/ ctx[0][/*fontFile*/ ctx[23]].text));
-    			add_location(textarea, file, 140, 11, 3099);
-    			add_location(p3, file, 140, 8, 3096);
+    			attr_dev(textarea, "class", "svelte-1by7p8g");
+    			toggle_class(textarea, "invalid", !isSubsetTextValid(/*config*/ ctx[0][/*fontFile*/ ctx[24]].text));
+    			add_location(textarea, file, 153, 11, 3338);
+    			add_location(p3, file, 153, 8, 3335);
     			attr_dev(input1, "type", "button");
     			input1.value = "❌ Remove";
-    			add_location(input1, file, 141, 11, 3249);
-    			add_location(p4, file, 141, 8, 3246);
+    			add_location(input1, file, 154, 11, 3488);
+    			add_location(p4, file, 154, 8, 3485);
     			attr_dev(input2, "type", "button");
     			input2.value = "🧹 Clear";
-    			add_location(input2, file, 142, 11, 3345);
-    			add_location(p5, file, 142, 8, 3342);
+    			add_location(input2, file, 155, 11, 3584);
+    			add_location(p5, file, 155, 8, 3581);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p0, anchor);
     			insert_dev(target, t1, anchor);
     			insert_dev(target, p1, anchor);
     			append_dev(p1, input0);
-    			set_input_value(input0, /*config*/ ctx[0][/*fontFile*/ ctx[23]].fontname);
+    			set_input_value(input0, /*config*/ ctx[0][/*fontFile*/ ctx[24]].fontname);
     			insert_dev(target, t2, anchor);
     			insert_dev(target, p2, anchor);
     			insert_dev(target, t4, anchor);
     			insert_dev(target, p3, anchor);
     			append_dev(p3, textarea);
-    			set_input_value(textarea, /*config*/ ctx[0][/*fontFile*/ ctx[23]].text);
+    			set_input_value(textarea, /*config*/ ctx[0][/*fontFile*/ ctx[24]].text);
     			insert_dev(target, t5, anchor);
     			insert_dev(target, p4, anchor);
     			append_dev(p4, input1);
@@ -951,20 +951,20 @@ var app = (function () {
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
 
-    			if (dirty & /*config, Object, fonts*/ 3 && input0.value !== /*config*/ ctx[0][/*fontFile*/ ctx[23]].fontname) {
-    				set_input_value(input0, /*config*/ ctx[0][/*fontFile*/ ctx[23]].fontname);
+    			if (dirty & /*config, Object, fonts*/ 3 && input0.value !== /*config*/ ctx[0][/*fontFile*/ ctx[24]].fontname) {
+    				set_input_value(input0, /*config*/ ctx[0][/*fontFile*/ ctx[24]].fontname);
     			}
 
     			if (dirty & /*isFontNameValid, config, Object, fonts*/ 3) {
-    				toggle_class(input0, "invalid", !isFontNameValid(/*config*/ ctx[0][/*fontFile*/ ctx[23]].fontname));
+    				toggle_class(input0, "invalid", !isFontNameValid(/*config*/ ctx[0][/*fontFile*/ ctx[24]].fontname));
     			}
 
     			if (dirty & /*config, Object, fonts*/ 3) {
-    				set_input_value(textarea, /*config*/ ctx[0][/*fontFile*/ ctx[23]].text);
+    				set_input_value(textarea, /*config*/ ctx[0][/*fontFile*/ ctx[24]].text);
     			}
 
     			if (dirty & /*isSubsetTextValid, config, Object, fonts*/ 3) {
-    				toggle_class(textarea, "invalid", !isSubsetTextValid(/*config*/ ctx[0][/*fontFile*/ ctx[23]].text));
+    				toggle_class(textarea, "invalid", !isSubsetTextValid(/*config*/ ctx[0][/*fontFile*/ ctx[24]].text));
     			}
     		},
     		d: function destroy(detaching) {
@@ -986,16 +986,16 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block_5.name,
+    		id: create_if_block_4.name,
     		type: "if",
-    		source: "(137:7) {#if fontFile in config}",
+    		source: "(150:7) {#if fontFile in config}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (133:4) {#each Object.keys(fonts) as fontFile}
+    // (146:4) {#each Object.keys(fonts) as fontFile}
     function create_each_block(ctx) {
     	let div;
     	let fieldset;
@@ -1003,13 +1003,13 @@ var app = (function () {
     	let b;
     	let span;
     	let t1;
-    	let t2_value = /*fontFile*/ ctx[23] + "";
+    	let t2_value = /*fontFile*/ ctx[24] + "";
     	let t2;
     	let t3;
     	let t4;
 
     	function select_block_type_1(ctx, dirty) {
-    		if (/*fontFile*/ ctx[23] in /*config*/ ctx[0]) return create_if_block_5;
+    		if (/*fontFile*/ ctx[24] in /*config*/ ctx[0]) return create_if_block_4;
     		return create_else_block;
     	}
 
@@ -1029,13 +1029,13 @@ var app = (function () {
     			t3 = space();
     			if_block.c();
     			t4 = space();
-    			attr_dev(span, "class", "font-icon svelte-19tnp6f");
-    			add_location(span, file, 135, 18, 2785);
-    			add_location(b, file, 135, 15, 2782);
-    			add_location(legend, file, 135, 7, 2774);
-    			add_location(fieldset, file, 134, 6, 2755);
-    			attr_dev(div, "class", "font svelte-19tnp6f");
-    			add_location(div, file, 133, 5, 2729);
+    			attr_dev(span, "class", "font-icon svelte-1by7p8g");
+    			add_location(span, file, 148, 18, 3024);
+    			add_location(b, file, 148, 15, 3021);
+    			add_location(legend, file, 148, 7, 3013);
+    			add_location(fieldset, file, 147, 6, 2994);
+    			attr_dev(div, "class", "font svelte-1by7p8g");
+    			add_location(div, file, 146, 5, 2968);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -1050,7 +1050,7 @@ var app = (function () {
     			append_dev(div, t4);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*fonts*/ 2 && t2_value !== (t2_value = /*fontFile*/ ctx[23] + "")) set_data_dev(t2, t2_value);
+    			if (dirty & /*fonts*/ 2 && t2_value !== (t2_value = /*fontFile*/ ctx[24] + "")) set_data_dev(t2, t2_value);
 
     			if (current_block_type === (current_block_type = select_block_type_1(ctx)) && if_block) {
     				if_block.p(ctx, dirty);
@@ -1074,69 +1074,14 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(133:4) {#each Object.keys(fonts) as fontFile}",
+    		source: "(146:4) {#each Object.keys(fonts) as fontFile}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (160:2) {#if output.length > 0}
-    function create_if_block_3(ctx) {
-    	let div;
-    	let p;
-    	let textarea;
-    	let mounted;
-    	let dispose;
-
-    	const block = {
-    		c: function create() {
-    			div = element("div");
-    			p = element("p");
-    			textarea = element("textarea");
-    			attr_dev(textarea, "class", "output svelte-19tnp6f");
-    			attr_dev(textarea, "rows", "3");
-    			attr_dev(textarea, "cols", "45");
-    			add_location(textarea, file, 161, 7, 3954);
-    			add_location(p, file, 161, 4, 3951);
-    			attr_dev(div, "id", "output");
-    			add_location(div, file, 160, 3, 3928);
-    		},
-    		m: function mount(target, anchor) {
-    			insert_dev(target, div, anchor);
-    			append_dev(div, p);
-    			append_dev(p, textarea);
-    			set_input_value(textarea, /*output*/ ctx[2]);
-
-    			if (!mounted) {
-    				dispose = listen_dev(textarea, "input", /*textarea_input_handler_1*/ ctx[18]);
-    				mounted = true;
-    			}
-    		},
-    		p: function update(ctx, dirty) {
-    			if (dirty & /*output*/ 4) {
-    				set_input_value(textarea, /*output*/ ctx[2]);
-    			}
-    		},
-    		d: function destroy(detaching) {
-    			if (detaching) detach_dev(div);
-    			mounted = false;
-    			dispose();
-    		}
-    	};
-
-    	dispatch_dev("SvelteRegisterBlock", {
-    		block,
-    		id: create_if_block_3.name,
-    		type: "if",
-    		source: "(160:2) {#if output.length > 0}",
-    		ctx
-    	});
-
-    	return block;
-    }
-
-    // (166:1) {#if generating || error}
+    // (177:1) {#if generating || error}
     function create_if_block(ctx) {
     	let div1;
     	let div0;
@@ -1144,8 +1089,8 @@ var app = (function () {
     	let t1;
     	let div1_transition;
     	let current;
-    	let if_block0 = /*generating*/ ctx[3] && create_if_block_2(ctx);
-    	let if_block1 = /*error*/ ctx[4] && create_if_block_1(ctx);
+    	let if_block0 = /*generating*/ ctx[2] && create_if_block_2(ctx);
+    	let if_block1 = /*error*/ ctx[3] && create_if_block_1(ctx);
 
     	const block = {
     		c: function create() {
@@ -1156,11 +1101,11 @@ var app = (function () {
     			t1 = space();
     			if (if_block1) if_block1.c();
     			attr_dev(div0, "id", "overlay-bg");
-    			attr_dev(div0, "class", "svelte-19tnp6f");
-    			add_location(div0, file, 167, 3, 4155);
+    			attr_dev(div0, "class", "svelte-1by7p8g");
+    			add_location(div0, file, 178, 3, 4326);
     			attr_dev(div1, "id", "overlay");
-    			attr_dev(div1, "class", "svelte-19tnp6f");
-    			add_location(div1, file, 166, 2, 4094);
+    			attr_dev(div1, "class", "svelte-1by7p8g");
+    			add_location(div1, file, 177, 2, 4265);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div1, anchor);
@@ -1172,9 +1117,9 @@ var app = (function () {
     			current = true;
     		},
     		p: function update(ctx, dirty) {
-    			if (/*generating*/ ctx[3]) {
+    			if (/*generating*/ ctx[2]) {
     				if (if_block0) {
-    					if (dirty & /*generating*/ 8) {
+    					if (dirty & /*generating*/ 4) {
     						transition_in(if_block0, 1);
     					}
     				} else {
@@ -1193,11 +1138,11 @@ var app = (function () {
     				check_outros();
     			}
 
-    			if (/*error*/ ctx[4]) {
+    			if (/*error*/ ctx[3]) {
     				if (if_block1) {
     					if_block1.p(ctx, dirty);
 
-    					if (dirty & /*error*/ 16) {
+    					if (dirty & /*error*/ 8) {
     						transition_in(if_block1, 1);
     					}
     				} else {
@@ -1247,14 +1192,14 @@ var app = (function () {
     		block,
     		id: create_if_block.name,
     		type: "if",
-    		source: "(166:1) {#if generating || error}",
+    		source: "(177:1) {#if generating || error}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (169:3) {#if generating}
+    // (180:3) {#if generating}
     function create_if_block_2(ctx) {
     	let img;
     	let img_src_value;
@@ -1267,7 +1212,7 @@ var app = (function () {
     			attr_dev(img, "id", "preloader");
     			if (!src_url_equal(img.src, img_src_value = "images/preloader.svg")) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", "preloader");
-    			add_location(img, file, 169, 4, 4209);
+    			add_location(img, file, 180, 4, 4380);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, img, anchor);
@@ -1298,14 +1243,14 @@ var app = (function () {
     		block,
     		id: create_if_block_2.name,
     		type: "if",
-    		source: "(169:3) {#if generating}",
+    		source: "(180:3) {#if generating}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (172:3) {#if error}
+    // (183:3) {#if error}
     function create_if_block_1(ctx) {
     	let div0;
     	let t0;
@@ -1330,23 +1275,23 @@ var app = (function () {
     			br0 = element("br");
     			br1 = element("br");
     			t1 = space();
-    			t2 = text(/*errorMessage*/ ctx[5]);
+    			t2 = text(/*errorMessage*/ ctx[4]);
     			t3 = space();
     			div1 = element("div");
     			img = element("img");
-    			add_location(br0, file, 173, 14, 4408);
-    			add_location(br1, file, 173, 18, 4412);
+    			add_location(br0, file, 184, 14, 4579);
+    			add_location(br1, file, 184, 18, 4583);
     			attr_dev(div0, "id", "error");
-    			attr_dev(div0, "class", "svelte-19tnp6f");
-    			add_location(div0, file, 172, 4, 4340);
+    			attr_dev(div0, "class", "svelte-1by7p8g");
+    			add_location(div0, file, 183, 4, 4511);
     			attr_dev(img, "id", "close-bg");
     			if (!src_url_equal(img.src, img_src_value = "images/close.svg")) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", "close");
-    			attr_dev(img, "class", "svelte-19tnp6f");
-    			add_location(img, file, 177, 5, 4542);
+    			attr_dev(img, "class", "svelte-1by7p8g");
+    			add_location(img, file, 188, 5, 4713);
     			attr_dev(div1, "id", "close");
-    			attr_dev(div1, "class", "svelte-19tnp6f");
-    			add_location(div1, file, 176, 4, 4457);
+    			attr_dev(div1, "class", "svelte-1by7p8g");
+    			add_location(div1, file, 187, 4, 4628);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div0, anchor);
@@ -1366,7 +1311,7 @@ var app = (function () {
     			}
     		},
     		p: function update(ctx, dirty) {
-    			if (!current || dirty & /*errorMessage*/ 32) set_data_dev(t2, /*errorMessage*/ ctx[5]);
+    			if (!current || dirty & /*errorMessage*/ 16) set_data_dev(t2, /*errorMessage*/ ctx[4]);
     		},
     		i: function intro(local) {
     			if (current) return;
@@ -1405,7 +1350,7 @@ var app = (function () {
     		block,
     		id: create_if_block_1.name,
     		type: "if",
-    		source: "(172:3) {#if error}",
+    		source: "(183:3) {#if error}",
     		ctx
     	});
 
@@ -1414,7 +1359,7 @@ var app = (function () {
 
     function create_fragment(ctx) {
     	let main;
-    	let div2;
+    	let div3;
     	let h1;
     	let t1;
     	let div0;
@@ -1426,6 +1371,9 @@ var app = (function () {
     	let t3;
     	let input1;
     	let t4;
+    	let div2;
+    	let pre;
+    	let code;
     	let t5;
     	let current;
     	let mounted;
@@ -1434,19 +1382,18 @@ var app = (function () {
     	function select_block_type(ctx, dirty) {
     		if (dirty & /*fonts*/ 2) show_if = null;
     		if (show_if == null) show_if = !!(Object.keys(/*fonts*/ ctx[1]).length > 0);
-    		if (show_if) return create_if_block_4;
+    		if (show_if) return create_if_block_3;
     		return create_else_block_1;
     	}
 
     	let current_block_type = select_block_type(ctx, -1);
     	let if_block0 = current_block_type(ctx);
-    	let if_block1 = /*output*/ ctx[2].length > 0 && create_if_block_3(ctx);
-    	let if_block2 = (/*generating*/ ctx[3] || /*error*/ ctx[4]) && create_if_block(ctx);
+    	let if_block1 = (/*generating*/ ctx[2] || /*error*/ ctx[3]) && create_if_block(ctx);
 
     	const block = {
     		c: function create() {
     			main = element("main");
-    			div2 = element("div");
+    			div3 = element("div");
     			h1 = element("h1");
     			h1.textContent = "Web Font Generator";
     			t1 = space();
@@ -1459,51 +1406,62 @@ var app = (function () {
     			t3 = space();
     			input1 = element("input");
     			t4 = space();
-    			if (if_block1) if_block1.c();
+    			div2 = element("div");
+    			pre = element("pre");
+    			code = element("code");
     			t5 = space();
-    			if (if_block2) if_block2.c();
-    			add_location(h1, file, 129, 2, 2591);
+    			if (if_block1) if_block1.c();
+    			add_location(h1, file, 142, 2, 2830);
     			attr_dev(div0, "id", "fonts");
-    			attr_dev(div0, "class", "svelte-19tnp6f");
-    			add_location(div0, file, 130, 2, 2622);
+    			attr_dev(div0, "class", "svelte-1by7p8g");
+    			add_location(div0, file, 143, 2, 2861);
     			input0.disabled = /*disabled*/ ctx[6];
     			attr_dev(input0, "type", "button");
     			input0.value = "⚙️ Generate fonts.css";
-    			add_location(input0, file, 155, 4, 3713);
+    			add_location(input0, file, 168, 4, 3952);
     			input1.disabled = /*disabled*/ ctx[6];
     			attr_dev(input1, "type", "button");
     			input1.value = "❌ Remove all";
-    			add_location(input1, file, 156, 4, 3804);
-    			add_location(p, file, 154, 3, 3704);
+    			add_location(input1, file, 169, 4, 4043);
+    			add_location(p, file, 167, 3, 3943);
     			attr_dev(div1, "id", "buttons");
-    			attr_dev(div1, "class", "svelte-19tnp6f");
-    			add_location(div1, file, 153, 2, 3681);
-    			attr_dev(div2, "id", "ui");
-    			attr_dev(div2, "class", "svelte-19tnp6f");
-    			add_location(div2, file, 128, 1, 2574);
-    			attr_dev(main, "class", "svelte-19tnp6f");
-    			add_location(main, file, 127, 0, 2565);
+    			attr_dev(div1, "class", "svelte-1by7p8g");
+    			add_location(div1, file, 166, 2, 3920);
+    			attr_dev(code, "class", "code svelte-1by7p8g");
+    			add_location(code, file, 173, 8, 4166);
+    			add_location(pre, file, 173, 3, 4161);
+    			attr_dev(div2, "id", "output");
+    			attr_dev(div2, "class", "svelte-1by7p8g");
+    			add_location(div2, file, 172, 2, 4139);
+    			attr_dev(div3, "id", "ui");
+    			attr_dev(div3, "class", "svelte-1by7p8g");
+    			add_location(div3, file, 141, 1, 2813);
+    			attr_dev(main, "class", "svelte-1by7p8g");
+    			add_location(main, file, 140, 0, 2804);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, main, anchor);
-    			append_dev(main, div2);
-    			append_dev(div2, h1);
-    			append_dev(div2, t1);
-    			append_dev(div2, div0);
+    			append_dev(main, div3);
+    			append_dev(div3, h1);
+    			append_dev(div3, t1);
+    			append_dev(div3, div0);
     			if_block0.m(div0, null);
-    			append_dev(div2, t2);
-    			append_dev(div2, div1);
+    			append_dev(div3, t2);
+    			append_dev(div3, div1);
     			append_dev(div1, p);
     			append_dev(p, input0);
     			append_dev(p, t3);
     			append_dev(p, input1);
-    			append_dev(div2, t4);
-    			if (if_block1) if_block1.m(div2, null);
+    			append_dev(div3, t4);
+    			append_dev(div3, div2);
+    			append_dev(div2, pre);
+    			append_dev(pre, code);
+    			/*code_binding*/ ctx[18](code);
     			append_dev(main, t5);
-    			if (if_block2) if_block2.m(main, null);
+    			if (if_block1) if_block1.m(main, null);
     			current = true;
 
     			if (!mounted) {
@@ -1536,37 +1494,24 @@ var app = (function () {
     				prop_dev(input1, "disabled", /*disabled*/ ctx[6]);
     			}
 
-    			if (/*output*/ ctx[2].length > 0) {
+    			if (/*generating*/ ctx[2] || /*error*/ ctx[3]) {
     				if (if_block1) {
     					if_block1.p(ctx, dirty);
-    				} else {
-    					if_block1 = create_if_block_3(ctx);
-    					if_block1.c();
-    					if_block1.m(div2, null);
-    				}
-    			} else if (if_block1) {
-    				if_block1.d(1);
-    				if_block1 = null;
-    			}
 
-    			if (/*generating*/ ctx[3] || /*error*/ ctx[4]) {
-    				if (if_block2) {
-    					if_block2.p(ctx, dirty);
-
-    					if (dirty & /*generating, error*/ 24) {
-    						transition_in(if_block2, 1);
+    					if (dirty & /*generating, error*/ 12) {
+    						transition_in(if_block1, 1);
     					}
     				} else {
-    					if_block2 = create_if_block(ctx);
-    					if_block2.c();
-    					transition_in(if_block2, 1);
-    					if_block2.m(main, null);
+    					if_block1 = create_if_block(ctx);
+    					if_block1.c();
+    					transition_in(if_block1, 1);
+    					if_block1.m(main, null);
     				}
-    			} else if (if_block2) {
+    			} else if (if_block1) {
     				group_outros();
 
-    				transition_out(if_block2, 1, 1, () => {
-    					if_block2 = null;
+    				transition_out(if_block1, 1, 1, () => {
+    					if_block1 = null;
     				});
 
     				check_outros();
@@ -1574,18 +1519,18 @@ var app = (function () {
     		},
     		i: function intro(local) {
     			if (current) return;
-    			transition_in(if_block2);
+    			transition_in(if_block1);
     			current = true;
     		},
     		o: function outro(local) {
-    			transition_out(if_block2);
+    			transition_out(if_block1);
     			current = false;
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(main);
     			if_block0.d();
+    			/*code_binding*/ ctx[18](null);
     			if (if_block1) if_block1.d();
-    			if (if_block2) if_block2.d();
     			mounted = false;
     			run_all(dispose);
     		}
@@ -1619,6 +1564,10 @@ var app = (function () {
     	return text.length > 0;
     }
 
+    async function onUpdateCSS() {
+    	console.log("!");
+    }
+
     function instance($$self, $$props, $$invalidate) {
     	let disabled;
     	let { $$slots: slots = {}, $$scope } = $$props;
@@ -1630,6 +1579,7 @@ var app = (function () {
     	let generating = false;
     	let error = false;
     	let errorMessage = "";
+    	let css;
 
     	async function updateFonts() {
     		const res = await apiRequest({ method: "fontsList" });
@@ -1678,33 +1628,38 @@ var app = (function () {
     	}
 
     	async function generate() {
-    		$$invalidate(3, generating = true);
+    		$$invalidate(2, generating = true);
 
     		if (await isConfigValid()) {
     			const res = await apiRequest({ method: "generateFonts", config });
 
     			if (res.ok) {
-    				if (res.output) $$invalidate(2, output = res.output);
+    				if (res.output) {
+    					output = res.output;
+    					$$invalidate(5, css.innerHTML = output, css);
+    					hljs.highlightElement(css, { language: "css" });
+    					$$invalidate(5, css.style.display = "block", css);
+    				}
     			} else {
-    				$$invalidate(4, error = true);
-    				$$invalidate(5, errorMessage = res.message);
+    				$$invalidate(3, error = true);
+    				$$invalidate(4, errorMessage = res.message);
     			}
     		} else {
-    			$$invalidate(4, error = true);
-    			$$invalidate(5, errorMessage = "Invalid input");
+    			$$invalidate(3, error = true);
+    			$$invalidate(4, errorMessage = "Invalid input");
     		}
 
-    		$$invalidate(3, generating = false);
+    		$$invalidate(2, generating = false);
     	}
 
     	async function clear() {
     		$$invalidate(0, config = {});
-    		$$invalidate(2, output = "");
+    		output = "";
     	}
 
     	async function closeOverlay() {
-    		$$invalidate(4, error = false);
-    		$$invalidate(5, errorMessage = "");
+    		$$invalidate(3, error = false);
+    		$$invalidate(4, errorMessage = "");
     	}
 
     	onMount(async () => {
@@ -1723,6 +1678,8 @@ var app = (function () {
     		sse.onerror = function (error) {
     			console.error("EventSource failed: ", error);
     		};
+
+    		$$invalidate(5, css.style.display = "none", css);
     	});
 
     	const writable_props = [];
@@ -1745,9 +1702,11 @@ var app = (function () {
     	const click_handler_1 = fontFile => clearFont(fontFile);
     	const click_handler_2 = fontFile => useFont(fontFile);
 
-    	function textarea_input_handler_1() {
-    		output = this.value;
-    		$$invalidate(2, output);
+    	function code_binding($$value) {
+    		binding_callbacks[$$value ? 'unshift' : 'push'](() => {
+    			css = $$value;
+    			$$invalidate(5, css);
+    		});
     	}
 
     	$$self.$capture_state = () => ({
@@ -1760,6 +1719,7 @@ var app = (function () {
     		generating,
     		error,
     		errorMessage,
+    		css,
     		apiRequest,
     		updateFonts,
     		updateConfig,
@@ -1770,6 +1730,7 @@ var app = (function () {
     		isSubsetTextValid,
     		isConfigValid,
     		generate,
+    		onUpdateCSS,
     		clear,
     		closeOverlay,
     		disabled
@@ -1779,10 +1740,11 @@ var app = (function () {
     		if ('sse' in $$props) sse = $$props.sse;
     		if ('fonts' in $$props) $$invalidate(1, fonts = $$props.fonts);
     		if ('config' in $$props) $$invalidate(0, config = $$props.config);
-    		if ('output' in $$props) $$invalidate(2, output = $$props.output);
-    		if ('generating' in $$props) $$invalidate(3, generating = $$props.generating);
-    		if ('error' in $$props) $$invalidate(4, error = $$props.error);
-    		if ('errorMessage' in $$props) $$invalidate(5, errorMessage = $$props.errorMessage);
+    		if ('output' in $$props) output = $$props.output;
+    		if ('generating' in $$props) $$invalidate(2, generating = $$props.generating);
+    		if ('error' in $$props) $$invalidate(3, error = $$props.error);
+    		if ('errorMessage' in $$props) $$invalidate(4, errorMessage = $$props.errorMessage);
+    		if ('css' in $$props) $$invalidate(5, css = $$props.css);
     		if ('disabled' in $$props) $$invalidate(6, disabled = $$props.disabled);
     	};
 
@@ -1799,10 +1761,10 @@ var app = (function () {
     	return [
     		config,
     		fonts,
-    		output,
     		generating,
     		error,
     		errorMessage,
+    		css,
     		disabled,
     		useFont,
     		removeFont,
@@ -1815,7 +1777,7 @@ var app = (function () {
     		click_handler,
     		click_handler_1,
     		click_handler_2,
-    		textarea_input_handler_1
+    		code_binding
     	];
     }
 
