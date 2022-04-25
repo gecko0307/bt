@@ -33,9 +33,11 @@ To run the development server:
 
 `bt run`
 
-To build banner for publishing (WIP):
+To build banner for publishing (WIP, relies on proprietary external tool at the moment):
 
 `bt build <platform>`
+
+where `<platform>` is one of the supported ad platforms (see [platforms.js](https://github.com/gecko0307/bt/blob/master/src/builder/platforms.js) for details).
 
 To capture screenshots of predefined animation frames (for GreenSock template only; dev server should be running):
 
