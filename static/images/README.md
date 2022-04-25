@@ -1,6 +1,7 @@
 # Image Optimizer
 All-in-one image manipulation and conversion tool.
 * Greatly reduces size of PNG and JPEG files without much quality loss
+* Fast lossless compression of PNG using [ECT](https://github.com/fhanau/Efficient-Compression-Tool)
 * Optimizes SVG
 * Generates WebP
 * Converts between formats

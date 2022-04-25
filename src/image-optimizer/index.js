@@ -207,8 +207,9 @@ async function optimizeImages(req) {
                 hash: await fileHash(inputPath)
             };
 
-            // Don't compress if input file didn't change
+            // TODO: don't compress if input file or config didn't change
             let ignoreFile = false;
+            /*
             if (imageFile in oldConfig) {
                 const original = oldConfig[imageFile].original;
                 const oldOutputFormat = oldConfig[imageFile].options.outputFormat;
@@ -217,6 +218,7 @@ async function optimizeImages(req) {
                         ignoreFile = true;
                 }
             }
+            */
 
             if (ignoreFile === false) {
                 console.log(`Compresing ${imageFile}...`);
