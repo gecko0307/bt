@@ -57,15 +57,15 @@ where `<platform>` is one of the supported ad platforms (see [platforms.js](http
 You can also add your own templates to `templates` directory and use them.
 
 ## Server Tools
-Development server runs at `http://localhost:8000/` and serves project's `HTML` directory. Additional services are available at the following routes:
+Development server runs at `http://localhost:8000/` and serves project's `HTML` directory (banner's static files). Additional services are available at the following routes:
 * `http://localhost:8000/preview` - developer's preview page (WIP)
-* `http://localhost:8000/fonts` - web font generator
-* `http://localhost:8000/images` or `http://localhost:8000/tuner` - image optimizer
-* `http://localhost:8000/mobile` - mobile device emulator to work with Device Orientation API on desktop. This functionality will be reimplemented as a part of `/preview` page in future
+* `http://localhost:8000/fonts` - Web Font Generator
+* `http://localhost:8000/images` or `http://localhost:8000/tuner` - Image Optimizer
+* `http://localhost:8000/mobile` - Mobile Device Emulator to work with Device Orientation API on desktop. This functionality will be reimplemented as a part of `/preview` page in future
 * `http://localhost:8000/api` - toolchain API (see [src/api.js](https://github.com/gecko0307/bt/blob/master/src/api.js) for details)
-* `http://localhost:8000/sse` - server-side events (SSE) interface. Currently provides only file watcher event system which can be used like this: `http://localhost:8000/sse?events=watcher`. These events are emitted when `Fonts` or `Images` directories change
-* `http://localhost:8000/file?path=your/path` - retrieves any file relative to project root (a directory where dev server runs)
-* `http://localhost:8000/build` - serves `build` directory with latest deploy-ready banner build.
+* `http://localhost:8000/sse` - server-side events (SSE) interface. Currently provides only file watcher event system which is used in the following way: `http://localhost:8000/sse?events=watcher`. These events are emitted when `Fonts` or `Images` directories change
+* `http://localhost:8000/file?path=your/path` - retrieves any file relative to the project root (a directory where dev server runs)
+* `http://localhost:8000/build` - serves `build` directory with latest publish-ready banner build.
 
 ## Copyright and License
 * Banner Toolchain. Copyright (c) 2020-2022 Timur Gafarov. Distributed under the MIT license.
