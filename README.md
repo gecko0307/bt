@@ -56,7 +56,7 @@ where `<platform>` is one of the supported ad platforms (see [platforms.js](http
 
 You can also add your own templates to `templates` directory and use them.
 
-## Server tools (WIP)
+## Server Tools
 Development server runs at `http://localhost:8000/` and serves project's `HTML` directory. Additional services are available at the following routes:
 * `http://localhost:8000/preview` - developer's preview page (WIP)
 * `http://localhost:8000/fonts` - web font generator
@@ -67,7 +67,7 @@ Development server runs at `http://localhost:8000/` and serves project's `HTML` 
 * `http://localhost:8000/file?path=your/path` - retrieves any file relative to project root (a directory where dev server runs)
 * `http://localhost:8000/build` - serves `build` directory with latest deploy-ready banner build.
 
-## Copyright and license
+## Copyright and License
 * Banner Toolchain. Copyright (c) 2020-2022 Timur Gafarov. Distributed under the MIT license.
 * [cwebp](https://github.com/webmproject/libwebp/blob/main/examples/cwebp.c). Copyright (c) 2011 Google Inc. Distributed under the BSD 3-Clause License.
 * [Efficient Compression Tool (ECT)](https://github.com/fhanau/Efficient-Compression-Tool). Copyright (c) Felix Hanau. Distributed under the Apache License.
