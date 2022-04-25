@@ -30,15 +30,16 @@ module.exports.record = async function(options) {
 
     await options.prepare(browser, page);
 
-    var ffmpegPath = options.ffmpeg || "ffmpeg";
-    var fps = options.fps || 60;
+    const ffmpegPath = options.ffmpeg || "ffmpeg";
+    const fps = options.fps || 60;
+    const crf = options.crf || 1;
 
-    var outFile = options.output;
+    const outFile = options.output;
 
-    const args = ffmpegArgs(fps);
+    const args = ffmpegArgs(fps, crf);
 
     if ("format" in options) args.push("-f", options.format);
-    else if (!outFile) args.push("-f", "matroska");
+    else if (!outFile) args.push("-f", "mp4");
 
     args.push(outFile || "-");
 
@@ -58,7 +59,7 @@ module.exports.record = async function(options) {
         if (options.logEachFrame)
             console.log(`[puppeteer-recorder] rendering frame ${i} of ${options.frames}.`);
         await options.render(browser, page, i);
-        let screenshot = await page.screenshot({ omitBackground: true });
+        const screenshot = await page.screenshot({ omitBackground: true });
         await write(ffmpeg.stdin, screenshot);
     }
 
@@ -67,7 +68,7 @@ module.exports.record = async function(options) {
     await closed;
 };
 
-const ffmpegArgs = fps => [
+function ffmpegArgs(fps, crf = 1) { return [
     // Overwrite output files without asking
     "-y",
     
@@ -81,14 +82,10 @@ const ffmpegArgs = fps => [
     "-i", "-",
     
     // Video codec
-    //"-c:v", "libvpx-vp9",
     "-c:v", "libx264",
     
     // H.264: Constant Rate Factor (0 - lossless, 51 - worst)
-    "-crf", "1",
-    
-    // VP8: enable use of alternate reference frames (2-pass only)
-    //"-auto-alt-ref", "0",
+    "-crf", `${crf}`,
     
     // Pixel format
     "-pix_fmt", "yuva420p",
@@ -98,7 +95,7 @@ const ffmpegArgs = fps => [
     
     //
     `alpha_mode="1"`
-];
+]};
 
 const write = (stream, buffer) =>
     new Promise((resolve, reject) => {

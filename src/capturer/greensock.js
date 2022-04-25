@@ -87,6 +87,7 @@ async function capture(options) {
         // Capture video
         const videoDuration = result.duration || 5;
         const videoFps = 60;
+        const videoCompressionRate = 1;
         const frameTime = 1.0 / videoFps;
         console.log(`Capture video: ${videoDuration}s at ${videoFps}fps...`);
         await record({
@@ -94,6 +95,7 @@ async function capture(options) {
             page: page,
             output: videoPath,
             fps: videoFps,
+            crf: videoCompressionRate,
             frames: videoFps * videoDuration,
             prepare: async function(browser, page) {
                 // Executed before first capture
