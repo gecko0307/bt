@@ -107,11 +107,6 @@
 		.button:active {
 			background-color: #0063a2;
 		}
-
-		#build {
-			pointer-events: none;
-			background-color: #888888;
-		}
 	</style>
 	<script src="interact.min.js"></script>
 </head>
@@ -151,6 +146,7 @@
 
 		var images = document.getElementById("images");
 		var fonts = document.getElementById("fonts");
+		var build = document.getElementById("build");
 		
 		interact(resizable_area).resizable({
 			edges: { left: false, right: true, bottom: true, top: false },
@@ -208,6 +204,13 @@
 
 		fonts.onclick = function() {
 			window.location.href = "/fonts";
+		};
+		
+		build.onclick = async function() {
+			const res = await apiRequest({
+				method: "build"
+				// TODO: build options
+			});
 		};
 		
 		var timerId = null;

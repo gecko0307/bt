@@ -1,6 +1,16 @@
+const fs = require("fs-extra");
+const path = require("path");
 const fontGenerator = require("./font-generator");
 const imageOptimizer = require("./image-optimizer");
 const capturer = require("./capturer");
+const builder = require("./builder");
+
+function requireUncached(module) {
+    delete require.cache[require.resolve(module)];
+    return require(module);
+}
+
+const btConfigPath = path.join(__dirname, "..", "config.json");
 
 async function capture(req = {}) {
     const frames = await capturer(req);
@@ -8,6 +18,34 @@ async function capture(req = {}) {
         ok: true,
         message: "",
         frames: frames
+    }
+}
+
+async function build(req = {}) {
+    let useGulpBuilder = false;
+    let builderPath = "";
+
+    const options = {
+        platform: "publish"
+    };
+
+    let btConfig = {};
+    if (await fs.pathExists(btConfigPath)) {
+        btConfig = requireUncached(btConfigPath) || {};
+    }
+    if ("builder" in btConfig) {
+        useGulpBuilder = btConfig.builder.useGulpBuilder || false;
+        builderPath = btConfig.builder.path || "";
+    }
+
+    if (useGulpBuilder) {
+        options.gulpBuilderPath = builderPath;
+        await builder(options);
+    }
+
+    return {
+        ok: true,
+        message: ""
     }
 }
 
@@ -20,7 +58,8 @@ const methods = {
     "imagesConfig": imageOptimizer.imagesConfig,
     "optimizeImages": imageOptimizer.optimizeImages,
     
-    "capture": capture
+    "capture": capture,
+    "build": build
 };
 
 async function init() {
