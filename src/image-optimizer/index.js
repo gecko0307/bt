@@ -49,7 +49,7 @@ const imageDefaultOptions = {
 };
 
 async function init() {
-    if (!(await fs.pathExists(imagesConfigPath))){
+    if (!(await fs.pathExists(imagesConfigPath))) {
         await fs.writeJSON(imagesConfigPath, {
             images: {},
             ultimate: true

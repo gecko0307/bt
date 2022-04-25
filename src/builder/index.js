@@ -5,7 +5,6 @@ const { JSDOM } = require("jsdom");
 const { fillMissing } = require("object-fill-missing-keys");
 const { execute } = require("../utils");
 const platforms = require("./platforms");
-const runRollup = require("../rollup");
 
 const cwd = process.cwd();
 
@@ -60,77 +59,80 @@ async function build(options = { platform: "publish", gulpBuilderPath: "" }) {
     console.log("Platform:", platformName, `(${options.platform})`);
     console.log("Technical requirements:", technicalRequirementsName, `(${technicalRequirements})`);
     console.log("Version:", config.version);
-    const code = await runRollup("rollup.config.prod.js");
-    if (code === 0) {
-        const inputPath = path.join(cwd, "HTML");
-        const outputPath = path.join(cwd, "build");
 
-        const builderPath = options.gulpBuilderPath || "";
-        const gulpfilePath = path.join(builderPath, "gulpfile.js");
-        if (!(await fs.pathExists(gulpfilePath))) {
-            console.log(`Builder not found in ${builderPath}! Please, specify valid Gulp-builder installation path in config.json`);
-            return;
-        }
-        // TODO: check gulpfile.js
+    const inputPath = path.join(cwd, "HTML");
+    const outputPath = path.join(cwd, "build");
 
-        console.log(`Using Gulp-builder in ${builderPath}`);
-        const builderCode = await execute("npm", 
-            ["run", "gulp", "--", "--task", `"${technicalRequirements}"`, "--input", `"${inputPath}/"`, "--output", `"${outputPath}/"`, "--skip"], 
-            { cwd: builderPath }
-        );
-        if (builderCode !== 0) {
-            console.log("Build failed!");
-        }
-        else {
-            console.log("Build finished!");
+    const builderPath = options.gulpBuilderPath || "";
+    const gulpfilePath = path.join(builderPath, "gulpfile.js");
+    if (!(await fs.pathExists(gulpfilePath))) {
+        console.log(`Builder not found in ${builderPath}! Please, specify valid Gulp-builder installation path in config.json`);
+        return;
+    }
 
-            // Get index.html
-            const htmlPath = path.resolve("./build/index.html");
-            // TODO: check if htmlPath exists
-            const html = await fs.readFile(htmlPath);
-            const dom = new JSDOM(html, { resources: "usable" });
+    console.log(`Using Gulp-builder in ${builderPath}`);
+    const builderCode = await execute("npm", 
+        ["run", "gulp", "--", "--task", `"${technicalRequirements}"`, "--input", `"${inputPath}/"`, "--output", `"${outputPath}/"`, "--skip"], 
+        { cwd: builderPath }
+    );
+    if (builderCode !== 0) {
+        console.log("Build failed!");
+    }
+    else {
+        console.log("Build finished!");
+
+        const htmlPath = path.resolve("./build/index.html");
+        // TODO: check if htmlPath exists
+        const dom = await JSDOM.fromFile(htmlPath, { resources: "usable", pretendToBeVisual: true });
+        //const dom = await JSDOM.fromURL("http://localhost:8000/build", { resources: "usable", pretendToBeVisual: true });
+
+        function waitResourcesLoaded(resolve, reject) {
             const container = dom.window.document.getElementById("container");
             const style = dom.window.getComputedStyle(container);
             const width = style.getPropertyValue("width");
             const height = style.getPropertyValue("height");
-            const w = width.replace(/px/g, "").replace(/%/g, "P");
-            const h = height.replace(/px/g, "").replace(/%/g, "P");
-            let bannerSize = `_${w}x${h}`;
-            if (config.size) {
-                bannerSize = "_" + config.size;
-            }
-
-            // Make archive name
-            let bannerName = "banner";
-            if (config.brand.length > 0) {
-                bannerName = config.brand;
-                if (config.campaign.length > 0) bannerName += "_" + config.campaign;
-            }
-            else if (config.campaign.length > 0) {
-                bannerName = config.campaign;
-            }
-    
-            let platform = "";
-            if (options.platform !== "publish") {
-                platform = "_" + options.platform;
-            }
-    
-            const zipFilename = `${bannerName}${bannerSize}${platform}_${config.version}.zip`;
-            const zipPath = path.join(cwd, "dist", zipFilename);
-
-            const zip = new Zip();
-            const files = await fs.readdir(outputPath);
-            files.forEach(filename => {
-                const filePath = path.join(cwd, "build", filename);
-                zip.addLocalFile(filePath);
-            });
-            zip.writeZip(zipPath);
-            const { size } = await fs.stat(zipPath);
-            console.log(`Generated ${zipPath} (${formatBytes(size)})`);
+            if (width && width.length > 0)
+                resolve({ width, height });
+            else
+                setTimeout(waitResourcesLoaded.bind(this, resolve, reject), 100);
         }
-    }
-    else {
-        console.log("Build failed!");
+
+        const bannerLoad = new Promise(waitResourcesLoaded);
+        const { width, height } = await bannerLoad;
+        const w = width.replace(/px/g, "").replace(/%/g, "P");
+        const h = height.replace(/px/g, "").replace(/%/g, "P");
+        let bannerSize = `_${w}x${h}`;
+        if (config.size) {
+            bannerSize = "_" + config.size;
+        }
+
+        // Make archive name
+        let bannerName = "banner";
+        if (config.brand.length > 0) {
+            bannerName = config.brand;
+            if (config.campaign.length > 0) bannerName += "_" + config.campaign;
+        }
+        else if (config.campaign.length > 0) {
+            bannerName = config.campaign;
+        }
+
+        let platform = "";
+        if (options.platform !== "publish") {
+            platform = "_" + options.platform;
+        }
+
+        const zipFilename = `${bannerName}${bannerSize}${platform}_${config.version}.zip`;
+        const zipPath = path.join(cwd, "dist", zipFilename);
+
+        const zip = new Zip();
+        const files = await fs.readdir(outputPath);
+        files.forEach(filename => {
+            const filePath = path.join(cwd, "build", filename);
+            zip.addLocalFile(filePath);
+        });
+        zip.writeZip(zipPath);
+        const { size } = await fs.stat(zipPath);
+        console.log(`Generated ${zipPath} (${formatBytes(size)})`);
     }
 }
 

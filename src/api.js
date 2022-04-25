@@ -62,7 +62,12 @@ const methods = {
     "build": build
 };
 
+const dataPath = path.resolve("./.data");
+
 async function init() {
+    if (!(await fs.pathExists(dataPath))) {
+        await fs.mkdir(dataPath);
+    }
     fontGenerator.init();
     imageOptimizer.init();
 }
