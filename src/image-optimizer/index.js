@@ -3,6 +3,7 @@ const path = require("path");
 const unixify = require("unixify");
 const glob = require("glob-promise");
 const mime = require("mime");
+var _ = require("lodash");
 const { fillMissing } = require("object-fill-missing-keys");
 const { fileSize, fileHash, streamToFile, copySmallestFile } = require("./utils");
 
@@ -210,18 +211,17 @@ async function optimizeImages(req) {
                 hash: await fileHash(inputPath)
             };
 
-            // TODO: don't compress if input file or config didn't change
+            // Don't compress if input file or config didn't change
             let ignoreFile = false;
-            /*
-            if (imageFile in oldConfig) {
-                const original = oldConfig[imageFile].original;
-                const oldOutputFormat = oldConfig[imageFile].options.outputFormat;
-                if (original && oldOutputFormat.length > 0) {
-                    if (original.hash === conf.original.hash && outputFormat === oldOutputFormat)
-                        ignoreFile = true;
+            if (imageFile in oldConfig.images) {
+                const old = oldConfig.images[imageFile];
+                const oldOutputFormat = old.options.outputFormat;
+                if (old.original && oldOutputFormat.length > 0) {
+                    const inputFileUnchanged = old.original.hash === conf.original.hash;
+                    const configUnchanged = _.isEqual(old, conf);
+                    ignoreFile = inputFileUnchanged && configUnchanged;
                 }
             }
-            */
 
             if (ignoreFile === false) {
                 console.log(`Compresing ${imageFile}...`);

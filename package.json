@@ -47,6 +47,7 @@
         "image-q": "^4.0.0",
         "jpeg-js": "^0.4.3",
         "jsdom": "^16.7.0",
+        "lodash": "^4.17.21",
         "mime": "^2.6.0",
         "mozjpeg-binaries": "^2.1.0",
         "nanoid": "^3.3.3",

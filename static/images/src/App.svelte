@@ -49,6 +49,7 @@
             error = true;
             errorMessage = res.message;
         }
+        await updateConfig();
         optimizing = false;
     }
 
