@@ -64,8 +64,14 @@ Development server runs at `http://localhost:8000/` and serves project's `HTML` 
 * `http://localhost:8000/build` - serves `build` directory with latest deploy-ready banner build.
 
 ## Copyright and license
-Banner Toolchain. Copyright (C) 2020-2022 Timur Gafarov. Distributed under the MIT license.
+Banner Toolchain. Copyright (c) 2020-2022 Timur Gafarov. Distributed under the MIT license.
 
-cwebp. Copyright 2011 Google Inc. Distributed under the BSD license.
+cwebp. Copyright (c) 2011 Google Inc. Distributed under the BSD 3-Clause License.
 
-WebGL modules are based on [lightgl.js](https://github.com/evanw/lightgl.js). Copyright (C) 2011 by Evan Wallace. Distributed under the MIT license.
+Efficient Compression Tool (ECT). Copyright (c) Felix Hanau. Distributed under the Apache License.
+
+Highlight.js. Copyright (c) 2006 Ivan Sagalaev. Distributed under the BSD 3-Clause License.
+
+Puppeteer Recorder. Copyright (c) 2017 Clipisode. Distributed under the MIT license.
+
+[lightgl.js](https://github.com/evanw/lightgl.js). Copyright (C) 2011 by Evan Wallace. Distributed under the MIT license.
