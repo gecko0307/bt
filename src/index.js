@@ -40,6 +40,9 @@ async function build(options = { platform: "publish" }) {
         options.gulpBuilderPath = builderPath;
         await builder(options);
     }
+    else {
+        console.log("Integrated banner builder is not implemented yet, sorry. Please, use Gulp-builder (builder.useGulpBuilder in config.json)");
+    }
 }
 
 async function run(options = {}) {

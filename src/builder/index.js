@@ -66,8 +66,9 @@ async function build(options = { platform: "publish", gulpBuilderPath: "" }) {
         const outputPath = path.join(cwd, "build");
 
         const builderPath = options.gulpBuilderPath || "";
-        if (!(await fs.pathExists(builderPath))) {
-            console.log("Builder not found!");
+        const gulpfilePath = path.join(builderPath, "gulpfile.js");
+        if (!(await fs.pathExists(gulpfilePath))) {
+            console.log(`Builder not found in ${builderPath}! Please, specify valid Gulp-builder installation path in config.json`);
             return;
         }
         // TODO: check gulpfile.js
