@@ -39,11 +39,11 @@ To build banner for publishing (WIP):
 
 To capture screenshots of predefined animation frames (for GreenSock template only; dev server should be running):
 
-`bt capture`
+`bt capture <resolution>`
 
 To capture video (for GreenSock template only; dev server should be running):
 
-`bt capture video`
+`bt capture video <resolution>`
 
 ## Templates
 `bt init` will create a project using a default template that uses [GreenSock](https://greensock.com/) animation library. Additionally [Anime.js](https://animejs.com/)-based template is available for fully self-hosted banners with as small size overhead as possible:

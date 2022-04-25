@@ -68,7 +68,6 @@ async function init(options = { template: "default" }) {
 
 async function capture(options) {
     console.log("BannerToolchain capture");
-    console.log(`${options.width}x${options.height}`);
     await capturer(options);
 }
 

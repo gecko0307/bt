@@ -76,6 +76,8 @@ async function capture(options) {
         await browser.close();
         return result;
     }
+
+    console.log(`${banner.width}x${banner.height}`);
     
     await page.setViewport({
         width: banner.width,
