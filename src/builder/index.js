@@ -32,7 +32,7 @@ function requireUncached(module) {
     return require(module);
 }
 
-async function build(options = { platform: "publish" }) {
+async function build(options = { platform: "publish", gulpBuilderPath: "" }) {
     let config = {};
     if (await fs.pathExists(builderConfigPath)) {
         config = requireUncached(builderConfigPath) || {};
@@ -62,14 +62,14 @@ async function build(options = { platform: "publish" }) {
         const inputPath = path.join(cwd, "HTML");
         const outputPath = path.join(cwd, "build");
 
-        const builderPath = "E:/SmartHead/internal/builder/Gulp-builder_1.4";
-
+        const builderPath = options.gulpBuilderPath || "";
         if (!(await fs.pathExists(builderPath))) {
             console.log("Builder not found!");
             return;
         }
+        // TODO: check gulpfile.js
 
-        console.log("Using Gulp-builder 1.4");
+        console.log(`Using Gulp-builder in ${builderPath}`);
         const builderCode = await execute("npm", 
             ["run", "gulp", "--", "--task", `"${options.platform}"`, "--input", `"${inputPath}/"`, "--output", `"${outputPath}/"`, "--skip"], 
             { cwd: builderPath }

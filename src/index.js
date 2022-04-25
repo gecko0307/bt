@@ -14,9 +14,32 @@ async function isDirEmpty(dirname) {
     });
 }
 
-async function build(options = { platform: "publish", version: "v1" }) {
+function requireUncached(module) {
+    delete require.cache[require.resolve(module)];
+    return require(module);
+}
+
+const btConfigPath = path.join(__dirname, "..", "config.json");
+
+async function build(options = { platform: "publish" }) {
     console.log("BannerToolchain build");
-    await builder(options);
+
+    let useGulpBuilder = false;
+    let builderPath = "";
+
+    let btConfig = {};
+    if (await fs.pathExists(btConfigPath)) {
+        btConfig = requireUncached(btConfigPath) || {};
+    }
+    if ("builder" in btConfig) {
+        useGulpBuilder = btConfig.builder.useGulpBuilder || false;
+        builderPath = btConfig.builder.path || "";
+    }
+
+    if (useGulpBuilder) {
+        options.gulpBuilderPath = builderPath;
+        await builder(options);
+    }
 }
 
 async function run(options = {}) {

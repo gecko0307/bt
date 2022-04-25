@@ -1,0 +1,6 @@
+{
+    "builder": {
+        "useGulpBuilder": true,
+        "path": "E:/SmartHead/internal/builder/Gulp-builder_1.4"
+    }
+}
