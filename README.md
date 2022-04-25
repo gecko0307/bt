@@ -15,7 +15,7 @@ The main reason I created this was to replace an in-house tool with my own so th
 * ✔ Built-in Image Optimizer & Converter - reduce size of PNG, JPEG and SVG images with full control over quality trade-off
 * ✔ Generate inline base64-encoded CSS background-images for fully self-contained banners
 * ✔️ Web font generator with subsetting
-* ⌛ Banner Builder
+* ⌛ Banner Builder - prepares banner for publishing on advertising platforms
 * ⌛ Banner preview tools: resizer, timer, event manager, etc.
 
 ## Installation
