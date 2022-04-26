@@ -51,8 +51,9 @@ export default {
     }
 }
 
+server.init();
 server.listen({
-    onListen: function(server) {
+    onListen: function(fastify) {
         const url = "http://localhost:8000/";
         opener(url);
         console.log("Good luck!");

@@ -66,6 +66,7 @@ async function run(options = {}) {
     }
     else {
         console.log("Warning: main module (src/banner.js) not found, running server without Rollup");
+        server.init();
         server.listen({
             onListen: function(server) {
                 const url = "http://localhost:8000/";
