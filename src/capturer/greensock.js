@@ -21,18 +21,23 @@ async function capture(options) {
 
     const browser = await puppeteer.launch({ headless: true });
     const page = await browser.newPage();
+
+    page.on("console", (message) => console.log(message.text()));
+    page.on("pageerror", ({ message }) => console.log(message));
+    page.on("requestfailed", (request) => console.log(`${request.failure().errorText} ${request.url()}`));
     
     await page.evaluateOnNewDocument(captureFunc);
     try {
         await page.goto(url, { waitUntil: ["load", "domcontentloaded", "networkidle0" ] });
-    } catch(error) {
+    }
+    catch(error) {
         console.log(error.message);
         await browser.close();
         return result;
     }
     
     await page.evaluate(deleteDevTools);
-    
+
     const banner = await page.evaluate(() => {
         if (animation !== undefined) {
             let bannerType = "gsap";
@@ -46,8 +51,13 @@ async function capture(options) {
                 bannerVersion = animation.version || 0;
             }
             const container = document.getElementById("container");
-            const duration = animation.master.duration();
-            return {
+
+            let duration = 0;
+            if (animation.master) {
+                duration = animation.master.duration();
+            }
+
+            const info = {
                 type: bannerType,
                 version: bannerVersion,
                 width: container.offsetWidth,
@@ -55,29 +65,46 @@ async function capture(options) {
                 duration: duration,
                 frames: window.frames
             };
+            return info;
         }
         else {
             return {
-                type: "unknown"
+                type: "unknown",
+                version: 0,
+                width: 0,
+                height: 0,
+                duration: 0,
+                frames: []
             };
         }
     });
     
     if (options.width && options.width !== 0) banner.width = options.width;
     if (options.height && options.height !== 0) banner.height = options.height;
-    
+
+    console.log("Banner info:");
+    console.log(`Size: ${banner.width}x${banner.height}`);
+    console.log(`Template type: ${banner.type}`);
+    console.log(`Template version: ${banner.version}`);
+    console.log(`Master timeline duration: ${banner.duration}`);
+    console.log(`Capture frames count: ${banner.frames.length}`);
+
     result.type = banner.type;
     result.width = banner.width;
     result.height = banner.height;
     result.duration = banner.duration;
     
     if (banner.type !== "gsap") {
-        console.log("Error: GreenSock animation not found");
+        console.log("Error: only GreenSock banners are supported!");
         await browser.close();
         return result;
     }
 
-    console.log(`${banner.width}x${banner.height}`);
+    if (banner.duration === 0) {
+        console.log("Error: master timeline (animation.master) not found!");
+        await browser.close();
+        return result;
+    }
     
     await page.setViewport({
         width: banner.width,
