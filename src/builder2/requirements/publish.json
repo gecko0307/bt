@@ -1,0 +1,34 @@
+{
+    "id": "publish",
+    "name": "Unknown",
+    
+    "type": "html",
+    
+    "dist": {
+        "format": "zip",
+        "maxSize": 0
+    }
+    
+    "requiredFiles": ["index.html"],
+    "allowedFiles": ["*.*"],
+    "maxFilesNum": 0,
+    
+    "externalLinks": true,
+    
+    "fallback": {
+        "required": false
+    },
+    
+    "tags": {
+    },
+    
+    "attributes": {
+        "#link": {
+            "target": "_blank",
+        }
+    },
+    
+    "browsers": [],
+    
+    "preview": "preview.html"
+}

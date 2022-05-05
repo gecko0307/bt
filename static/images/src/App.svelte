@@ -164,7 +164,7 @@
     }
 
     #preloader {
-        position: absolute;
+        position: fixed;
         width: 10vh;
         height: auto;
         left: -100%;
@@ -178,7 +178,7 @@
     }
 
     #error {
-        position: absolute;
+        position: fixed;
         width: 80%;
         max-width: 400px;
         left: -100%;
@@ -194,7 +194,7 @@
     }
 
     #close {
-        position: absolute;
+        position: fixed;
         width: 32px;
         height: 32px;
         left: auto;

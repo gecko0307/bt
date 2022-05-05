@@ -1,0 +1,47 @@
+{
+    "id": "yandex-direct",
+    "name": "Yandex Direct",
+    
+    "type": "html",
+    
+    "dist": {
+        "format": "zip",
+        "maxSize": 150
+    }
+    
+    "requiredFiles": ["index.html"],
+    "allowedFiles": ["*.html", "*.js", "*.json", "*.css", "*.jpg", "*.gif", "*.png", "*.svg"],
+    "maxFilesNum": 20,
+    
+    "externalLinks": true,
+    
+    "fallback": {
+        "required": true,
+        "maxSize": 120
+    },
+    
+    "tags": {
+        "head": [
+            "<meta name=\"ad.size\" content=\"width={{banner.width}},height={{banner.height}}\">"
+        ],
+        "body": [
+            "<script>document.getElementById(\"link\").href = yandexHTML5BannerApi.getClickURLNum(1);</script>"
+        ]
+    },
+    
+    "attributes": {
+        "#link": {
+            "target": "_blank",
+        }
+    },
+    
+    "browsers": [
+        "chrome": 14,
+        "firefox": 14,
+        "safari": 5,
+        "ie": 9,
+        "opera": 14,
+        "yandex": 14,
+        "edge": 0
+    ]
+}
