@@ -5,6 +5,7 @@ const opener = require("opener");
 const server = require("./server");
 const capturer = require("./capturer");
 const gulpBuilder = require("./builder");
+const nativeBuilder = require("./builder2");
 const runRollup = require("./rollup");
 
 const cwd = process.cwd();
@@ -48,12 +49,12 @@ async function build(options = { platform: "publish" }) {
         builderPath = btConfig.builder.path || "";
     }
 
-    if (useGulpBuilder) {
+    if (useGulpBuilder === true) {
         options.gulpBuilderPath = builderPath;
         await gulpBuilder(options);
     }
     else {
-        console.log("Integrated banner builder is not implemented yet, sorry. Please, use Gulp-builder (builder.useGulpBuilder in config.json)");
+        await nativeBuilder(options);
     }
 }
 

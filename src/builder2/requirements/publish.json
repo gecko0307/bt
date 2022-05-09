@@ -7,7 +7,7 @@
     "dist": {
         "format": "zip",
         "maxSize": 0
-    }
+    },
     
     "requiredFiles": ["index.html"],
     "allowedFiles": ["*.*"],
@@ -24,7 +24,7 @@
     
     "attributes": {
         "#link": {
-            "target": "_blank",
+            "target": "_blank"
         }
     },
     

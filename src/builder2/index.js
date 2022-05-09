@@ -1,38 +1,22 @@
 const fs = require("fs-extra");
 const path = require("path");
+const { fillMissing } = require("object-fill-missing-keys");
+const { requirements, aliases } = require("./platforms");
 
-function requirement(id) {
-    return require(`./requirements/${id}.json`);
+function requireUncached(module) {
+    delete require.cache[require.resolve(module)];
+    return require(module);
 }
 
-const platforms = {
-    "yandex": requirement("yandex"),
-    "publish": requirement("publish")
-    /*
-        TODO - basic platforms:
-        adfox
-        adform
-        admitad
-        adrime
-        adriver
-        adwords
-        rambler
-        yandex
-        bestseller
-        cityads
-        studio
-        dca
-        womensnetwork
-        getintent
-        mail
-        mytarget
-        nativeroll
-        otm
-        rbc
-        sizmek
-        soloway
-        weborama
-    */
+const cwd = process.cwd();
+
+const builderConfigPath = path.resolve("./.data/builder.config.json");
+
+const configDefault = {
+    brand: "",
+    campaign: "banner",
+    platform: "publish",
+    version: "v1"
 };
 
 async function build(options = { platform: "publish" }) {
@@ -47,12 +31,33 @@ async function build(options = { platform: "publish" }) {
     }
 
     const platformId = options.platform;
+    let tr = requirements["publish"];
+    let platformName = "Undefined";
 
-    let platform = platforms["publish"];
-
-    if (platformId in platforms) {
-        platform = platforms[platformId];
+    if (platformId in requirements) {
+        tr = requirements[platformId];
+        platformName = tr.name;
     }
+    else {
+        const alias = aliases[platformId];
+        if (alias in requirements) {
+            tr = requirements[alias.tr];
+            platformName = alias.name;
+        }
+    }
+
+    console.log("Platform:", platformName, `(${platformId})`);
+    console.log("Technical requirements:", tr.name, `(${tr.id})`);
+    console.log("Version:", config.version);
+
+    // TODO: check required files
+    // TODO: collect assets, replace paths, check allowed files
+    // TODO: inline files
+    // TODO: minimize CSS
+    // TODO: add meta tag "ad.size"
+    // TODO: add required tags and attributes
+    // TODO: check external links
+    // TODO: check fallback
 }
 
 module.exports = build;

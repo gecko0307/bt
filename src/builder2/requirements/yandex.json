@@ -1,13 +1,13 @@
 {
-    "id": "yandex-direct",
-    "name": "Yandex Direct",
+    "id": "yandex",
+    "name": "Yandex",
     
     "type": "html",
     
     "dist": {
         "format": "zip",
         "maxSize": 150
-    }
+    },
     
     "requiredFiles": ["index.html"],
     "allowedFiles": ["*.html", "*.js", "*.json", "*.css", "*.jpg", "*.gif", "*.png", "*.svg"],
@@ -31,11 +31,11 @@
     
     "attributes": {
         "#link": {
-            "target": "_blank",
+            "target": "_blank"
         }
     },
     
-    "browsers": [
+    "browsers": {
         "chrome": 14,
         "firefox": 14,
         "safari": 5,
@@ -43,5 +43,5 @@
         "opera": 14,
         "yandex": 14,
         "edge": 0
-    ]
+    }
 }
