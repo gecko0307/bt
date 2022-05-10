@@ -5,7 +5,7 @@ const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 const { fillMissing } = require("object-fill-missing-keys");
 const { requirements, aliases } = require("./platforms");
-//const transform = require("./transform");
+const transform = require("./transform");
 
 function requireUncached(module) {
     delete require.cache[require.resolve(module)];
@@ -83,10 +83,11 @@ async function build(options = { platform: "publish" }) {
         //const body = dom.window.document.getElementsByTagName("body")[0];
         //const link = dom.window.document.getElementById("link");
 
-        // TODO: JS
+        console.log("Scripts...");
+        if (!await transform.scripts(filename, document, tr)) return;
         // TODO: CSS
         // TODO: images
-        // TODO: required scripts, tags, attributes
+        // TODO: add required scripts, tags, attributes
         // TODO: collect assets, replace paths
         // TODO: check external links
     }
