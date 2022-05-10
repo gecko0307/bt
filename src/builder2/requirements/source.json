@@ -1,5 +1,5 @@
 {
-    "id": "publish",
+    "id": "source",
     "name": "Unknown",
     
     "type": "html",
@@ -29,9 +29,7 @@
     },
     
     "inlineFiles": false,
-    "minify": true,
+    "minify": false,
     
-    "browsers": [],
-    
-    "preview": "preview.html"
+    "browsers": []
 }

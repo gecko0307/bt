@@ -1,5 +1,6 @@
 const fs = require("fs-extra");
 const path = require("path");
+const stripComments = require("strip-comments");
 const minify = require("@node-minify/core");
 const cleanCSS = require("@node-minify/clean-css");
 const replaceUrl = require("replace-css-url");
@@ -18,6 +19,7 @@ async function processStyles(filename, document, tr) {
         }
         else {
             let code = style.innerHTML;
+
             code = replaceUrl(code,
                 function(p) {
                     const assetPath = path.resolve(`./HTML/${p}`);
@@ -29,7 +31,12 @@ async function processStyles(filename, document, tr) {
                         return p;
                     }
                 });
-            code = await minify({ compressor: cleanCSS, content: code });
+            
+            code = stripComments(code, { language: "css" });
+
+            if (tr.minify === true)
+                code = await minify({ compressor: cleanCSS, content: code });
+            
             style.removeAttribute("inline");
             style.innerHTML = "\n" + code;
         }
@@ -58,7 +65,11 @@ async function processStyles(filename, document, tr) {
                         return p;
                     }
                 });
-            code = await minify({ compressor: cleanCSS, content: code });
+            
+            code = stripComments(code, { language: "css" });
+            
+            if (tr.minify === true)
+                code = await minify({ compressor: cleanCSS, content: code });
 
             if (isDevStyle) {
                 style.remove();

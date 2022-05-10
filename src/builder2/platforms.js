@@ -1,7 +1,8 @@
 const requirements = {
     "yandex": require("./requirements/yandex.json"),
     "publish": require("./requirements/publish.json"),
-    "vk": require("./requirements/vk.json")
+    "vk": require("./requirements/vk.json"),
+    "source": require("./requirements/source.json"),
     /*
         TODO:
         adfox
@@ -157,14 +158,12 @@ const aliases = {
     "vedomosti": { name: "Ведомости", tr: "adfox" },
     "village": { name: "The Village", tr: "adfox" },
     "vc": { name: "vc.ru", tr: "adfox" },
-    "vk": { name: "VK", tr: "vk" },
     "wapstart": { name: "WapStart", tr: "studio" },
     "weborama": { name: "Weborama", tr: "weborama" },
     "whrussia": { name: "Women's Health Russia", tr: "adriver" },
     "wifi": { name: "WiFi", tr: "publish" },
     "wifi_branding": { name: "WiFi Branding", tr: "publish" },
     "womensnetwork": { name: "Women's Network", tr: "womensnetwork" },
-    "yandex": { name: "Yandex", tr: "yandex" },
     "yandex-direct": { name: "Yandex Direct", tr: "yandex" },
     "yandex_direct": { name: "Yandex Direct", tr: "yandex" },
     "yandex_direct_main": { name: "Yandex Direct Главная", tr: "yandex" },

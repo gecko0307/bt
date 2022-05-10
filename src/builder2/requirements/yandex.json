@@ -36,6 +36,7 @@
     },
     
     "inlineFiles": false,
+    "minify": true,
     
     "browsers": {
         "chrome": 14,

@@ -1,5 +1,7 @@
 const fs = require("fs-extra");
 const path = require("path");
+const stripComments = require("strip-comments");
+const beautify = require("js-beautify");
 const minify = require("@node-minify/core");
 const uglifyjs = require("@node-minify/uglify-js");
 
@@ -12,12 +14,19 @@ async function processScripts(filename, document, tr) {
         const isInlineScript = script.hasAttribute("inline");
         const isDevScript = script.hasAttribute("dev");
         const isPreviewScript = script.hasAttribute("preview");
+        
+        // TODO: minify inline scripts?
 
         if (await fs.pathExists(scriptInputPath)) {
             const baseFilename = path.basename(scriptFilename);
             let code = await fs.readFile(scriptInputPath, "utf8");
 
-            if (scriptFilename === "animation.js") {
+            code = beautify(stripComments(code, { language: "js" }), { 
+                "indent_with_tabs": true,
+                "preserve_newlines": false
+            });
+
+            if (scriptFilename === "animation.js" && tr.minify === true) {
                 code = await minify({ compressor: uglifyjs, content: code });
             }
 
