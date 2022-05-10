@@ -20,14 +20,11 @@ async function processScripts(filename, document, tr) {
         if (await fs.pathExists(scriptInputPath)) {
             const baseFilename = path.basename(scriptFilename);
             let code = await fs.readFile(scriptInputPath, "utf8");
-
-            code = beautify(stripComments(code, { language: "js" }), { 
-                "indent_with_tabs": true,
-                "preserve_newlines": false
-            });
-
-            if (scriptFilename === "animation.js" && tr.minify === true) {
-                code = await minify({ compressor: uglifyjs, content: code });
+            
+            if (scriptFilename === "animation.js") {
+                code = stripComments(code, { language: "js" });
+                if (tr.minify === true)
+                    code = await minify({ compressor: uglifyjs, content: code });
             }
 
             if (isDevScript) {
