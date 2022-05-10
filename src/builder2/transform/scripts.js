@@ -20,7 +20,9 @@ async function processScripts(filename, document, tr) {
                 code = await minify({ compressor: uglifyjs, content: code });
             }
 
-            if (isInlineScript) { // || inlineAll
+            // TODO: remove GSDevTools when preparing for TR
+
+            if (isInlineScript) { // || tr.inlineAll
                 script.removeAttribute("inline");
                 script.removeAttribute("src");
                 script.type = "text/javascript";

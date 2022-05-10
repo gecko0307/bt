@@ -85,11 +85,15 @@ async function build(options = { platform: "publish" }) {
 
         console.log("Scripts...");
         if (!await transform.scripts(filename, document, tr)) return;
+        
         // TODO: CSS
         // TODO: images
         // TODO: add required scripts, tags, attributes
         // TODO: collect assets, replace paths
         // TODO: check external links
+
+        const htmlOutputPath = path.resolve(`./build/${filename}`);
+        await fs.outputFile(htmlOutputPath, dom.serialize());
     }
 
     // TODO: check fallback
