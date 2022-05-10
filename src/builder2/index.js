@@ -15,6 +15,7 @@ function requireUncached(module) {
 const cwd = process.cwd();
 
 const builderConfigPath = path.resolve("./.data/builder.config.json");
+const buildPath = path.resolve("./build");
 
 const configDefault = {
     brand: "",
@@ -54,6 +55,8 @@ async function build(options = { platform: "publish" }) {
     console.log("Technical requirements:", tr.name, `(${tr.id})`);
     console.log("Version:", config.version);
 
+    fs.emptyDirSync(buildPath);
+
     const htmlFiles = {};
 
     console.log("Checking required files...");
@@ -89,9 +92,8 @@ async function build(options = { platform: "publish" }) {
         console.log("Styles...");
         if (!await transform.styles(filename, document, tr)) return;
 
-        // TODO: images
+        // TODO: assets
         // TODO: add required scripts, tags, attributes
-        // TODO: collect assets, replace paths
         // TODO: check external links
 
         const htmlOutputPath = path.resolve(`./build/${filename}`);
