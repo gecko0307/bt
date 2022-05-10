@@ -95,6 +95,7 @@ async function build(options = { platform: "publish" }) {
         if (!await transform.assets(filename, document, tr)) return;
 
         console.log("Prepare...");
+        // TODO: prepare only index.html
         if (!await transform.prepare(filename, document, tr)) return;
 
         console.log("Serialize...");
@@ -106,7 +107,6 @@ async function build(options = { platform: "publish" }) {
             "indent_scripts": false,
             "extra_liners": []
         });
-
         const htmlOutputPath = path.resolve(`./build/${filename}`);
         await fs.outputFile(htmlOutputPath, htmlOutput);
     }
