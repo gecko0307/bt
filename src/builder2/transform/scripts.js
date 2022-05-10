@@ -8,7 +8,6 @@ async function processScripts(filename, document, tr) {
 
     for (const script of scripts) {
         const scriptFilename = script.getAttribute("src");
-        console.log(scriptFilename);
         const scriptInputPath = path.resolve(`./HTML/${scriptFilename}`);
         const isInlineScript = script.hasAttribute("inline");
 
