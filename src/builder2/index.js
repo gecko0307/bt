@@ -93,7 +93,9 @@ async function build(options = { platform: "publish" }) {
         console.log("Styles...");
         if (!await transform.styles(filename, document, tr)) return;
 
-        // TODO: assets
+        console.log("Assets...");
+        if (!await transform.assets(filename, document, tr)) return;
+
         // TODO: add required scripts, tags, attributes
 
         console.log("Beautify...");

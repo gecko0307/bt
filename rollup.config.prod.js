@@ -40,7 +40,9 @@ export default {
         cssAnimation({ always: true }),
         domIntrospection({ always: true }),
         strip({
-            debugger: true
+            debugger: true,
+            functions: ["console.log", "assert.*", "debug", "alert"],
+            sourceMap: false
         }),
         babel({
             presets: [
