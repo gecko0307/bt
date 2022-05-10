@@ -2,6 +2,7 @@ const fs = require("fs-extra");
 const path = require("path");
 const { fillMissing } = require("object-fill-missing-keys");
 const { requirements, aliases } = require("./platforms");
+const transform = require("./transform");
 
 function requireUncached(module) {
     delete require.cache[require.resolve(module)];
@@ -50,14 +51,16 @@ async function build(options = { platform: "publish" }) {
     console.log("Technical requirements:", tr.name, `(${tr.id})`);
     console.log("Version:", config.version);
 
-    // TODO: check required files
+    if (!await transform.check(tr)) return;
+    if (!await transform.assets(tr)) return;
+
     // TODO: collect assets, replace paths, check allowed files
-    // TODO: inline files
-    // TODO: minimize CSS
     // TODO: add meta tag "ad.size"
     // TODO: add required tags and attributes
     // TODO: check external links
     // TODO: check fallback
+
+    console.log("Done");
 }
 
 module.exports = build;
