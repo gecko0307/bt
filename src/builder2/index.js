@@ -1,8 +1,9 @@
 const fs = require("fs-extra");
 const path = require("path");
-//const stt = require("spaces-to-tabs");
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
+const stripComments = require("strip-comments");
+const beautify = require("js-beautify").html;
 const { fillMissing } = require("object-fill-missing-keys");
 const { requirements, aliases } = require("./platforms");
 const transform = require("./transform");
@@ -94,15 +95,24 @@ async function build(options = { platform: "publish" }) {
 
         // TODO: assets
         // TODO: add required scripts, tags, attributes
-        // TODO: check external links
-        // TODO: remove comments
+
+        console.log("Beautify...");
+        const htmlOutput = beautify(stripComments(dom.serialize(), { language: "html" }), { 
+            "indent_with_tabs": true,
+            "unformatted": ["style", "script", "sub", "sup", "b", "i", "u"],
+            "preserve_newlines": false,
+            "end_with_newline": true,
+            "indent_scripts": false,
+            "extra_liners": []
+        });
 
         const htmlOutputPath = path.resolve(`./build/${filename}`);
-        await fs.outputFile(htmlOutputPath, dom.serialize());
+        await fs.outputFile(htmlOutputPath, htmlOutput);
     }
 
     // TODO: fallback
     // TODO: preview.html
+    // TODO: make ZIP
 
     console.log("Done");
 }

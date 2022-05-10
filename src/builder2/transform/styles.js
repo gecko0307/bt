@@ -2,9 +2,11 @@ const fs = require("fs-extra");
 const path = require("path");
 const minify = require("@node-minify/core");
 const cleanCSS = require("@node-minify/clean-css");
+const replaceUrl = require("replace-css-url");
 
 async function processStyles(filename, document, tr) {
     const styles = Array.prototype.slice.call(document.getElementsByTagName("style"));
+    let assets = [];
     for (const style of styles) {
         const isDevStyle = style.hasAttribute("dev");
         const isPreviewStyle = style.hasAttribute("preview");
@@ -16,6 +18,17 @@ async function processStyles(filename, document, tr) {
         }
         else {
             let code = style.innerHTML;
+            code = replaceUrl(code,
+                function(p) {
+                    const assetPath = path.resolve(`./HTML/${p}`);
+                    if (fs.pathExistsSync(assetPath)) {
+                        if (!assets.includes(p)) assets.push(p);
+                        return path.basename(p);
+                    }
+                    else {
+                        return p;
+                    }
+                });
             code = await minify({ compressor: cleanCSS, content: code });
             style.removeAttribute("inline");
             style.innerHTML = "\n" + code;
@@ -33,8 +46,18 @@ async function processStyles(filename, document, tr) {
         if (await fs.pathExists(styleInputPath)) {
             const baseFilename = path.basename(styleFilename);
             let code = await fs.readFile(styleInputPath, "utf8");
-            
-            // TODO: process urls in code
+
+            code = replaceUrl(code,
+                function(p) {
+                    const assetPath = path.resolve(`./HTML/${p}`);
+                    if (fs.pathExistsSync(assetPath)) {
+                        if (!assets.includes(p)) assets.push(p);
+                        return path.basename(p);
+                    }
+                    else {
+                        return p;
+                    }
+                });
             code = await minify({ compressor: cleanCSS, content: code });
 
             if (isDevStyle) {
@@ -55,6 +78,15 @@ async function processStyles(filename, document, tr) {
                 await fs.outputFile(styleOutputPath, code);
             }
         }
+    }
+
+    //console.log(assets);
+    // TODO: make this separate stage
+    for (const asset of assets) {
+        const filename = path.basename(asset);
+        const assetInputPath = path.resolve(`./HTML/${asset}`);
+        const assetOutputPath = path.resolve(`./build/${filename}`);
+        await fs.copyFile(assetInputPath, assetOutputPath);
     }
 
     return true;
