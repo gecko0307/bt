@@ -95,12 +95,14 @@ async function build(options = { platform: "publish" }) {
         // TODO: assets
         // TODO: add required scripts, tags, attributes
         // TODO: check external links
+        // TODO: remove comments
 
         const htmlOutputPath = path.resolve(`./build/${filename}`);
         await fs.outputFile(htmlOutputPath, dom.serialize());
     }
 
-    // TODO: check fallback
+    // TODO: fallback
+    // TODO: preview.html
 
     console.log("Done");
 }

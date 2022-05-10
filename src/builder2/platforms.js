@@ -1,8 +1,9 @@
 const requirements = {
     "yandex": require("./requirements/yandex.json"),
-    "publish": require("./requirements/publish.json")
+    "publish": require("./requirements/publish.json"),
+    "vk": require("./requirements/vk.json")
     /*
-        TODO - basic platforms:
+        TODO:
         adfox
         adform
         admitad
@@ -156,7 +157,7 @@ const aliases = {
     "vedomosti": { name: "Ведомости", tr: "adfox" },
     "village": { name: "The Village", tr: "adfox" },
     "vc": { name: "vc.ru", tr: "adfox" },
-    "vk": { name: "VK", tr: "publish" },
+    "vk": { name: "VK", tr: "vk" },
     "wapstart": { name: "WapStart", tr: "studio" },
     "weborama": { name: "Weborama", tr: "weborama" },
     "whrussia": { name: "Women's Health Russia", tr: "adriver" },

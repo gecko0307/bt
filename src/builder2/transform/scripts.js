@@ -27,7 +27,7 @@ async function processScripts(filename, document, tr) {
             else if (isPreviewScript && tr.id !== "publish") {
                 script.remove();
             }
-            else if (isInlineScript) { // || tr.inlineAll
+            else if (isInlineScript || tr.inlineFiles) {
                 script.removeAttribute("inline");
                 script.removeAttribute("src");
                 script.type = "text/javascript";

@@ -33,6 +33,7 @@ async function processStyles(filename, document, tr) {
         if (await fs.pathExists(styleInputPath)) {
             const baseFilename = path.basename(styleFilename);
             let code = await fs.readFile(styleInputPath, "utf8");
+            
             // TODO: process urls in code
             code = await minify({ compressor: cleanCSS, content: code });
 
@@ -42,7 +43,7 @@ async function processStyles(filename, document, tr) {
             else if (isPreviewStyle && tr.id !== "publish") {
                 style.remove();
             }
-            else if (isInlineStyle) { // || tr.inlineAll
+            else if (isInlineStyle || tr.inlineFiles) {
                 const inlineStyle = document.createElement("style");
                 inlineStyle.type = "text/css";
                 inlineStyle.innerHTML = code;

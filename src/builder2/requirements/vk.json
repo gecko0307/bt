@@ -1,19 +1,19 @@
 {
-    "id": "publish",
-    "name": "Unknown",
+    "id": "vk",
+    "name": "VK",
     
     "type": "html",
     
     "dist": {
         "format": "zip",
-        "maxSize": 0
+        "maxSize": 500
     },
     
     "requiredFiles": ["index.html"],
-    "allowedFiles": ["*.*"],
-    "maxFilesNum": 0,
+    "allowedFiles": ["index.html"],
+    "maxFilesNum": 1,
     
-    "externalLinks": true,
+    "externalLinks": false,
     
     "fallback": {
         "required": false
@@ -23,12 +23,9 @@
     },
     
     "attributes": {
-        "#link": {
-            "target": "_blank"
-        }
     },
     
-    "inlineFiles": false,
+    "inlineFiles": true,
     
     "browsers": [],
     

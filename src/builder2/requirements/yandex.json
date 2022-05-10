@@ -35,6 +35,8 @@
         }
     },
     
+    "inlineFiles": false,
+    
     "browsers": {
         "chrome": 14,
         "firefox": 14,
