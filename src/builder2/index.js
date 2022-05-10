@@ -7,6 +7,7 @@ const beautify = require("js-beautify").html;
 const { fillMissing } = require("object-fill-missing-keys");
 const { requirements, aliases } = require("./platforms");
 const transform = require("./transform");
+const archive = require("./archive");
 
 function requireUncached(module) {
     delete require.cache[require.resolve(module)];
@@ -83,9 +84,6 @@ async function build(options = { platform: "publish" }) {
         const html = htmlFiles[filename];
         const dom = new JSDOM(html);
         const document = dom.window.document;
-        //const head = dom.window.document.getElementsByTagName("head")[0];
-        //const body = dom.window.document.getElementsByTagName("body")[0];
-        //const link = dom.window.document.getElementById("link");
 
         console.log("Scripts...");
         if (!await transform.scripts(filename, document, tr)) return;
@@ -96,9 +94,10 @@ async function build(options = { platform: "publish" }) {
         console.log("Assets...");
         if (!await transform.assets(filename, document, tr)) return;
 
-        // TODO: add required scripts, tags, attributes
+        console.log("Prepare...");
+        if (!await transform.prepare(filename, document, tr)) return;
 
-        console.log("Beautify...");
+        console.log("Serialize...");
         const htmlOutput = beautify(stripComments(dom.serialize(), { language: "html" }), { 
             "indent_with_tabs": true,
             "unformatted": ["style", "script", "sub", "sup", "b", "i", "u"],
@@ -114,7 +113,10 @@ async function build(options = { platform: "publish" }) {
 
     // TODO: fallback
     // TODO: preview.html
-    // TODO: make ZIP
+    
+    const archivePath = await archive();
+
+    // TODO: check archive size
 
     console.log("Done");
 }
