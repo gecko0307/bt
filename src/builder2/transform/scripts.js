@@ -10,6 +10,8 @@ async function processScripts(filename, document, tr) {
         const scriptFilename = script.getAttribute("src");
         const scriptInputPath = path.resolve(`./HTML/${scriptFilename}`);
         const isInlineScript = script.hasAttribute("inline");
+        const isDevScript = script.hasAttribute("dev");
+        const isPreviewScript = script.hasAttribute("preview");
 
         if (await fs.pathExists(scriptInputPath)) {
             const baseFilename = path.basename(scriptFilename);
@@ -19,9 +21,13 @@ async function processScripts(filename, document, tr) {
                 code = await minify({ compressor: uglifyjs, content: code });
             }
 
-            // TODO: remove GSDevTools when preparing for TR
-
-            if (isInlineScript) { // || tr.inlineAll
+            if (isDevScript) {
+                script.remove();
+            }
+            else if (isPreviewScript && tr.id !== "publish") {
+                script.remove();
+            }
+            else if (isInlineScript) { // || tr.inlineAll
                 script.removeAttribute("inline");
                 script.removeAttribute("src");
                 script.type = "text/javascript";
