@@ -40,9 +40,14 @@ async function prepare(filename, document, tr, options) {
         const attributes = tr.attributes[selector];
         for (const element of document.querySelectorAll(selector)) {
             for (const name of Object.keys(attributes)) {
-                const template = attributes[name];
-                const value = Mustache.render(template, templateData);
-                element.setAttribute(name, value);
+                if (attributes[name] !== null) {
+                    const template = attributes[name];
+                    const value = Mustache.render(template, templateData);
+                    element.setAttribute(name, value);
+                }
+                else {
+                    element.removeAttribute(name);
+                }
             }
         }
     }
