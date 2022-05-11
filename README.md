@@ -82,3 +82,21 @@ Development server runs at `http://localhost:8000/` and serves project's `HTML` 
 * [Highlight.js](https://highlightjs.org/). Copyright (c) 2006 Ivan Sagalaev. Distributed under the BSD 3-Clause License.
 * [Puppeteer Recorder](https://github.com/clipisode/puppeteer-recorder). Copyright (c) 2017 Clipisode. Distributed under the MIT license.
 * [lightgl.js](https://github.com/evanw/lightgl.js). Copyright (C) 2011 by Evan Wallace. Distributed under the MIT license.
+
+## Credits
+BT would not be possible without the following amazing software:
+* [Rollup](https://rollupjs.org/)
+* [Babel](https://babeljs.io/)
+* [Fastify](https://www.fastify.io/)
+* [Svelte](https://svelte.dev/)
+* [Puppeteer](https://pptr.dev/)
+* [jsdom](https://github.com/jsdom/jsdom)
+* [MozJPEG](https://github.com/mozilla/mozjpeg)
+* [image-q](https://github.com/ibezkrovnyi/image-quantization)
+* [pngquant](https://pngquant.org/)
+* [SVGO](https://github.com/svg/svgo)
+* [ECT](https://github.com/fhanau/Efficient-Compression-Tool)
+* [fonteditor-core](https://github.com/kekee000/fonteditor-core)
+* [Lodash](https://lodash.com/)
+* [Mustache.js](https://github.com/janl/mustache.js)
+* [ADM-ZIP](https://github.com/cthackers/adm-zip)
