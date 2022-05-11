@@ -27,8 +27,16 @@
     },
     
     "attributes": {
+        "body": {
+            "data-version": "v5"
+        },
         "#link": {
-            "target": "_blank"
+            "href": "%banner.reference_user1%",
+            "target": "%banner.target%",
+            "aria-label": "Перейти по ссылке в баннере"
+        },
+        "#container": {
+            "aria-hidden": "true"
         }
     },
     
