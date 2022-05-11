@@ -1,0 +1,47 @@
+{
+    "id": "wifi_branding",
+    "name": "WiFi Branding",
+    
+    "type": "html",
+    
+    "dist": {
+        "format": "zip",
+        "maxSize": 2048
+    },
+    
+    "requiredFiles": ["index.html"],
+    "allowedFiles": ["*.html", "*.js", "*.css", "*.jpg", "*.gif", "*.png", "*.svg"],
+    
+    "maxFilesNum": 10,
+    
+    "indexFile": "index.html",
+    
+    "externalLinks": false,
+    
+    "fallback": {
+        "required": false
+    },
+    
+    "tags": {
+        "head": [],
+        "body": []
+    },
+    
+    "attributes": {
+        "body": {
+            "data-version": "v6"
+        },
+        "#link": {
+            "target": "_blank",
+            "data-event-click": "1"
+        },
+        "#container": {
+            "aria-hidden": "true"
+        }
+    },
+    
+    "inlineFiles": false,
+    "minify": true,
+    
+    "browsers": {}
+}
