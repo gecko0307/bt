@@ -117,6 +117,8 @@ async function build(options = { platform: "publish" }) {
             if (!await transform.prepare(filename, document, tr, { banner: banner })) return;
         }
 
+        // TODO: check external URLs
+
         console.log("Serialize...");
         const htmlOutput = beautify(stripComments(dom.serialize(), { language: "html" }), { 
             "indent_with_tabs": true,
