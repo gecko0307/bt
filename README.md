@@ -3,7 +3,7 @@ HTML banner development tools for Node.js. Automate bundling and packaging of an
 
 The main reason I created this was to replace an in-house tool with my own so that I could run old banners and independently start new projects with a compatible layout.
 
-Waring: this is NOT and end user web app! It is meant to be run locally for development purposes only, not on a real server.
+Waring: this is NOT an end user web app! It is meant to be run locally for development purposes only, not on a real server.
 
 ## Features
 * ✔️ Project initialization, custom templates
