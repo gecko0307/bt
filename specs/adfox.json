@@ -1,0 +1,39 @@
+{
+    "id": "adfox",
+    "name": "Adfox",
+    
+    "type": "html",
+    
+    "dist": {
+        "format": "zip",
+        "maxSize": 15000
+    },
+    
+    "requiredFiles": ["index.html"],
+    "allowedFiles": ["*.*"],
+    "maxFilesNum": 50,
+    
+    "indexFile": "index.html",
+    
+    "externalLinks": true,
+    
+    "fallback": {
+        "required": false
+    },
+    
+    "tags": {
+        "head": [],
+        "body": []
+    },
+    
+    "attributes": {
+        "#link": {
+            "target": "_blank"
+        }
+    },
+    
+    "inlineFiles": false,
+    "minify": true,
+    
+    "browsers": {}
+}
