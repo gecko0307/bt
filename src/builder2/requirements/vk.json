@@ -13,6 +13,8 @@
     "allowedFiles": ["index.html"],
     "maxFilesNum": 1,
     
+    "indexFile": "index.html",
+    
     "externalLinks": false,
     
     "fallback": {

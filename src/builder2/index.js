@@ -37,6 +37,7 @@ async function build(options = { platform: "publish" }) {
         options.platform = config.platform;
     }
 
+    // TODO: dynamically load requirement
     const platformId = options.platform;
     let tr = requirements["publish"];
     let platformName = "Undefined";
@@ -94,9 +95,10 @@ async function build(options = { platform: "publish" }) {
         console.log("Assets...");
         if (!await transform.assets(filename, document, tr)) return;
 
-        console.log("Prepare...");
-        // TODO: prepare only index.html
-        if (!await transform.prepare(filename, document, tr)) return;
+        if (filename === tr.indexFile) {
+            console.log("Prepare...");
+            if (!await transform.prepare(filename, document, tr)) return;
+        }
 
         console.log("Serialize...");
         const htmlOutput = beautify(stripComments(dom.serialize(), { language: "html" }), { 
@@ -111,6 +113,7 @@ async function build(options = { platform: "publish" }) {
         await fs.outputFile(htmlOutputPath, htmlOutput);
     }
 
+    // TODO: check allowed extensions and max number of files in build
     // TODO: fallback
     // TODO: preview.html
     

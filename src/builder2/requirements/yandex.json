@@ -13,6 +13,8 @@
     "allowedFiles": ["*.html", "*.js", "*.json", "*.css", "*.jpg", "*.gif", "*.png", "*.svg"],
     "maxFilesNum": 20,
     
+    "indexFile": "index.html",
+    
     "externalLinks": true,
     
     "fallback": {
