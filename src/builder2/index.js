@@ -14,6 +14,15 @@ function requireUncached(module) {
     return require(module);
 }
 
+function formatBytes(bytes, decimals = 2) {
+    if (bytes === 0) return '0 bytes';
+    const k = 1024;
+    const dm = decimals < 0 ? 0 : decimals;
+    const sizes = ['bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+}
+
 const cwd = process.cwd();
 
 const builderConfigPath = path.resolve("./.data/builder.config.json");
@@ -85,8 +94,6 @@ async function build(options = { platform: "publish" }) {
         height: 0
     };
 
-    let bannerSize = "";
-
     for (filename of Object.keys(htmlFiles)) {
         console.log(`Processing "${filename}"...`);
         const html = htmlFiles[filename];
@@ -120,9 +127,6 @@ async function build(options = { platform: "publish" }) {
             const { width, height } = await bannerLoad;
             banner.width = width.replace(/px/g, "");
             banner.height = height.replace(/px/g, "");
-            const w = banner.width.replace(/%/g, "P");
-            const h = banner.height.replace(/%/g, "P");
-            bannerSize = `${w}x${h}`;
 
             console.log("Prepare...");
             if (!await transform.prepare(filename, document, tr, { banner: banner })) return;
@@ -145,9 +149,11 @@ async function build(options = { platform: "publish" }) {
     // TODO: fallback
     // TODO: preview.html
     
-    const archivePath = await archive();
-
-    // TODO: check archive size
+    console.log("Archive...");
+    const zipPath = await archive(platformId, config, banner);
+    const { size } = await fs.stat(zipPath);
+    // TODO: check size
+    console.log(`Generated ${zipPath} (${formatBytes(size)})`);
 
     console.log("Done");
 }
