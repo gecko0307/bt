@@ -57,7 +57,7 @@ async function build(options = { platform: "publish" }) {
     }
     else {
         const alias = aliases[platformId];
-        if (alias in requirements) {
+        if (alias.tr in requirements) {
             tr = requirements[alias.tr];
             platformName = alias.name;
         }
