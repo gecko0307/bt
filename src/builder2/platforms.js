@@ -26,8 +26,7 @@ const publish = {
     },
     inlineFiles: false,
     minify: true,
-    browsers: {},
-    preview: "preview.html"
+    browsers: {}
 };
 
 async function requirements(platformId) {

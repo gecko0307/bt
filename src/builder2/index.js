@@ -8,6 +8,7 @@ const { fillMissing } = require("object-fill-missing-keys");
 const { requirements } = require("./platforms");
 const transform = require("./transform");
 const archive = require("./archive");
+const wcmatch = require("wildcard-match");
 
 function requireUncached(module) {
     delete require.cache[require.resolve(module)];
@@ -129,9 +130,40 @@ async function build(options = { platform: "publish" }) {
         await fs.outputFile(htmlOutputPath, htmlOutput);
     }
 
-    // TODO: check allowed extensions and max number of files in build
-    // TODO: fallback
-    // TODO: preview.html
+    console.log("Check...");
+    const outputPath = path.resolve("./build");
+    const matches = tr.allowedFiles.map(wildcard => wcmatch(wildcard));
+
+    function isFileAllowed(filename) {
+        for (const isMatch of matches) {
+            if (isMatch(filename)) return true;
+        }
+        return false;
+    }
+
+    const files = await fs.readdir(outputPath);
+
+    if (tr.maxFilesNum > 0 && files.length > tr.maxFilesNum) {
+        console.log(`\x1b[1m\x1b[31mWarning: number of files exceeds maximum allowed by the specified platform (${tr.maxFilesNum})\x1b[0m`);
+    }
+
+    for (const filename of files) {
+        if (!isFileAllowed(filename)) {
+            // TODO: colored output
+            console.log(`\x1b[1m\x1b[31mWarning: file "${filename}" is not allowed for the specified platform\x1b[0m`);
+        }
+    }
+
+    // TODO: check and copy fallback
+
+    const previewFilename = tr.preview;
+    if (previewFilename) {
+        const previewInputPath = path.resolve(`./HTML/${previewFilename}`);
+        if (fs.pathExistsSync(previewInputPath)) {
+            const previewOutputPath = path.resolve(`./build/${previewFilename}`);
+            await fs.copyFile(previewInputPath, previewOutputPath);
+        }
+    }
     
     console.log("Archive...");
     // TODO: respect dist.format
@@ -143,7 +175,11 @@ async function build(options = { platform: "publish" }) {
         color = (sizeKb >= tr.dist.maxSize)? "\x1b[1m\x1b[31m" : "\x1b[1m\x1b[32m"; // Red if too large, green if ok
     }
     const sizeStr = `${color}${formatBytes(size)}\x1b[0m`;
-    console.log(`Generated ${zipPath} (${sizeStr})`);
+    const zipFilename = path.basename(zipPath);
+    console.log(`Generated ${zipFilename} (${sizeStr})`);
+    if (tr.dist.maxSize > 0 && sizeKb >= tr.dist.maxSize) {
+        console.log(`\x1b[1m\x1b[31mWarning: archive size exceeds maximum allowed by the specified platform (${tr.dist.maxSize} KB)\x1b[0m`);
+    }
 
     console.log("Done");
 }
