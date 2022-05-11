@@ -1,6 +1,6 @@
 {
     "id": "adfox",
-    "name": "Adfox",
+    "name": "ADFOX",
     
     "type": "html",
     
@@ -32,8 +32,7 @@
         },
         "#link": {
             "href": "%banner.reference_user1%",
-            "target": "%banner.target%",
-            "aria-label": "Перейти по ссылке в баннере"
+            "target": "%banner.target%"
         },
         "#container": {
             "aria-hidden": "true"

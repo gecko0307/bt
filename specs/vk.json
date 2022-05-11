@@ -25,6 +25,12 @@
     },
     
     "attributes": {
+        "#link": {
+            "target": "_blank"
+        },
+        "#container": {
+            "aria-hidden": "true"
+        }
     },
     
     "inlineFiles": true,

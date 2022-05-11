@@ -47,6 +47,9 @@
     "attributes": {
         "#link": {
             "target": "_blank"
+        },
+        "#container": {
+            "aria-hidden": "true"
         }
     },
     

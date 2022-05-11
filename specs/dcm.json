@@ -50,9 +50,11 @@
     
     "attributes": {
         "#link": {
-            "target": "_blank",
-            "href": "javascript:void(window.open(window.clickTag))",
-            "aria-label": "Перейти по ссылке в баннере"
+            "target": null,
+            "href": "javascript:void(window.open(window.clickTag))"
+        },
+        "#container": {
+            "aria-hidden": "true"
         }
     },
     

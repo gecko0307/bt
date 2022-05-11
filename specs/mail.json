@@ -38,6 +38,9 @@
         "#link": {
             "target": "_blank",
             "href": "%link1%"
+        },
+        "#container": {
+            "aria-hidden": "true"
         }
     },
     

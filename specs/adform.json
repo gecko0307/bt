@@ -44,7 +44,6 @@
             "target": null,
             "href": null,
             "onclick": "javascript:window.open(dhtml.getVar('clickTAG'), '_blank');",
-            "aria-label": "Перейти по ссылке в баннере",
             "style": "cursor: pointer;"
         },
         "#container": {
