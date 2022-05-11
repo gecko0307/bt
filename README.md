@@ -49,7 +49,7 @@ To build banner for publishing:
 
 `bt build <platform>`
 
-where `<platform>` is one of the supported ad platforms (see [specs](https://github.com/gecko0307/bt/blob/master/src/specs) for details).
+where `<platform>` is one of the supported ad platforms (see [specs](https://github.com/gecko0307/bt/blob/master/specs) and [platforms.js](https://github.com/gecko0307/bt/blob/master/src/builder2/platforms.js) for details). For example: `bt build display360`.
 
 ## Templates
 `bt init` will create a project using a default template that uses [GreenSock](https://greensock.com/) animation library. Additionally [Anime.js](https://animejs.com/)-based template is available for fully self-hosted banners with as small size overhead as possible:
