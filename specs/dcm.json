@@ -58,6 +58,8 @@
         }
     },
     
+    "ids": {},
+    
     "inlineFiles": false,
     "minify": true,
     

@@ -10,6 +10,11 @@ async function prepare(filename, document, tr, options) {
         banner: options.banner
     };
 
+    /*
+    // TODO: replace ids
+    link.setAttribute("id", "click1_area");
+    */
+
     if ("head" in tr.tags) {
         for (const tag of tr.tags.head) {
             const element = document.createElement(tag.tag);

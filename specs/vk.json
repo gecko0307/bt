@@ -33,6 +33,8 @@
         }
     },
     
+    "ids": {},
+    
     "inlineFiles": true,
     "minify": true,
     

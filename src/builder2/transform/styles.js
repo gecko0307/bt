@@ -6,6 +6,11 @@ const cleanCSS = require("@node-minify/clean-css");
 const replaceUrl = require("replace-css-url");
 
 async function processStyles(filename, document, tr) {
+    /*
+    // TODO: replace ids
+    code = code.replace(/\#link/g, "#click1_area");
+    */
+
     const styles = Array.prototype.slice.call(document.getElementsByTagName("style"));
     let assets = [];
     for (const style of styles) {

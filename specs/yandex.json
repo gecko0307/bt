@@ -53,6 +53,10 @@
         }
     },
     
+    "ids": {
+        "#link": "#click1_area"
+    },
+    
     "inlineFiles": false,
     "minify": true,
     
