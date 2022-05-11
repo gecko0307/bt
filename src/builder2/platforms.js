@@ -1,9 +1,10 @@
 const requirements = {
     "dcm": require("./requirements/dcm.json"),
-    "yandex": require("./requirements/yandex.json"),
+    "mail": require("./requirements/mail.json"),
     "publish": require("./requirements/publish.json"),
-    "vk": require("./requirements/vk.json"),
     "source": require("./requirements/source.json"),
+    "vk": require("./requirements/vk.json"),
+    "yandex": require("./requirements/yandex.json"),
     /*
         TODO:
         adfox
@@ -19,7 +20,6 @@ const requirements = {
         dca
         womensnetwork
         getintent
-        mail
         mytarget
         nativeroll
         otm
@@ -62,7 +62,6 @@ const aliases = {
     "cityads": { name: "CityAds", tr: "cityads" },
     "cmpstar": { name: "CMPStar", tr: "publish" },
     "condenast": { name: "Condé Nast", tr: "dcm" },
-    "dcm": { name: "DoubleClick Campaign Manager", tr: "dcm" },
     "display360": { name: "Display & Video 360", tr: "dcm" },
     "doubleclick": { name: "DoubleClick", tr: "dcm" },
     "doubleclick_studio": { name: "DoubleClick Studio", tr: "studio" },
@@ -100,7 +99,6 @@ const aliases = {
     "lenta": { name: "Lenta.ru", tr: "rambler" },
     "letidor": { name: "Letidor", tr: "rambler" },
     "live": { name: "Live", tr: "adfox" },
-    "mail": { name: "Mail.ru", tr: "mail" },
     "matchtv": { name: "Матч ТВ", tr: "adfox" },
     "mauto": { name: "Mauto", tr: "yandex" },
     "m24": { name: "Москва 24", tr: "adfox" },

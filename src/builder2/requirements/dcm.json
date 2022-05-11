@@ -18,6 +18,10 @@
     
     "externalLinks": true,
     
+    "animation": {
+        "duration": 30
+    },
+    
     "fallback": {
         "required": true,
         "maxSize": 10240,
