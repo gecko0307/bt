@@ -33,7 +33,7 @@
     "inlineFiles": false,
     "minify": true,
     
-    "browsers": [],
+    "browsers": {},
     
     "preview": "preview.html"
 }

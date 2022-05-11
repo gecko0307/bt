@@ -150,10 +150,14 @@ async function build(options = { platform: "publish" }) {
     // TODO: preview.html
     
     console.log("Archive...");
+    // TODO: respect dist.format
     const zipPath = await archive(platformId, config, banner);
     const { size } = await fs.stat(zipPath);
     const sizeKb = (size / 1024).toFixed(2);
-    const color = (sizeKb >= tr.dist.maxSize)? "\x1b[1m\x1b[31m" : "\x1b[1m\x1b[32m"; // Red if too large, green if ok
+    let color = "\x1b[1m\x1b[32m";
+    if (tr.dist.maxSize > 0) {
+        color = (sizeKb >= tr.dist.maxSize)? "\x1b[1m\x1b[31m" : "\x1b[1m\x1b[32m"; // Red if too large, green if ok
+    }
     const sizeStr = `${color}${formatBytes(size)}\x1b[0m`;
     console.log(`Generated ${zipPath} (${sizeStr})`);
 

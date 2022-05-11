@@ -33,5 +33,5 @@
     "inlineFiles": false,
     "minify": false,
     
-    "browsers": []
+    "browsers": {}
 }

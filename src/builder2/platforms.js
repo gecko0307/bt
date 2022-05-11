@@ -1,4 +1,5 @@
 const requirements = {
+    "dcm": require("./requirements/dcm.json"),
     "yandex": require("./requirements/yandex.json"),
     "publish": require("./requirements/publish.json"),
     "vk": require("./requirements/vk.json"),
