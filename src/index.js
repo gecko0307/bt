@@ -60,7 +60,6 @@ async function build(options = { platform: "publish" }) {
 
 async function run(options = {}) {
     console.log("BannerToolchain run");
-    // TODO: check "src/banner.js" file
     const mainModule = path.join(cwd, "src", "banner.js");
     if (await fs.pathExists(mainModule)) {
         const code = await runRollup("rollup.config.dev.js", ["-m", "--watch"]);
