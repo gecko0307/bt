@@ -80,6 +80,13 @@ async function build(options = { platform: "publish" }) {
         }
     }
 
+    const banner = {
+        width: 0,
+        height: 0
+    };
+
+    let bannerSize = "";
+
     for (filename of Object.keys(htmlFiles)) {
         console.log(`Processing "${filename}"...`);
         const html = htmlFiles[filename];
@@ -96,8 +103,29 @@ async function build(options = { platform: "publish" }) {
         if (!await transform.assets(filename, document, tr)) return;
 
         if (filename === tr.indexFile) {
+            console.log("Get banner size...");
+
+            function waitResourcesLoaded(resolve, reject) {
+                const container = dom.window.document.getElementById("container");
+                const style = dom.window.getComputedStyle(container);
+                const width = style.getPropertyValue("width");
+                const height = style.getPropertyValue("height");
+                if (width && width.length > 0)
+                    resolve({ width, height });
+                else
+                    setTimeout(waitResourcesLoaded.bind(this, resolve, reject), 100);
+            }
+    
+            const bannerLoad = new Promise(waitResourcesLoaded);
+            const { width, height } = await bannerLoad;
+            banner.width = width.replace(/px/g, "");
+            banner.height = height.replace(/px/g, "");
+            const w = banner.width.replace(/%/g, "P");
+            const h = banner.height.replace(/%/g, "P");
+            bannerSize = `${w}x${h}`;
+
             console.log("Prepare...");
-            if (!await transform.prepare(filename, document, tr)) return;
+            if (!await transform.prepare(filename, document, tr, { banner: banner })) return;
         }
 
         console.log("Serialize...");

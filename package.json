@@ -51,6 +51,7 @@
         "lodash": "^4.17.21",
         "mime": "^2.6.0",
         "mozjpeg-binaries": "^2.1.0",
+        "mustache": "^4.2.0",
         "nanoid": "^3.3.3",
         "node-minify": "^3.6.0",
         "object-fill-missing-keys": "^8.1.0",

@@ -1,13 +1,52 @@
 const fs = require("fs-extra");
 const path = require("path");
+const Mustache = require("mustache");
 
-async function prepare(filename, document, tr) {
+async function prepare(filename, document, tr, options) {
     const head = document.getElementsByTagName("head")[0];
     const body = document.getElementsByTagName("body")[0];
-    const link = document.getElementById("link");
 
-    // TODO
-    
+    const templateData = {
+        banner: options.banner
+    };
+
+    if ("head" in tr.tags) {
+        for (const tag of tr.tags.head) {
+            const element = document.createElement(tag.tag);
+            if (tag.text) element.innerHTML = tag.text;
+            for (const name of Object.keys(tag.attributes)) {
+                const template = tag.attributes[name];
+                const value = Mustache.render(template, templateData);
+                element.setAttribute(name, value);
+            }
+            head.appendChild(element);
+        }
+    }
+
+    if ("body" in tr.tags) {
+        for (const tag of tr.tags.body) {
+            const element = document.createElement(tag.tag);
+            if (tag.text) element.innerHTML = tag.text;
+            for (const name of Object.keys(tag.attributes)) {
+                const template = tag.attributes[name];
+                const value = Mustache.render(template, templateData);
+                element.setAttribute(name, value);
+            }
+            body.appendChild(element);
+        }
+    }
+
+    for (const selector of Object.keys(tr.attributes)) {
+        const attributes = tr.attributes[selector];
+        for (const element of document.querySelectorAll(selector)) {
+            for (const name of Object.keys(attributes)) {
+                const template = attributes[name];
+                const value = Mustache.render(template, templateData);
+                element.setAttribute(name, value);
+            }
+        }
+    }
+
     return true;
 }
 

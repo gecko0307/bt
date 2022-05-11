@@ -24,10 +24,22 @@
     
     "tags": {
         "head": [
-            "<meta name=\"ad.size\" content=\"width={{banner.width}},height={{banner.height}}\">"
+            {
+                "tag": "meta",
+                "attributes": {
+                    "name": "ad.size",
+                    "content": "width={{banner.width}},height={{banner.height}}"
+                }
+            }
         ],
         "body": [
-            "<script>document.getElementById(\"link\").href = yandexHTML5BannerApi.getClickURLNum(1);</script>"
+            {
+                "tag": "script",
+                "attributes": {
+                    "type": "text/javascript"
+                },
+                "text": "document.getElementById(\"link\").href = yandexHTML5BannerApi.getClickURLNum(1);"
+            }
         ]
     },
     
