@@ -180,8 +180,6 @@ const aliases = {
     "wapstart": { name: "WapStart", tr: "studio" },
     "weborama": { name: "Weborama", tr: "weborama" },
     "whrussia": { name: "Women's Health Russia", tr: "adriver" },
-    "wifi": { name: "WiFi", tr: "publish" },
-    "wifi_branding": { name: "WiFi Branding", tr: "publish" },
     "womensnetwork": { name: "Women's Network", tr: "womensnetwork" },
     "yandex-direct": { name: "Yandex Direct", tr: "yandex" },
     "yandex_direct": { name: "Yandex Direct", tr: "yandex" },

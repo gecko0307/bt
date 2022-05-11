@@ -36,17 +36,19 @@ async function prepare(filename, document, tr, options) {
         }
     }
 
-    for (const selector of Object.keys(tr.attributes)) {
-        const attributes = tr.attributes[selector];
-        for (const element of document.querySelectorAll(selector)) {
-            for (const name of Object.keys(attributes)) {
-                if (attributes[name] !== null) {
-                    const template = attributes[name];
-                    const value = Mustache.render(template, templateData);
-                    element.setAttribute(name, value);
-                }
-                else {
-                    element.removeAttribute(name);
+    if ("attributes" in tr) {
+        for (const selector of Object.keys(tr.attributes)) {
+            const attributes = tr.attributes[selector];
+            for (const element of document.querySelectorAll(selector)) {
+                for (const name of Object.keys(attributes)) {
+                    if (attributes[name] !== null) {
+                        const template = attributes[name];
+                        const value = Mustache.render(template, templateData);
+                        element.setAttribute(name, value);
+                    }
+                    else {
+                        element.removeAttribute(name);
+                    }
                 }
             }
         }

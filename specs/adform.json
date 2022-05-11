@@ -1,0 +1,59 @@
+{
+    "id": "adform",
+    "name": "Adform",
+    
+    "type": "html",
+    
+    "dist": {
+        "format": "zip",
+        "maxSize": 300
+    },
+    
+    "requiredFiles": ["index.html", "manifest.json"],
+    "allowedFiles": ["*.*"],
+    
+    "maxFilesNum": 40,
+    
+    "indexFile": "index.html",
+    
+    "externalLinks": true,
+    
+    "animation": {
+        "duration": 30
+    },
+    
+    "fallback": {
+        "required": false
+    },
+    
+    "tags": {
+        "head": [
+            {
+                "tag": "script",
+                "attributes": {
+                    "type": "text/javascript"
+                },
+                "text": "document.write('<script src=\"' + (window.API_URL || 'https://s1.adform.net/banners/scripts/rmb/Adform.DHTML.js?bv=' + Math.random()) + '\"><\\/script>');"
+            }
+        ],
+        "body": []
+    },
+    
+    "attributes": {
+        "#link": {
+            "target": null,
+            "href": null,
+            "onclick": "javascript:window.open(dhtml.getVar('clickTAG'), '_blank');",
+            "aria-label": "Перейти по ссылке в баннере",
+            "style": "cursor: pointer;"
+        },
+        "#container": {
+            "aria-hidden": "true"
+        }
+    },
+    
+    "inlineFiles": false,
+    "minify": true,
+    
+    "browsers": {}
+}

@@ -58,14 +58,14 @@ async function build(options = { platform: "publish" }) {
 
     console.log("Checking required files...");
     for (filename of tr.requiredFiles) {
-        const requiredFiePath = path.resolve(`./HTML/${filename}`);
-        if (!await fs.pathExists(requiredFiePath)) {
-            console.log(`Error: required file "${filename}" is missing`);
+        const requiredFilePath = path.resolve(`./HTML/${filename}`);
+        if (!await fs.pathExists(requiredFilePath)) {
+            console.log(`\x1b[1m\x1b[31mError: required file "${filename}" is missing\x1b[0m`);
             return;
         }
         else {
-            if (path.extname(requiredFiePath) === ".html") {
-                htmlFiles[filename] = await fs.readFile(requiredFiePath, "utf8");
+            if (path.extname(requiredFilePath) === ".html") {
+                htmlFiles[filename] = await fs.readFile(requiredFilePath, "utf8");
             }
             else {
                 const destinationFilePath = path.resolve(`./build/${filename}`);
