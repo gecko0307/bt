@@ -156,11 +156,10 @@ async function build(options = { platform: "publish" }) {
 
     // TODO: check and copy fallback
 
-    const previewFilename = tr.preview;
-    if (previewFilename) {
-        const previewInputPath = path.resolve(`./HTML/${previewFilename}`);
+    if (platformId === "publish") {
+        const previewInputPath = path.resolve("./HTML/preview.html");
         if (fs.pathExistsSync(previewInputPath)) {
-            const previewOutputPath = path.resolve(`./build/${previewFilename}`);
+            const previewOutputPath = path.resolve("./build/preview.html");
             await fs.copyFile(previewInputPath, previewOutputPath);
         }
     }
