@@ -5,7 +5,7 @@ const { JSDOM } = jsdom;
 const stripComments = require("strip-comments");
 const beautify = require("js-beautify").html;
 const { fillMissing } = require("object-fill-missing-keys");
-const { requirements, aliases } = require("./platforms");
+const { requirements } = require("./platforms");
 const transform = require("./transform");
 const archive = require("./archive");
 
@@ -22,8 +22,6 @@ function formatBytes(bytes, decimals = 2) {
     const i = Math.floor(Math.log(bytes) / Math.log(k));
     return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
 }
-
-const cwd = process.cwd();
 
 const builderConfigPath = path.resolve("./.data/builder.config.json");
 const buildPath = path.resolve("./build");
@@ -46,22 +44,8 @@ async function build(options = { platform: "publish" }) {
         options.platform = config.platform;
     }
 
-    // TODO: dynamically load requirement
     const platformId = options.platform;
-    let tr = requirements["publish"];
-    let platformName = "Undefined";
-
-    if (platformId in requirements) {
-        tr = requirements[platformId];
-        platformName = tr.name;
-    }
-    else {
-        const alias = aliases[platformId];
-        if (alias.tr in requirements) {
-            tr = requirements[alias.tr];
-            platformName = alias.name;
-        }
-    }
+    const { tr, platformName } = await requirements(platformId);
 
     console.log("Platform:", platformName, `(${platformId})`);
     console.log("Technical requirements:", tr.name, `(${tr.id})`);

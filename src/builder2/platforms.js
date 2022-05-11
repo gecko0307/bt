@@ -1,34 +1,79 @@
-const requirements = {
-    "dcm": require("./requirements/dcm.json"),
-    "mail": require("./requirements/mail.json"),
-    "publish": require("./requirements/publish.json"),
-    "source": require("./requirements/source.json"),
-    "vk": require("./requirements/vk.json"),
-    "yandex": require("./requirements/yandex.json"),
-    /*
-        TODO:
-        adfox
-        adform
-        admitad
-        adrime
-        adriver
-        adwords
-        rambler
-        bestseller
-        cityads
-        studio
-        dca
-        womensnetwork
-        getintent
-        mytarget
-        nativeroll
-        otm
-        rbc
-        sizmek
-        soloway
-        weborama
-    */
+const fs = require("fs-extra");
+const path = require("path");
+
+/*
+    TODO:
+    adfox
+    adform
+    admitad
+    adrime
+    adriver
+    adwords
+    rambler
+    bestseller
+    cityads
+    studio
+    dca
+    womensnetwork
+    getintent
+    mytarget
+    nativeroll
+    otm
+    rbc
+    sizmek
+    soloway
+    weborama
+*/
+
+const publish = {
+    id: "publish",
+    name: "Unknown",
+    type: "html",
+    dist: {
+        format: "zip",
+        maxSize: 0
+    },
+    requiredFiles: ["index.html"],
+    allowedFiles: ["*.*"],
+    maxFilesNum: 0,
+    indexFile: "index.html",
+    externalLinks: true,
+    fallback: {
+        required: false
+    },
+    tags: {
+    },
+    attributes: {
+        "#link": {
+            target: "_blank"
+        }
+    },
+    inlineFiles: false,
+    minify: true,
+    browsers: {},
+    preview: "preview.html"
 };
+
+async function requirements(platformId) {
+    let tr = publish;
+    let platformName = tr.name;
+
+    let specPath = path.join(__dirname, "..", "..", "specs", `${platformId}.json`);
+    if (await fs.pathExists(specPath)) {
+        tr = JSON.parse(await fs.readFile(specPath, "utf8"));
+        platformName = tr.name;
+    }
+    else if (platformId in aliases) {
+        const alias = aliases[platformId];
+        specPath = path.join(__dirname, "..", "..", "specs", `${alias.tr}.json`);
+        platformName = alias.name;
+        if (await fs.pathExists(specPath)) {
+            tr = JSON.parse(await fs.readFile(specPath, "utf8"));
+        }
+    }
+
+    return { tr, platformName };
+}
 
 const aliases = {
     "7ya": { name: "7я.ру", tr: "adfox" },
@@ -172,4 +217,4 @@ const aliases = {
     "youdo": { name: "YouDo", tr: "adfox" },
 };
 
-module.exports = { requirements, aliases };
+module.exports = { requirements };
