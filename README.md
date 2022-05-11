@@ -15,7 +15,7 @@ The main reason I created this was to replace an in-house tool with my own so th
 * ✔ Built-in Image Optimizer & Converter - reduce size of PNG, JPEG and SVG images with full control over quality trade-off
 * ✔ Generate inline base64-encoded CSS background-images for fully self-contained banners
 * ✔️ Web font generator with subsetting
-* ⌛ Banner Builder - prepares banner for publishing on advertising platforms
+* ✔️ Banner Builder - prepares banner for publishing on advertising platforms
 * ⌛ Banner preview tools: resizer, timer, event manager, etc.
 
 [![Screenshot1](https://github.com/gecko0307/bt/raw/master/assets/image-optimizer.png)](https://github.com/gecko0307/bt/raw/master/assets/image-optimizer.png)
@@ -45,11 +45,11 @@ To capture video (for GreenSock template only; dev server should be running):
 
 `bt capture video <resolution>`
 
-To build banner for publishing (WIP, relies on a proprietary external tool at the moment):
+To build banner for publishing:
 
 `bt build <platform>`
 
-where `<platform>` is one of the supported ad platforms (see [platforms.js](https://github.com/gecko0307/bt/blob/master/src/builder/platforms.js) for details).
+where `<platform>` is one of the supported ad platforms (see [specs](https://github.com/gecko0307/bt/blob/master/src/specs) for details).
 
 ## Templates
 `bt init` will create a project using a default template that uses [GreenSock](https://greensock.com/) animation library. Additionally [Anime.js](https://animejs.com/)-based template is available for fully self-hosted banners with as small size overhead as possible:

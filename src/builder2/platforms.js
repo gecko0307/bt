@@ -1,30 +1,6 @@
 const fs = require("fs-extra");
 const path = require("path");
 
-/*
-    TODO:
-    adfox
-    adform
-    admitad
-    adrime
-    adriver
-    adwords
-    rambler
-    bestseller
-    cityads
-    studio
-    dca
-    womensnetwork
-    getintent
-    mytarget
-    nativeroll
-    otm
-    rbc
-    sizmek
-    soloway
-    weborama
-*/
-
 const publish = {
     id: "publish",
     name: "Unknown",
