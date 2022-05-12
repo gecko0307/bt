@@ -6,13 +6,40 @@ const cleanCSS = require("@node-minify/clean-css");
 const replaceUrl = require("replace-css-url");
 
 async function processStyles(filename, document, tr) {
-    /*
-    // TODO: replace ids
-    code = code.replace(/\#link/g, "#click1_area");
-    */
-
-    const styles = Array.prototype.slice.call(document.getElementsByTagName("style"));
     let assets = [];
+
+    async function processCode(code) {
+        let result = code;
+
+        if ("ids" in tr) {
+            for (const id of Object.keys(tr.ids)) {
+                const newId = tr.ids[id];
+                const re = new RegExp(`#${id}`, "g");
+                result = result.replace(re, `#${newId}`);
+            }
+        }
+
+        result = replaceUrl(result,
+            function(p) {
+                const assetPath = path.resolve(`./HTML/${p}`);
+                if (fs.pathExistsSync(assetPath)) {
+                    if (!assets.includes(p)) assets.push(p);
+                    return path.basename(p);
+                }
+                else {
+                    return p;
+                }
+            });
+        
+        result = stripComments(result, { language: "css" });
+
+        if (tr.minify === true)
+            result = await minify({ compressor: cleanCSS, content: result });
+        
+        return result;
+    }
+    
+    const styles = Array.prototype.slice.call(document.getElementsByTagName("style"));
     for (const style of styles) {
         const isDevStyle = style.hasAttribute("dev");
         const isPreviewStyle = style.hasAttribute("preview");
@@ -23,25 +50,7 @@ async function processStyles(filename, document, tr) {
             style.remove();
         }
         else {
-            let code = style.innerHTML;
-
-            code = replaceUrl(code,
-                function(p) {
-                    const assetPath = path.resolve(`./HTML/${p}`);
-                    if (fs.pathExistsSync(assetPath)) {
-                        if (!assets.includes(p)) assets.push(p);
-                        return path.basename(p);
-                    }
-                    else {
-                        return p;
-                    }
-                });
-            
-            code = stripComments(code, { language: "css" });
-
-            if (tr.minify === true)
-                code = await minify({ compressor: cleanCSS, content: code });
-            
+            const code = await processCode(style.innerHTML);
             style.removeAttribute("inline");
             style.innerHTML = "\n" + code;
         }
@@ -58,24 +67,8 @@ async function processStyles(filename, document, tr) {
         if (await fs.pathExists(styleInputPath)) {
             const baseFilename = path.basename(styleFilename);
             let code = await fs.readFile(styleInputPath, "utf8");
-
-            code = replaceUrl(code,
-                function(p) {
-                    const assetPath = path.resolve(`./HTML/${p}`);
-                    if (fs.pathExistsSync(assetPath)) {
-                        if (!assets.includes(p)) assets.push(p);
-                        return path.basename(p);
-                    }
-                    else {
-                        return p;
-                    }
-                });
+            code = await processCode(code);
             
-            code = stripComments(code, { language: "css" });
-            
-            if (tr.minify === true)
-                code = await minify({ compressor: cleanCSS, content: code });
-
             if (isDevStyle) {
                 style.remove();
             }

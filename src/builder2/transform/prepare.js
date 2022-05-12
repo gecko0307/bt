@@ -10,11 +10,6 @@ async function prepare(filename, document, tr, options) {
         banner: options.banner
     };
 
-    /*
-    // TODO: replace ids
-    link.setAttribute("id", "click1_area");
-    */
-
     if ("head" in tr.tags) {
         for (const tag of tr.tags.head) {
             const element = document.createElement(tag.tag);
@@ -56,6 +51,14 @@ async function prepare(filename, document, tr, options) {
                     }
                 }
             }
+        }
+    }
+
+    if ("ids" in tr) {
+        for (const id of Object.keys(tr.ids)) {
+            const newId = tr.ids[id];
+            const element = document.getElementById(id);
+            element.setAttribute("id", newId);
         }
     }
 

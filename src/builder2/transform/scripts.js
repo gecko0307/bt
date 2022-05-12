@@ -1,7 +1,6 @@
 const fs = require("fs-extra");
 const path = require("path");
 const stripComments = require("strip-comments");
-const beautify = require("js-beautify");
 const minify = require("@node-minify/core");
 const uglifyjs = require("@node-minify/uglify-js");
 
@@ -25,6 +24,14 @@ async function processScripts(filename, document, tr) {
                 code = stripComments(code, { language: "js" });
                 if (tr.minify === true)
                     code = await minify({ compressor: uglifyjs, content: code });
+
+                if ("ids" in tr) {
+                    for (const id of Object.keys(tr.ids)) {
+                        const newId = tr.ids[id];
+                        const re = new RegExp(`"${id}"`, "g");
+                        code = code.replace(re, `"${newId}"`);
+                    }
+                }
             }
 
             if (isDevScript) {

@@ -39,7 +39,7 @@
                 "attributes": {
                     "type": "text/javascript"
                 },
-                "text": "document.getElementById(\"link\").href = yandexHTML5BannerApi.getClickURLNum(1);"
+                "text": "document.getElementById(\"click1_area\").href = yandexHTML5BannerApi.getClickURLNum(1);"
             }
         ]
     },
@@ -54,7 +54,7 @@
     },
     
     "ids": {
-        "#link": "#click1_area"
+        "link": "click1_area"
     },
     
     "inlineFiles": false,
