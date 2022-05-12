@@ -95,6 +95,28 @@ async function build(options = { platform: "publish" }) {
         if (!await transform.assets(filename, document, tr)) return;
 
         if (filename === tr.indexFile) {
+            if (tr.externalLinks === false) {
+                console.log("Check external links...");
+
+                const scripts = Array.prototype.slice.call(document.getElementsByTagName("script"));
+                for (const script of scripts) {
+                    if (script.hasAttribute("src")) {
+                        const src = script.getAttribute("src");
+                        if (src.startsWith("https://") || src.startsWith("http://"))
+                            console.log(`\x1b[1m\x1b[31mWarning: external links are not allowed for the specified platform\x1b[0m`);
+                    }
+                }
+
+                const links = Array.prototype.slice.call(document.getElementsByTagName("link"));
+                for (const link of links) {
+                    if (link.hasAttribute("href")) {
+                        const src = script.getAttribute("href");
+                        if (src.startsWith("https://") || src.startsWith("http://"))
+                            console.log(`\x1b[1m\x1b[31mWarning: external links are not allowed for the specified platform\x1b[0m`);
+                    }
+                }
+            }
+
             console.log("Get banner size...");
 
             function waitResourcesLoaded(resolve, reject) {
@@ -117,8 +139,6 @@ async function build(options = { platform: "publish" }) {
             if (!await transform.prepare(filename, document, tr, { banner: banner })) return;
         }
 
-        // TODO: check external URLs
-
         console.log("Serialize...");
         const htmlOutput = beautify(stripComments(dom.serialize(), { language: "html" }), { 
             "indent_with_tabs": true,
@@ -132,7 +152,7 @@ async function build(options = { platform: "publish" }) {
         await fs.outputFile(htmlOutputPath, htmlOutput);
     }
 
-    console.log("Check...");
+    console.log("Check build files...");
     const outputPath = path.resolve("./build");
     const matches = tr.allowedFiles.map(wildcard => wcmatch(wildcard));
 
@@ -181,8 +201,6 @@ async function build(options = { platform: "publish" }) {
     if (tr.dist.maxSize > 0 && sizeKb >= tr.dist.maxSize) {
         console.log(`\x1b[1m\x1b[31mWarning: archive size exceeds maximum allowed by the specified platform (${tr.dist.maxSize} KB)\x1b[0m`);
     }
-
-    console.log("Done");
 }
 
 module.exports = build;

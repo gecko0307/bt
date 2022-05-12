@@ -27,6 +27,7 @@ const btConfigPath = path.join(__dirname, "..", "config.json");
 async function build(options = { platform: "publish" }) {
     console.log("BannerToolchain build");
 
+    console.log("Bundle...");
     const mainModule = path.join(cwd, "src", "banner.js");
     if (await fs.pathExists(mainModule)) {
         const code = await runRollup("rollup.config.prod.js");
