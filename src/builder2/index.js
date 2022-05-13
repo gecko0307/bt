@@ -196,7 +196,7 @@ async function build(options = { platform: "publish" }) {
     
     console.log("Archive...");
     // TODO: respect tr.dist.format
-    const zipPath = await archive(tr, platformId, config, banner, fallbackPath);
+    await archive(tr, platformId, config, banner, fallbackPath);
 }
 
 module.exports = build;

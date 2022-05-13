@@ -35,8 +35,6 @@ async function archive(tr, platformId, config, banner, fallbackPath = "") {
         platform = "_" + platformId;
     }
 
-    const zipFilename = `${bannerName}${bannerSize}${platform}_${config.version}.zip`;
-
     const outputPath = path.resolve("./build");
 
     const zip = new Zip();
@@ -46,6 +44,7 @@ async function archive(tr, platformId, config, banner, fallbackPath = "") {
         zip.addLocalFile(filePath);
     });
 
+    const zipFilename = `${bannerName}${bannerSize}${platform}_${config.version}.zip`;
     const zipPath = path.resolve(`./dist/${zipFilename}`);
     let zipInternalPath = zipPath;
 
