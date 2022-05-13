@@ -15,15 +15,6 @@ function requireUncached(module) {
     return require(module);
 }
 
-function formatBytes(bytes, decimals = 2) {
-    if (bytes === 0) return '0 bytes';
-    const k = 1024;
-    const dm = decimals < 0 ? 0 : decimals;
-    const sizes = ['bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
-    const i = Math.floor(Math.log(bytes) / Math.log(k));
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
-}
-
 const builderConfigPath = path.resolve("./.data/builder.config.json");
 const buildPath = path.resolve("./build");
 
@@ -176,31 +167,36 @@ async function build(options = { platform: "publish" }) {
         }
     }
 
-    // TODO: check and copy fallback
+    let fallbackPath = "";
+    if ("fallback" in tr) {
+        if (tr.fallback.required === true) {
+            // TODO: respect tr.fallback.formats
+            const fallbackPaths = [
+                path.resolve("./HTML/fallback.gif"),
+                path.resolve("./HTML/fallback.jpg"),
+                path.resolve("./HTML/fallback.png")
+            ];
+
+            for (const path of fallbackPaths) {
+                if (await fs.pathExists(path)) {
+                    fallbackPath = path;
+                    break;
+                }
+            }
+        }
+    }
 
     if (platformId === "publish") {
         const previewInputPath = path.resolve("./HTML/preview.html");
-        if (fs.pathExistsSync(previewInputPath)) {
+        if (await fs.pathExists(previewInputPath)) {
             const previewOutputPath = path.resolve("./build/preview.html");
             await fs.copyFile(previewInputPath, previewOutputPath);
         }
     }
     
     console.log("Archive...");
-    // TODO: respect dist.format
-    const zipPath = await archive(platformId, config, banner);
-    const { size } = await fs.stat(zipPath);
-    const sizeKb = (size / 1024).toFixed(2);
-    let color = "\x1b[1m\x1b[32m";
-    if (tr.dist.maxSize > 0) {
-        color = (sizeKb >= tr.dist.maxSize)? "\x1b[1m\x1b[31m" : "\x1b[1m\x1b[32m"; // Red if too large, green if ok
-    }
-    const sizeStr = `${color}${formatBytes(size)}\x1b[0m`;
-    const zipFilename = path.basename(zipPath);
-    console.log(`Generated ${zipFilename} (${sizeStr})`);
-    if (tr.dist.maxSize > 0 && sizeKb >= tr.dist.maxSize) {
-        console.log(`\x1b[1m\x1b[31mWarning: archive size exceeds maximum allowed by the specified platform (${tr.dist.maxSize} KB)\x1b[0m`);
-    }
+    // TODO: respect tr.dist.format
+    const zipPath = await archive(tr, platformId, config, banner, fallbackPath);
 }
 
 module.exports = build;
