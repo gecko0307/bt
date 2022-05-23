@@ -162,7 +162,6 @@ async function build(options = { platform: "publish" }) {
 
     for (const filename of files) {
         if (!isFileAllowed(filename)) {
-            // TODO: colored output
             console.log(`\x1b[1m\x1b[31mWarning: file "${filename}" is not allowed for the specified platform\x1b[0m`);
         }
     }

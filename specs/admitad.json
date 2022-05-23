@@ -1,0 +1,67 @@
+{
+    "id": "admitad",
+    "name": "Admitad",
+    
+    "type": "html",
+    
+    "dist": {
+        "format": "zip",
+        "maxSize": 256
+    },
+    
+    "requiredFiles": ["index.html"],
+    "allowedFiles": ["*.html", "*.js", "*.css", "*.jpg", "*.jpeg", "*.gif", "*.png", "*.svg"],
+    "maxFilesNum": 40,
+    
+    "indexFile": "index.html",
+    
+    "externalLinks": false,
+    
+    "fallback": {
+        "required": true,
+        "maxSize": 120,
+        "formats": ["gif", "png", "jpg"]
+    },
+    
+    "tags": {
+        "head": [
+            {
+                "tag": "meta",
+                "attributes": {
+                    "name": "ad.size",
+                    "content": "width={{banner.width}},height={{banner.height}}"
+                }
+            },
+            {
+                "tag": "script",
+                "attributes": {
+                    "src": "https://cdn.admitad.com/static/js/ad/parse_template.js"
+                },
+                "text": ""
+            }
+        ],
+        "body": [
+        ]
+    },
+    
+    "attributes": {
+        "#link": {
+            "href": null,
+            "target": null,
+            "onclick": "setURL()",
+            "style": "cursor: pointer;"
+        },
+        "#container": {
+            "aria-hidden": "true"
+        }
+    },
+    
+    "ids": {
+    },
+    
+    "inlineFiles": false,
+    "minify": true,
+    
+    "browsers": {
+    }
+}
