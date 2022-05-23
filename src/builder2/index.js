@@ -86,24 +86,40 @@ async function build(options = { platform: "publish" }) {
         if (!await transform.assets(filename, document, tr)) return;
 
         if (filename === tr.indexFile) {
-            if (tr.externalLinks === false) {
-                console.log("Check external links...");
+            console.log("Check external references...");
 
-                const scripts = Array.prototype.slice.call(document.getElementsByTagName("script"));
-                for (const script of scripts) {
-                    if (script.hasAttribute("src")) {
-                        const src = script.getAttribute("src");
-                        if (src.startsWith("https://") || src.startsWith("http://"))
-                            console.log(`\x1b[1m\x1b[31mWarning: external links are not allowed for the specified platform\x1b[0m`);
+            const scripts = Array.prototype.slice.call(document.getElementsByTagName("script"));
+            for (const script of scripts) {
+                if (script.hasAttribute("src")) {
+                    const src = script.getAttribute("src");
+                    if (src.startsWith("https://") || src.startsWith("http://")) {
+                        if (tr.externalLinks === false)
+                            console.log(`\x1b[1m\x1b[31mWarning: external references are not allowed for the specified platform\x1b[0m`);
+                        else if ("externalLinksDomain" in tr) {
+                            const domain = tr.externalLinksDomain;
+                            const url = new URL(src);
+                            const hostname = url.hostname;
+                            if (hostname !== domain)
+                                console.log(`\x1b[1m\x1b[31mWarning: external references are restricted to domain "${domain}" for the specified platform\x1b[0m`);
+                        }
                     }
                 }
+            }
 
-                const links = Array.prototype.slice.call(document.getElementsByTagName("link"));
-                for (const link of links) {
-                    if (link.hasAttribute("href")) {
-                        const src = script.getAttribute("href");
-                        if (src.startsWith("https://") || src.startsWith("http://"))
-                            console.log(`\x1b[1m\x1b[31mWarning: external links are not allowed for the specified platform\x1b[0m`);
+            const links = Array.prototype.slice.call(document.getElementsByTagName("link"));
+            for (const link of links) {
+                if (link.hasAttribute("href")) {
+                    const src = script.getAttribute("href");
+                    if (src.startsWith("https://") || src.startsWith("http://")) {
+                        if (tr.externalLinks === false)
+                            console.log(`\x1b[1m\x1b[31mWarning: external references are not allowed for the specified platform\x1b[0m`);
+                        else if ("externalLinksDomain" in tr) {
+                            const domain = tr.externalLinksDomain;
+                            const url = new URL(src);
+                            const hostname = url.hostname;
+                            if (hostname !== domain)
+                                console.log(`\x1b[1m\x1b[31mWarning: external references are restricted to domain "${domain}" for the specified platform\x1b[0m`);
+                        }
                     }
                 }
             }

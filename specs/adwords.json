@@ -17,6 +17,7 @@
     "indexFile": "index.html",
     
     "externalLinks": true,
+    "externalLinksDomain": "s0.2mdn.net",
     
     "animation": {
         "duration": 30

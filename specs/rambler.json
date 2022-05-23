@@ -16,6 +16,7 @@
     "indexFile": "index.html",
     
     "externalLinks": true,
+    "externalLinksDomain": "dsp-rambler.ru",
     
     "fallback": {
         "required": false
