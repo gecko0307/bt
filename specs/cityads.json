@@ -1,0 +1,56 @@
+{
+    "id": "cityads",
+    "name": "CityAds",
+    
+    "type": "html",
+    
+    "dist": {
+        "format": "zip",
+        "maxSize": 150
+    },
+    
+    "requiredFiles": ["index.html"],
+    "allowedFiles": ["*.*"],
+    "maxFilesNum": 0,
+    
+    "indexFile": "index.html",
+    
+    "externalLinks": true,
+    
+    "fallback": {
+        "required": false
+    },
+    
+    "tags": {
+        "head": [
+            {
+                "tag": "a",
+                "attributes": {
+                    "href": "#ca_link#",
+                    "target": "_blank",
+                    "class": "link"
+                }
+            }
+        ],
+        "body": []
+    },
+    
+    "attributes": {
+        "#link": {
+            "target": null,
+            "href": null,
+            "onclick": "window.open(document.links[0].href, '_blank');",
+            "style": "cursor: pointer;"
+        },
+        "#container": {
+            "aria-hidden": "true"
+        }
+    },
+    
+    "ids": {},
+    
+    "inlineFiles": false,
+    "minify": true,
+    
+    "browsers": {}
+}

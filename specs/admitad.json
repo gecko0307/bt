@@ -54,12 +54,10 @@
         }
     },
     
-    "ids": {
-    },
+    "ids": {},
     
     "inlineFiles": false,
     "minify": true,
     
-    "browsers": {
-    }
+    "browsers": {}
 }

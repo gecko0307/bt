@@ -73,7 +73,6 @@ const aliases = {
     "cars": { name: "Cars", tr: "adriver" },
     "carsguru": { name: "CarsGuru", tr: "adriver" },
     "championat": { name: "Championat.ru", tr: "rambler" },
-    "cityads": { name: "CityAds", tr: "cityads" },
     "cmpstar": { name: "CMPStar", tr: "publish" },
     "condenast": { name: "Condé Nast", tr: "dcm" },
     "display360": { name: "Display & Video 360", tr: "dcm" },
