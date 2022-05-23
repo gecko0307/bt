@@ -67,7 +67,6 @@ const aliases = {
     "avito": { name: "Avito", tr: "adfox" },
     "bazaar": { name: "Bazaar", tr: "womensnetwork" },
     "beeline": { name: "Beeline", tr: "yandex-direct" },
-    "bestseller": { name: "Bestseller", tr: "bestseller" },
     "between": { name: "Between", tr: "publish" },
     "bfm": { name: "BFM", tr: "adfox" },
     "buro247": { name: "Buro247", tr: "adfox" },
