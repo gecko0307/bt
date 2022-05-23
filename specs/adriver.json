@@ -1,0 +1,68 @@
+{
+    "id": "adriver",
+    "name": "Adriver",
+    
+    "type": "html",
+    
+    "dist": {
+        "format": "zip",
+        "maxSize": 150
+    },
+    
+    "requiredFiles": ["index.html"],
+    "allowedFiles": ["*.*"],
+    "maxFilesNum": 50,
+    
+    "indexFile": "index.html",
+    
+    "externalLinks": true,
+    
+    "fallback": {
+        "required": false
+    },
+    
+    "tags": {
+        "head": [
+            {
+                "tag": "meta",
+                "attributes": {
+                    "name": "ad.size",
+                    "content": "width={{banner.width}},height={{banner.height}}"
+                }
+            },
+            {
+                "tag": "script",
+                "attributes": {
+                    "src": "//content.adriver.ru/html.js"
+                }
+            },
+            {
+                "tag": "script",
+                "attributes": {
+                    "type": "text/javascript"
+                },
+                "text": "ar_sendPixel('//ad.doubleclick.net/ddm/trackimp/N394003.3498867GRMIINVENTORYDEAL/B23033854.252146471;dc_trk_aid=448584167;dc_trk_cid=119581391;ord=[timestamp];dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua=?');"
+            }
+        ],
+        "body": []
+    },
+    
+    "attributes": {
+        "#link": {
+            "href": null,
+            "target": null,
+            "onclick": "return ar_callLink({target: '_blank', event: event});",
+            "style": "cursor: pointer;"
+        },
+        "#container": {
+            "aria-hidden": "true"
+        }
+    },
+    
+    "ids": {},
+    
+    "inlineFiles": false,
+    "minify": true,
+    
+    "browsers": {}
+}
