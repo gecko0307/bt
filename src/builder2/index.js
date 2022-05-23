@@ -209,6 +209,10 @@ async function build(options = { platform: "publish" }) {
         }
     }
 
+    if (tr.fallback.required === true && fallbackPath.length === 0) {
+        console.log(`\x1b[1m\x1b[31mWarning: fallback is required for the specified platform\x1b[0m`);
+    }
+
     if (platformId === "publish") {
         const previewInputPath = path.resolve("./HTML/preview.html");
         if (await fs.pathExists(previewInputPath)) {
