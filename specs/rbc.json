@@ -28,7 +28,7 @@
                 "attributes": {
                     "type": "text/javascript"
                 },
-                "text": "\r\n\t\tfunction getParam(url, k, v){\r\n\t\t\tvar params = {}, p;\r\n\t\t\ttry {\r\n\t\t\t\tp = url.split(\"?\")[1].split(\"&\");\r\n\t\t\t\tfor (var i = 0, max = p.length, pair; i < max; i++){\r\n\t\t\t\t\tpair = p[i].split(\"=\");\r\n\t\t\t\t\t(pair[0] && pair[1]) && (params[pair[0]] = pair[1]);\r\n\t\t\t\t}\r\n\t\t\t\tif (params.hasOwnProperty(k)) return unescape(params[k]);\r\n\t\t\t} catch(e) {}\r\n\t\t\treturn (v == undefined) ? undefined : v;\r\n\t\t}\r\n\t\tvar link1 = getParam(document.location.href, \"clickTAG\");\r\n\t\tfunction href1(element) {\r\n\t\t\telement.href = link1;\r\n\t\t}\r\n"
+                "text": "\r\n{{#load}}rbc.js{{/load}}"
             }
         ],
         "body": []

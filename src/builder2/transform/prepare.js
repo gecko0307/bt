@@ -7,7 +7,17 @@ async function prepare(filename, document, tr, options) {
     const body = document.getElementsByTagName("body")[0];
 
     const templateData = {
-        banner: options.banner
+        banner: options.banner,
+        load: function() {
+            return function(filename, render) {
+                console.log(filename);
+                const filePath = path.join(__dirname, "..", "..", "..", "specs", filename);
+                if (fs.pathExistsSync(filePath))
+                    return fs.readFileSync(filePath, {encoding: "utf8", flag: "r"});
+                else
+                    return "";
+            };
+        }
     };
 
     function addTag(tag, rootElement) {

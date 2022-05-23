@@ -1,12 +1,12 @@
 {
-    "id": "dcm",
-    "name": "DoubleClick Campaign Manager",
+    "id": "studio",
+    "name": "DoubleClick Studio",
     
     "type": "html",
     
     "dist": {
         "format": "zip",
-        "maxSize": 10240
+        "maxSize": 150
     },
     
     "requiredFiles": ["index.html"],
@@ -25,7 +25,7 @@
     
     "fallback": {
         "required": true,
-        "maxSize": 10240,
+        "maxSize": 150,
         "formats": ["gif", "png", "jpg"]
     },
     
@@ -41,18 +41,25 @@
             {
                 "tag": "script",
                 "attributes": {
-                    "type": "text/javascript"
+                    "src": "https://s0.2mdn.net/ads/studio/Enabler.js"
                 },
-                "text": " var clickTag = \"https://google.com\"; "
+                "text": ""
             }
         ],
-        "body": []
+        "body": [
+            {
+                "tag": "script",
+                "attributes": {},
+                "text": "\r\n{{#load}}studio.js{{/load}}"
+            }
+        ]
     },
     
     "attributes": {
         "#link": {
             "target": null,
-            "href": "javascript:void(window.open(window.clickTag))"
+            "href": null,
+            "style": "cursor: pointer;"
         },
         "#container": {
             "aria-hidden": "true"
