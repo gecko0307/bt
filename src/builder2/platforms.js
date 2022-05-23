@@ -53,8 +53,6 @@ async function requirements(platformId) {
 const aliases = {
     "7ya": { name: "7я.ру", tr: "adfox" },
     "adbro": { name: "ADBRO", tr: "publish" },
-    "adform": { name: "Adform", tr: "adform" },
-    "adfox": { name: "ADFOX", tr: "adfox" },
     "adsmart": { name: "AdSmart", tr: "publish" },
     "ads": { name: "Google Ads", tr: "adwords" },
     "advmaker": { name: "Advmaker", tr: "adwords" },
@@ -146,7 +144,6 @@ const aliases = {
     "ria": { name: "РИА Новости", tr: "adriver" },
     "run": { name: "Run", tr: "adrime" },
     "quto": { name: "Quto", tr: "rambler" },
-    "rambler": { name: "Rambler", tr: "rambler" },
     "redefine": { name: "Redefine", tr: "adfox" },
     "rg": { name: "Российская газета", tr: "adfox" },
     "rns": { name: "Rambler News Service", tr: "rambler" },
