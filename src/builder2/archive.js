@@ -53,7 +53,7 @@ async function archive(tr, platformId, config, banner, fallbackPath = "") {
         zipInternalPath = path.resolve(`./dist/${zipInternalFilename}`);
         zip.writeZip(zipInternalPath);
         const zip2 = new Zip();
-        zip2.addLocalFile(zipInternalFilename);
+        zip2.addLocalFile(zipInternalPath);
         zip2.addLocalFile(fallbackPath);
         zip2.writeZip(zipPath);
     }

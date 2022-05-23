@@ -185,17 +185,25 @@ async function build(options = { platform: "publish" }) {
     let fallbackPath = "";
     if ("fallback" in tr) {
         if (tr.fallback.required === true) {
-            // TODO: respect tr.fallback.formats
             const fallbackPaths = [
                 path.resolve("./HTML/fallback.gif"),
                 path.resolve("./HTML/fallback.jpg"),
                 path.resolve("./HTML/fallback.png")
             ];
 
-            for (const path of fallbackPaths) {
-                if (await fs.pathExists(path)) {
-                    fallbackPath = path;
-                    break;
+            for (const fPath of fallbackPaths) {
+                if (await fs.pathExists(fPath)) {
+                    if ("formats" in tr.fallback) {
+                        const format = path.extname(fPath).split(".").pop();
+                        if (tr.fallback.formats.includes(format)) {
+                            fallbackPath = fPath;
+                            break;
+                        }
+                    }
+                    else {
+                        fallbackPath = fPath;
+                        break;
+                    }
                 }
             }
         }
