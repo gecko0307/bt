@@ -18,9 +18,7 @@
     "externalLinks": false,
     
     "fallback": {
-        "required": true,
-        "maxSize": 120,
-        "formats": ["gif", "png", "jpg"]
+        "required": false
     },
     
     "tags": {

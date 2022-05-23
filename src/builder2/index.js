@@ -73,7 +73,7 @@ async function build(options = { platform: "publish" }) {
     for (filename of Object.keys(htmlFiles)) {
         console.log(`Processing "${filename}"...`);
         const html = htmlFiles[filename];
-        const dom = new JSDOM(html);
+        const dom = new JSDOM(stripComments(html, { language: "html" }));
         const document = dom.window.document;
 
         console.log("Scripts...");
@@ -131,7 +131,7 @@ async function build(options = { platform: "publish" }) {
         }
 
         console.log("Serialize...");
-        const htmlOutput = beautify(stripComments(dom.serialize(), { language: "html" }), { 
+        const htmlOutput = beautify(dom.serialize(), { 
             "indent_with_tabs": true,
             "unformatted": ["style", "script", "sub", "sup", "b", "i", "u"],
             "preserve_newlines": false,

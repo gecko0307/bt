@@ -11,19 +11,30 @@ async function prepare(filename, document, tr, options) {
     };
 
     if ("head" in tr.tags) {
+        head.appendChild(document.createTextNode("\r\n"));
         for (const tag of tr.tags.head) {
-            const element = document.createElement(tag.tag);
-            if (tag.text) element.innerHTML = tag.text;
-            for (const name of Object.keys(tag.attributes)) {
-                const template = tag.attributes[name];
+            let element;
+            if (tag.tag === "comment") {
+                const template = tag.text || "";
                 const value = Mustache.render(template, templateData);
-                element.setAttribute(name, value);
+                element = document.createComment(value);
+            }
+            else {
+                element = document.createElement(tag.tag);
+                for (const name of Object.keys(tag.attributes)) {
+                    const template = tag.attributes[name];
+                    const value = Mustache.render(template, templateData);
+                    element.setAttribute(name, value);
+                }
+                if (tag.text) element.innerHTML = tag.text;
             }
             head.appendChild(element);
+            head.appendChild(document.createTextNode("\r\n"));
         }
     }
 
     if ("body" in tr.tags) {
+        head.appendChild(document.createTextNode("\r\n"));
         for (const tag of tr.tags.body) {
             const element = document.createElement(tag.tag);
             if (tag.text) element.innerHTML = tag.text;
@@ -33,6 +44,7 @@ async function prepare(filename, document, tr, options) {
                 element.setAttribute(name, value);
             }
             body.appendChild(element);
+            head.appendChild(document.createTextNode("\r\n"));
         }
     }
 
