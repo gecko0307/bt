@@ -1,0 +1,57 @@
+{
+    "id": "adwords",
+    "name": "AdWords",
+    
+    "type": "html",
+    
+    "dist": {
+        "format": "zip",
+        "maxSize": 150
+    },
+    
+    "requiredFiles": ["index.html"],
+    "allowedFiles": ["*.*"],
+    
+    "maxFilesNum": 40,
+    
+    "indexFile": "index.html",
+    
+    "externalLinks": true,
+    
+    "animation": {
+        "duration": 30
+    },
+    
+    "fallback": {
+        "required": false
+    },
+    
+    "tags": {
+        "head": [
+            {
+                "tag": "meta",
+                "attributes": {
+                    "name": "ad.size",
+                    "content": "width={{banner.width}},height={{banner.height}}"
+                }
+            }
+        ],
+        "body": []
+    },
+    
+    "attributes": {
+        "#container": {
+            "aria-hidden": "true",
+            "style": "opacity: 0; cursor: pointer;"
+        }
+    },
+    
+    "remove": [ "a" ],
+    
+    "ids": {},
+    
+    "inlineFiles": false,
+    "minify": true,
+    
+    "browsers": {}
+}

@@ -17,6 +17,10 @@
     
     "externalLinks": false,
     
+    "animation": {
+        "duration": 30
+    },
+    
     "fallback": {
         "required": false
     },

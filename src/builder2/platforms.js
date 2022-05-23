@@ -24,6 +24,7 @@ const publish = {
             target: "_blank"
         }
     },
+    ids: {},
     inlineFiles: false,
     minify: true,
     browsers: {}

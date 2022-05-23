@@ -74,6 +74,19 @@ async function prepare(filename, document, tr, options) {
         }
     }
 
+    if ("remove" in tr) {
+        for (const selector of tr.remove) {
+            const links = document.querySelectorAll(selector);
+            for (const link of links) {
+                if (link.innerHTML === "") {
+                    remove(link);
+                } else {
+                    link.outerHTML = link.innerHTML;
+                }
+            }
+        }
+    }
+
     return true;
 }
 
