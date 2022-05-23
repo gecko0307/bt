@@ -1,0 +1,53 @@
+{
+    "id": "rambler",
+    "name": "Rambler",
+    
+    "type": "html",
+    
+    "dist": {
+        "format": "zip",
+        "maxSize": 150
+    },
+    
+    "requiredFiles": ["index.html"],
+    "allowedFiles": ["*.*"],
+    "maxFilesNum": 0,
+    
+    "indexFile": "index.html",
+    
+    "externalLinks": true,
+    
+    "fallback": {
+        "required": false
+    },
+    
+    "tags": {
+        "head": [],
+        "body": []
+    },
+    
+    "attributes": {
+        "#link": {
+            "href": "%clickurl_1%",
+            "target": "_blank"
+        },
+        "#container": {
+            "aria-hidden": "true"
+        }
+    },
+    
+    "ids": {},
+    
+    "inlineFiles": false,
+    "minify": true,
+    
+    "browsers": {
+        "chrome": 14,
+        "firefox": 14,
+        "safari": 6,
+        "ie": 9,
+        "opera": 12,
+        "yandex": 14,
+        "edge": 13
+    }
+}
