@@ -1,0 +1,56 @@
+{
+    "id": "womensnetwork",
+    "name": "Women's Network",
+    
+    "type": "html",
+    
+    "dist": {
+        "format": "zip",
+        "maxSize": 120
+    },
+    
+    "requiredFiles": ["index.html"],
+    "allowedFiles": ["index.html"],
+    
+    "maxFilesNum": 1,
+    
+    "indexFile": "index.html",
+    
+    "externalLinks": true,
+    
+    "fallback": {
+        "required": false
+    },
+    
+    "tags": {
+        "head": [
+            {
+                "tag": "script",
+                "attributes": {
+                    "type": "text/javascript"
+                },
+                "text": " var clickTag = \"%%CLICK_URL_ESC%%%%DEST_URL%%\"; "
+            }
+        ],
+        "body": []
+    },
+    
+    "attributes": {
+        "#link": {
+            "target": null,
+            "href": null,
+            "onclick": "return window.open(window.clickTag, '_blank')",
+            "style": "cursor: pointer;"
+        },
+        "#container": {
+            "aria-hidden": "true"
+        }
+    },
+    
+    "ids": {},
+    
+    "inlineFiles": true,
+    "minify": true,
+    
+    "browsers": {}
+}
