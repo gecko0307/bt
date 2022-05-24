@@ -50,6 +50,11 @@ async function prepare(filename, document, tr, options) {
             rootElement.insertBefore(element, rootElement.firstChild);
             rootElement.insertBefore(document.createTextNode("\r\n\t"), rootElement.firstChild);
         }
+        else if (tag.insert === "root") {
+            element.innerHTML = rootElement.innerHTML;
+            rootElement.innerHTML = "";
+            rootElement.appendChild(element);
+        }
         else {
             rootElement.appendChild(element);
             rootElement.appendChild(document.createTextNode("\r\n"));

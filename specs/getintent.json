@@ -1,0 +1,67 @@
+{
+    "id": "getintent",
+    "name": "Getintent",
+    
+    "type": "html",
+    
+    "dist": {
+        "format": "zip",
+        "maxSize": 150
+    },
+    
+    "requiredFiles": ["index.html"],
+    "allowedFiles": ["*.html", "*.js", "*.css", "*.png" "*.jpg", "*.jpeg", "*.gif", "*.svg"],
+    "maxFilesNum": 40,
+    
+    "indexFile": "index.html",
+    
+    "externalLinks": true,
+    "externalLinksDomain": "s0.2mdn.net",
+    
+    "fallback": {
+        "required": false
+    },
+    
+    "tags": {
+        "head": [
+            {
+                "tag": "meta",
+                "attributes": {
+                    "name": "ad.size",
+                    "content": "width={{banner.width}},height={{banner.height}}"
+                }
+            }
+        ],
+        "body": [
+            {
+                "tag": "div",
+                "attributes": {
+                    "id": "Stage"
+                },
+                "insert": "root"
+            }
+        ]
+    },
+    
+    "attributes": {
+        "#container": {
+            "aria-hidden": "true"
+        }
+    },
+    
+    "remove": [ "a" ],
+    
+    "ids": {},
+    
+    "inlineFiles": false,
+    "minify": true,
+    
+    "browsers": {},
+    
+    "browsers": {
+        "ie": 10,
+        "firefox": 14,
+        "safari": 5,
+        "chrome": 18
+    }
+}

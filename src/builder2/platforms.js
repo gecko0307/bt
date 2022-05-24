@@ -89,7 +89,6 @@ const aliases = {
     "gazeta": { name: "Gazeta.ru", tr: "rambler" },
     "gastronom": { name: "Gastronom.ru", tr: "adfox" },
     "gdn": { name: "Google Display Network", tr: "adwords" },
-    "getintent": { name: "Getintent", tr: "getintent" },
     "gismeteo": { name: "Gismeteo", tr: "adfox" },
     "google": { name: "Google", tr: "adwords" },
     "gq": { name: "GQ", tr: "womensnetwork" },
