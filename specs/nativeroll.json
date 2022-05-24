@@ -1,0 +1,71 @@
+{
+    "id": "nativeroll",
+    "name": "NativeRoll",
+    
+    "type": "html",
+    
+    "dist": {
+        "format": "zip",
+        "maxSize": 150
+    },
+    
+    "requiredFiles": ["index.html"],
+    "allowedFiles": ["*.html", "*.js", "*.css", "*.json", "*.jpg", "*.gif", "*.png", "*.svg"],
+    "maxFilesNum": 50,
+    
+    "indexFile": "index.html",
+    
+    "externalLinks": false,
+    
+    "fallback": {
+        "required": false
+    },
+    
+    "tags": {
+        "head": [
+            {
+                "tag": "script",
+                "attributes": {
+                    "type": "text/javascript",
+                    "src": "https://cdn01.nativeroll.tv/js/nr-html5-sdk.min.js"
+                },
+                "text": "",
+                "insert": "start"
+            }
+        ],
+        "body": [
+            {
+                "tag": "script",
+                "attributes": {
+                    "type": "text/javascript"
+                },
+                "text": "nrSDK.ready(function(){ setTimeout(animation.open, 300) }); window.onload = function(){};"
+            }
+        ]
+    },
+    
+    "attributes": {
+        "#link": {
+            "href": "#",
+            "target": "_blank"
+        },
+        "#container": {
+            "aria-hidden": "true"
+        }
+    },
+    
+    "ids": {},
+    
+    "inlineFiles": false,
+    "minify": true,
+    
+    "browsers": {
+        "ie": 11,
+        "edge": 0,
+        "safari": 9,
+        "firefox": 46,
+        "chrome": 52,
+        "opera": 44,
+        "yandex": 15
+    }
+}
