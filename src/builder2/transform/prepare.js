@@ -27,6 +27,11 @@ async function prepare(filename, document, tr, options) {
             const value = Mustache.render(template, templateData);
             element = document.createComment(value);
         }
+        else if (tag.tag === "text") {
+            const template = tag.text || "";
+            const value = Mustache.render(template, templateData);
+            element = document.createTextNode(value);
+        }
         else {
             element = document.createElement(tag.tag);
             for (const name of Object.keys(tag.attributes)) {
@@ -40,8 +45,15 @@ async function prepare(filename, document, tr, options) {
                 element.innerHTML = value;
             }
         }
-        rootElement.appendChild(element);
-        rootElement.appendChild(document.createTextNode("\r\n"));
+
+        if (tag.insert === "start") {
+            rootElement.insertBefore(element, rootElement.firstChild);
+            rootElement.insertBefore(document.createTextNode("\r\n\t"), rootElement.firstChild);
+        }
+        else {
+            rootElement.appendChild(element);
+            rootElement.appendChild(document.createTextNode("\r\n"));
+        }
     }
 
     if ("head" in tr.tags) {

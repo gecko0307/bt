@@ -1,24 +1,30 @@
 {
-    "id": "mail",
-    "name": "Mail.ru",
+    "id": "dca",
+    "name": "Exebid.DCA",
     
     "type": "html",
     
     "dist": {
         "format": "zip",
-        "maxSize": 150
+        "maxSize": 10240
     },
     
     "requiredFiles": ["index.html"],
-    "allowedFiles": ["*.html", "*.png", "*.jpg", "*.jpeg", "*.gif", "*.css", "*.js", "*.svg", "*.mp4"],
-    "maxFilesNum": 0,
+    "allowedFiles": ["*.html", "*.js*", "*.gif", "*.jpg", "*.jpeg", "*.png", "*.svg", "*.eot", "*.otf", "*.ttf", "*.woff", "*.csv", "*.json", "*.pdf", "*.xml", "*.mp4"],
+    "maxFilesNum": 100,
     
     "indexFile": "index.html",
     
     "externalLinks": false,
     
+    "animation": {
+        "duration": 30
+    },
+    
     "fallback": {
-        "required": false
+        "required": true,
+        "maxSize": 60,
+        "formats": ["gif", "png", "jpg"]
     },
     
     "tags": {
@@ -31,13 +37,19 @@
                 }
             }
         ],
-        "body": []
+        "body": [
+            {
+                "tag": "text",
+                "text": "${HTML_IMPRESSION_TRACKING_URLS}",
+                "insert": "start"
+            }
+        ]
     },
     
     "attributes": {
         "#link": {
-            "target": "_blank",
-            "href": "%link1%"
+            "href": "${3RD_CLICK_TRACKING_URL}",
+            "target": "_blank"
         },
         "#container": {
             "aria-hidden": "true"
@@ -49,12 +61,5 @@
     "inlineFiles": false,
     "minify": true,
     
-    "browsers": {},
-    
-    "browsers": {
-        "chrome": 18,
-        "firefox": 14,
-        "safari": 5,
-        "ie": 10
-    }
+    "browsers": {}
 }
