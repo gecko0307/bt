@@ -1,0 +1,80 @@
+{
+    "id": "weborama",
+    "name": "Weborama",
+    
+    "type": "html",
+    
+    "dist": {
+        "format": "zip",
+        "maxSize": 3072
+    },
+    
+    "requiredFiles": ["index.html"],
+    "allowedFiles": ["*.*"],
+    "maxFilesNum": 0,
+    
+    "indexFile": "index.html",
+    
+    "externalLinks": false,
+    
+    "animation": {
+        "duration": 30
+    },
+    
+    "fallback": {
+        "required": false
+    },
+    
+    "tags": {
+        "head": [
+            {
+                "tag": "script",
+                "attributes": {
+                    "src": "https://media.adrcdn.com/scripts/screenad_interface_1.0.3_scrambled.js"
+                },
+                "text": "",
+                "insert": "start"
+            },
+            {
+                "tag": "script",
+                "attributes": {
+                    "type": "text/javascript"
+                },
+                "text": "screenad.position('width={{banner.width}}&height={{banner.height}}&hor=left&ver=banner&hide=false&sticky=false&offx=0&offy=0&cliprect=auto,auto,auto,auto&antizoom=false&smooth=0');",
+                "condition": "responsive"
+            },
+            {
+                "tag": "comment",
+                "text": " WEBORAMA SCREENAD META DATA (don't edit/remove) "
+            },
+            {
+                "tag": "comment",
+                "text": " SCRWIDTH: {{banner.width}} "
+            },
+            {
+                "tag": "comment",
+                "text": " SCRHEIGHT: {{banner.height}} "
+            }
+        ],
+        "body": []
+    },
+    
+    "attributes": {
+        "#link": {
+            "href": null,
+            "target": null,
+            "onclick": "screenad.click('default');",
+            "style": "cursor: pointer;"
+        },
+        "#container": {
+            "aria-hidden": "true"
+        }
+    },
+    
+    "ids": {},
+    
+    "inlineFiles": false,
+    "minify": true,
+    
+    "browsers": {}
+}

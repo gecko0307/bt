@@ -163,7 +163,6 @@ const aliases = {
     "village": { name: "The Village", tr: "adfox" },
     "vc": { name: "vc.ru", tr: "adfox" },
     "wapstart": { name: "WapStart", tr: "studio" },
-    "weborama": { name: "Weborama", tr: "weborama" },
     "whrussia": { name: "Women's Health Russia", tr: "adriver" },
     "yandex-direct": { name: "Yandex Direct", tr: "yandex" },
     "yandex_direct": { name: "Yandex Direct", tr: "yandex" },

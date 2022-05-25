@@ -46,18 +46,27 @@ async function prepare(filename, document, tr, options) {
             }
         }
 
-        if (tag.insert === "start") {
-            rootElement.insertBefore(element, rootElement.firstChild);
-            rootElement.insertBefore(document.createTextNode("\r\n\t"), rootElement.firstChild);
+        let conditionsMet = true;
+        // TODO: multiple conditions
+        if (tag.condition !== undefined) {
+            if (tag.condition === "responsive" && options.banner.isResponsive !== true)
+                conditionsMet = false;
         }
-        else if (tag.insert === "root") {
-            element.innerHTML = rootElement.innerHTML;
-            rootElement.innerHTML = "";
-            rootElement.appendChild(element);
-        }
-        else {
-            rootElement.appendChild(element);
-            rootElement.appendChild(document.createTextNode("\r\n"));
+
+        if (conditionsMet) {
+            if (tag.insert === "start") {
+                rootElement.insertBefore(element, rootElement.firstChild);
+                rootElement.insertBefore(document.createTextNode("\r\n\t"), rootElement.firstChild);
+            }
+            else if (tag.insert === "root") {
+                element.innerHTML = rootElement.innerHTML;
+                rootElement.innerHTML = "";
+                rootElement.appendChild(element);
+            }
+            else {
+                rootElement.appendChild(element);
+                rootElement.appendChild(document.createTextNode("\r\n"));
+            }
         }
     }
 

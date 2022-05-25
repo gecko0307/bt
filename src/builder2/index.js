@@ -67,7 +67,8 @@ async function build(options = { platform: "publish" }) {
 
     const banner = {
         width: 0,
-        height: 0
+        height: 0,
+        isResponsive: false
     };
 
     for (filename of Object.keys(htmlFiles)) {
@@ -141,6 +142,7 @@ async function build(options = { platform: "publish" }) {
             const { width, height } = await bannerLoad;
             banner.width = width.replace(/px/g, "");
             banner.height = height.replace(/px/g, "");
+            banner.isResponsive = banner.width.endsWith("%") || banner.height.endsWith("%");
 
             console.log("Prepare...");
             if (!await transform.prepare(filename, document, tr, { banner: banner })) return;
