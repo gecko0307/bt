@@ -1,0 +1,64 @@
+{
+    "id": "soloway",
+    "name": "Soloway",
+    
+    "type": "html",
+    
+    "dist": {
+        "format": "zip",
+        "maxSize": 150
+    },
+    
+    "requiredFiles": ["index.html"],
+    "allowedFiles": ["*.html", "*.js", "*.css", "*.jpg", "*.jpeg", "*.png", "*.gif", "*.svg"],
+    "maxFilesNum": 50,
+    
+    "indexFile": "index.html",
+    
+    "externalLinks": true,
+    
+    "animation": {
+        "duration": 30
+    },
+    
+    "fallback": {
+        "required": false
+    },
+    
+    "tags": {
+        "head": [
+            {
+                "tag": "meta",
+                "attributes": {
+                    "name": "ad.size",
+                    "content": "width={{banner.width}},height={{banner.height}}"
+                }
+            }
+        ],
+        "body": [
+            {
+                "tag": "div",
+                "attributes": {
+                    "id": "link"
+                },
+                "insert": "root"
+            }
+        ]
+    },
+    
+    "attributes": {
+        "#container": {
+            "aria-hidden": "true",
+            "style": "opacity: 0; cursor: pointer;"
+        }
+    },
+    
+    "remove": [ "a" ],
+    
+    "ids": {},
+    
+    "inlineFiles": false,
+    "minify": true,
+    
+    "browsers": {}
+}
