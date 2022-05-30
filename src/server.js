@@ -21,10 +21,6 @@ function init() {
     fastify = Fastify({});
     fastify.register(require("fastify-sse-v2"), { retryDelay: 1000 });
 
-    fastify.get("/favicon.ico", function(request, reply) {
-        return reply.sendFile(path.join(__dirname, "..", "static", "server_data", "favicon.ico"));
-    });
-
     // Banner project's HTML directory
     fastify.register(fastifyStatic, {
         root: path.join(cwd, "HTML")
@@ -36,6 +32,12 @@ function init() {
         prefix: "/build",
         redirect: true,
         decorateReply: false
+    });
+    
+    // Favicon
+    fastify.register(require("fastify-favicon"), {
+        path: path.join(__dirname, "..", "static", "server_data"),
+        name: "favicon.ico"
     });
 
     // Request any file relative to banner project root

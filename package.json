@@ -35,6 +35,7 @@
         "event-iterator": "^2.0.0",
         "fast-glob": "^3.2.11",
         "fastify": "^3.28.0",
+        "fastify-favicon": "^3.1.0",
         "fastify-sse-v2": "^2.0.6",
         "fastify-static": "^4.6.1",
         "fonteditor-core": "^2.1.8",
