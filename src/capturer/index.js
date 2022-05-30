@@ -20,11 +20,11 @@ async function captureFunc(options = {}) {
     options.url = config.url;
     options.width = options.width || config.width || 0;
     options.height = options.height || config.height || 0;
-    if ("gif" in config) {
+    if (config.gif) {
         options.gifRepeat = config.gif.repeat;
         options.gifQuality = config.gif.quality;
     }
-    if ("video" in config) {
+    if (config.video) {
         options.videoFilename = config.video.filename;
         options.videoFps = config.video.fps;
         options.videoCompressionRate = config.video.compressionRate;
@@ -44,7 +44,13 @@ async function captureFunc(options = {}) {
         outPath: captureDir,
         width: options.width || 0,
         height: options.height || 0,
-        video: options.video || false
+        video: options.video || false,
+        gifRepeat: options.gifRepeat || true,
+        gifQuality: options.gifQuality || 10,
+        videoFilename: options.videoFilename || "video.mp4",
+        videoFps: options.videoFps || 60,
+        videoCompressionRate: options.videoCompressionRate || 1,
+        videoDuration: options.videoDuration
     });
     
     if (!captureImages) {
