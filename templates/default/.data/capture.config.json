@@ -1,0 +1,15 @@
+{
+    "url": "http://localhost:8000/",
+    "width": 0,
+    "height": 0,
+    "gif": {
+        "repeat": false,
+        "quality": 10
+    },
+    "video": {
+        "filename": "video.mp4",
+        "fps": 60,
+        "compressionRate": 1,
+        "duration": 0
+    }
+}

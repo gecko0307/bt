@@ -5,10 +5,33 @@ const { writePsdBuffer } = require("ag-psd");
 const GIFEncoder = require("gifencoder");
 const greensock = require("./greensock");
 
-const cwd = process.cwd();
+function requireUncached(module) {
+    delete require.cache[require.resolve(module)];
+    return require(module);
+}
+
+const captureConfigPath = path.resolve("./.data/capture.config.json");
 
 async function captureFunc(options = {}) {
-    const captureDir = path.join(cwd, "capture");
+    let config = {};
+    if (await fs.pathExists(captureConfigPath)) {
+        config = requireUncached(captureConfigPath) || {};
+    }
+    options.url = config.url;
+    options.width = options.width || config.width || 0;
+    options.height = options.height || config.height || 0;
+    if ("gif" in config) {
+        options.gifRepeat = config.gif.repeat;
+        options.gifQuality = config.gif.quality;
+    }
+    if ("video" in config) {
+        options.videoFilename = config.video.filename;
+        options.videoFps = config.video.fps;
+        options.videoCompressionRate = config.video.compressionRate;
+        options.videoDuration = config.video.duration;
+    }
+
+    const captureDir = path.resolve("./capture");
     if (!fs.existsSync(captureDir)){
         fs.mkdirSync(captureDir);
     }
@@ -42,11 +65,15 @@ async function captureFunc(options = {}) {
         children: []
     };
     
+    // 0 for repeat, -1 for no-repeat
+    let repeat = 0;
+    if (options.gifRepeat === false)
+        repeat = -1;
+    
     const gif = new GIFEncoder(capture.width, capture.height);
     gif.start();
-    // TODO: repeat should be in some config
-    gif.setRepeat(0); // 0 for repeat, -1 for no-repeat
-    gif.setQuality(10);
+    gif.setRepeat(repeat);
+    gif.setQuality(options.gifQuality || 10);
     
     let frames = [];
     

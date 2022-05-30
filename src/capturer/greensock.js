@@ -10,7 +10,7 @@ async function capture(options) {
     const deleteDevToolsPath = path.join(__dirname, "deleteDevTools.js");
     const deleteDevTools = await fs.readFile(deleteDevToolsPath, "utf8");
     
-    const videoFilename = "video.mp4";
+    const videoFilename = options.videoFilename || "video.mp4";
     const videoPath = path.join(options.outPath, videoFilename);
     
     const url = options.url || "http://localhost:8000/";
@@ -114,9 +114,9 @@ async function capture(options) {
     
     if (options.video === true) {
         // Capture video
-        const videoDuration = result.duration || 5;
-        const videoFps = 60;
-        const videoCompressionRate = 1;
+        const videoDuration = options.videoDuration || result.duration || 5;
+        const videoFps = options.videoFps || 60;
+        const videoCompressionRate = options.videoCompressionRate || 1;
         const frameTime = 1.0 / videoFps;
         console.log(`Capture video: ${videoDuration}s at ${videoFps}fps...`);
         await record({
