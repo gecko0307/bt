@@ -3,7 +3,9 @@ import * as global from "./main/global";
 import { bannerW, bannerH, halfW, halfH, ratio } from "./main/global";
 import select, { container } from "./main/dom";
 import * as $ from "./main/dom";
-import { capture, stop, checkStops, frame } from "./main/frame";
+import { frame } from "./main/frame";
+import { stop, checkStops, resetStop } from "./main/stop";
+import { capture } from "./main/capture";
 //import "./banner.sass";
 
 banner.timeLimit = 0;
@@ -14,6 +16,10 @@ function createAnimation(tl) {
 
 function opening(tl) {
 	tl.addLabel("start", 0.0);
+
+	//tl.capture(2.5, "+=0.0");
+	//tl.stop("+=0.0");
+	//if (global.isCapturing)
 }
 
 if (window.onload === null) window.onload = open;
@@ -49,6 +55,7 @@ function close() {
 }
 
 function replay() {
+	resetStop();
 	start();
 }
 
@@ -65,6 +72,7 @@ gsap.defaults({
 export default {
 	master,
 	open,
+	// close,
 	replay,
 	info: { type: "gsap", version: 1 },
 };

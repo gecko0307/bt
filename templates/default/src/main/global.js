@@ -1,5 +1,5 @@
 import { container } from "./dom";
-import { detectCapturing } from "./frame";
+import { detectCapturing } from "./capture";
 
 export const master = gsap.timeline({ id: "MASTER", repeat: -1, paused: true });
 
