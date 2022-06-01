@@ -14,6 +14,9 @@
     let optimizing = false;
     let error = false;
     let errorMessage = "";
+
+    $: totalSize = Object.values(config.images).reduce((total, value) => total + value.compressed.weight, 0);
+    $: totalSizeUncompressed = Object.values(config.images).reduce((total, value) => total + value.compressed.unzipped, 0);
     
     async function apiRequest(data) {
         const res = await fetch("/api", {
@@ -85,7 +88,11 @@
                     {#if imageFile in config.images}
                         <div class="image">
                             <fieldset>
-                                <legend><b>{imageFile}</b></legend>
+                                <legend>
+                                    <b>{imageFile}</b> - 
+                                    {(config.images[imageFile].compressed.unzipped / 1024).toFixed(2)} Kb / 
+                                    {(config.images[imageFile].compressed.weight / 1024).toFixed(2)} Kb zip
+                                </legend>
                                 <ImageSettings filename={imageFile} data={config.images[imageFile]} />
                             </fieldset>
                         </div>
@@ -97,6 +104,9 @@
         </div>
         <div id="buttons">
             <input {disabled} type="button" value="⚙️ Optimize" on:click={ optimize }/>
+        </div>
+        <div id="info">
+            <p>Total size: <b>{(totalSizeUncompressed / 1024).toFixed(2)} Kb / {(totalSize / 1024).toFixed(2)} Kb zip</b></p>
         </div>
     </div>
     {#if optimizing || error}
@@ -206,5 +216,17 @@
     #close-bg {
         width: 100%;
         height: 100%;
+    }
+
+    #info {
+        pointer-events: none;
+    }
+    #info p {
+        position: relative;
+        padding-top: 10px;
+        left: 10px;
+        font-family: sans-serif;
+        font-size: 14px;
+        color: #000000;
     }
 </style>
