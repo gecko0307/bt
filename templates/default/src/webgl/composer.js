@@ -1,4 +1,4 @@
-import { gl } from "./webgl";
+import { gl } from "./index";
 
 class ColorBuffer {
 	constructor() {
