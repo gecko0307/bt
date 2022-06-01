@@ -1,7 +1,11 @@
 import { master, banner } from "./global";
 
-function capture(duration, delay, options) {
+export function capture(duration, delay, options) {
 	if (window._capture !== undefined) window._capture({ tl: this, delay, duration, options });
+}
+
+export function detectCapturing() {
+	return (window._capture !== undefined);
 }
 
 let isFirst = true;
@@ -9,7 +13,7 @@ let isStopAdded = false;
 let isPaused = false;
 let loops = 0;
 
-function stop(delay = "+=0.0", timeline) {
+export function stop(delay = "+=0.0", timeline) {
 	if (isStopAdded === true && isFirst === true) {
 		alert("More than one tl.stop() call found");
 		return;
@@ -49,6 +53,22 @@ function stop(delay = "+=0.0", timeline) {
 
 	tl.addLabel("_@stop", delay);
 	tl.add(checkStop, "_@stop");
+}
+
+export function checkStops() {
+	if (banner.timeLimit > 0) {
+		if (isStopAdded === false) {
+			alert("No tl.stop() found");
+		}
+		if (master.duration() > banner.timeLimit){
+			alert("Animation loop exceeds banner.timeLimit");
+		}
+	}
+}
+
+export function resetStop() {
+	isPaused = false;
+	loops = 0;
 }
 
 export function frame(tlFunc, gsapOptions = {}) {
