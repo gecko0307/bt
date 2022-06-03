@@ -81,19 +81,14 @@ async function run(options = {}) {
 async function init(options = { template: "default" }) {
     console.log("BannerToolchain init");
     const template = options.template || "default";
-    if (await isDirEmpty(cwd) === true) {
-        const templatePath = path.join(__dirname, "..", "templates", template);
-        if (await fs.pathExists(templatePath)) {
-            const destPath = path.join(cwd);
-            await fs.copy(templatePath, destPath);
-            console.log(`Initialized a project with template "${template}"`);
-        }
-        else {
-            console.log(`Error: template "${template}" not found!`);
-        }
+    const templatePath = path.join(__dirname, "..", "templates", template);
+    if (await fs.pathExists(templatePath)) {
+        const destPath = path.join(cwd);
+        await fs.copy(templatePath, destPath);
+        console.log(`Initialized a project with template "${template}"`);
     }
     else {
-        console.log("Error: working directory is not empty!");
+        console.log(`Error: template "${template}" not found!`);
     }
 }
 
@@ -106,7 +101,7 @@ async function main() {
     if (args.length > 0) {
         if (args[0] === "init") {
             await init({
-                options: args[1] || "default"
+                template: args[1] || "default"
             });
             process.exit();
         }
