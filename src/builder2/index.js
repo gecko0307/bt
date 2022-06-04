@@ -21,6 +21,7 @@ const buildPath = path.resolve("./build");
 const configDefault = {
     brand: "",
     campaign: "banner",
+    creative: "",
     platform: "publish",
     version: "v1"
 };

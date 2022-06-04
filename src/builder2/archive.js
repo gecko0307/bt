@@ -28,6 +28,9 @@ async function archive(tr, platformId, config, banner, fallbackPath = "") {
     else if (config.campaign.length > 0) {
         bannerName = config.campaign;
     }
+    if (config.creative.length > 0) {
+        bannerName += "_" + config.creative;
+    }
     bannerName += "_";
 
     let platform = "";

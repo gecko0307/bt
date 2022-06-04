@@ -13,6 +13,7 @@ const builderConfigPath = path.resolve("./.data/builder.config.json");
 const configDefault = {
     brand: "",
     campaign: "banner",
+    creative: "",
     platform: "publish",
     version: "v1"
 };
@@ -114,6 +115,10 @@ async function build(options = { platform: "publish", gulpBuilderPath: "" }) {
         }
         else if (config.campaign.length > 0) {
             bannerName = config.campaign;
+        }
+        
+        if (config.creative.length > 0) {
+            bannerName += "_" + config.creative;
         }
 
         let platform = "";
