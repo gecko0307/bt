@@ -197,6 +197,11 @@ async function optimizeImages(req) {
 
     const compressOptionsArr = [];
 
+    for (const imageFile of Object.keys(config.images)) {
+        if (!images.includes(imageFile))
+            config.images[imageFile] = undefined;
+    }
+
     for (const imageFile of images) {
         const conf = config.images[imageFile];
         const imageOptions = conf || { ...imageDefaultOptions };
