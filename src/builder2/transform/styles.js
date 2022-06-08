@@ -67,24 +67,29 @@ async function processStyles(filename, document, tr) {
         if (await fs.pathExists(styleInputPath)) {
             const baseFilename = path.basename(styleFilename);
             let code = await fs.readFile(styleInputPath, "utf8");
-            code = await processCode(code);
-            
-            if (isDevStyle) {
+            if (code.length === 0)
                 style.remove();
-            }
-            else if (isPreviewStyle && tr.id !== "publish") {
-                style.remove();
-            }
-            else if (isInlineStyle || tr.inlineFiles) {
-                const inlineStyle = document.createElement("style");
-                inlineStyle.type = "text/css";
-                inlineStyle.innerHTML = code;
-                style.replaceWith(inlineStyle);
-            }
-            else {
-                const styleOutputPath = path.resolve(`./build/${baseFilename}`);
-                style.href = baseFilename;
-                await fs.outputFile(styleOutputPath, code);
+            else
+            {
+                code = await processCode(code);
+                
+                if (isDevStyle) {
+                    style.remove();
+                }
+                else if (isPreviewStyle && tr.id !== "publish") {
+                    style.remove();
+                }
+                else if (isInlineStyle || tr.inlineFiles) {
+                    const inlineStyle = document.createElement("style");
+                    inlineStyle.type = "text/css";
+                    inlineStyle.innerHTML = code;
+                    style.replaceWith(inlineStyle);
+                }
+                else {
+                    const styleOutputPath = path.resolve(`./build/${baseFilename}`);
+                    style.href = baseFilename;
+                    await fs.outputFile(styleOutputPath, code);
+                }
             }
         }
     }

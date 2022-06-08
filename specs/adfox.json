@@ -27,9 +27,6 @@
     },
     
     "attributes": {
-        "body": {
-            "data-version": "v5"
-        },
         "#link": {
             "href": "%banner.reference_user1%",
             "target": "%banner.target%"

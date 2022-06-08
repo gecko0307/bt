@@ -146,7 +146,7 @@ async function build(options = { platform: "publish" }) {
             banner.isResponsive = banner.width.endsWith("%") || banner.height.endsWith("%");
 
             console.log("Prepare...");
-            if (!await transform.prepare(filename, document, tr, { banner: banner })) return;
+            if (!await transform.prepare(filename, document, tr, { banner, config })) return;
         }
 
         console.log("Serialize...");

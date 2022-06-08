@@ -28,9 +28,6 @@
     },
     
     "attributes": {
-        "body": {
-            "data-version": "v6"
-        },
         "#link": {
             "target": "_blank",
             "data-event-click": "1"
