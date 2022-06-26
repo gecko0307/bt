@@ -3,10 +3,12 @@ const path = require("path");
 const mime = require("mime");
 
 async function processAssets(filename, document, tr) {
-    const images = Array.prototype.slice.call(document.getElementsByTagName("img"));
 
+    const images = Array.prototype.slice.call(document.getElementsByTagName("img"));
     for (const image of images) {
         image.alt = "";
+        if (image.hasAttribute("src") === false) continue;
+
         const imageFilename = image.getAttribute("src");
         const baseFilename = path.basename(imageFilename);
         const imageInputPath = path.resolve(`./HTML/${imageFilename}`);
@@ -29,6 +31,37 @@ async function processAssets(filename, document, tr) {
             }
         }
     }
+
+    const videos = Array.prototype.slice.call(document.getElementsByTagName("video"));
+    for (const video of videos) {
+        if (video.hasAttribute("poster") === false) continue;
+
+        const posterFilename = video.getAttribute("poster");
+        const baseFilename = path.basename(posterFilename);
+        const posterInputPath = path.resolve(`./HTML/${posterFilename}`);
+        const posterOutputPath = path.resolve(`./build/${baseFilename}`);
+
+        if (await fs.pathExists(posterInputPath)) {
+            video.setAttribute("poster", baseFilename);
+            await fs.copyFile(posterInputPath, posterOutputPath);
+        }
+    }
+
+    const sources = Array.prototype.slice.call(document.getElementsByTagName("source"));
+    for (const source of sources) {
+        if (source.hasAttribute("src") === false) continue;
+
+        const sourceFilename = source.getAttribute("src");
+        const baseFilename = path.basename(sourceFilename);
+        const sourceInputPath = path.resolve(`./HTML/${sourceFilename}`);
+        const sourceOutputPath = path.resolve(`./build/${baseFilename}`);
+
+        if (await fs.pathExists(sourceInputPath)) {
+            source.setAttribute("src", baseFilename);
+            await fs.copyFile(sourceInputPath, sourceOutputPath);
+        }
+    }
+
     return true;
 }
 
