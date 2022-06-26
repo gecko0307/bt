@@ -1,2 +1,7 @@
-> 0.25%
-not dead
+ie >= 9
+ff >= 14
+chrome >= 10
+safari >= 4
+opera >= 12
+ios >= 3
+android >= 2

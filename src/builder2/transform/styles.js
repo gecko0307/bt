@@ -4,6 +4,8 @@ const stripComments = require("strip-comments");
 const minify = require("@node-minify/core");
 const cleanCSS = require("@node-minify/clean-css");
 //const replaceUrl = require("replace-css-url");
+const autoprefixer = require("autoprefixer");
+const postcss = require("postcss");
 
 function replacePathInCSS(css, mapFunc) {
     const regs = [
@@ -28,6 +30,26 @@ function replacePathInCSS(css, mapFunc) {
     });
 
     return css;
+}
+
+const browsersList = [
+    "ie >= 9",
+    "ff >= 14",
+    "chrome >= 10",
+    "safari >= 4",
+    "opera >= 12",
+    "ios >= 3",
+    "android >= 2"
+];
+
+async function autoprefix(css) {
+    const result = await postcss([ autoprefixer({ 
+        overrideBrowserslist: browsersList
+    }) ]).process(css, { from: undefined });
+    result.warnings().forEach(warn => {
+        console.warn(warn.toString());
+    });
+    return result.css;
 }
 
 async function processStyles(filename, document, tr) {
@@ -62,6 +84,8 @@ async function processStyles(filename, document, tr) {
             });
         
         result = stripComments(result, { language: "css" });
+
+        result = await autoprefix(result);
 
         if (tr.minify === true)
             result = await minify({ compressor: cleanCSS, content: result });
