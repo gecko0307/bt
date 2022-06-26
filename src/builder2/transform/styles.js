@@ -14,19 +14,16 @@ function replacePathInCSS(css, mapFunc) {
 
     css = css.replace(regs[0], (all, lead, quote1, path, quote2) => {
         const ret = mapFunc(path, quote1);
-        console.log(quote1, quote2);
         return lead + '"' + ret + '"';
     });
     
     css = css.replace(regs[1], (all, lead, quote1, path, quote2) => {
         const ret = mapFunc(path, quote1);
-        console.log(quote1, quote2);
         return lead + '"' + ret + '"';
     });
 
     css = css.replace(regs[2], (all, lead, quote1, path, quote2) => {
         const ret = mapFunc(path, quote1);
-        console.log(quote1, quote2);
         return lead + '"' + ret + '")';
     });
 

@@ -14,10 +14,15 @@ function formatBytes(bytes, decimals = 2) {
 async function archive(tr, platformId, config, banner, fallbackPath = "") {
     const w = banner.width.replace(/%/g, "P");
     const h = banner.height.replace(/%/g, "P");
-    let bannerSize = `${w}x${h}`;
+    let bannerSize = "";
     if (config.size) {
         bannerSize = config.size;
     }
+    else if (w != "0" && h != "0") {
+        bannerSize = `${w}x${h}`;
+    }
+    if (bannerSize.length > 0)
+        bannerSize += "_";
 
     // Make archive name
     let bannerName = "banner";
@@ -35,7 +40,7 @@ async function archive(tr, platformId, config, banner, fallbackPath = "") {
 
     let platform = "";
     if (platformId !== "publish") {
-        platform = "_" + platformId;
+        platform = platformId + "_";
     }
 
     const outputPath = path.resolve("./build");
@@ -47,7 +52,7 @@ async function archive(tr, platformId, config, banner, fallbackPath = "") {
         zip.addLocalFile(filePath);
     });
 
-    const zipFilename = `${bannerName}${bannerSize}${platform}_${config.version}.zip`;
+    const zipFilename = `${bannerName}${bannerSize}${platform}${config.version}.zip`;
     const zipPath = path.resolve(`./dist/${zipFilename}`);
     let zipInternalPath = zipPath;
 
