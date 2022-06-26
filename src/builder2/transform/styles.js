@@ -3,7 +3,35 @@ const path = require("path");
 const stripComments = require("strip-comments");
 const minify = require("@node-minify/core");
 const cleanCSS = require("@node-minify/clean-css");
-const replaceUrl = require("replace-css-url");
+//const replaceUrl = require("replace-css-url");
+
+function replacePathInCSS(css, mapFunc) {
+    const regs = [
+        /(url\s*\()(\s*')([^']+?)(')/gi,
+        /(url\s*\()(\s*")([^"]+?)(")/gi,
+        /(url\s*\()(\s*)([^\s'")].*?)(\s*\))/gi,
+    ];
+
+    css = css.replace(regs[0], (all, lead, quote1, path, quote2) => {
+        const ret = mapFunc(path, quote1);
+        console.log(quote1, quote2);
+        return lead + '"' + ret + '"';
+    });
+    
+    css = css.replace(regs[1], (all, lead, quote1, path, quote2) => {
+        const ret = mapFunc(path, quote1);
+        console.log(quote1, quote2);
+        return lead + '"' + ret + '"';
+    });
+
+    css = css.replace(regs[2], (all, lead, quote1, path, quote2) => {
+        const ret = mapFunc(path, quote1);
+        console.log(quote1, quote2);
+        return lead + '"' + ret + '")';
+    });
+
+    return css;
+}
 
 async function processStyles(filename, document, tr) {
     let assets = [];
@@ -19,15 +47,20 @@ async function processStyles(filename, document, tr) {
             }
         }
 
-        result = replaceUrl(result,
+        result = replacePathInCSS(result,
             function(p) {
-                const assetPath = path.resolve(`./HTML/${p}`);
-                if (fs.pathExistsSync(assetPath)) {
-                    if (!assets.includes(p)) assets.push(p);
-                    return path.basename(p);
+                if (p.startsWith("data:")) {
+                    return p;
                 }
                 else {
-                    return p;
+                    const assetPath = path.resolve(`./HTML/${p}`);
+                    if (fs.pathExistsSync(assetPath)) {
+                        if (!assets.includes(p)) assets.push(p);
+                        return path.basename(p);
+                    }
+                    else {
+                        return p;
+                    }
                 }
             });
         
@@ -94,7 +127,6 @@ async function processStyles(filename, document, tr) {
         }
     }
 
-    //console.log(assets);
     // TODO: make this separate stage
     for (const asset of assets) {
         const filename = path.basename(asset);

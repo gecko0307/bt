@@ -39,6 +39,7 @@ async function build(options = { platform: "publish" }) {
 
     const platformId = options.platform;
     const { tr, platformName } = await requirements(platformId);
+    const strip = (platformId === "strip");
 
     console.log("Platform:", platformName, `(${platformId})`);
     console.log("Technical requirements:", tr.name, `(${tr.id})`);
@@ -130,13 +131,18 @@ async function build(options = { platform: "publish" }) {
 
             function waitResourcesLoaded(resolve, reject) {
                 const container = dom.window.document.getElementById("container");
-                const style = dom.window.getComputedStyle(container);
-                const width = style.getPropertyValue("width");
-                const height = style.getPropertyValue("height");
-                if (width && width.length > 0)
-                    resolve({ width, height });
-                else
-                    setTimeout(waitResourcesLoaded.bind(this, resolve, reject), 100);
+                if (container) {
+                    const style = dom.window.getComputedStyle(container);
+                    const width = style.getPropertyValue("width");
+                    const height = style.getPropertyValue("height");
+                    if (width && width.length > 0)
+                        resolve({ width, height });
+                    else
+                        setTimeout(waitResourcesLoaded.bind(this, resolve, reject), 100);
+                }
+                else {
+                    resolve({ width: "0", height: "0" });
+                }
             }
     
             const bannerLoad = new Promise(waitResourcesLoaded);
@@ -150,7 +156,14 @@ async function build(options = { platform: "publish" }) {
         }
 
         console.log("Serialize...");
-        const htmlOutput = beautify(dom.serialize(), { 
+        let htmlOutput = "";
+        if (strip === true) {
+            htmlOutput = await transform.strip(filename, document, { banner, config });
+        }
+        else {
+            htmlOutput = dom.serialize();
+        }
+        htmlOutput = beautify(htmlOutput, { 
             "indent_with_tabs": true,
             "unformatted": ["style", "script", "sub", "sup", "b", "i", "u"],
             "preserve_newlines": false,
