@@ -1,3 +1,11 @@
+BT 1.0.0. alpha3 - 27 Jun, 2022
+-------------------------------
+- **Builder**
+  - Support HTML5 video
+  - Stripped-down build (using `strip` spec) to generate only the `body` content, without full HTML, for direct embedding to a page
+  - [Autoprefixer](https://github.com/postcss/autoprefixer) to generate browser-specific CSS selectors
+  - Fix building banners without `container` element
+
 BT 1.0.0 alpha2 - 8 Jun, 2022
 -----------------------------
 - **Initializer**

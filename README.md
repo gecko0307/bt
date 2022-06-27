@@ -70,12 +70,9 @@ You can also add your own templates to `templates` directory and use them.
 ## Server Tools
 Development server runs at `http://localhost:8000/` and serves project's `HTML` directory (banner's static files). Additional services are available at the following routes:
 * `http://localhost:8000/preview` - developer's preview page (WIP)
-* `http://localhost:8000/fonts` - Web Font Generator
 * `http://localhost:8000/images` or `/tuner` - Image Optimizer
+* `http://localhost:8000/fonts` - Web Font Generator
 * `http://localhost:8000/mobile` - Mobile Device Emulator to test Device Orientation API on desktop. This functionality will be reimplemented as a part of `/preview` page in future
-* `http://localhost:8000/api` - toolchain API. See [src/api.js](https://github.com/gecko0307/bt/blob/master/src/api.js) for details
-* `http://localhost:8000/sse` - server-side events (SSE) interface. Currently provides only file watcher event system which is used in the following way: `http://localhost:8000/sse?events=watcher`. These events are emitted when `Fonts` or `Images` directories change
-* `http://localhost:8000/file?path=your/path` - retrieves any file relative to the project root (a directory where dev server runs)
 * `http://localhost:8000/build` - serves `build` directory with latest publish-ready banner build, if it exists.
 
 ## Copyright and License
@@ -90,6 +87,7 @@ Development server runs at `http://localhost:8000/` and serves project's `HTML` 
 BT would not be possible without the following amazing software:
 * [Rollup](https://rollupjs.org/)
 * [Babel](https://babeljs.io/)
+* [Autoprefixer](https://github.com/postcss/autoprefixer)
 * [Fastify](https://www.fastify.io/)
 * [Svelte](https://svelte.dev/)
 * [Puppeteer](https://pptr.dev/)
