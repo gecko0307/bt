@@ -1,5 +1,5 @@
-BT 1.0.0. alpha3 - 27 Jun, 2022
--------------------------------
+BT 1.0.0 alpha3 - 27 Jun, 2022
+------------------------------
 - **Builder**
   - Support HTML5 video
   - Stripped-down build (using `strip` spec) to generate only the `body` content, without full HTML, for direct embedding to a page
