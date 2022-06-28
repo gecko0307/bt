@@ -1,6 +1,7 @@
 const fs = require("fs-extra");
 const path = require("path");
 const Zip = require("adm-zip");
+const chalk = require("chalk");
 
 function formatBytes(bytes, decimals = 2) {
     if (bytes === 0) return '0 bytes';
@@ -71,14 +72,14 @@ async function archive(tr, platformId, config, banner, fallbackPath = "") {
 
     const { size } = await fs.stat(zipInternalPath);
     const sizeKb = (size / 1024).toFixed(2);
-    let color = "\x1b[1m\x1b[32m";
-    if (tr.dist.maxSize > 0) {
-        color = (sizeKb >= tr.dist.maxSize)? "\x1b[1m\x1b[31m" : "\x1b[1m\x1b[32m"; // Red if too large, green if ok
+    let color = chalk.greenBright;
+    if (tr.dist.maxSize > 0 && sizeKb >= tr.dist.maxSize) {
+        color = chalk.redBright;
     }
-    const sizeStr = `${color}${formatBytes(size)}\x1b[0m`;
+    const sizeStr = color(`${formatBytes(size)}\x1b[0m`);
     console.log(`Generated ${path.basename(zipInternalPath)} (${sizeStr})`);
     if (tr.dist.maxSize > 0 && sizeKb >= tr.dist.maxSize) {
-        console.log(`\x1b[1m\x1b[31mWarning: archive size exceeds maximum allowed by the specified platform (${tr.dist.maxSize} KB)\x1b[0m`);
+        console.log(chalk.redBright(`Warning: archive size exceeds maximum allowed by the specified platform (${tr.dist.maxSize} KB)`));
     }
 
     if (fallbackPath.length > 0) {

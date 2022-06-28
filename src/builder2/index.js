@@ -9,6 +9,7 @@ const { requirements } = require("./platforms");
 const transform = require("./transform");
 const archive = require("./archive");
 const wcmatch = require("wildcard-match");
+const chalk = require("chalk");
 
 function requireUncached(module) {
     delete require.cache[require.resolve(module)];
@@ -53,7 +54,7 @@ async function build(options = { platform: "publish" }) {
     for (filename of tr.requiredFiles) {
         const requiredFilePath = path.resolve(`./HTML/${filename}`);
         if (!await fs.pathExists(requiredFilePath)) {
-            console.log(`\x1b[1m\x1b[31mError: required file "${filename}" is missing\x1b[0m`);
+            console.log(chalk.redBright(`Error: required file "${filename}" is missing`));
             return;
         }
         else {
@@ -97,13 +98,13 @@ async function build(options = { platform: "publish" }) {
                     const src = script.getAttribute("src");
                     if (src.startsWith("https://") || src.startsWith("http://")) {
                         if (tr.externalLinks === false)
-                            console.log(`\x1b[1m\x1b[31mWarning: external references are not allowed for the specified platform\x1b[0m`);
+                            console.log(chalk.redBright("Warning: external references are not allowed for the specified platform"));
                         else if ("externalLinksDomain" in tr) {
                             const domain = tr.externalLinksDomain;
                             const url = new URL(src);
                             const hostname = url.hostname;
                             if (hostname !== domain)
-                                console.log(`\x1b[1m\x1b[31mWarning: external references are restricted to domain "${domain}" for the specified platform\x1b[0m`);
+                                console.log(chalk.redBright(`Warning: external references are restricted to domain "${domain}" for the specified platform`));
                         }
                     }
                 }
@@ -115,13 +116,13 @@ async function build(options = { platform: "publish" }) {
                     const src = script.getAttribute("href");
                     if (src.startsWith("https://") || src.startsWith("http://")) {
                         if (tr.externalLinks === false)
-                            console.log(`\x1b[1m\x1b[31mWarning: external references are not allowed for the specified platform\x1b[0m`);
+                            console.log(chalk.redBright("Warning: external references are not allowed for the specified platform"));
                         else if ("externalLinksDomain" in tr) {
                             const domain = tr.externalLinksDomain;
                             const url = new URL(src);
                             const hostname = url.hostname;
                             if (hostname !== domain)
-                                console.log(`\x1b[1m\x1b[31mWarning: external references are restricted to domain "${domain}" for the specified platform\x1b[0m`);
+                                console.log(chalk.redBright(`Warning: external references are restricted to domain "${domain}" for the specified platform`));
                         }
                     }
                 }
@@ -189,12 +190,12 @@ async function build(options = { platform: "publish" }) {
     const files = await fs.readdir(outputPath);
 
     if (tr.maxFilesNum > 0 && files.length > tr.maxFilesNum) {
-        console.log(`\x1b[1m\x1b[31mWarning: number of files exceeds maximum allowed by the specified platform (${tr.maxFilesNum})\x1b[0m`);
+        console.log(chalk.redBright(`Warning: number of files exceeds maximum allowed by the specified platform (${tr.maxFilesNum})`));
     }
 
     for (const filename of files) {
         if (!isFileAllowed(filename)) {
-            console.log(`\x1b[1m\x1b[31mWarning: file "${filename}" is not allowed for the specified platform\x1b[0m`);
+            console.log(chalk.redBright(`Warning: file "${filename}" is not allowed for the specified platform`));
         }
     }
 
@@ -226,7 +227,7 @@ async function build(options = { platform: "publish" }) {
     }
 
     if (tr.fallback.required === true && fallbackPath.length === 0) {
-        console.log(`\x1b[1m\x1b[31mWarning: fallback is required for the specified platform\x1b[0m`);
+        console.log(chalk.redBright("Warning: fallback is required for the specified platform"));
     }
 
     if (platformId === "publish") {
