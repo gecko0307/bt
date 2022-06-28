@@ -11,6 +11,12 @@ const archive = require("./archive");
 const wcmatch = require("wildcard-match");
 const chalk = require("chalk");
 
+const log = require("./logger").createLogger({
+    printInfo: true,
+    printWarnings: false,
+    printErrors: true
+});
+
 function requireUncached(module) {
     delete require.cache[require.resolve(module)];
     return require(module);
@@ -42,19 +48,19 @@ async function build(options = { platform: "publish" }) {
     const { tr, platformName } = await requirements(platformId);
     const strip = (platformId === "strip");
 
-    console.log("Platform:", platformName, `(${platformId})`);
-    console.log("Technical requirements:", tr.name, `(${tr.id})`);
-    console.log("Version:", config.version);
+    log.info("Platform:", platformName, `(${platformId})`);
+    log.info("Technical requirements:", tr.name, `(${tr.id})`);
+    log.info("Version:", config.version);
 
     fs.emptyDirSync(buildPath);
 
     const htmlFiles = {};
 
-    console.log("Checking required files...");
+    log.info("Checking required files...");
     for (filename of tr.requiredFiles) {
         const requiredFilePath = path.resolve(`./HTML/${filename}`);
         if (!await fs.pathExists(requiredFilePath)) {
-            console.log(chalk.redBright(`Error: required file "${filename}" is missing`));
+            log.error(`Error: required file "${filename}" is missing`);
             return;
         }
         else {
@@ -75,22 +81,22 @@ async function build(options = { platform: "publish" }) {
     };
 
     for (filename of Object.keys(htmlFiles)) {
-        console.log(`Processing "${filename}"...`);
+        log.info(`Processing "${filename}"...`);
         const html = htmlFiles[filename];
         const dom = new JSDOM(stripComments(html, { language: "html" }));
         const document = dom.window.document;
 
-        console.log("Scripts...");
+        log.info("Scripts...");
         if (!await transform.scripts(filename, document, tr)) return;
 
-        console.log("Styles...");
+        log.info("Styles...");
         if (!await transform.styles(filename, document, tr)) return;
 
-        console.log("Assets...");
+        log.info("Assets...");
         if (!await transform.assets(filename, document, tr)) return;
 
         if (filename === tr.indexFile) {
-            console.log("Check external references...");
+            log.info("Check external references...");
 
             const scripts = Array.prototype.slice.call(document.getElementsByTagName("script"));
             for (const script of scripts) {
@@ -98,13 +104,13 @@ async function build(options = { platform: "publish" }) {
                     const src = script.getAttribute("src");
                     if (src.startsWith("https://") || src.startsWith("http://")) {
                         if (tr.externalLinks === false)
-                            console.log(chalk.redBright("Warning: external references are not allowed for the specified platform"));
+                            log.warn("Warning: external references are not allowed for the specified platform");
                         else if ("externalLinksDomain" in tr) {
                             const domain = tr.externalLinksDomain;
                             const url = new URL(src);
                             const hostname = url.hostname;
                             if (hostname !== domain)
-                                console.log(chalk.redBright(`Warning: external references are restricted to domain "${domain}" for the specified platform`));
+                                log.warn(`Warning: external references are restricted to domain "${domain}" for the specified platform`);
                         }
                     }
                 }
@@ -116,19 +122,19 @@ async function build(options = { platform: "publish" }) {
                     const src = script.getAttribute("href");
                     if (src.startsWith("https://") || src.startsWith("http://")) {
                         if (tr.externalLinks === false)
-                            console.log(chalk.redBright("Warning: external references are not allowed for the specified platform"));
+                            log.warn("Warning: external references are not allowed for the specified platform");
                         else if ("externalLinksDomain" in tr) {
                             const domain = tr.externalLinksDomain;
                             const url = new URL(src);
                             const hostname = url.hostname;
                             if (hostname !== domain)
-                                console.log(chalk.redBright(`Warning: external references are restricted to domain "${domain}" for the specified platform`));
+                                log.warn(`Warning: external references are restricted to domain "${domain}" for the specified platform`);
                         }
                     }
                 }
             }
 
-            console.log("Get banner size...");
+            log.info("Get banner size...");
 
             function waitResourcesLoaded(resolve, reject) {
                 const container = dom.window.document.getElementById("container");
@@ -152,11 +158,11 @@ async function build(options = { platform: "publish" }) {
             banner.height = height.replace(/px/g, "");
             banner.isResponsive = banner.width.endsWith("%") || banner.height.endsWith("%");
 
-            console.log("Prepare...");
+            log.info("Prepare...");
             if (!await transform.prepare(filename, document, tr, { banner, config })) return;
         }
 
-        console.log("Serialize...");
+        log.info("Serialize...");
         let htmlOutput = "";
         if (strip === true) {
             htmlOutput = await transform.strip(filename, document, { banner, config });
@@ -176,7 +182,7 @@ async function build(options = { platform: "publish" }) {
         await fs.outputFile(htmlOutputPath, htmlOutput);
     }
 
-    console.log("Check build files...");
+    log.info("Check build files...");
     const outputPath = path.resolve("./build");
     const matches = tr.allowedFiles.map(wildcard => wcmatch(wildcard));
 
@@ -190,12 +196,12 @@ async function build(options = { platform: "publish" }) {
     const files = await fs.readdir(outputPath);
 
     if (tr.maxFilesNum > 0 && files.length > tr.maxFilesNum) {
-        console.log(chalk.redBright(`Warning: number of files exceeds maximum allowed by the specified platform (${tr.maxFilesNum})`));
+        log.warn(`Warning: number of files exceeds maximum allowed by the specified platform (${tr.maxFilesNum})`);
     }
 
     for (const filename of files) {
         if (!isFileAllowed(filename)) {
-            console.log(chalk.redBright(`Warning: file "${filename}" is not allowed for the specified platform`));
+            log.warn(`Warning: file "${filename}" is not allowed for the specified platform`);
         }
     }
 
@@ -227,7 +233,7 @@ async function build(options = { platform: "publish" }) {
     }
 
     if (tr.fallback.required === true && fallbackPath.length === 0) {
-        console.log(chalk.redBright("Warning: fallback is required for the specified platform"));
+        log.warn("Warning: fallback is required for the specified platform");
     }
 
     if (platformId === "publish") {
@@ -238,9 +244,18 @@ async function build(options = { platform: "publish" }) {
         }
     }
     
-    console.log("Archive...");
+    log.info("Archive...");
     // TODO: respect tr.dist.format
-    await archive(tr, platformId, config, banner, fallbackPath);
+    await archive(log, tr, platformId, config, banner, fallbackPath);
+
+    // Build report
+    if (log.warningMessages.length > 0) {
+        console.log(chalk.redBright("Banner was built with warnings:"));
+        log.printWarningMessages();
+    }
+    else {
+        console.log(chalk.greenBright("Everything is OK!"));
+    }
 }
 
 module.exports = build;

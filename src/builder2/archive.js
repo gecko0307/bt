@@ -12,7 +12,7 @@ function formatBytes(bytes, decimals = 2) {
     return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
 }
 
-async function archive(tr, platformId, config, banner, fallbackPath = "") {
+async function archive(log, tr, platformId, config, banner, fallbackPath = "") {
     const w = banner.width.replace(/%/g, "P");
     const h = banner.height.replace(/%/g, "P");
     let bannerSize = "";
@@ -77,17 +77,17 @@ async function archive(tr, platformId, config, banner, fallbackPath = "") {
         color = chalk.redBright;
     }
     const sizeStr = color(`${formatBytes(size)}\x1b[0m`);
-    console.log(`Generated ${path.basename(zipInternalPath)} (${sizeStr})`);
+    log.info(`Generated ${path.basename(zipInternalPath)} (${sizeStr})`);
     if (tr.dist.maxSize > 0 && sizeKb >= tr.dist.maxSize) {
-        console.log(chalk.redBright(`Warning: archive size exceeds maximum allowed by the specified platform (${tr.dist.maxSize} KB)`));
+        log.warn(`Warning: archive size exceeds maximum allowed by the specified platform (${tr.dist.maxSize} KB)`);
     }
 
     if (fallbackPath.length > 0) {
         // TODO: check fallback size
         const { size } = await fs.stat(fallbackPath);
         const fallbackSizeStr = formatBytes(size);
-        console.log(`Fallback ${path.basename(fallbackPath)} (${fallbackSizeStr})`);
-        console.log(`Generated ${path.basename(zipPath)}`);
+        log.info(`Fallback ${path.basename(fallbackPath)} (${fallbackSizeStr})`);
+        log.info(`Generated ${path.basename(zipPath)}`);
     }
 
     return zipPath;
