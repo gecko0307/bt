@@ -26,7 +26,7 @@ class KeyframesRule {
         output += `@keyframes ${this.name} {\r\n`;
 
         for (const percent of Object.keys(this.keyframes)) {
-            output += `    ${percent}% { `;
+            output += `	${percent}% { `;
             const keyframe = this.keyframes[percent];
             for (const p of keyframe) {
                 const props = Object.keys(p);
