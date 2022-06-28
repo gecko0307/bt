@@ -123,7 +123,7 @@ async function prepare(filename, document, tr, options) {
         }
     }
 
-    if (options.config.version !== undefined && options.config.version !== "v1") {
+    if (options.config.version !== undefined) {
         body.setAttribute("data-version", options.config.version);
     }
 
