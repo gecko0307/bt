@@ -52,14 +52,24 @@ var app = (function () {
     function space() {
         return text(' ');
     }
+    function listen(node, event, handler, options) {
+        node.addEventListener(event, handler, options);
+        return () => node.removeEventListener(event, handler, options);
+    }
     function attr(node, attribute, value) {
         if (value == null)
             node.removeAttribute(attribute);
         else if (node.getAttribute(attribute) !== value)
             node.setAttribute(attribute, value);
     }
+    function to_number(value) {
+        return value === '' ? null : +value;
+    }
     function children(element) {
         return Array.from(element.childNodes);
+    }
+    function set_input_value(input, value) {
+        input.value = value == null ? '' : value;
     }
     function custom_event(type, detail, bubbles = false) {
         const e = document.createEvent('CustomEvent');
@@ -315,6 +325,19 @@ var app = (function () {
         dispatch_dev('SvelteDOMRemove', { node });
         detach(node);
     }
+    function listen_dev(node, event, handler, options, has_prevent_default, has_stop_propagation) {
+        const modifiers = options === true ? ['capture'] : options ? Array.from(Object.keys(options)) : [];
+        if (has_prevent_default)
+            modifiers.push('preventDefault');
+        if (has_stop_propagation)
+            modifiers.push('stopPropagation');
+        dispatch_dev('SvelteDOMAddEventListener', { node, event, handler, modifiers });
+        const dispose = listen(node, event, handler, options);
+        return () => {
+            dispatch_dev('SvelteDOMRemoveEventListener', { node, event, handler, modifiers });
+            dispose();
+        };
+    }
     function attr_dev(node, attribute, value) {
         attr(node, attribute, value);
         if (value == null)
@@ -366,61 +389,197 @@ var app = (function () {
 
     function create_fragment(ctx) {
     	let main;
-    	let div3;
+    	let div9;
+    	let div7;
     	let div1;
     	let div0;
     	let iframe;
     	let iframe_src_value;
-    	let t;
+    	let t0;
+    	let div6;
+    	let div5;
     	let div2;
+    	let p0;
+    	let t2;
+    	let input0;
+    	let t3;
+    	let input1;
+    	let t4;
+    	let div3;
+    	let p1;
+    	let t6;
+    	let input2;
+    	let t7;
+    	let div4;
+    	let p2;
+    	let t9;
+    	let input3;
+    	let t10;
+    	let div8;
+    	let mounted;
+    	let dispose;
 
     	const block = {
     		c: function create() {
     			main = element("main");
-    			div3 = element("div");
+    			div9 = element("div");
+    			div7 = element("div");
     			div1 = element("div");
     			div0 = element("div");
     			iframe = element("iframe");
-    			t = space();
+    			t0 = space();
+    			div6 = element("div");
+    			div5 = element("div");
     			div2 = element("div");
+    			p0 = element("p");
+    			p0.textContent = "Banner URL:";
+    			t2 = space();
+    			input0 = element("input");
+    			t3 = space();
+    			input1 = element("input");
+    			t4 = space();
+    			div3 = element("div");
+    			p1 = element("p");
+    			p1.textContent = "Width:";
+    			t6 = space();
+    			input2 = element("input");
+    			t7 = space();
+    			div4 = element("div");
+    			p2 = element("p");
+    			p2.textContent = "Height:";
+    			t9 = space();
+    			input3 = element("input");
+    			t10 = space();
+    			div8 = element("div");
     			attr_dev(iframe, "title", "banner");
     			attr_dev(iframe, "id", "banner");
-    			if (!src_url_equal(iframe.src, iframe_src_value = "/index.html")) attr_dev(iframe, "src", iframe_src_value);
+    			if (!src_url_equal(iframe.src, iframe_src_value = /*bannerFrameSrc*/ ctx[2])) attr_dev(iframe, "src", iframe_src_value);
     			attr_dev(iframe, "frameborder", "0");
     			attr_dev(iframe, "scrolling", "no");
-    			attr_dev(iframe, "class", "svelte-1ssovm4");
-    			add_location(iframe, file, 32, 4, 695);
+    			attr_dev(iframe, "class", "svelte-yq5vj0");
+    			add_location(iframe, file, 62, 5, 1554);
     			attr_dev(div0, "id", "banner_container");
-    			attr_dev(div0, "class", "svelte-1ssovm4");
-    			add_location(div0, file, 31, 3, 662);
-    			attr_dev(div1, "id", "resizable_area");
-    			attr_dev(div1, "class", "svelte-1ssovm4");
-    			add_location(div1, file, 30, 2, 632);
-    			attr_dev(div2, "id", "control");
-    			add_location(div2, file, 35, 2, 813);
-    			attr_dev(div3, "id", "ui");
-    			attr_dev(div3, "class", "svelte-1ssovm4");
-    			add_location(div3, file, 28, 1, 584);
-    			attr_dev(main, "class", "svelte-1ssovm4");
-    			add_location(main, file, 27, 0, 575);
+    			attr_dev(div0, "class", "svelte-yq5vj0");
+    			add_location(div0, file, 61, 4, 1492);
+    			attr_dev(div1, "id", "resize_area");
+    			attr_dev(div1, "class", "svelte-yq5vj0");
+    			add_location(div1, file, 60, 3, 1464);
+    			add_location(p0, file, 68, 6, 1758);
+    			attr_dev(input0, "type", "text");
+    			attr_dev(input0, "size", "45");
+    			add_location(input0, file, 69, 6, 1784);
+    			attr_dev(input1, "type", "button");
+    			input1.value = "↻";
+    			attr_dev(input1, "class", "svelte-yq5vj0");
+    			add_location(input1, file, 70, 6, 1878);
+    			attr_dev(div2, "class", "widget");
+    			add_location(div2, file, 67, 5, 1730);
+    			add_location(p1, file, 73, 6, 2004);
+    			attr_dev(input2, "type", "number");
+    			attr_dev(input2, "size", "45");
+    			attr_dev(input2, "min", "0");
+    			attr_dev(input2, "class", "svelte-yq5vj0");
+    			add_location(input2, file, 74, 6, 2025);
+    			attr_dev(div3, "class", "widget");
+    			add_location(div3, file, 72, 5, 1976);
+    			add_location(p2, file, 77, 6, 2167);
+    			attr_dev(input3, "type", "number");
+    			attr_dev(input3, "size", "45");
+    			attr_dev(input3, "min", "0");
+    			attr_dev(input3, "class", "svelte-yq5vj0");
+    			add_location(input3, file, 78, 6, 2189);
+    			attr_dev(div4, "class", "widget");
+    			add_location(div4, file, 76, 5, 2139);
+    			attr_dev(div5, "class", "row");
+    			add_location(div5, file, 66, 4, 1706);
+    			attr_dev(div6, "id", "size_info");
+    			attr_dev(div6, "class", "svelte-yq5vj0");
+    			add_location(div6, file, 65, 3, 1680);
+    			attr_dev(div7, "id", "preview");
+    			attr_dev(div7, "class", "svelte-yq5vj0");
+    			add_location(div7, file, 59, 2, 1441);
+    			attr_dev(div8, "id", "control");
+    			add_location(div8, file, 83, 2, 2334);
+    			attr_dev(div9, "id", "ui");
+    			attr_dev(div9, "class", "svelte-yq5vj0");
+    			add_location(div9, file, 58, 1, 1424);
+    			attr_dev(main, "class", "svelte-yq5vj0");
+    			add_location(main, file, 57, 0, 1415);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, main, anchor);
-    			append_dev(main, div3);
-    			append_dev(div3, div1);
+    			append_dev(main, div9);
+    			append_dev(div9, div7);
+    			append_dev(div7, div1);
     			append_dev(div1, div0);
     			append_dev(div0, iframe);
-    			append_dev(div3, t);
-    			append_dev(div3, div2);
+    			/*div0_binding*/ ctx[7](div0);
+    			append_dev(div7, t0);
+    			append_dev(div7, div6);
+    			append_dev(div6, div5);
+    			append_dev(div5, div2);
+    			append_dev(div2, p0);
+    			append_dev(div2, t2);
+    			append_dev(div2, input0);
+    			set_input_value(input0, /*bannerURL*/ ctx[1]);
+    			append_dev(div2, t3);
+    			append_dev(div2, input1);
+    			append_dev(div5, t4);
+    			append_dev(div5, div3);
+    			append_dev(div3, p1);
+    			append_dev(div3, t6);
+    			append_dev(div3, input2);
+    			set_input_value(input2, /*bannerWidthProp*/ ctx[3]);
+    			append_dev(div5, t7);
+    			append_dev(div5, div4);
+    			append_dev(div4, p2);
+    			append_dev(div4, t9);
+    			append_dev(div4, input3);
+    			set_input_value(input3, /*bannerHeightProp*/ ctx[4]);
+    			append_dev(div9, t10);
+    			append_dev(div9, div8);
+
+    			if (!mounted) {
+    				dispose = [
+    					listen_dev(input0, "input", /*input0_input_handler*/ ctx[8]),
+    					listen_dev(input0, "keypress", /*bannerSrcKeyPress*/ ctx[6], false, false, false),
+    					listen_dev(input1, "click", /*click_handler*/ ctx[9], false, false, false),
+    					listen_dev(input2, "input", /*input2_input_handler*/ ctx[10]),
+    					listen_dev(input2, "input", /*bannerSizeChange*/ ctx[5], false, false, false),
+    					listen_dev(input3, "input", /*input3_input_handler*/ ctx[11]),
+    					listen_dev(input3, "input", /*bannerSizeChange*/ ctx[5], false, false, false)
+    				];
+
+    				mounted = true;
+    			}
     		},
-    		p: noop,
+    		p: function update(ctx, [dirty]) {
+    			if (dirty & /*bannerFrameSrc*/ 4 && !src_url_equal(iframe.src, iframe_src_value = /*bannerFrameSrc*/ ctx[2])) {
+    				attr_dev(iframe, "src", iframe_src_value);
+    			}
+
+    			if (dirty & /*bannerURL*/ 2 && input0.value !== /*bannerURL*/ ctx[1]) {
+    				set_input_value(input0, /*bannerURL*/ ctx[1]);
+    			}
+
+    			if (dirty & /*bannerWidthProp*/ 8 && to_number(input2.value) !== /*bannerWidthProp*/ ctx[3]) {
+    				set_input_value(input2, /*bannerWidthProp*/ ctx[3]);
+    			}
+
+    			if (dirty & /*bannerHeightProp*/ 16 && to_number(input3.value) !== /*bannerHeightProp*/ ctx[4]) {
+    				set_input_value(input3, /*bannerHeightProp*/ ctx[4]);
+    			}
+    		},
     		i: noop,
     		o: noop,
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(main);
+    			/*div0_binding*/ ctx[7](null);
+    			mounted = false;
+    			run_all(dispose);
     		}
     	};
 
@@ -448,6 +607,14 @@ var app = (function () {
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('App', slots, []);
     	let sse;
+    	let bannerContainer;
+    	let bannerURL = "/index.html";
+    	let bannerFrameSrc = bannerURL;
+    	let bannerWidth = 240;
+    	let bannerHeight = 400;
+    	let bannerWidthProp = bannerWidth;
+    	let bannerHeightProp = bannerHeight;
+    	let observer;
 
     	onMount(async () => {
     		sse = new EventSource("/sse?events=watcher");
@@ -459,7 +626,29 @@ var app = (function () {
     		sse.onerror = function (error) {
     			console.error("EventSource failed: ", error);
     		};
+
+    		observer = new ResizeObserver(mutations => {
+    				bannerWidth = mutations[0].contentRect.width;
+    				bannerHeight = mutations[0].contentRect.height;
+    				$$invalidate(3, bannerWidthProp = bannerWidth);
+    				$$invalidate(4, bannerHeightProp = bannerHeight);
+    			});
+
+    		observer.observe(bannerContainer);
     	});
+
+    	function bannerSizeChange(event) {
+    		observer.disconnect();
+    		$$invalidate(0, bannerContainer.style.width = bannerWidthProp + "px", bannerContainer);
+    		$$invalidate(0, bannerContainer.style.height = bannerHeightProp + "px", bannerContainer);
+    		observer.observe(bannerContainer);
+    	}
+
+    	function bannerSrcKeyPress(event) {
+    		if (event.charCode === 13) {
+    			$$invalidate(2, bannerFrameSrc = bannerURL);
+    		}
+    	}
 
     	const writable_props = [];
 
@@ -467,17 +656,77 @@ var app = (function () {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console_1.warn(`<App> was created with unknown prop '${key}'`);
     	});
 
-    	$$self.$capture_state = () => ({ onMount, fade, sse, apiRequest });
+    	function div0_binding($$value) {
+    		binding_callbacks[$$value ? 'unshift' : 'push'](() => {
+    			bannerContainer = $$value;
+    			$$invalidate(0, bannerContainer);
+    		});
+    	}
+
+    	function input0_input_handler() {
+    		bannerURL = this.value;
+    		$$invalidate(1, bannerURL);
+    	}
+
+    	const click_handler = () => $$invalidate(2, bannerFrameSrc = bannerURL);
+
+    	function input2_input_handler() {
+    		bannerWidthProp = to_number(this.value);
+    		$$invalidate(3, bannerWidthProp);
+    	}
+
+    	function input3_input_handler() {
+    		bannerHeightProp = to_number(this.value);
+    		$$invalidate(4, bannerHeightProp);
+    	}
+
+    	$$self.$capture_state = () => ({
+    		onMount,
+    		fade,
+    		sse,
+    		bannerContainer,
+    		bannerURL,
+    		bannerFrameSrc,
+    		bannerWidth,
+    		bannerHeight,
+    		bannerWidthProp,
+    		bannerHeightProp,
+    		observer,
+    		apiRequest,
+    		bannerSizeChange,
+    		bannerSrcKeyPress
+    	});
 
     	$$self.$inject_state = $$props => {
     		if ('sse' in $$props) sse = $$props.sse;
+    		if ('bannerContainer' in $$props) $$invalidate(0, bannerContainer = $$props.bannerContainer);
+    		if ('bannerURL' in $$props) $$invalidate(1, bannerURL = $$props.bannerURL);
+    		if ('bannerFrameSrc' in $$props) $$invalidate(2, bannerFrameSrc = $$props.bannerFrameSrc);
+    		if ('bannerWidth' in $$props) bannerWidth = $$props.bannerWidth;
+    		if ('bannerHeight' in $$props) bannerHeight = $$props.bannerHeight;
+    		if ('bannerWidthProp' in $$props) $$invalidate(3, bannerWidthProp = $$props.bannerWidthProp);
+    		if ('bannerHeightProp' in $$props) $$invalidate(4, bannerHeightProp = $$props.bannerHeightProp);
+    		if ('observer' in $$props) observer = $$props.observer;
     	};
 
     	if ($$props && "$$inject" in $$props) {
     		$$self.$inject_state($$props.$$inject);
     	}
 
-    	return [];
+    	return [
+    		bannerContainer,
+    		bannerURL,
+    		bannerFrameSrc,
+    		bannerWidthProp,
+    		bannerHeightProp,
+    		bannerSizeChange,
+    		bannerSrcKeyPress,
+    		div0_binding,
+    		input0_input_handler,
+    		click_handler,
+    		input2_input_handler,
+    		input3_input_handler
+    	];
     }
 
     class App extends SvelteComponentDev {
