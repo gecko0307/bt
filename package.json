@@ -82,6 +82,7 @@
     },
     "scripts": {
         "frontend:fonts": "rollup --watch --config static/fonts/rollup.config.js",
-        "frontend:images": "rollup --watch --config static/images/rollup.config.js"
+        "frontend:images": "rollup --watch --config static/images/rollup.config.js",
+        "frontend:preview": "rollup --watch --config static/preview2/rollup.config.js"
     }
 }

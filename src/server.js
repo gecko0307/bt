@@ -91,6 +91,13 @@ function init() {
         redirect: true,
         decorateReply: false
     });
+    
+    fastify.register(fastifyStatic, {
+        root: path.join(__dirname, "..", "static", "preview2", "public"),
+        prefix: "/preview2",
+        redirect: true,
+        decorateReply: false
+    });
 
     fastify.register(fastifyStatic, {
         root: path.join(__dirname, "..", "static", "fonts", "public"),
