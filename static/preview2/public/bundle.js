@@ -23,6 +23,14 @@ var app = (function () {
     function safe_not_equal(a, b) {
         return a != a ? b == b : a !== b || ((a && typeof a === 'object') || typeof a === 'function');
     }
+    let src_url_equal_anchor;
+    function src_url_equal(element_src, url) {
+        if (!src_url_equal_anchor) {
+            src_url_equal_anchor = document.createElement('a');
+        }
+        src_url_equal_anchor.href = url;
+        return element_src === src_url_equal_anchor.href;
+    }
     function is_empty(obj) {
         return Object.keys(obj).length === 0;
     }
@@ -37,6 +45,12 @@ var app = (function () {
     }
     function element(name) {
         return document.createElement(name);
+    }
+    function text(data) {
+        return document.createTextNode(data);
+    }
+    function space() {
+        return text(' ');
     }
     function attr(node, attribute, value) {
         if (value == null)
@@ -352,20 +366,42 @@ var app = (function () {
 
     function create_fragment(ctx) {
     	let main;
+    	let div3;
     	let div1;
     	let div0;
+    	let iframe;
+    	let iframe_src_value;
+    	let t;
+    	let div2;
 
     	const block = {
     		c: function create() {
     			main = element("main");
+    			div3 = element("div");
     			div1 = element("div");
     			div0 = element("div");
-    			attr_dev(div0, "id", "preview");
-    			add_location(div0, file, 29, 2, 601);
-    			attr_dev(div1, "id", "ui");
-    			attr_dev(div1, "class", "svelte-sf97gq");
-    			add_location(div1, file, 28, 1, 584);
-    			attr_dev(main, "class", "svelte-sf97gq");
+    			iframe = element("iframe");
+    			t = space();
+    			div2 = element("div");
+    			attr_dev(iframe, "title", "banner");
+    			attr_dev(iframe, "id", "banner");
+    			if (!src_url_equal(iframe.src, iframe_src_value = "/index.html")) attr_dev(iframe, "src", iframe_src_value);
+    			attr_dev(iframe, "frameborder", "0");
+    			attr_dev(iframe, "scrolling", "no");
+    			attr_dev(iframe, "class", "svelte-1ssovm4");
+    			add_location(iframe, file, 32, 4, 695);
+    			attr_dev(div0, "id", "banner_container");
+    			attr_dev(div0, "class", "svelte-1ssovm4");
+    			add_location(div0, file, 31, 3, 662);
+    			attr_dev(div1, "id", "resizable_area");
+    			attr_dev(div1, "class", "svelte-1ssovm4");
+    			add_location(div1, file, 30, 2, 632);
+    			attr_dev(div2, "id", "control");
+    			add_location(div2, file, 35, 2, 813);
+    			attr_dev(div3, "id", "ui");
+    			attr_dev(div3, "class", "svelte-1ssovm4");
+    			add_location(div3, file, 28, 1, 584);
+    			attr_dev(main, "class", "svelte-1ssovm4");
     			add_location(main, file, 27, 0, 575);
     		},
     		l: function claim(nodes) {
@@ -373,8 +409,12 @@ var app = (function () {
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, main, anchor);
-    			append_dev(main, div1);
+    			append_dev(main, div3);
+    			append_dev(div3, div1);
     			append_dev(div1, div0);
+    			append_dev(div0, iframe);
+    			append_dev(div3, t);
+    			append_dev(div3, div2);
     		},
     		p: noop,
     		i: noop,
