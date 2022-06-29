@@ -294,7 +294,7 @@
 
 	.tabs .tab.active {
 		background-color: #ffffff;
-		border-top: 2px solid blue;
+		border-top: 2px solid #379683;
 	}
 
 	.tabs .tab:hover {
