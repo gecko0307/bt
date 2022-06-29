@@ -71,6 +71,28 @@ var app = (function () {
     function set_input_value(input, value) {
         input.value = value == null ? '' : value;
     }
+    function set_style(node, key, value, important) {
+        if (value === null) {
+            node.style.removeProperty(key);
+        }
+        else {
+            node.style.setProperty(key, value, important ? 'important' : '');
+        }
+    }
+    function select_option(select, value) {
+        for (let i = 0; i < select.options.length; i += 1) {
+            const option = select.options[i];
+            if (option.__value === value) {
+                option.selected = true;
+                return;
+            }
+        }
+        select.selectedIndex = -1; // no option should be selected
+    }
+    function select_value(select) {
+        const selected_option = select.querySelector(':checked') || select.options[0];
+        return selected_option && selected_option.__value;
+    }
     function custom_event(type, detail, bubbles = false) {
         const e = document.createEvent('CustomEvent');
         e.initCustomEvent(type, bubbles, false, detail);
@@ -389,15 +411,15 @@ var app = (function () {
 
     function create_fragment(ctx) {
     	let main;
-    	let div9;
-    	let div7;
+    	let div10;
+    	let div8;
     	let div1;
     	let div0;
     	let iframe;
     	let iframe_src_value;
     	let t0;
+    	let div7;
     	let div6;
-    	let div5;
     	let div2;
     	let p0;
     	let t2;
@@ -415,24 +437,33 @@ var app = (function () {
     	let t9;
     	let input3;
     	let t10;
-    	let div8;
+    	let div5;
+    	let p3;
+    	let t12;
+    	let select;
+    	let option0;
+    	let option1;
+    	let option2;
+    	let option3;
+    	let t17;
+    	let div9;
     	let mounted;
     	let dispose;
 
     	const block = {
     		c: function create() {
     			main = element("main");
-    			div9 = element("div");
-    			div7 = element("div");
+    			div10 = element("div");
+    			div8 = element("div");
     			div1 = element("div");
     			div0 = element("div");
     			iframe = element("iframe");
     			t0 = space();
+    			div7 = element("div");
     			div6 = element("div");
-    			div5 = element("div");
     			div2 = element("div");
     			p0 = element("p");
-    			p0.textContent = "Banner URL:";
+    			p0.textContent = "Banner URL";
     			t2 = space();
     			input0 = element("input");
     			t3 = space();
@@ -440,117 +471,163 @@ var app = (function () {
     			t4 = space();
     			div3 = element("div");
     			p1 = element("p");
-    			p1.textContent = "Width:";
+    			p1.textContent = "Width";
     			t6 = space();
     			input2 = element("input");
     			t7 = space();
     			div4 = element("div");
     			p2 = element("p");
-    			p2.textContent = "Height:";
+    			p2.textContent = "Height";
     			t9 = space();
     			input3 = element("input");
     			t10 = space();
-    			div8 = element("div");
+    			div5 = element("div");
+    			p3 = element("p");
+    			p3.textContent = "Device";
+    			t12 = space();
+    			select = element("select");
+    			option0 = element("option");
+    			option0.textContent = "iPhone SE";
+    			option1 = element("option");
+    			option1.textContent = "iPhone XR";
+    			option2 = element("option");
+    			option2.textContent = "iPhone 12 Pro";
+    			option3 = element("option");
+    			option3.textContent = "Default";
+    			t17 = space();
+    			div9 = element("div");
     			attr_dev(iframe, "title", "banner");
     			attr_dev(iframe, "id", "banner");
     			if (!src_url_equal(iframe.src, iframe_src_value = /*bannerFrameSrc*/ ctx[2])) attr_dev(iframe, "src", iframe_src_value);
     			attr_dev(iframe, "frameborder", "0");
     			attr_dev(iframe, "scrolling", "no");
-    			attr_dev(iframe, "class", "svelte-yq5vj0");
-    			add_location(iframe, file, 62, 5, 1554);
+    			attr_dev(iframe, "class", "svelte-1hzgqqw");
+    			add_location(iframe, file, 83, 5, 2118);
     			attr_dev(div0, "id", "banner_container");
-    			attr_dev(div0, "class", "svelte-yq5vj0");
-    			add_location(div0, file, 61, 4, 1492);
+    			attr_dev(div0, "class", "svelte-1hzgqqw");
+    			add_location(div0, file, 82, 4, 2056);
     			attr_dev(div1, "id", "resize_area");
-    			attr_dev(div1, "class", "svelte-yq5vj0");
-    			add_location(div1, file, 60, 3, 1464);
-    			add_location(p0, file, 68, 6, 1758);
+    			attr_dev(div1, "class", "svelte-1hzgqqw");
+    			add_location(div1, file, 81, 3, 2028);
+    			add_location(p0, file, 89, 6, 2322);
     			attr_dev(input0, "type", "text");
     			attr_dev(input0, "size", "45");
-    			add_location(input0, file, 69, 6, 1784);
+    			set_style(input0, "width", "200px");
+    			add_location(input0, file, 90, 6, 2347);
     			attr_dev(input1, "type", "button");
     			input1.value = "↻";
-    			attr_dev(input1, "class", "svelte-yq5vj0");
-    			add_location(input1, file, 70, 6, 1878);
+    			attr_dev(input1, "class", "svelte-1hzgqqw");
+    			add_location(input1, file, 91, 6, 2461);
     			attr_dev(div2, "class", "widget");
-    			add_location(div2, file, 67, 5, 1730);
-    			add_location(p1, file, 73, 6, 2004);
+    			add_location(div2, file, 88, 5, 2294);
+    			add_location(p1, file, 94, 6, 2587);
     			attr_dev(input2, "type", "number");
     			attr_dev(input2, "size", "45");
     			attr_dev(input2, "min", "0");
-    			attr_dev(input2, "class", "svelte-yq5vj0");
-    			add_location(input2, file, 74, 6, 2025);
+    			attr_dev(input2, "class", "svelte-1hzgqqw");
+    			add_location(input2, file, 95, 6, 2607);
     			attr_dev(div3, "class", "widget");
-    			add_location(div3, file, 72, 5, 1976);
-    			add_location(p2, file, 77, 6, 2167);
+    			add_location(div3, file, 93, 5, 2559);
+    			add_location(p2, file, 98, 6, 2749);
     			attr_dev(input3, "type", "number");
     			attr_dev(input3, "size", "45");
     			attr_dev(input3, "min", "0");
-    			attr_dev(input3, "class", "svelte-yq5vj0");
-    			add_location(input3, file, 78, 6, 2189);
+    			attr_dev(input3, "class", "svelte-1hzgqqw");
+    			add_location(input3, file, 99, 6, 2770);
     			attr_dev(div4, "class", "widget");
-    			add_location(div4, file, 76, 5, 2139);
-    			attr_dev(div5, "class", "row");
-    			add_location(div5, file, 66, 4, 1706);
-    			attr_dev(div6, "id", "size_info");
-    			attr_dev(div6, "class", "svelte-yq5vj0");
-    			add_location(div6, file, 65, 3, 1680);
-    			attr_dev(div7, "id", "preview");
-    			attr_dev(div7, "class", "svelte-yq5vj0");
-    			add_location(div7, file, 59, 2, 1441);
-    			attr_dev(div8, "id", "control");
-    			add_location(div8, file, 83, 2, 2334);
-    			attr_dev(div9, "id", "ui");
-    			attr_dev(div9, "class", "svelte-yq5vj0");
-    			add_location(div9, file, 58, 1, 1424);
-    			attr_dev(main, "class", "svelte-yq5vj0");
-    			add_location(main, file, 57, 0, 1415);
+    			add_location(div4, file, 97, 5, 2721);
+    			add_location(p3, file, 102, 6, 2913);
+    			option0.__value = "iphone_se";
+    			option0.value = option0.__value;
+    			add_location(option0, file, 104, 7, 3008);
+    			option1.__value = "iphone_xr";
+    			option1.value = option1.__value;
+    			add_location(option1, file, 105, 7, 3061);
+    			option2.__value = "iphone_12_pro";
+    			option2.value = option2.__value;
+    			add_location(option2, file, 106, 7, 3114);
+    			option3.__value = "default";
+    			option3.value = option3.__value;
+    			option3.selected = true;
+    			add_location(option3, file, 107, 7, 3175);
+    			attr_dev(select, "class", "svelte-1hzgqqw");
+    			if (/*bannerDevice*/ ctx[5] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[14].call(select));
+    			add_location(select, file, 103, 6, 2934);
+    			attr_dev(div5, "class", "widget");
+    			add_location(div5, file, 101, 5, 2885);
+    			attr_dev(div6, "class", "row");
+    			add_location(div6, file, 87, 4, 2270);
+    			attr_dev(div7, "id", "size_info");
+    			attr_dev(div7, "class", "svelte-1hzgqqw");
+    			add_location(div7, file, 86, 3, 2244);
+    			attr_dev(div8, "id", "preview");
+    			attr_dev(div8, "class", "svelte-1hzgqqw");
+    			add_location(div8, file, 80, 2, 2005);
+    			attr_dev(div9, "id", "control");
+    			add_location(div9, file, 113, 2, 3291);
+    			attr_dev(div10, "id", "ui");
+    			attr_dev(div10, "class", "svelte-1hzgqqw");
+    			add_location(div10, file, 79, 1, 1988);
+    			attr_dev(main, "class", "svelte-1hzgqqw");
+    			add_location(main, file, 78, 0, 1979);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, main, anchor);
-    			append_dev(main, div9);
-    			append_dev(div9, div7);
-    			append_dev(div7, div1);
+    			append_dev(main, div10);
+    			append_dev(div10, div8);
+    			append_dev(div8, div1);
     			append_dev(div1, div0);
     			append_dev(div0, iframe);
-    			/*div0_binding*/ ctx[7](div0);
-    			append_dev(div7, t0);
+    			/*div0_binding*/ ctx[9](div0);
+    			append_dev(div8, t0);
+    			append_dev(div8, div7);
     			append_dev(div7, div6);
-    			append_dev(div6, div5);
-    			append_dev(div5, div2);
+    			append_dev(div6, div2);
     			append_dev(div2, p0);
     			append_dev(div2, t2);
     			append_dev(div2, input0);
     			set_input_value(input0, /*bannerURL*/ ctx[1]);
     			append_dev(div2, t3);
     			append_dev(div2, input1);
-    			append_dev(div5, t4);
-    			append_dev(div5, div3);
+    			append_dev(div6, t4);
+    			append_dev(div6, div3);
     			append_dev(div3, p1);
     			append_dev(div3, t6);
     			append_dev(div3, input2);
     			set_input_value(input2, /*bannerWidthProp*/ ctx[3]);
-    			append_dev(div5, t7);
-    			append_dev(div5, div4);
+    			append_dev(div6, t7);
+    			append_dev(div6, div4);
     			append_dev(div4, p2);
     			append_dev(div4, t9);
     			append_dev(div4, input3);
     			set_input_value(input3, /*bannerHeightProp*/ ctx[4]);
-    			append_dev(div9, t10);
-    			append_dev(div9, div8);
+    			append_dev(div6, t10);
+    			append_dev(div6, div5);
+    			append_dev(div5, p3);
+    			append_dev(div5, t12);
+    			append_dev(div5, select);
+    			append_dev(select, option0);
+    			append_dev(select, option1);
+    			append_dev(select, option2);
+    			append_dev(select, option3);
+    			select_option(select, /*bannerDevice*/ ctx[5]);
+    			append_dev(div10, t17);
+    			append_dev(div10, div9);
 
     			if (!mounted) {
     				dispose = [
-    					listen_dev(input0, "input", /*input0_input_handler*/ ctx[8]),
-    					listen_dev(input0, "keypress", /*bannerSrcKeyPress*/ ctx[6], false, false, false),
-    					listen_dev(input1, "click", /*click_handler*/ ctx[9], false, false, false),
-    					listen_dev(input2, "input", /*input2_input_handler*/ ctx[10]),
-    					listen_dev(input2, "input", /*bannerSizeChange*/ ctx[5], false, false, false),
-    					listen_dev(input3, "input", /*input3_input_handler*/ ctx[11]),
-    					listen_dev(input3, "input", /*bannerSizeChange*/ ctx[5], false, false, false)
+    					listen_dev(input0, "input", /*input0_input_handler*/ ctx[10]),
+    					listen_dev(input0, "keypress", /*bannerSrcKeyPress*/ ctx[7], false, false, false),
+    					listen_dev(input1, "click", /*click_handler*/ ctx[11], false, false, false),
+    					listen_dev(input2, "input", /*input2_input_handler*/ ctx[12]),
+    					listen_dev(input2, "input", /*bannerSizeChange*/ ctx[6], false, false, false),
+    					listen_dev(input3, "input", /*input3_input_handler*/ ctx[13]),
+    					listen_dev(input3, "input", /*bannerSizeChange*/ ctx[6], false, false, false),
+    					listen_dev(select, "change", /*select_change_handler*/ ctx[14]),
+    					listen_dev(select, "change", /*bannerDeviceChange*/ ctx[8], false, false, false)
     				];
 
     				mounted = true;
@@ -572,12 +649,16 @@ var app = (function () {
     			if (dirty & /*bannerHeightProp*/ 16 && to_number(input3.value) !== /*bannerHeightProp*/ ctx[4]) {
     				set_input_value(input3, /*bannerHeightProp*/ ctx[4]);
     			}
+
+    			if (dirty & /*bannerDevice*/ 32) {
+    				select_option(select, /*bannerDevice*/ ctx[5]);
+    			}
     		},
     		i: noop,
     		o: noop,
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(main);
-    			/*div0_binding*/ ctx[7](null);
+    			/*div0_binding*/ ctx[9](null);
     			mounted = false;
     			run_all(dispose);
     		}
@@ -607,6 +688,13 @@ var app = (function () {
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('App', slots, []);
     	let sse;
+
+    	const screens = {
+    		iphone_se: { width: 375, height: 667 },
+    		iphone_xr: { width: 414, height: 896 },
+    		iphone_12_pro: { width: 390, height: 844 }
+    	};
+
     	let bannerContainer;
     	let bannerURL = "/index.html";
     	let bannerFrameSrc = bannerURL;
@@ -614,6 +702,7 @@ var app = (function () {
     	let bannerHeight = 400;
     	let bannerWidthProp = bannerWidth;
     	let bannerHeightProp = bannerHeight;
+    	let bannerDevice = "default";
     	let observer;
 
     	onMount(async () => {
@@ -650,6 +739,18 @@ var app = (function () {
     		}
     	}
 
+    	function bannerDeviceChange() {
+    		console.log(bannerDevice);
+
+    		if (bannerDevice === "default") ; else {
+    			const screen = screens[bannerDevice]; // TODO
+    			$$invalidate(3, bannerWidthProp = screen.width);
+    			$$invalidate(4, bannerHeightProp = screen.height);
+    			$$invalidate(0, bannerContainer.style.width = bannerWidthProp + "px", bannerContainer);
+    			$$invalidate(0, bannerContainer.style.height = bannerHeightProp + "px", bannerContainer);
+    		}
+    	}
+
     	const writable_props = [];
 
     	Object.keys($$props).forEach(key => {
@@ -680,10 +781,16 @@ var app = (function () {
     		$$invalidate(4, bannerHeightProp);
     	}
 
+    	function select_change_handler() {
+    		bannerDevice = select_value(this);
+    		$$invalidate(5, bannerDevice);
+    	}
+
     	$$self.$capture_state = () => ({
     		onMount,
     		fade,
     		sse,
+    		screens,
     		bannerContainer,
     		bannerURL,
     		bannerFrameSrc,
@@ -691,10 +798,12 @@ var app = (function () {
     		bannerHeight,
     		bannerWidthProp,
     		bannerHeightProp,
+    		bannerDevice,
     		observer,
     		apiRequest,
     		bannerSizeChange,
-    		bannerSrcKeyPress
+    		bannerSrcKeyPress,
+    		bannerDeviceChange
     	});
 
     	$$self.$inject_state = $$props => {
@@ -706,6 +815,7 @@ var app = (function () {
     		if ('bannerHeight' in $$props) bannerHeight = $$props.bannerHeight;
     		if ('bannerWidthProp' in $$props) $$invalidate(3, bannerWidthProp = $$props.bannerWidthProp);
     		if ('bannerHeightProp' in $$props) $$invalidate(4, bannerHeightProp = $$props.bannerHeightProp);
+    		if ('bannerDevice' in $$props) $$invalidate(5, bannerDevice = $$props.bannerDevice);
     		if ('observer' in $$props) observer = $$props.observer;
     	};
 
@@ -719,13 +829,16 @@ var app = (function () {
     		bannerFrameSrc,
     		bannerWidthProp,
     		bannerHeightProp,
+    		bannerDevice,
     		bannerSizeChange,
     		bannerSrcKeyPress,
+    		bannerDeviceChange,
     		div0_binding,
     		input0_input_handler,
     		click_handler,
     		input2_input_handler,
-    		input3_input_handler
+    		input3_input_handler,
+    		select_change_handler
     	];
     }
 

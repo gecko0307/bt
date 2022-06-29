@@ -5,6 +5,12 @@
 	
 	let sse;
 
+	const screens = {
+		iphone_se: { width: 375, height: 667 },
+		iphone_xr: { width: 414, height: 896 },
+		iphone_12_pro: { width: 390, height: 844 }
+	};
+
 	let bannerContainer;
 	let bannerURL = "/index.html";
 	let bannerFrameSrc = bannerURL;
@@ -12,6 +18,7 @@
 	let bannerHeight = 400;
 	let bannerWidthProp = bannerWidth;
 	let bannerHeightProp = bannerHeight;
+	let bannerDevice = "default";
 	
 	let observer;
 
@@ -53,6 +60,20 @@
 			bannerFrameSrc = bannerURL;
 		}
 	}
+
+	function bannerDeviceChange() {
+		console.log(bannerDevice);
+		if (bannerDevice === "default") {
+			// TODO
+		}
+		else {
+			const screen = screens[bannerDevice];
+			bannerWidthProp = screen.width;
+			bannerHeightProp = screen.height;
+			bannerContainer.style.width = bannerWidthProp + "px";
+			bannerContainer.style.height = bannerHeightProp + "px";
+		}
+	}
 </script>
 
 <main>
@@ -66,17 +87,26 @@
 			<div id="size_info">
 				<div class="row">
 					<div class="widget">
-						<p>Banner URL:</p>
-						<input type="text" size="45" bind:value={bannerURL} on:keypress={ bannerSrcKeyPress }>
+						<p>Banner URL</p>
+						<input type="text" size="45" style="width:200px" bind:value={bannerURL} on:keypress={ bannerSrcKeyPress }>
 						<input type="button" value="↻" on:click={ () => bannerFrameSrc = bannerURL }/>
 					</div>
 					<div class="widget">
-						<p>Width:</p>
+						<p>Width</p>
 						<input type="number" size="45" bind:value={bannerWidthProp} min=0 on:input={bannerSizeChange}>
 					</div>
 					<div class="widget">
-						<p>Height:</p>
+						<p>Height</p>
 						<input type="number" size="45" bind:value={bannerHeightProp} min=0 on:input={bannerSizeChange}>
+					</div>
+					<div class="widget">
+						<p>Device</p>
+						<select bind:value={bannerDevice} on:change={bannerDeviceChange}>
+							<option value="iphone_se">iPhone SE</option>
+							<option value="iphone_xr">iPhone XR</option>
+							<option value="iphone_12_pro">iPhone 12 Pro</option>
+							<option value="default" selected>Default</option>
+						</select>
 					</div>
 				</div>
 			</div>
@@ -186,6 +216,10 @@
 	}
 
 	input[type=number] {
+		margin: 5px 0px;
+	}
+
+	select {
 		margin: 5px 0px;
 	}
 </style>
