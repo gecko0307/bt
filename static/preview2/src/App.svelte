@@ -2,6 +2,7 @@
 	import { onMount } from "svelte";
 	import { fade } from "svelte/transition";
 	import "style/core.css";
+    import Tabs from "./Tabs.svelte";
 	
 	let sse;
 
@@ -96,16 +97,13 @@
 		bannerContainer.style.width = bannerWidthProp + "px";
 		bannerContainer.style.height = bannerHeightProp + "px";
 	}
-
-	function tabClick(event) {
-		const tabName = this.getAttribute("name");
-		console.log(tabName);
-		// TODO: switch UI for tabName
-	}
 </script>
 
 <main>
 	<div id="ui">
+		<div id="control">
+			<Tabs/>
+		</div>
 		<div id="preview">
 			<div id="resize_area">
 				<div id="banner_container" bind:this={bannerContainer}>
@@ -139,24 +137,13 @@
 				</div>
 			</div>
 		</div>
-		<div id="control">
-			<div class="tabs">
-				<div class="tab active" name="tools" title="Tools" on:click={tabClick}>🛠️</div>
-				<div class="tab" name="capturer" title="Capturer" on:click={tabClick}>📷</div>
-				<div class="tab" name="builder" title="Builder" on:click={tabClick}>📦</div>
-				<div class="tab" name="events" title="Events & messages" on:click={tabClick}>📡</div>
-			</div>
-			<!-- TODO: tab components -->
-		</div>
 	</div>
 </main>
 
 <style>
-	* {
-		box-sizing: border-box;
-	}
-
 	main {
+		position: absolute;
+		box-sizing: border-box;
 		padding: 0;
 		margin: 0;
 		width: 100%;
@@ -165,6 +152,7 @@
 
 	#ui {
 		position: absolute;
+		box-sizing: border-box;
 		padding: 0;
 		margin: 0;
 		width: 100%;
@@ -173,6 +161,7 @@
 
 	#preview {
 		position: absolute;
+		box-sizing: border-box;
 		padding: 0;
 		margin: 0;
 		width: auto;
@@ -185,6 +174,7 @@
 
 	#size_info {
 		position: absolute;
+		box-sizing: border-box;
 		margin: 0;
 		width: 100%;
 		height: 74px;
@@ -194,6 +184,7 @@
 
 	#resize_area {
 		position: absolute;
+		box-sizing: border-box;
 		padding: 0;
 		margin: 0;
 		width: 100%;
@@ -205,6 +196,7 @@
 
 	#banner_container {
 		position: absolute;
+		box-sizing: border-box;
 		padding: 0;
 		margin: 0;
 		width: 240px;
@@ -227,6 +219,7 @@
 
 	#banner {
 		position: absolute;
+		box-sizing: border-box;
 		width: 100%;
 		height: 100%;
 		overflow: hidden;
@@ -260,6 +253,7 @@
 
 	#control {
 		position: absolute;
+		box-sizing: border-box;
 		margin: 0;
 		width: 300px;
 		height: 100%;
@@ -267,37 +261,5 @@
 		right: 0;
 		background-color: #ffffff;
 		border-left: 1px solid #cccccc;
-	}
-
-	.tabs {
-		position: absolute;
-		margin: 0;
-		width: 100%;
-		height: 48px;
-		background-color: #eeeeee;
-	}
-
-	.tabs .tab {
-		display: block;
-		float: left;
-		margin: 0;
-		width: 48px;
-		height: 48px;
-		border: none;
-		outline: none;
-		cursor: pointer;
-		background-color: #eeeeee;
-		font-size: 25px;
-		text-align: center;
-		padding-top: 5px;
-	}
-
-	.tabs .tab.active {
-		background-color: #ffffff;
-		border-top: 2px solid #379683;
-	}
-
-	.tabs .tab:hover {
-		background-color: #ffffff;
 	}
 </style>
