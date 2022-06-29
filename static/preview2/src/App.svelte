@@ -14,8 +14,10 @@
 	let bannerContainer;
 	let bannerURL = "/index.html";
 	let bannerFrameSrc = bannerURL;
-	let bannerWidth = 240;
-	let bannerHeight = 400;
+	let bannerDefaultWidth = 240; // TODO: read from banner
+	let bannerDefaultHeight = 400; // TODO: read from banner
+	let bannerWidth = bannerDefaultWidth;
+	let bannerHeight = bannerDefaultHeight;
 	let bannerWidthProp = bannerWidth;
 	let bannerHeightProp = bannerHeight;
 	let bannerDevice = "default";
@@ -48,6 +50,17 @@
 		observer.observe(bannerContainer);
 	});
 
+	function bannerOnLoad(event) {
+		console.log("Banner loaded");
+		const bannerWindow = banner.contentWindow;
+		const bannerDocument = bannerWindow.document;
+		const bannerContainer = bannerDocument.getElementById("container");
+		if (bannerContainer) {
+			bannerDefaultWidth = bannerContainer.offsetWidth;
+			bannerDefaultHeight = bannerContainer.offsetHeight;
+		}
+	}
+
 	function bannerSizeChange(event) {
 		observer.disconnect();
 		bannerContainer.style.width = bannerWidthProp + "px";
@@ -62,17 +75,16 @@
 	}
 
 	function bannerDeviceChange() {
-		console.log(bannerDevice);
-		if (bannerDevice === "default") {
-			// TODO
-		}
-		else {
-			const screen = screens[bannerDevice];
-			bannerWidthProp = screen.width;
-			bannerHeightProp = screen.height;
-			bannerContainer.style.width = bannerWidthProp + "px";
-			bannerContainer.style.height = bannerHeightProp + "px";
-		}
+		let screen = { width: bannerWidthProp, height: bannerHeightProp };
+		if (bannerDevice === "default")
+			screen = { width: bannerDefaultWidth, height: bannerDefaultHeight };
+		else
+			screen = screens[bannerDevice];
+		bannerWidthProp = screen.width;
+		bannerHeightProp = screen.height;
+		bannerContainer.style.width = bannerWidthProp + "px";
+		bannerContainer.style.height = bannerHeightProp + "px";
+
 	}
 </script>
 
@@ -81,7 +93,7 @@
 		<div id="preview">
 			<div id="resize_area">
 				<div id="banner_container" bind:this={bannerContainer}>
-					<iframe title="banner" id="banner" src="{bannerFrameSrc}" frameborder="0" scrolling="no"></iframe>
+					<iframe title="banner" id="banner" src="{bannerFrameSrc}" frameborder="0" scrolling="no" on:load={bannerOnLoad}></iframe>
 				</div>
 			</div>
 			<div id="size_info">

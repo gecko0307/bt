@@ -502,74 +502,74 @@ var app = (function () {
     			attr_dev(iframe, "frameborder", "0");
     			attr_dev(iframe, "scrolling", "no");
     			attr_dev(iframe, "class", "svelte-1hzgqqw");
-    			add_location(iframe, file, 83, 5, 2118);
+    			add_location(iframe, file, 95, 5, 2724);
     			attr_dev(div0, "id", "banner_container");
     			attr_dev(div0, "class", "svelte-1hzgqqw");
-    			add_location(div0, file, 82, 4, 2056);
+    			add_location(div0, file, 94, 4, 2662);
     			attr_dev(div1, "id", "resize_area");
     			attr_dev(div1, "class", "svelte-1hzgqqw");
-    			add_location(div1, file, 81, 3, 2028);
-    			add_location(p0, file, 89, 6, 2322);
+    			add_location(div1, file, 93, 3, 2634);
+    			add_location(p0, file, 101, 6, 2951);
     			attr_dev(input0, "type", "text");
     			attr_dev(input0, "size", "45");
     			set_style(input0, "width", "200px");
-    			add_location(input0, file, 90, 6, 2347);
+    			add_location(input0, file, 102, 6, 2976);
     			attr_dev(input1, "type", "button");
     			input1.value = "↻";
     			attr_dev(input1, "class", "svelte-1hzgqqw");
-    			add_location(input1, file, 91, 6, 2461);
+    			add_location(input1, file, 103, 6, 3090);
     			attr_dev(div2, "class", "widget");
-    			add_location(div2, file, 88, 5, 2294);
-    			add_location(p1, file, 94, 6, 2587);
+    			add_location(div2, file, 100, 5, 2923);
+    			add_location(p1, file, 106, 6, 3216);
     			attr_dev(input2, "type", "number");
     			attr_dev(input2, "size", "45");
     			attr_dev(input2, "min", "0");
     			attr_dev(input2, "class", "svelte-1hzgqqw");
-    			add_location(input2, file, 95, 6, 2607);
+    			add_location(input2, file, 107, 6, 3236);
     			attr_dev(div3, "class", "widget");
-    			add_location(div3, file, 93, 5, 2559);
-    			add_location(p2, file, 98, 6, 2749);
+    			add_location(div3, file, 105, 5, 3188);
+    			add_location(p2, file, 110, 6, 3378);
     			attr_dev(input3, "type", "number");
     			attr_dev(input3, "size", "45");
     			attr_dev(input3, "min", "0");
     			attr_dev(input3, "class", "svelte-1hzgqqw");
-    			add_location(input3, file, 99, 6, 2770);
+    			add_location(input3, file, 111, 6, 3399);
     			attr_dev(div4, "class", "widget");
-    			add_location(div4, file, 97, 5, 2721);
-    			add_location(p3, file, 102, 6, 2913);
+    			add_location(div4, file, 109, 5, 3350);
+    			add_location(p3, file, 114, 6, 3542);
     			option0.__value = "iphone_se";
     			option0.value = option0.__value;
-    			add_location(option0, file, 104, 7, 3008);
+    			add_location(option0, file, 116, 7, 3637);
     			option1.__value = "iphone_xr";
     			option1.value = option1.__value;
-    			add_location(option1, file, 105, 7, 3061);
+    			add_location(option1, file, 117, 7, 3690);
     			option2.__value = "iphone_12_pro";
     			option2.value = option2.__value;
-    			add_location(option2, file, 106, 7, 3114);
+    			add_location(option2, file, 118, 7, 3743);
     			option3.__value = "default";
     			option3.value = option3.__value;
     			option3.selected = true;
-    			add_location(option3, file, 107, 7, 3175);
+    			add_location(option3, file, 119, 7, 3804);
     			attr_dev(select, "class", "svelte-1hzgqqw");
-    			if (/*bannerDevice*/ ctx[5] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[14].call(select));
-    			add_location(select, file, 103, 6, 2934);
+    			if (/*bannerDevice*/ ctx[5] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[15].call(select));
+    			add_location(select, file, 115, 6, 3563);
     			attr_dev(div5, "class", "widget");
-    			add_location(div5, file, 101, 5, 2885);
+    			add_location(div5, file, 113, 5, 3514);
     			attr_dev(div6, "class", "row");
-    			add_location(div6, file, 87, 4, 2270);
+    			add_location(div6, file, 99, 4, 2899);
     			attr_dev(div7, "id", "size_info");
     			attr_dev(div7, "class", "svelte-1hzgqqw");
-    			add_location(div7, file, 86, 3, 2244);
+    			add_location(div7, file, 98, 3, 2873);
     			attr_dev(div8, "id", "preview");
     			attr_dev(div8, "class", "svelte-1hzgqqw");
-    			add_location(div8, file, 80, 2, 2005);
+    			add_location(div8, file, 92, 2, 2611);
     			attr_dev(div9, "id", "control");
-    			add_location(div9, file, 113, 2, 3291);
+    			add_location(div9, file, 125, 2, 3920);
     			attr_dev(div10, "id", "ui");
     			attr_dev(div10, "class", "svelte-1hzgqqw");
-    			add_location(div10, file, 79, 1, 1988);
+    			add_location(div10, file, 91, 1, 2594);
     			attr_dev(main, "class", "svelte-1hzgqqw");
-    			add_location(main, file, 78, 0, 1979);
+    			add_location(main, file, 90, 0, 2585);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -581,7 +581,7 @@ var app = (function () {
     			append_dev(div8, div1);
     			append_dev(div1, div0);
     			append_dev(div0, iframe);
-    			/*div0_binding*/ ctx[9](div0);
+    			/*div0_binding*/ ctx[10](div0);
     			append_dev(div8, t0);
     			append_dev(div8, div7);
     			append_dev(div7, div6);
@@ -619,15 +619,16 @@ var app = (function () {
 
     			if (!mounted) {
     				dispose = [
-    					listen_dev(input0, "input", /*input0_input_handler*/ ctx[10]),
-    					listen_dev(input0, "keypress", /*bannerSrcKeyPress*/ ctx[7], false, false, false),
-    					listen_dev(input1, "click", /*click_handler*/ ctx[11], false, false, false),
-    					listen_dev(input2, "input", /*input2_input_handler*/ ctx[12]),
-    					listen_dev(input2, "input", /*bannerSizeChange*/ ctx[6], false, false, false),
-    					listen_dev(input3, "input", /*input3_input_handler*/ ctx[13]),
-    					listen_dev(input3, "input", /*bannerSizeChange*/ ctx[6], false, false, false),
-    					listen_dev(select, "change", /*select_change_handler*/ ctx[14]),
-    					listen_dev(select, "change", /*bannerDeviceChange*/ ctx[8], false, false, false)
+    					listen_dev(iframe, "load", /*bannerOnLoad*/ ctx[6], false, false, false),
+    					listen_dev(input0, "input", /*input0_input_handler*/ ctx[11]),
+    					listen_dev(input0, "keypress", /*bannerSrcKeyPress*/ ctx[8], false, false, false),
+    					listen_dev(input1, "click", /*click_handler*/ ctx[12], false, false, false),
+    					listen_dev(input2, "input", /*input2_input_handler*/ ctx[13]),
+    					listen_dev(input2, "input", /*bannerSizeChange*/ ctx[7], false, false, false),
+    					listen_dev(input3, "input", /*input3_input_handler*/ ctx[14]),
+    					listen_dev(input3, "input", /*bannerSizeChange*/ ctx[7], false, false, false),
+    					listen_dev(select, "change", /*select_change_handler*/ ctx[15]),
+    					listen_dev(select, "change", /*bannerDeviceChange*/ ctx[9], false, false, false)
     				];
 
     				mounted = true;
@@ -658,7 +659,7 @@ var app = (function () {
     		o: noop,
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(main);
-    			/*div0_binding*/ ctx[9](null);
+    			/*div0_binding*/ ctx[10](null);
     			mounted = false;
     			run_all(dispose);
     		}
@@ -698,8 +699,10 @@ var app = (function () {
     	let bannerContainer;
     	let bannerURL = "/index.html";
     	let bannerFrameSrc = bannerURL;
-    	let bannerWidth = 240;
-    	let bannerHeight = 400;
+    	let bannerDefaultWidth = 240; // TODO: read from banner
+    	let bannerDefaultHeight = 400; // TODO: read from banner
+    	let bannerWidth = bannerDefaultWidth;
+    	let bannerHeight = bannerDefaultHeight;
     	let bannerWidthProp = bannerWidth;
     	let bannerHeightProp = bannerHeight;
     	let bannerDevice = "default";
@@ -726,6 +729,18 @@ var app = (function () {
     		observer.observe(bannerContainer);
     	});
 
+    	function bannerOnLoad(event) {
+    		console.log("Banner loaded");
+    		const bannerWindow = banner.contentWindow;
+    		const bannerDocument = bannerWindow.document;
+    		const bannerContainer = bannerDocument.getElementById("container");
+
+    		if (bannerContainer) {
+    			bannerDefaultWidth = bannerContainer.offsetWidth;
+    			bannerDefaultHeight = bannerContainer.offsetHeight;
+    		}
+    	}
+
     	function bannerSizeChange(event) {
     		observer.disconnect();
     		$$invalidate(0, bannerContainer.style.width = bannerWidthProp + "px", bannerContainer);
@@ -740,15 +755,20 @@ var app = (function () {
     	}
 
     	function bannerDeviceChange() {
-    		console.log(bannerDevice);
+    		let screen = {
+    			width: bannerWidthProp,
+    			height: bannerHeightProp
+    		};
 
-    		if (bannerDevice === "default") ; else {
-    			const screen = screens[bannerDevice]; // TODO
-    			$$invalidate(3, bannerWidthProp = screen.width);
-    			$$invalidate(4, bannerHeightProp = screen.height);
-    			$$invalidate(0, bannerContainer.style.width = bannerWidthProp + "px", bannerContainer);
-    			$$invalidate(0, bannerContainer.style.height = bannerHeightProp + "px", bannerContainer);
-    		}
+    		if (bannerDevice === "default") screen = {
+    			width: bannerDefaultWidth,
+    			height: bannerDefaultHeight
+    		}; else screen = screens[bannerDevice];
+
+    		$$invalidate(3, bannerWidthProp = screen.width);
+    		$$invalidate(4, bannerHeightProp = screen.height);
+    		$$invalidate(0, bannerContainer.style.width = bannerWidthProp + "px", bannerContainer);
+    		$$invalidate(0, bannerContainer.style.height = bannerHeightProp + "px", bannerContainer);
     	}
 
     	const writable_props = [];
@@ -794,6 +814,8 @@ var app = (function () {
     		bannerContainer,
     		bannerURL,
     		bannerFrameSrc,
+    		bannerDefaultWidth,
+    		bannerDefaultHeight,
     		bannerWidth,
     		bannerHeight,
     		bannerWidthProp,
@@ -801,6 +823,7 @@ var app = (function () {
     		bannerDevice,
     		observer,
     		apiRequest,
+    		bannerOnLoad,
     		bannerSizeChange,
     		bannerSrcKeyPress,
     		bannerDeviceChange
@@ -811,6 +834,8 @@ var app = (function () {
     		if ('bannerContainer' in $$props) $$invalidate(0, bannerContainer = $$props.bannerContainer);
     		if ('bannerURL' in $$props) $$invalidate(1, bannerURL = $$props.bannerURL);
     		if ('bannerFrameSrc' in $$props) $$invalidate(2, bannerFrameSrc = $$props.bannerFrameSrc);
+    		if ('bannerDefaultWidth' in $$props) bannerDefaultWidth = $$props.bannerDefaultWidth;
+    		if ('bannerDefaultHeight' in $$props) bannerDefaultHeight = $$props.bannerDefaultHeight;
     		if ('bannerWidth' in $$props) bannerWidth = $$props.bannerWidth;
     		if ('bannerHeight' in $$props) bannerHeight = $$props.bannerHeight;
     		if ('bannerWidthProp' in $$props) $$invalidate(3, bannerWidthProp = $$props.bannerWidthProp);
@@ -830,6 +855,7 @@ var app = (function () {
     		bannerWidthProp,
     		bannerHeightProp,
     		bannerDevice,
+    		bannerOnLoad,
     		bannerSizeChange,
     		bannerSrcKeyPress,
     		bannerDeviceChange,
