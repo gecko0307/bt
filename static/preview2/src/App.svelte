@@ -12,11 +12,11 @@
 	};
 
 	let bannerContainer;
+	let banner;
 	let bannerURL = "/index.html";
-	let bannerFrameSrc = bannerURL;
 	let bannerInternalContainer;
-	let bannerDefaultWidth = 240; // TODO: read from banner
-	let bannerDefaultHeight = 400; // TODO: read from banner
+	let bannerDefaultWidth = 240;
+	let bannerDefaultHeight = 400;
 	let bannerWidth = bannerDefaultWidth;
 	let bannerHeight = bannerDefaultHeight;
 	let bannerWidthProp = bannerWidth;
@@ -41,6 +41,8 @@
 		sse.onerror = function(error) {
 			console.error("EventSource failed: ", error);
 		};
+
+		banner.onload = bannerOnLoad;
 
 		observer = new ResizeObserver(mutations => {
 			bannerWidth = mutations[0].contentRect.width;
@@ -71,21 +73,28 @@
 
 	function bannerSrcKeyPress(event) {
 		if (event.charCode === 13) {
-			bannerFrameSrc = bannerURL;
+			loadBanner();
 		}
+	}
+	
+	function loadBanner() {
+		banner.src = "";
+		banner.src = bannerURL;
 	}
 
 	function bannerDeviceChange() {
-		let screen = { width: bannerWidthProp, height: bannerHeightProp };
-		if (bannerDevice === "default")
-			screen = { width: bannerDefaultWidth, height: bannerDefaultHeight };
-		else
-			screen = screens[bannerDevice];
+		let screen = screens[bannerDevice];
 		bannerWidthProp = screen.width;
 		bannerHeightProp = screen.height;
 		bannerContainer.style.width = bannerWidthProp + "px";
 		bannerContainer.style.height = bannerHeightProp + "px";
+	}
 
+	function bannerResetSize() {
+		bannerWidthProp = bannerDefaultWidth;
+		bannerHeightProp = bannerDefaultHeight;
+		bannerContainer.style.width = bannerWidthProp + "px";
+		bannerContainer.style.height = bannerHeightProp + "px";
 	}
 </script>
 
@@ -94,7 +103,7 @@
 		<div id="preview">
 			<div id="resize_area">
 				<div id="banner_container" bind:this={bannerContainer}>
-					<iframe title="banner" id="banner" src="{bannerFrameSrc}" frameborder="0" scrolling="no" on:load={bannerOnLoad}></iframe>
+					<iframe title="banner" id="banner" bind:this={banner} src="/index.html" frameborder="0" scrolling="no"></iframe>
 				</div>
 			</div>
 			<div id="size_info">
@@ -102,7 +111,7 @@
 					<div class="widget">
 						<p>Banner URL</p>
 						<input type="text" size="45" style="width:200px" bind:value={bannerURL} on:keypress={ bannerSrcKeyPress }>
-						<input type="button" value="↻" on:click={ () => bannerFrameSrc = bannerURL }/>
+						<input type="button" value="↻" on:click={loadBanner}/>
 					</div>
 					<div class="widget">
 						<p>Width</p>
@@ -118,8 +127,8 @@
 							<option value="iphone_se">iPhone SE</option>
 							<option value="iphone_xr">iPhone XR</option>
 							<option value="iphone_12_pro">iPhone 12 Pro</option>
-							<option value="default" selected>Default</option>
 						</select>
+						<input type="button" value="Reset" on:click={bannerResetSize}/>
 					</div>
 				</div>
 			</div>

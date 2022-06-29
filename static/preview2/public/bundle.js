@@ -444,7 +444,8 @@ var app = (function () {
     	let option0;
     	let option1;
     	let option2;
-    	let option3;
+    	let t16;
+    	let input4;
     	let t17;
     	let div9;
     	let mounted;
@@ -492,84 +493,84 @@ var app = (function () {
     			option1.textContent = "iPhone XR";
     			option2 = element("option");
     			option2.textContent = "iPhone 12 Pro";
-    			option3 = element("option");
-    			option3.textContent = "Default";
+    			t16 = space();
+    			input4 = element("input");
     			t17 = space();
     			div9 = element("div");
     			attr_dev(iframe, "title", "banner");
     			attr_dev(iframe, "id", "banner");
-    			if (!src_url_equal(iframe.src, iframe_src_value = /*bannerFrameSrc*/ ctx[2])) attr_dev(iframe, "src", iframe_src_value);
+    			if (!src_url_equal(iframe.src, iframe_src_value = "/index.html")) attr_dev(iframe, "src", iframe_src_value);
     			attr_dev(iframe, "frameborder", "0");
     			attr_dev(iframe, "scrolling", "no");
     			attr_dev(iframe, "class", "svelte-1hzgqqw");
-    			add_location(iframe, file, 96, 5, 2781);
+    			add_location(iframe, file, 105, 5, 2862);
     			attr_dev(div0, "id", "banner_container");
     			attr_dev(div0, "class", "svelte-1hzgqqw");
-    			add_location(div0, file, 95, 4, 2719);
+    			add_location(div0, file, 104, 4, 2800);
     			attr_dev(div1, "id", "resize_area");
     			attr_dev(div1, "class", "svelte-1hzgqqw");
-    			add_location(div1, file, 94, 3, 2691);
-    			add_location(p0, file, 102, 6, 3008);
+    			add_location(div1, file, 103, 3, 2772);
+    			add_location(p0, file, 111, 6, 3080);
     			attr_dev(input0, "type", "text");
     			attr_dev(input0, "size", "45");
     			set_style(input0, "width", "200px");
-    			add_location(input0, file, 103, 6, 3033);
+    			add_location(input0, file, 112, 6, 3105);
     			attr_dev(input1, "type", "button");
     			input1.value = "↻";
     			attr_dev(input1, "class", "svelte-1hzgqqw");
-    			add_location(input1, file, 104, 6, 3147);
+    			add_location(input1, file, 113, 6, 3219);
     			attr_dev(div2, "class", "widget");
-    			add_location(div2, file, 101, 5, 2980);
-    			add_location(p1, file, 107, 6, 3273);
+    			add_location(div2, file, 110, 5, 3052);
+    			add_location(p1, file, 116, 6, 3321);
     			attr_dev(input2, "type", "number");
     			attr_dev(input2, "size", "45");
     			attr_dev(input2, "min", "0");
     			attr_dev(input2, "class", "svelte-1hzgqqw");
-    			add_location(input2, file, 108, 6, 3293);
+    			add_location(input2, file, 117, 6, 3341);
     			attr_dev(div3, "class", "widget");
-    			add_location(div3, file, 106, 5, 3245);
-    			add_location(p2, file, 111, 6, 3435);
+    			add_location(div3, file, 115, 5, 3293);
+    			add_location(p2, file, 120, 6, 3483);
     			attr_dev(input3, "type", "number");
     			attr_dev(input3, "size", "45");
     			attr_dev(input3, "min", "0");
     			attr_dev(input3, "class", "svelte-1hzgqqw");
-    			add_location(input3, file, 112, 6, 3456);
+    			add_location(input3, file, 121, 6, 3504);
     			attr_dev(div4, "class", "widget");
-    			add_location(div4, file, 110, 5, 3407);
-    			add_location(p3, file, 115, 6, 3599);
+    			add_location(div4, file, 119, 5, 3455);
+    			add_location(p3, file, 124, 6, 3647);
     			option0.__value = "iphone_se";
     			option0.value = option0.__value;
-    			add_location(option0, file, 117, 7, 3694);
+    			add_location(option0, file, 126, 7, 3742);
     			option1.__value = "iphone_xr";
     			option1.value = option1.__value;
-    			add_location(option1, file, 118, 7, 3747);
+    			add_location(option1, file, 127, 7, 3795);
     			option2.__value = "iphone_12_pro";
     			option2.value = option2.__value;
-    			add_location(option2, file, 119, 7, 3800);
-    			option3.__value = "default";
-    			option3.value = option3.__value;
-    			option3.selected = true;
-    			add_location(option3, file, 120, 7, 3861);
+    			add_location(option2, file, 128, 7, 3848);
     			attr_dev(select, "class", "svelte-1hzgqqw");
-    			if (/*bannerDevice*/ ctx[5] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[15].call(select));
-    			add_location(select, file, 116, 6, 3620);
+    			if (/*bannerDevice*/ ctx[5] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[16].call(select));
+    			add_location(select, file, 125, 6, 3668);
+    			attr_dev(input4, "type", "button");
+    			input4.value = "Reset";
+    			attr_dev(input4, "class", "svelte-1hzgqqw");
+    			add_location(input4, file, 130, 6, 3925);
     			attr_dev(div5, "class", "widget");
-    			add_location(div5, file, 114, 5, 3571);
+    			add_location(div5, file, 123, 5, 3619);
     			attr_dev(div6, "class", "row");
-    			add_location(div6, file, 100, 4, 2956);
+    			add_location(div6, file, 109, 4, 3028);
     			attr_dev(div7, "id", "size_info");
     			attr_dev(div7, "class", "svelte-1hzgqqw");
-    			add_location(div7, file, 99, 3, 2930);
+    			add_location(div7, file, 108, 3, 3002);
     			attr_dev(div8, "id", "preview");
     			attr_dev(div8, "class", "svelte-1hzgqqw");
-    			add_location(div8, file, 93, 2, 2668);
+    			add_location(div8, file, 102, 2, 2749);
     			attr_dev(div9, "id", "control");
-    			add_location(div9, file, 126, 2, 3977);
+    			add_location(div9, file, 135, 2, 4038);
     			attr_dev(div10, "id", "ui");
     			attr_dev(div10, "class", "svelte-1hzgqqw");
-    			add_location(div10, file, 92, 1, 2651);
+    			add_location(div10, file, 101, 1, 2732);
     			attr_dev(main, "class", "svelte-1hzgqqw");
-    			add_location(main, file, 91, 0, 2642);
+    			add_location(main, file, 100, 0, 2723);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -581,7 +582,8 @@ var app = (function () {
     			append_dev(div8, div1);
     			append_dev(div1, div0);
     			append_dev(div0, iframe);
-    			/*div0_binding*/ ctx[10](div0);
+    			/*iframe_binding*/ ctx[11](iframe);
+    			/*div0_binding*/ ctx[12](div0);
     			append_dev(div8, t0);
     			append_dev(div8, div7);
     			append_dev(div7, div6);
@@ -589,7 +591,7 @@ var app = (function () {
     			append_dev(div2, p0);
     			append_dev(div2, t2);
     			append_dev(div2, input0);
-    			set_input_value(input0, /*bannerURL*/ ctx[1]);
+    			set_input_value(input0, /*bannerURL*/ ctx[2]);
     			append_dev(div2, t3);
     			append_dev(div2, input1);
     			append_dev(div6, t4);
@@ -612,35 +614,32 @@ var app = (function () {
     			append_dev(select, option0);
     			append_dev(select, option1);
     			append_dev(select, option2);
-    			append_dev(select, option3);
     			select_option(select, /*bannerDevice*/ ctx[5]);
+    			append_dev(div5, t16);
+    			append_dev(div5, input4);
     			append_dev(div10, t17);
     			append_dev(div10, div9);
 
     			if (!mounted) {
     				dispose = [
-    					listen_dev(iframe, "load", /*bannerOnLoad*/ ctx[6], false, false, false),
-    					listen_dev(input0, "input", /*input0_input_handler*/ ctx[11]),
-    					listen_dev(input0, "keypress", /*bannerSrcKeyPress*/ ctx[8], false, false, false),
-    					listen_dev(input1, "click", /*click_handler*/ ctx[12], false, false, false),
-    					listen_dev(input2, "input", /*input2_input_handler*/ ctx[13]),
-    					listen_dev(input2, "input", /*bannerSizeChange*/ ctx[7], false, false, false),
-    					listen_dev(input3, "input", /*input3_input_handler*/ ctx[14]),
-    					listen_dev(input3, "input", /*bannerSizeChange*/ ctx[7], false, false, false),
-    					listen_dev(select, "change", /*select_change_handler*/ ctx[15]),
-    					listen_dev(select, "change", /*bannerDeviceChange*/ ctx[9], false, false, false)
+    					listen_dev(input0, "input", /*input0_input_handler*/ ctx[13]),
+    					listen_dev(input0, "keypress", /*bannerSrcKeyPress*/ ctx[7], false, false, false),
+    					listen_dev(input1, "click", /*loadBanner*/ ctx[8], false, false, false),
+    					listen_dev(input2, "input", /*input2_input_handler*/ ctx[14]),
+    					listen_dev(input2, "input", /*bannerSizeChange*/ ctx[6], false, false, false),
+    					listen_dev(input3, "input", /*input3_input_handler*/ ctx[15]),
+    					listen_dev(input3, "input", /*bannerSizeChange*/ ctx[6], false, false, false),
+    					listen_dev(select, "change", /*select_change_handler*/ ctx[16]),
+    					listen_dev(select, "change", /*bannerDeviceChange*/ ctx[9], false, false, false),
+    					listen_dev(input4, "click", /*bannerResetSize*/ ctx[10], false, false, false)
     				];
 
     				mounted = true;
     			}
     		},
     		p: function update(ctx, [dirty]) {
-    			if (dirty & /*bannerFrameSrc*/ 4 && !src_url_equal(iframe.src, iframe_src_value = /*bannerFrameSrc*/ ctx[2])) {
-    				attr_dev(iframe, "src", iframe_src_value);
-    			}
-
-    			if (dirty & /*bannerURL*/ 2 && input0.value !== /*bannerURL*/ ctx[1]) {
-    				set_input_value(input0, /*bannerURL*/ ctx[1]);
+    			if (dirty & /*bannerURL*/ 4 && input0.value !== /*bannerURL*/ ctx[2]) {
+    				set_input_value(input0, /*bannerURL*/ ctx[2]);
     			}
 
     			if (dirty & /*bannerWidthProp*/ 8 && to_number(input2.value) !== /*bannerWidthProp*/ ctx[3]) {
@@ -659,7 +658,8 @@ var app = (function () {
     		o: noop,
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(main);
-    			/*div0_binding*/ ctx[10](null);
+    			/*iframe_binding*/ ctx[11](null);
+    			/*div0_binding*/ ctx[12](null);
     			mounted = false;
     			run_all(dispose);
     		}
@@ -697,11 +697,11 @@ var app = (function () {
     	};
 
     	let bannerContainer;
+    	let banner;
     	let bannerURL = "/index.html";
-    	let bannerFrameSrc = bannerURL;
     	let bannerInternalContainer;
-    	let bannerDefaultWidth = 240; // TODO: read from banner
-    	let bannerDefaultHeight = 400; // TODO: read from banner
+    	let bannerDefaultWidth = 240;
+    	let bannerDefaultHeight = 400;
     	let bannerWidth = bannerDefaultWidth;
     	let bannerHeight = bannerDefaultHeight;
     	let bannerWidthProp = bannerWidth;
@@ -719,6 +719,8 @@ var app = (function () {
     		sse.onerror = function (error) {
     			console.error("EventSource failed: ", error);
     		};
+
+    		$$invalidate(1, banner.onload = bannerOnLoad, banner);
 
     		observer = new ResizeObserver(mutations => {
     				bannerWidth = mutations[0].contentRect.width;
@@ -751,23 +753,26 @@ var app = (function () {
 
     	function bannerSrcKeyPress(event) {
     		if (event.charCode === 13) {
-    			$$invalidate(2, bannerFrameSrc = bannerURL);
+    			loadBanner();
     		}
     	}
 
+    	function loadBanner() {
+    		$$invalidate(1, banner.src = "", banner);
+    		$$invalidate(1, banner.src = bannerURL, banner);
+    	}
+
     	function bannerDeviceChange() {
-    		let screen = {
-    			width: bannerWidthProp,
-    			height: bannerHeightProp
-    		};
-
-    		if (bannerDevice === "default") screen = {
-    			width: bannerDefaultWidth,
-    			height: bannerDefaultHeight
-    		}; else screen = screens[bannerDevice];
-
+    		let screen = screens[bannerDevice];
     		$$invalidate(3, bannerWidthProp = screen.width);
     		$$invalidate(4, bannerHeightProp = screen.height);
+    		$$invalidate(0, bannerContainer.style.width = bannerWidthProp + "px", bannerContainer);
+    		$$invalidate(0, bannerContainer.style.height = bannerHeightProp + "px", bannerContainer);
+    	}
+
+    	function bannerResetSize() {
+    		$$invalidate(3, bannerWidthProp = bannerDefaultWidth);
+    		$$invalidate(4, bannerHeightProp = bannerDefaultHeight);
     		$$invalidate(0, bannerContainer.style.width = bannerWidthProp + "px", bannerContainer);
     		$$invalidate(0, bannerContainer.style.height = bannerHeightProp + "px", bannerContainer);
     	}
@@ -778,6 +783,13 @@ var app = (function () {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console_1.warn(`<App> was created with unknown prop '${key}'`);
     	});
 
+    	function iframe_binding($$value) {
+    		binding_callbacks[$$value ? 'unshift' : 'push'](() => {
+    			banner = $$value;
+    			$$invalidate(1, banner);
+    		});
+    	}
+
     	function div0_binding($$value) {
     		binding_callbacks[$$value ? 'unshift' : 'push'](() => {
     			bannerContainer = $$value;
@@ -787,10 +799,8 @@ var app = (function () {
 
     	function input0_input_handler() {
     		bannerURL = this.value;
-    		$$invalidate(1, bannerURL);
+    		$$invalidate(2, bannerURL);
     	}
-
-    	const click_handler = () => $$invalidate(2, bannerFrameSrc = bannerURL);
 
     	function input2_input_handler() {
     		bannerWidthProp = to_number(this.value);
@@ -813,8 +823,8 @@ var app = (function () {
     		sse,
     		screens,
     		bannerContainer,
+    		banner,
     		bannerURL,
-    		bannerFrameSrc,
     		bannerInternalContainer,
     		bannerDefaultWidth,
     		bannerDefaultHeight,
@@ -828,14 +838,16 @@ var app = (function () {
     		bannerOnLoad,
     		bannerSizeChange,
     		bannerSrcKeyPress,
-    		bannerDeviceChange
+    		loadBanner,
+    		bannerDeviceChange,
+    		bannerResetSize
     	});
 
     	$$self.$inject_state = $$props => {
     		if ('sse' in $$props) sse = $$props.sse;
     		if ('bannerContainer' in $$props) $$invalidate(0, bannerContainer = $$props.bannerContainer);
-    		if ('bannerURL' in $$props) $$invalidate(1, bannerURL = $$props.bannerURL);
-    		if ('bannerFrameSrc' in $$props) $$invalidate(2, bannerFrameSrc = $$props.bannerFrameSrc);
+    		if ('banner' in $$props) $$invalidate(1, banner = $$props.banner);
+    		if ('bannerURL' in $$props) $$invalidate(2, bannerURL = $$props.bannerURL);
     		if ('bannerInternalContainer' in $$props) bannerInternalContainer = $$props.bannerInternalContainer;
     		if ('bannerDefaultWidth' in $$props) bannerDefaultWidth = $$props.bannerDefaultWidth;
     		if ('bannerDefaultHeight' in $$props) bannerDefaultHeight = $$props.bannerDefaultHeight;
@@ -853,18 +865,19 @@ var app = (function () {
 
     	return [
     		bannerContainer,
+    		banner,
     		bannerURL,
-    		bannerFrameSrc,
     		bannerWidthProp,
     		bannerHeightProp,
     		bannerDevice,
-    		bannerOnLoad,
     		bannerSizeChange,
     		bannerSrcKeyPress,
+    		loadBanner,
     		bannerDeviceChange,
+    		bannerResetSize,
+    		iframe_binding,
     		div0_binding,
     		input0_input_handler,
-    		click_handler,
     		input2_input_handler,
     		input3_input_handler,
     		select_change_handler
