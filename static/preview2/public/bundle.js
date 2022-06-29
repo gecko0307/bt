@@ -411,7 +411,7 @@ var app = (function () {
 
     function create_fragment(ctx) {
     	let main;
-    	let div10;
+    	let div15;
     	let div8;
     	let div1;
     	let div0;
@@ -447,14 +447,22 @@ var app = (function () {
     	let t16;
     	let input4;
     	let t17;
+    	let div14;
+    	let div13;
     	let div9;
+    	let t19;
+    	let div10;
+    	let t21;
+    	let div11;
+    	let t23;
+    	let div12;
     	let mounted;
     	let dispose;
 
     	const block = {
     		c: function create() {
     			main = element("main");
-    			div10 = element("div");
+    			div15 = element("div");
     			div8 = element("div");
     			div1 = element("div");
     			div0 = element("div");
@@ -496,90 +504,128 @@ var app = (function () {
     			t16 = space();
     			input4 = element("input");
     			t17 = space();
+    			div14 = element("div");
+    			div13 = element("div");
     			div9 = element("div");
+    			div9.textContent = "🛠️";
+    			t19 = space();
+    			div10 = element("div");
+    			div10.textContent = "📷";
+    			t21 = space();
+    			div11 = element("div");
+    			div11.textContent = "📦";
+    			t23 = space();
+    			div12 = element("div");
+    			div12.textContent = "📡";
     			attr_dev(iframe, "title", "banner");
     			attr_dev(iframe, "id", "banner");
     			if (!src_url_equal(iframe.src, iframe_src_value = "/index.html")) attr_dev(iframe, "src", iframe_src_value);
     			attr_dev(iframe, "frameborder", "0");
     			attr_dev(iframe, "scrolling", "no");
-    			attr_dev(iframe, "class", "svelte-lnzoxf");
-    			add_location(iframe, file, 105, 5, 2862);
+    			attr_dev(iframe, "class", "svelte-5s2vza");
+    			add_location(iframe, file, 111, 5, 3002);
     			attr_dev(div0, "id", "banner_container");
-    			attr_dev(div0, "class", "svelte-lnzoxf");
-    			add_location(div0, file, 104, 4, 2800);
+    			attr_dev(div0, "class", "svelte-5s2vza");
+    			add_location(div0, file, 110, 4, 2940);
     			attr_dev(div1, "id", "resize_area");
-    			attr_dev(div1, "class", "svelte-lnzoxf");
-    			add_location(div1, file, 103, 3, 2772);
-    			add_location(p0, file, 111, 6, 3080);
+    			attr_dev(div1, "class", "svelte-5s2vza");
+    			add_location(div1, file, 109, 3, 2912);
+    			attr_dev(p0, "class", "svelte-5s2vza");
+    			add_location(p0, file, 117, 6, 3220);
     			attr_dev(input0, "type", "text");
     			attr_dev(input0, "size", "45");
     			set_style(input0, "width", "200px");
-    			add_location(input0, file, 112, 6, 3105);
+    			attr_dev(input0, "class", "svelte-5s2vza");
+    			add_location(input0, file, 118, 6, 3245);
     			attr_dev(input1, "type", "button");
     			input1.value = "↻";
-    			attr_dev(input1, "class", "svelte-lnzoxf");
-    			add_location(input1, file, 113, 6, 3219);
-    			attr_dev(div2, "class", "widget");
-    			add_location(div2, file, 110, 5, 3052);
-    			add_location(p1, file, 116, 6, 3321);
+    			attr_dev(input1, "class", "svelte-5s2vza");
+    			add_location(input1, file, 119, 6, 3359);
+    			attr_dev(div2, "class", "widget svelte-5s2vza");
+    			add_location(div2, file, 116, 5, 3192);
+    			attr_dev(p1, "class", "svelte-5s2vza");
+    			add_location(p1, file, 122, 6, 3461);
     			attr_dev(input2, "type", "number");
     			attr_dev(input2, "size", "45");
     			attr_dev(input2, "min", "0");
-    			attr_dev(input2, "class", "svelte-lnzoxf");
-    			add_location(input2, file, 117, 6, 3341);
-    			attr_dev(div3, "class", "widget");
-    			add_location(div3, file, 115, 5, 3293);
-    			add_location(p2, file, 120, 6, 3483);
+    			attr_dev(input2, "class", "svelte-5s2vza");
+    			add_location(input2, file, 123, 6, 3481);
+    			attr_dev(div3, "class", "widget svelte-5s2vza");
+    			add_location(div3, file, 121, 5, 3433);
+    			attr_dev(p2, "class", "svelte-5s2vza");
+    			add_location(p2, file, 126, 6, 3623);
     			attr_dev(input3, "type", "number");
     			attr_dev(input3, "size", "45");
     			attr_dev(input3, "min", "0");
-    			attr_dev(input3, "class", "svelte-lnzoxf");
-    			add_location(input3, file, 121, 6, 3504);
-    			attr_dev(div4, "class", "widget");
-    			add_location(div4, file, 119, 5, 3455);
-    			add_location(p3, file, 124, 6, 3647);
+    			attr_dev(input3, "class", "svelte-5s2vza");
+    			add_location(input3, file, 127, 6, 3644);
+    			attr_dev(div4, "class", "widget svelte-5s2vza");
+    			add_location(div4, file, 125, 5, 3595);
+    			attr_dev(p3, "class", "svelte-5s2vza");
+    			add_location(p3, file, 130, 6, 3787);
     			option0.__value = "iphone_se";
     			option0.value = option0.__value;
-    			add_location(option0, file, 126, 7, 3742);
+    			attr_dev(option0, "class", "svelte-5s2vza");
+    			add_location(option0, file, 132, 7, 3882);
     			option1.__value = "iphone_xr";
     			option1.value = option1.__value;
-    			add_location(option1, file, 127, 7, 3795);
+    			attr_dev(option1, "class", "svelte-5s2vza");
+    			add_location(option1, file, 133, 7, 3935);
     			option2.__value = "iphone_12_pro";
     			option2.value = option2.__value;
-    			add_location(option2, file, 128, 7, 3848);
-    			attr_dev(select, "class", "svelte-lnzoxf");
+    			attr_dev(option2, "class", "svelte-5s2vza");
+    			add_location(option2, file, 134, 7, 3988);
+    			attr_dev(select, "class", "svelte-5s2vza");
     			if (/*bannerDevice*/ ctx[5] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[16].call(select));
-    			add_location(select, file, 125, 6, 3668);
+    			add_location(select, file, 131, 6, 3808);
     			attr_dev(input4, "type", "button");
     			input4.value = "Reset";
-    			attr_dev(input4, "class", "svelte-lnzoxf");
-    			add_location(input4, file, 130, 6, 3925);
-    			attr_dev(div5, "class", "widget");
-    			add_location(div5, file, 123, 5, 3619);
-    			attr_dev(div6, "class", "row");
-    			add_location(div6, file, 109, 4, 3028);
+    			attr_dev(input4, "class", "svelte-5s2vza");
+    			add_location(input4, file, 136, 6, 4065);
+    			attr_dev(div5, "class", "widget svelte-5s2vza");
+    			add_location(div5, file, 129, 5, 3759);
+    			attr_dev(div6, "class", "row svelte-5s2vza");
+    			add_location(div6, file, 115, 4, 3168);
     			attr_dev(div7, "id", "size_info");
-    			attr_dev(div7, "class", "svelte-lnzoxf");
-    			add_location(div7, file, 108, 3, 3002);
+    			attr_dev(div7, "class", "svelte-5s2vza");
+    			add_location(div7, file, 114, 3, 3142);
     			attr_dev(div8, "id", "preview");
-    			attr_dev(div8, "class", "svelte-lnzoxf");
-    			add_location(div8, file, 102, 2, 2749);
-    			attr_dev(div9, "id", "control");
-    			attr_dev(div9, "class", "svelte-lnzoxf");
-    			add_location(div9, file, 135, 2, 4038);
-    			attr_dev(div10, "id", "ui");
-    			attr_dev(div10, "class", "svelte-lnzoxf");
-    			add_location(div10, file, 101, 1, 2732);
-    			attr_dev(main, "class", "svelte-lnzoxf");
-    			add_location(main, file, 100, 0, 2723);
+    			attr_dev(div8, "class", "svelte-5s2vza");
+    			add_location(div8, file, 108, 2, 2889);
+    			attr_dev(div9, "class", "tab active svelte-5s2vza");
+    			attr_dev(div9, "name", "tools");
+    			attr_dev(div9, "title", "Tools");
+    			add_location(div9, file, 143, 4, 4225);
+    			attr_dev(div10, "class", "tab svelte-5s2vza");
+    			attr_dev(div10, "name", "capturer");
+    			attr_dev(div10, "title", "Capturer");
+    			add_location(div10, file, 144, 4, 4311);
+    			attr_dev(div11, "class", "tab svelte-5s2vza");
+    			attr_dev(div11, "name", "builder");
+    			attr_dev(div11, "title", "Builder");
+    			add_location(div11, file, 145, 4, 4395);
+    			attr_dev(div12, "class", "tab svelte-5s2vza");
+    			attr_dev(div12, "name", "events");
+    			attr_dev(div12, "title", "Events & messages");
+    			add_location(div12, file, 146, 4, 4477);
+    			attr_dev(div13, "class", "tabs svelte-5s2vza");
+    			add_location(div13, file, 142, 3, 4201);
+    			attr_dev(div14, "id", "control");
+    			attr_dev(div14, "class", "svelte-5s2vza");
+    			add_location(div14, file, 141, 2, 4178);
+    			attr_dev(div15, "id", "ui");
+    			attr_dev(div15, "class", "svelte-5s2vza");
+    			add_location(div15, file, 107, 1, 2872);
+    			attr_dev(main, "class", "svelte-5s2vza");
+    			add_location(main, file, 106, 0, 2863);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, main, anchor);
-    			append_dev(main, div10);
-    			append_dev(div10, div8);
+    			append_dev(main, div15);
+    			append_dev(div15, div8);
     			append_dev(div8, div1);
     			append_dev(div1, div0);
     			append_dev(div0, iframe);
@@ -618,8 +664,16 @@ var app = (function () {
     			select_option(select, /*bannerDevice*/ ctx[5]);
     			append_dev(div5, t16);
     			append_dev(div5, input4);
-    			append_dev(div10, t17);
-    			append_dev(div10, div9);
+    			append_dev(div15, t17);
+    			append_dev(div15, div14);
+    			append_dev(div14, div13);
+    			append_dev(div13, div9);
+    			append_dev(div13, t19);
+    			append_dev(div13, div10);
+    			append_dev(div13, t21);
+    			append_dev(div13, div11);
+    			append_dev(div13, t23);
+    			append_dev(div13, div12);
 
     			if (!mounted) {
     				dispose = [
@@ -632,7 +686,11 @@ var app = (function () {
     					listen_dev(input3, "input", /*bannerSizeChange*/ ctx[6], false, false, false),
     					listen_dev(select, "change", /*select_change_handler*/ ctx[16]),
     					listen_dev(select, "change", /*bannerDeviceChange*/ ctx[9], false, false, false),
-    					listen_dev(input4, "click", /*bannerResetSize*/ ctx[10], false, false, false)
+    					listen_dev(input4, "click", /*bannerResetSize*/ ctx[10], false, false, false),
+    					listen_dev(div9, "click", tabClick, false, false, false),
+    					listen_dev(div10, "click", tabClick, false, false, false),
+    					listen_dev(div11, "click", tabClick, false, false, false),
+    					listen_dev(div12, "click", tabClick, false, false, false)
     				];
 
     				mounted = true;
@@ -685,6 +743,11 @@ var app = (function () {
 
     	return await res.json();
     }
+
+    function tabClick(event) {
+    	const tabName = this.getAttribute("name");
+    	console.log(tabName);
+    } // TODO: switch UI for tabName
 
     function instance($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
@@ -841,7 +904,8 @@ var app = (function () {
     		bannerSrcKeyPress,
     		loadBanner,
     		bannerDeviceChange,
-    		bannerResetSize
+    		bannerResetSize,
+    		tabClick
     	});
 
     	$$self.$inject_state = $$props => {
