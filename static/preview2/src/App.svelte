@@ -244,4 +244,15 @@
 	select {
 		margin: 5px 0px;
 	}
+
+	#control {
+		position: absolute;
+		box-sizing: border-box;
+		margin: 0;
+		width: 300px;
+		height: 100%;
+		left: auto;
+		right: 0;
+		background-color: #ffffff;
+	}
 </style>
