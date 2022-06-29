@@ -502,74 +502,74 @@ var app = (function () {
     			attr_dev(iframe, "frameborder", "0");
     			attr_dev(iframe, "scrolling", "no");
     			attr_dev(iframe, "class", "svelte-1hzgqqw");
-    			add_location(iframe, file, 95, 5, 2724);
+    			add_location(iframe, file, 96, 5, 2781);
     			attr_dev(div0, "id", "banner_container");
     			attr_dev(div0, "class", "svelte-1hzgqqw");
-    			add_location(div0, file, 94, 4, 2662);
+    			add_location(div0, file, 95, 4, 2719);
     			attr_dev(div1, "id", "resize_area");
     			attr_dev(div1, "class", "svelte-1hzgqqw");
-    			add_location(div1, file, 93, 3, 2634);
-    			add_location(p0, file, 101, 6, 2951);
+    			add_location(div1, file, 94, 3, 2691);
+    			add_location(p0, file, 102, 6, 3008);
     			attr_dev(input0, "type", "text");
     			attr_dev(input0, "size", "45");
     			set_style(input0, "width", "200px");
-    			add_location(input0, file, 102, 6, 2976);
+    			add_location(input0, file, 103, 6, 3033);
     			attr_dev(input1, "type", "button");
     			input1.value = "↻";
     			attr_dev(input1, "class", "svelte-1hzgqqw");
-    			add_location(input1, file, 103, 6, 3090);
+    			add_location(input1, file, 104, 6, 3147);
     			attr_dev(div2, "class", "widget");
-    			add_location(div2, file, 100, 5, 2923);
-    			add_location(p1, file, 106, 6, 3216);
+    			add_location(div2, file, 101, 5, 2980);
+    			add_location(p1, file, 107, 6, 3273);
     			attr_dev(input2, "type", "number");
     			attr_dev(input2, "size", "45");
     			attr_dev(input2, "min", "0");
     			attr_dev(input2, "class", "svelte-1hzgqqw");
-    			add_location(input2, file, 107, 6, 3236);
+    			add_location(input2, file, 108, 6, 3293);
     			attr_dev(div3, "class", "widget");
-    			add_location(div3, file, 105, 5, 3188);
-    			add_location(p2, file, 110, 6, 3378);
+    			add_location(div3, file, 106, 5, 3245);
+    			add_location(p2, file, 111, 6, 3435);
     			attr_dev(input3, "type", "number");
     			attr_dev(input3, "size", "45");
     			attr_dev(input3, "min", "0");
     			attr_dev(input3, "class", "svelte-1hzgqqw");
-    			add_location(input3, file, 111, 6, 3399);
+    			add_location(input3, file, 112, 6, 3456);
     			attr_dev(div4, "class", "widget");
-    			add_location(div4, file, 109, 5, 3350);
-    			add_location(p3, file, 114, 6, 3542);
+    			add_location(div4, file, 110, 5, 3407);
+    			add_location(p3, file, 115, 6, 3599);
     			option0.__value = "iphone_se";
     			option0.value = option0.__value;
-    			add_location(option0, file, 116, 7, 3637);
+    			add_location(option0, file, 117, 7, 3694);
     			option1.__value = "iphone_xr";
     			option1.value = option1.__value;
-    			add_location(option1, file, 117, 7, 3690);
+    			add_location(option1, file, 118, 7, 3747);
     			option2.__value = "iphone_12_pro";
     			option2.value = option2.__value;
-    			add_location(option2, file, 118, 7, 3743);
+    			add_location(option2, file, 119, 7, 3800);
     			option3.__value = "default";
     			option3.value = option3.__value;
     			option3.selected = true;
-    			add_location(option3, file, 119, 7, 3804);
+    			add_location(option3, file, 120, 7, 3861);
     			attr_dev(select, "class", "svelte-1hzgqqw");
     			if (/*bannerDevice*/ ctx[5] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[15].call(select));
-    			add_location(select, file, 115, 6, 3563);
+    			add_location(select, file, 116, 6, 3620);
     			attr_dev(div5, "class", "widget");
-    			add_location(div5, file, 113, 5, 3514);
+    			add_location(div5, file, 114, 5, 3571);
     			attr_dev(div6, "class", "row");
-    			add_location(div6, file, 99, 4, 2899);
+    			add_location(div6, file, 100, 4, 2956);
     			attr_dev(div7, "id", "size_info");
     			attr_dev(div7, "class", "svelte-1hzgqqw");
-    			add_location(div7, file, 98, 3, 2873);
+    			add_location(div7, file, 99, 3, 2930);
     			attr_dev(div8, "id", "preview");
     			attr_dev(div8, "class", "svelte-1hzgqqw");
-    			add_location(div8, file, 92, 2, 2611);
+    			add_location(div8, file, 93, 2, 2668);
     			attr_dev(div9, "id", "control");
-    			add_location(div9, file, 125, 2, 3920);
+    			add_location(div9, file, 126, 2, 3977);
     			attr_dev(div10, "id", "ui");
     			attr_dev(div10, "class", "svelte-1hzgqqw");
-    			add_location(div10, file, 91, 1, 2594);
+    			add_location(div10, file, 92, 1, 2651);
     			attr_dev(main, "class", "svelte-1hzgqqw");
-    			add_location(main, file, 90, 0, 2585);
+    			add_location(main, file, 91, 0, 2642);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -699,6 +699,7 @@ var app = (function () {
     	let bannerContainer;
     	let bannerURL = "/index.html";
     	let bannerFrameSrc = bannerURL;
+    	let bannerInternalContainer;
     	let bannerDefaultWidth = 240; // TODO: read from banner
     	let bannerDefaultHeight = 400; // TODO: read from banner
     	let bannerWidth = bannerDefaultWidth;
@@ -733,11 +734,11 @@ var app = (function () {
     		console.log("Banner loaded");
     		const bannerWindow = banner.contentWindow;
     		const bannerDocument = bannerWindow.document;
-    		const bannerContainer = bannerDocument.getElementById("container");
+    		bannerInternalContainer = bannerDocument.getElementById("container");
 
-    		if (bannerContainer) {
-    			bannerDefaultWidth = bannerContainer.offsetWidth;
-    			bannerDefaultHeight = bannerContainer.offsetHeight;
+    		if (bannerInternalContainer) {
+    			bannerDefaultWidth = bannerInternalContainer.offsetWidth;
+    			bannerDefaultHeight = bannerInternalContainer.offsetHeight;
     		}
     	}
 
@@ -814,6 +815,7 @@ var app = (function () {
     		bannerContainer,
     		bannerURL,
     		bannerFrameSrc,
+    		bannerInternalContainer,
     		bannerDefaultWidth,
     		bannerDefaultHeight,
     		bannerWidth,
@@ -834,6 +836,7 @@ var app = (function () {
     		if ('bannerContainer' in $$props) $$invalidate(0, bannerContainer = $$props.bannerContainer);
     		if ('bannerURL' in $$props) $$invalidate(1, bannerURL = $$props.bannerURL);
     		if ('bannerFrameSrc' in $$props) $$invalidate(2, bannerFrameSrc = $$props.bannerFrameSrc);
+    		if ('bannerInternalContainer' in $$props) bannerInternalContainer = $$props.bannerInternalContainer;
     		if ('bannerDefaultWidth' in $$props) bannerDefaultWidth = $$props.bannerDefaultWidth;
     		if ('bannerDefaultHeight' in $$props) bannerDefaultHeight = $$props.bannerDefaultHeight;
     		if ('bannerWidth' in $$props) bannerWidth = $$props.bannerWidth;

@@ -14,6 +14,7 @@
 	let bannerContainer;
 	let bannerURL = "/index.html";
 	let bannerFrameSrc = bannerURL;
+	let bannerInternalContainer;
 	let bannerDefaultWidth = 240; // TODO: read from banner
 	let bannerDefaultHeight = 400; // TODO: read from banner
 	let bannerWidth = bannerDefaultWidth;
@@ -54,10 +55,10 @@
 		console.log("Banner loaded");
 		const bannerWindow = banner.contentWindow;
 		const bannerDocument = bannerWindow.document;
-		const bannerContainer = bannerDocument.getElementById("container");
-		if (bannerContainer) {
-			bannerDefaultWidth = bannerContainer.offsetWidth;
-			bannerDefaultHeight = bannerContainer.offsetHeight;
+		bannerInternalContainer = bannerDocument.getElementById("container");
+		if (bannerInternalContainer) {
+			bannerDefaultWidth = bannerInternalContainer.offsetWidth;
+			bannerDefaultHeight = bannerInternalContainer.offsetHeight;
 		}
 	}
 
