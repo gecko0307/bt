@@ -4,6 +4,7 @@ const fontGenerator = require("./font-generator");
 const imageOptimizer = require("./image-optimizer");
 const capturer = require("./capturer");
 const builder = require("./builder");
+const builder2 = require("./builder2");
 
 function requireUncached(module) {
     delete require.cache[require.resolve(module)];
@@ -41,6 +42,9 @@ async function build(req = {}) {
     if (useGulpBuilder) {
         options.gulpBuilderPath = builderPath;
         await builder(options);
+    }
+    else {
+        await builder2(options);
     }
 
     return {

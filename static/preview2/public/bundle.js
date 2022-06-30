@@ -945,7 +945,7 @@ var app = (function () {
     	return block;
     }
 
-    async function apiRequest$1(data) {
+    async function apiRequest$2(data) {
     	const res = await fetch("/api", {
     		method: "POST",
     		body: JSON.stringify(data)
@@ -962,7 +962,7 @@ var app = (function () {
     	let { bannerHeight } = $$props;
 
     	async function captureFallback() {
-    		await apiRequest$1({
+    		await apiRequest$2({
     			method: "capture",
     			width: bannerWidth,
     			height: bannerHeight
@@ -970,7 +970,7 @@ var app = (function () {
     	}
 
     	async function captureVideo() {
-    		await apiRequest$1({
+    		await apiRequest$2({
     			method: "capture",
     			video: true,
     			width: bannerWidth,
@@ -998,7 +998,7 @@ var app = (function () {
     		dispatch,
     		bannerWidth,
     		bannerHeight,
-    		apiRequest: apiRequest$1,
+    		apiRequest: apiRequest$2,
     		captureFallback,
     		captureVideo
     	});
@@ -1064,6 +1064,10 @@ var app = (function () {
     	let div;
     	let fieldset;
     	let legend;
+    	let t1;
+    	let input;
+    	let mounted;
+    	let dispose;
 
     	const block = {
     		c: function create() {
@@ -1071,13 +1075,19 @@ var app = (function () {
     			div = element("div");
     			fieldset = element("fieldset");
     			legend = element("legend");
-    			legend.textContent = "Build configuration";
-    			add_location(legend, file$2, 9, 3, 168);
-    			add_location(fieldset, file$2, 8, 2, 153);
+    			legend.textContent = "Build";
+    			t1 = space();
+    			input = element("input");
+    			add_location(legend, file$2, 24, 3, 454);
+    			attr_dev(input, "type", "button");
+    			input.value = "📦 Build banner";
+    			attr_dev(input, "title", "Build banner");
+    			add_location(input, file$2, 25, 3, 481);
+    			add_location(fieldset, file$2, 23, 2, 439);
     			attr_dev(div, "class", "section svelte-10z5nmq");
-    			add_location(div, file$2, 7, 1, 128);
+    			add_location(div, file$2, 22, 1, 414);
     			attr_dev(main, "class", "svelte-10z5nmq");
-    			add_location(main, file$2, 6, 0, 119);
+    			add_location(main, file$2, 21, 0, 405);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -1087,12 +1097,21 @@ var app = (function () {
     			append_dev(main, div);
     			append_dev(div, fieldset);
     			append_dev(fieldset, legend);
+    			append_dev(fieldset, t1);
+    			append_dev(fieldset, input);
+
+    			if (!mounted) {
+    				dispose = listen_dev(input, "click", build, false, false, false);
+    				mounted = true;
+    			}
     		},
     		p: noop,
     		i: noop,
     		o: noop,
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(main);
+    			mounted = false;
+    			dispose();
     		}
     	};
 
@@ -1107,6 +1126,19 @@ var app = (function () {
     	return block;
     }
 
+    async function apiRequest$1(data) {
+    	const res = await fetch("/api", {
+    		method: "POST",
+    		body: JSON.stringify(data)
+    	});
+
+    	return await res.json();
+    }
+
+    async function build() {
+    	await apiRequest$1({ method: "build" }); // TODO: build options
+    }
+
     function instance$2($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('Builder', slots, []);
@@ -1117,7 +1149,13 @@ var app = (function () {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<Builder> was created with unknown prop '${key}'`);
     	});
 
-    	$$self.$capture_state = () => ({ createEventDispatcher, dispatch });
+    	$$self.$capture_state = () => ({
+    		createEventDispatcher,
+    		dispatch,
+    		apiRequest: apiRequest$1,
+    		build
+    	});
+
     	return [];
     }
 
