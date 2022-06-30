@@ -1,9 +1,8 @@
 <script>
 	import { onMount } from "svelte";
-	import { fade } from "svelte/transition";
 	import "style/core.css";
     import Tabs from "./Tabs.svelte";
-	import Tools from "./Tools.svelte";
+	import Tools, { timerStart } from "./Tools.svelte";
 	import Capturer from "./Capturer.svelte";
 	import Builder from "./Builder.svelte";
 	import Events from "./Events.svelte";
@@ -88,6 +87,7 @@
 	function loadBanner() {
 		banner.src = "";
 		banner.src = bannerURL;
+		timerStart();
 	}
 
 	function bannerDeviceChange() {
