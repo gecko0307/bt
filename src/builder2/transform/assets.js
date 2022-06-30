@@ -62,6 +62,21 @@ async function processAssets(filename, document, tr) {
         }
     }
 
+    const svgImages = Array.prototype.slice.call(document.getElementsByTagName("image"));
+    for (const image of svgImages) {
+        if (image.hasAttribute("xlink:href") === false) continue;
+
+        const imageFilename = image.getAttribute("xlink:href");
+        const baseFilename = path.basename(imageFilename);
+        const imageInputPath = path.resolve(`./HTML/${imageFilename}`);
+        const imageOutputPath = path.resolve(`./build/${baseFilename}`);
+
+        if (await fs.pathExists(imageInputPath)) {
+            image.setAttribute("xlink:href", baseFilename);
+            await fs.copyFile(imageInputPath, imageOutputPath);
+        }
+    }
+
     return true;
 }
 
