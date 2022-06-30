@@ -3,6 +3,10 @@
 	import { fade } from "svelte/transition";
 	import "style/core.css";
     import Tabs from "./Tabs.svelte";
+	import Tools from "./Tools.svelte";
+	import Capturer from "./Capturer.svelte";
+	import Builder from "./Builder.svelte";
+	import Events from "./Events.svelte";
 	
 	let sse;
 
@@ -110,6 +114,17 @@
 	<div id="ui">
 		<div id="control">
 			<Tabs on:change={tabChange}/>
+			<div id="control_page">
+				{#if currentTab === "tools"}
+					<Tools/>
+				{:else if currentTab === "capturer"}
+					<Capturer/>
+				{:else if currentTab === "builder"}
+					<Builder/>
+				{:else if currentTab === "events"}
+					<Events/>
+				{/if}
+			</div>
 		</div>
 		<div id="preview">
 			<div id="resize_area">
@@ -155,6 +170,7 @@
 		margin: 0;
 		width: 100%;
 		height: 100%;
+		overflow: hidden;
 	}
 
 	#ui {
@@ -221,7 +237,7 @@
 		touch-action: none;
 		resize: both;
 		overflow: hidden;
-		box-shadow: 0 0 10px rgba(0,0,0,0.5);
+		box-shadow: 0 0 10px rgba(0,0,0,0.2);
 	}
 
 	#banner {
@@ -268,5 +284,15 @@
 		right: 0;
 		background-color: #ffffff;
 		border-left: 1px solid #cccccc;
+	}
+
+	#control_page {
+		position: absolute;
+		box-sizing: border-box;
+		margin: 0;
+		width: 300px;
+		height: auto;
+		top: 48px;
+		bottom: 0;
 	}
 </style>
