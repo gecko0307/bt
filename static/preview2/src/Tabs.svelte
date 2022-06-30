@@ -1,20 +1,19 @@
 <script>
-
-function tabClick(event) {
+	let currentTab = "tools";
+	
+	function tabClick(event) {
 		const tabName = this.getAttribute("data-name");
-		console.log(tabName);
-		// TODO: switch UI for tabName
+		currentTab = tabName;
 	}
 </script>
 
 <main>
-    <div class="tabs">
-        <div class="tab active" data-name="tools" title="Tools" on:click={tabClick}>🛠️</div>
-        <div class="tab" data-name="capturer" title="Capturer" on:click={tabClick}>📷</div>
-        <div class="tab" data-name="builder" title="Builder" on:click={tabClick}>📦</div>
-        <div class="tab" data-name="events" title="Events & messages" on:click={tabClick}>📡</div>
-    </div>
-    <!-- TODO: tab components -->
+	<div class="tabs">
+		<div class="tab" class:active="{currentTab === 'tools'}" data-name="tools" title="Tools" on:click={tabClick}>🛠️</div>
+		<div class="tab" class:active="{currentTab === 'capturer'}" data-name="capturer" title="Capturer" on:click={tabClick}>📷</div>
+		<div class="tab" class:active="{currentTab === 'builder'}" data-name="builder" title="Builder" on:click={tabClick}>📦</div>
+		<div class="tab" class:active="{currentTab === 'events'}" data-name="events" title="Events & messages" on:click={tabClick}>📡</div>
+	</div>
 </main>
 
 <style>
@@ -47,6 +46,7 @@ function tabClick(event) {
 		font-size: 25px;
 		text-align: center;
 		padding-top: 5px;
+		user-select: none;
 	}
 
 	.tabs .tab.active {
