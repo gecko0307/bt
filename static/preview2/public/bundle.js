@@ -853,11 +853,13 @@ var app = (function () {
     	let fieldset0;
     	let legend0;
     	let t1;
-    	let input;
+    	let input0;
     	let t2;
     	let div1;
     	let fieldset1;
     	let legend1;
+    	let t4;
+    	let input1;
     	let mounted;
     	let dispose;
 
@@ -869,26 +871,32 @@ var app = (function () {
     			legend0 = element("legend");
     			legend0.textContent = "Fallback";
     			t1 = space();
-    			input = element("input");
+    			input0 = element("input");
     			t2 = space();
     			div1 = element("div");
     			fieldset1 = element("fieldset");
     			legend1 = element("legend");
     			legend1.textContent = "Video";
-    			add_location(legend0, file$3, 28, 3, 544);
-    			attr_dev(input, "type", "button");
-    			input.value = "📷 Capture Fallback";
-    			attr_dev(input, "title", "Capture fallback");
-    			add_location(input, file$3, 30, 3, 625);
-    			add_location(fieldset0, file$3, 27, 2, 529);
+    			t4 = space();
+    			input1 = element("input");
+    			add_location(legend0, file$3, 41, 3, 818);
+    			attr_dev(input0, "type", "button");
+    			input0.value = "📷 Capture Fallback";
+    			attr_dev(input0, "title", "Capture fallback");
+    			add_location(input0, file$3, 43, 3, 899);
+    			add_location(fieldset0, file$3, 40, 2, 803);
     			attr_dev(div0, "class", "section svelte-10z5nmq");
-    			add_location(div0, file$3, 26, 1, 504);
-    			add_location(legend1, file$3, 35, 3, 794);
-    			add_location(fieldset1, file$3, 34, 2, 779);
+    			add_location(div0, file$3, 39, 1, 778);
+    			add_location(legend1, file$3, 48, 3, 1068);
+    			attr_dev(input1, "type", "button");
+    			input1.value = "🎥 Capture Video";
+    			attr_dev(input1, "title", "Capture video");
+    			add_location(input1, file$3, 50, 3, 1146);
+    			add_location(fieldset1, file$3, 47, 2, 1053);
     			attr_dev(div1, "class", "section svelte-10z5nmq");
-    			add_location(div1, file$3, 33, 1, 754);
+    			add_location(div1, file$3, 46, 1, 1028);
     			attr_dev(main, "class", "svelte-10z5nmq");
-    			add_location(main, file$3, 25, 0, 495);
+    			add_location(main, file$3, 38, 0, 769);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -899,14 +907,20 @@ var app = (function () {
     			append_dev(div0, fieldset0);
     			append_dev(fieldset0, legend0);
     			append_dev(fieldset0, t1);
-    			append_dev(fieldset0, input);
+    			append_dev(fieldset0, input0);
     			append_dev(main, t2);
     			append_dev(main, div1);
     			append_dev(div1, fieldset1);
     			append_dev(fieldset1, legend1);
+    			append_dev(fieldset1, t4);
+    			append_dev(fieldset1, input1);
 
     			if (!mounted) {
-    				dispose = listen_dev(input, "click", /*captureFallback*/ ctx[0], false, false, false);
+    				dispose = [
+    					listen_dev(input0, "click", /*captureFallback*/ ctx[0], false, false, false),
+    					listen_dev(input1, "click", /*captureVideo*/ ctx[1], false, false, false)
+    				];
+
     				mounted = true;
     			}
     		},
@@ -916,7 +930,7 @@ var app = (function () {
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(main);
     			mounted = false;
-    			dispose();
+    			run_all(dispose);
     		}
     	};
 
@@ -955,6 +969,19 @@ var app = (function () {
     		});
     	}
 
+    	async function captureVideo() {
+    		await apiRequest$1({
+    			method: "capture",
+    			video: true,
+    			width: bannerWidth,
+    			height: bannerHeight,
+    			fps: 60,
+    			videoFilename: "video.mp4",
+    			videoCompressionRate: 1,
+    			videoDuration: undefined
+    		});
+    	}
+
     	const writable_props = ['bannerWidth', 'bannerHeight'];
 
     	Object.keys($$props).forEach(key => {
@@ -962,8 +989,8 @@ var app = (function () {
     	});
 
     	$$self.$$set = $$props => {
-    		if ('bannerWidth' in $$props) $$invalidate(1, bannerWidth = $$props.bannerWidth);
-    		if ('bannerHeight' in $$props) $$invalidate(2, bannerHeight = $$props.bannerHeight);
+    		if ('bannerWidth' in $$props) $$invalidate(2, bannerWidth = $$props.bannerWidth);
+    		if ('bannerHeight' in $$props) $$invalidate(3, bannerHeight = $$props.bannerHeight);
     	};
 
     	$$self.$capture_state = () => ({
@@ -972,25 +999,26 @@ var app = (function () {
     		bannerWidth,
     		bannerHeight,
     		apiRequest: apiRequest$1,
-    		captureFallback
+    		captureFallback,
+    		captureVideo
     	});
 
     	$$self.$inject_state = $$props => {
-    		if ('bannerWidth' in $$props) $$invalidate(1, bannerWidth = $$props.bannerWidth);
-    		if ('bannerHeight' in $$props) $$invalidate(2, bannerHeight = $$props.bannerHeight);
+    		if ('bannerWidth' in $$props) $$invalidate(2, bannerWidth = $$props.bannerWidth);
+    		if ('bannerHeight' in $$props) $$invalidate(3, bannerHeight = $$props.bannerHeight);
     	};
 
     	if ($$props && "$$inject" in $$props) {
     		$$self.$inject_state($$props.$$inject);
     	}
 
-    	return [captureFallback, bannerWidth, bannerHeight];
+    	return [captureFallback, captureVideo, bannerWidth, bannerHeight];
     }
 
     class Capturer extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$3, create_fragment$3, safe_not_equal, { bannerWidth: 1, bannerHeight: 2 });
+    		init(this, options, instance$3, create_fragment$3, safe_not_equal, { bannerWidth: 2, bannerHeight: 3 });
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
@@ -1002,11 +1030,11 @@ var app = (function () {
     		const { ctx } = this.$$;
     		const props = options.props || {};
 
-    		if (/*bannerWidth*/ ctx[1] === undefined && !('bannerWidth' in props)) {
+    		if (/*bannerWidth*/ ctx[2] === undefined && !('bannerWidth' in props)) {
     			console.warn("<Capturer> was created without expected prop 'bannerWidth'");
     		}
 
-    		if (/*bannerHeight*/ ctx[2] === undefined && !('bannerHeight' in props)) {
+    		if (/*bannerHeight*/ ctx[3] === undefined && !('bannerHeight' in props)) {
     			console.warn("<Capturer> was created without expected prop 'bannerHeight'");
     		}
     	}

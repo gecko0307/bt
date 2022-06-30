@@ -21,6 +21,19 @@
 			height: bannerHeight
 		});
 	}
+
+	async function captureVideo() {
+		const res = await apiRequest({
+			method: "capture",
+			video: true,
+			width: bannerWidth,
+			height: bannerHeight,
+			fps: 60,
+			videoFilename: "video.mp4",
+			videoCompressionRate: 1,
+			videoDuration: undefined
+		});
+	}
 </script>
 
 <main>
@@ -34,7 +47,8 @@
 	<div class="section">
 		<fieldset>
 			<legend>Video</legend>
-			<!-- TODO -->
+			<!-- TODO: size mode: auto, container size -->
+			<input type="button" value="🎥 Capture Video" title="Capture video" on:click={captureVideo}/>
 		</fieldset>
 	</div>
 </main>
