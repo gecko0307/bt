@@ -84,17 +84,10 @@ function init() {
             })
         );
     });
-
-    fastify.register(fastifyStatic, {
-        root: path.join(__dirname, "..", "static", "preview"),
-        prefix: "/preview",
-        redirect: true,
-        decorateReply: false
-    });
     
     fastify.register(fastifyStatic, {
-        root: path.join(__dirname, "..", "static", "preview2", "public"),
-        prefix: "/preview2",
+        root: path.join(__dirname, "..", "static", "preview", "public"),
+        prefix: "/preview",
         redirect: true,
         decorateReply: false
     });
