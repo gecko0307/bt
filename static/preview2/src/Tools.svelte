@@ -1,7 +1,5 @@
 <script>
-	import { onMount, createEventDispatcher } from "svelte";
-
-	const dispatch = createEventDispatcher();
+	import { onMount } from "svelte";
 
 	onMount(async () => {
 		timerStart();

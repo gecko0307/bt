@@ -658,32 +658,32 @@ var app = (function () {
     			input0 = element("input");
     			t8 = space();
     			input1 = element("input");
-    			add_location(legend0, file$4, 50, 3, 1110);
+    			add_location(legend0, file$4, 48, 3, 1041);
     			attr_dev(span0, "id", "sec");
-    			add_location(span0, file$4, 51, 19, 1153);
+    			add_location(span0, file$4, 49, 19, 1084);
     			attr_dev(span1, "id", "msec");
     			attr_dev(span1, "class", "svelte-3qzh4n");
-    			add_location(span1, file$4, 51, 60, 1194);
+    			add_location(span1, file$4, 49, 60, 1125);
     			attr_dev(div0, "id", "timer");
     			attr_dev(div0, "class", "svelte-3qzh4n");
-    			add_location(div0, file$4, 51, 3, 1137);
-    			add_location(fieldset0, file$4, 49, 2, 1095);
+    			add_location(div0, file$4, 49, 3, 1068);
+    			add_location(fieldset0, file$4, 47, 2, 1026);
     			attr_dev(div1, "class", "section svelte-3qzh4n");
-    			add_location(div1, file$4, 48, 1, 1070);
-    			add_location(legend1, file$4, 56, 3, 1309);
+    			add_location(div1, file$4, 46, 1, 1001);
+    			add_location(legend1, file$4, 54, 3, 1240);
     			attr_dev(input0, "type", "button");
     			input0.value = "🖼️ Images";
     			attr_dev(input0, "title", "Image Optimizer");
-    			add_location(input0, file$4, 57, 3, 1336);
+    			add_location(input0, file$4, 55, 3, 1267);
     			attr_dev(input1, "type", "button");
     			input1.value = "🗛 Fonts";
     			attr_dev(input1, "title", "Web Font Generator");
-    			add_location(input1, file$4, 58, 3, 1442);
-    			add_location(fieldset1, file$4, 55, 2, 1294);
+    			add_location(input1, file$4, 56, 3, 1373);
+    			add_location(fieldset1, file$4, 53, 2, 1225);
     			attr_dev(div2, "class", "section svelte-3qzh4n");
-    			add_location(div2, file$4, 54, 1, 1269);
+    			add_location(div2, file$4, 52, 1, 1200);
     			attr_dev(main, "class", "svelte-3qzh4n");
-    			add_location(main, file$4, 47, 0, 1061);
+    			add_location(main, file$4, 45, 0, 992);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -789,7 +789,6 @@ var app = (function () {
     function instance$4($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('Tools', slots, []);
-    	const dispatch = createEventDispatcher();
 
     	onMount(async () => {
     		timerStart();
@@ -825,8 +824,6 @@ var app = (function () {
     		timerStart,
     		pad,
     		onMount,
-    		createEventDispatcher,
-    		dispatch,
     		openURL
     	});
 
@@ -856,9 +853,13 @@ var app = (function () {
     	let fieldset0;
     	let legend0;
     	let t1;
+    	let input;
+    	let t2;
     	let div1;
     	let fieldset1;
     	let legend1;
+    	let mounted;
+    	let dispose;
 
     	const block = {
     		c: function create() {
@@ -868,20 +869,26 @@ var app = (function () {
     			legend0 = element("legend");
     			legend0.textContent = "Fallback";
     			t1 = space();
+    			input = element("input");
+    			t2 = space();
     			div1 = element("div");
     			fieldset1 = element("fieldset");
     			legend1 = element("legend");
     			legend1.textContent = "Video";
-    			add_location(legend0, file$3, 9, 3, 168);
-    			add_location(fieldset0, file$3, 8, 2, 153);
+    			add_location(legend0, file$3, 28, 3, 544);
+    			attr_dev(input, "type", "button");
+    			input.value = "📷 Capture Fallback";
+    			attr_dev(input, "title", "Capture fallback");
+    			add_location(input, file$3, 30, 3, 625);
+    			add_location(fieldset0, file$3, 27, 2, 529);
     			attr_dev(div0, "class", "section svelte-10z5nmq");
-    			add_location(div0, file$3, 7, 1, 128);
-    			add_location(legend1, file$3, 15, 3, 278);
-    			add_location(fieldset1, file$3, 14, 2, 263);
+    			add_location(div0, file$3, 26, 1, 504);
+    			add_location(legend1, file$3, 35, 3, 794);
+    			add_location(fieldset1, file$3, 34, 2, 779);
     			attr_dev(div1, "class", "section svelte-10z5nmq");
-    			add_location(div1, file$3, 13, 1, 238);
+    			add_location(div1, file$3, 33, 1, 754);
     			attr_dev(main, "class", "svelte-10z5nmq");
-    			add_location(main, file$3, 6, 0, 119);
+    			add_location(main, file$3, 25, 0, 495);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -891,16 +898,25 @@ var app = (function () {
     			append_dev(main, div0);
     			append_dev(div0, fieldset0);
     			append_dev(fieldset0, legend0);
-    			append_dev(main, t1);
+    			append_dev(fieldset0, t1);
+    			append_dev(fieldset0, input);
+    			append_dev(main, t2);
     			append_dev(main, div1);
     			append_dev(div1, fieldset1);
     			append_dev(fieldset1, legend1);
+
+    			if (!mounted) {
+    				dispose = listen_dev(input, "click", /*captureFallback*/ ctx[0], false, false, false);
+    				mounted = true;
+    			}
     		},
     		p: noop,
     		i: noop,
     		o: noop,
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(main);
+    			mounted = false;
+    			dispose();
     		}
     	};
 
@@ -915,24 +931,66 @@ var app = (function () {
     	return block;
     }
 
+    async function apiRequest$1(data) {
+    	const res = await fetch("/api", {
+    		method: "POST",
+    		body: JSON.stringify(data)
+    	});
+
+    	return await res.json();
+    }
+
     function instance$3($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('Capturer', slots, []);
     	const dispatch = createEventDispatcher();
-    	const writable_props = [];
+    	let { bannerWidth } = $$props;
+    	let { bannerHeight } = $$props;
+
+    	async function captureFallback() {
+    		await apiRequest$1({
+    			method: "capture",
+    			width: bannerWidth,
+    			height: bannerHeight
+    		});
+    	}
+
+    	const writable_props = ['bannerWidth', 'bannerHeight'];
 
     	Object.keys($$props).forEach(key => {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== '$$' && key !== 'slot') console.warn(`<Capturer> was created with unknown prop '${key}'`);
     	});
 
-    	$$self.$capture_state = () => ({ createEventDispatcher, dispatch });
-    	return [];
+    	$$self.$$set = $$props => {
+    		if ('bannerWidth' in $$props) $$invalidate(1, bannerWidth = $$props.bannerWidth);
+    		if ('bannerHeight' in $$props) $$invalidate(2, bannerHeight = $$props.bannerHeight);
+    	};
+
+    	$$self.$capture_state = () => ({
+    		createEventDispatcher,
+    		dispatch,
+    		bannerWidth,
+    		bannerHeight,
+    		apiRequest: apiRequest$1,
+    		captureFallback
+    	});
+
+    	$$self.$inject_state = $$props => {
+    		if ('bannerWidth' in $$props) $$invalidate(1, bannerWidth = $$props.bannerWidth);
+    		if ('bannerHeight' in $$props) $$invalidate(2, bannerHeight = $$props.bannerHeight);
+    	};
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	return [captureFallback, bannerWidth, bannerHeight];
     }
 
     class Capturer extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$3, create_fragment$3, safe_not_equal, {});
+    		init(this, options, instance$3, create_fragment$3, safe_not_equal, { bannerWidth: 1, bannerHeight: 2 });
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
@@ -940,6 +998,33 @@ var app = (function () {
     			options,
     			id: create_fragment$3.name
     		});
+
+    		const { ctx } = this.$$;
+    		const props = options.props || {};
+
+    		if (/*bannerWidth*/ ctx[1] === undefined && !('bannerWidth' in props)) {
+    			console.warn("<Capturer> was created without expected prop 'bannerWidth'");
+    		}
+
+    		if (/*bannerHeight*/ ctx[2] === undefined && !('bannerHeight' in props)) {
+    			console.warn("<Capturer> was created without expected prop 'bannerHeight'");
+    		}
+    	}
+
+    	get bannerWidth() {
+    		throw new Error("<Capturer>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set bannerWidth(value) {
+    		throw new Error("<Capturer>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get bannerHeight() {
+    		throw new Error("<Capturer>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set bannerHeight(value) {
+    		throw new Error("<Capturer>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
     }
 
@@ -1137,6 +1222,7 @@ var app = (function () {
     			mount_component(events, target, anchor);
     			current = true;
     		},
+    		p: noop,
     		i: function intro(local) {
     			if (current) return;
     			transition_in(events.$$.fragment, local);
@@ -1176,6 +1262,7 @@ var app = (function () {
     			mount_component(builder, target, anchor);
     			current = true;
     		},
+    		p: noop,
     		i: function intro(local) {
     			if (current) return;
     			transition_in(builder.$$.fragment, local);
@@ -1205,7 +1292,14 @@ var app = (function () {
     function create_if_block_1(ctx) {
     	let capturer;
     	let current;
-    	capturer = new Capturer({ $$inline: true });
+
+    	capturer = new Capturer({
+    			props: {
+    				bannerWidth: /*banner*/ ctx[1].offsetWidth,
+    				bannerHeight: /*banner*/ ctx[1].offsetHeight
+    			},
+    			$$inline: true
+    		});
 
     	const block = {
     		c: function create() {
@@ -1214,6 +1308,12 @@ var app = (function () {
     		m: function mount(target, anchor) {
     			mount_component(capturer, target, anchor);
     			current = true;
+    		},
+    		p: function update(ctx, dirty) {
+    			const capturer_changes = {};
+    			if (dirty & /*banner*/ 2) capturer_changes.bannerWidth = /*banner*/ ctx[1].offsetWidth;
+    			if (dirty & /*banner*/ 2) capturer_changes.bannerHeight = /*banner*/ ctx[1].offsetHeight;
+    			capturer.$set(capturer_changes);
     		},
     		i: function intro(local) {
     			if (current) return;
@@ -1254,6 +1354,7 @@ var app = (function () {
     			mount_component(tools, target, anchor);
     			current = true;
     		},
+    		p: noop,
     		i: function intro(local) {
     			if (current) return;
     			transition_in(tools.$$.fragment, local);
@@ -1405,67 +1506,67 @@ var app = (function () {
     			attr_dev(iframe, "frameborder", "0");
     			attr_dev(iframe, "scrolling", "no");
     			attr_dev(iframe, "class", "svelte-2vyb1p");
-    			add_location(iframe, file, 131, 5, 3531);
+    			add_location(iframe, file, 131, 5, 3599);
     			attr_dev(div2, "id", "banner_container");
     			attr_dev(div2, "class", "svelte-2vyb1p");
-    			add_location(div2, file, 130, 4, 3469);
+    			add_location(div2, file, 130, 4, 3537);
     			attr_dev(div3, "id", "resize_area");
     			attr_dev(div3, "class", "svelte-2vyb1p");
-    			add_location(div3, file, 129, 3, 3441);
-    			add_location(p0, file, 137, 6, 3749);
+    			add_location(div3, file, 129, 3, 3509);
+    			add_location(p0, file, 137, 6, 3817);
     			attr_dev(input0, "type", "text");
     			attr_dev(input0, "size", "45");
     			set_style(input0, "width", "200px");
-    			add_location(input0, file, 138, 6, 3774);
+    			add_location(input0, file, 138, 6, 3842);
     			attr_dev(input1, "type", "button");
     			input1.value = "↻";
     			attr_dev(input1, "class", "svelte-2vyb1p");
-    			add_location(input1, file, 139, 6, 3888);
+    			add_location(input1, file, 139, 6, 3956);
     			attr_dev(div4, "class", "widget");
-    			add_location(div4, file, 136, 5, 3721);
-    			add_location(p1, file, 142, 6, 3990);
+    			add_location(div4, file, 136, 5, 3789);
+    			add_location(p1, file, 142, 6, 4058);
     			attr_dev(input2, "type", "number");
     			attr_dev(input2, "size", "45");
     			attr_dev(input2, "min", "0");
     			attr_dev(input2, "class", "svelte-2vyb1p");
-    			add_location(input2, file, 143, 6, 4010);
+    			add_location(input2, file, 143, 6, 4078);
     			attr_dev(div5, "class", "widget");
-    			add_location(div5, file, 141, 5, 3962);
-    			add_location(p2, file, 146, 6, 4152);
+    			add_location(div5, file, 141, 5, 4030);
+    			add_location(p2, file, 146, 6, 4220);
     			attr_dev(input3, "type", "number");
     			attr_dev(input3, "size", "45");
     			attr_dev(input3, "min", "0");
     			attr_dev(input3, "class", "svelte-2vyb1p");
-    			add_location(input3, file, 147, 6, 4173);
+    			add_location(input3, file, 147, 6, 4241);
     			attr_dev(div6, "class", "widget");
-    			add_location(div6, file, 145, 5, 4124);
-    			add_location(p3, file, 150, 6, 4316);
+    			add_location(div6, file, 145, 5, 4192);
+    			add_location(p3, file, 150, 6, 4384);
     			option0.__value = "iphone_se";
     			option0.value = option0.__value;
-    			add_location(option0, file, 152, 7, 4411);
+    			add_location(option0, file, 152, 7, 4479);
     			option1.__value = "iphone_xr";
     			option1.value = option1.__value;
-    			add_location(option1, file, 153, 7, 4464);
+    			add_location(option1, file, 153, 7, 4532);
     			option2.__value = "iphone_12_pro";
     			option2.value = option2.__value;
-    			add_location(option2, file, 154, 7, 4517);
+    			add_location(option2, file, 154, 7, 4585);
     			attr_dev(select, "class", "svelte-2vyb1p");
     			if (/*bannerDevice*/ ctx[5] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[18].call(select));
-    			add_location(select, file, 151, 6, 4337);
+    			add_location(select, file, 151, 6, 4405);
     			attr_dev(input4, "type", "button");
     			input4.value = "Reset";
     			attr_dev(input4, "class", "svelte-2vyb1p");
-    			add_location(input4, file, 156, 6, 4594);
+    			add_location(input4, file, 156, 6, 4662);
     			attr_dev(div7, "class", "widget");
-    			add_location(div7, file, 149, 5, 4288);
+    			add_location(div7, file, 149, 5, 4356);
     			attr_dev(div8, "class", "row");
-    			add_location(div8, file, 135, 4, 3697);
+    			add_location(div8, file, 135, 4, 3765);
     			attr_dev(div9, "id", "size_info");
     			attr_dev(div9, "class", "svelte-2vyb1p");
-    			add_location(div9, file, 134, 3, 3671);
+    			add_location(div9, file, 134, 3, 3739);
     			attr_dev(div10, "id", "preview");
     			attr_dev(div10, "class", "svelte-2vyb1p");
-    			add_location(div10, file, 128, 2, 3418);
+    			add_location(div10, file, 128, 2, 3486);
     			attr_dev(div11, "id", "ui");
     			attr_dev(div11, "class", "svelte-2vyb1p");
     			add_location(div11, file, 113, 1, 3062);
@@ -1550,7 +1651,11 @@ var app = (function () {
     			let previous_block_index = current_block_type_index;
     			current_block_type_index = select_block_type(ctx);
 
-    			if (current_block_type_index !== previous_block_index) {
+    			if (current_block_type_index === previous_block_index) {
+    				if (~current_block_type_index) {
+    					if_blocks[current_block_type_index].p(ctx, dirty);
+    				}
+    			} else {
     				if (if_block) {
     					group_outros();
 
@@ -1567,6 +1672,8 @@ var app = (function () {
     					if (!if_block) {
     						if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
     						if_block.c();
+    					} else {
+    						if_block.p(ctx, dirty);
     					}
 
     					transition_in(if_block, 1);

@@ -2,13 +2,33 @@
 	import { createEventDispatcher } from "svelte";
 
 	const dispatch = createEventDispatcher();
+
+	export let bannerWidth;
+	export let bannerHeight;
+
+	async function apiRequest(data) {
+		const res = await fetch("/api", {
+			method: "POST",
+			body: JSON.stringify(data)
+		});
+		return await res.json();
+	}
+
+	async function captureFallback() {
+		const res = await apiRequest({
+			method: "capture",
+			width: bannerWidth,
+			height: bannerHeight
+		});
+	}
 </script>
 
 <main>
 	<div class="section">
 		<fieldset>
 			<legend>Fallback</legend>
-			<!-- TODO -->
+			<!-- TODO: size mode: auto, container size -->
+			<input type="button" value="📷 Capture Fallback" title="Capture fallback" on:click={captureFallback}/>
 		</fieldset>
 	</div>
 	<div class="section">

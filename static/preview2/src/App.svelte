@@ -118,7 +118,7 @@
 				{#if currentTab === "tools"}
 					<Tools/>
 				{:else if currentTab === "capturer"}
-					<Capturer/>
+					<Capturer bannerWidth={banner.offsetWidth} bannerHeight={banner.offsetHeight}/>
 				{:else if currentTab === "builder"}
 					<Builder/>
 				{:else if currentTab === "events"}
