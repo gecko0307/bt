@@ -21,7 +21,9 @@ Waring: this is NOT an end user web app! It is meant to be run locally for devel
 * ✔️ Banner Builder - prepares banner for publishing on advertising platforms
 * ⌛ Banner preview tools: resizer, timer, event manager, etc.
 
-[![Screenshot1](https://github.com/gecko0307/bt/raw/master/assets/image-optimizer.png)](https://github.com/gecko0307/bt/raw/master/assets/image-optimizer.png)
+[![Screenshot1](https://github.com/gecko0307/bt/raw/master/assets/preview.jpg)](https://github.com/gecko0307/bt/raw/master/assets/preview.jpg)
+
+[![Screenshot2](https://github.com/gecko0307/bt/raw/master/assets/image-optimizer.png)](https://github.com/gecko0307/bt/raw/master/assets/image-optimizer.png)
 
 ## Installation
 ```
