@@ -26,6 +26,9 @@
 	
 	let observer;
 
+	// tools, capturer, builder, events
+	let currentTab = "tools";
+
 	async function apiRequest(data) {
 		const res = await fetch("/api", {
 			method: "POST",
@@ -97,12 +100,16 @@
 		bannerContainer.style.width = bannerWidthProp + "px";
 		bannerContainer.style.height = bannerHeightProp + "px";
 	}
+
+	function tabChange(event) {
+		currentTab = event.detail.tab;
+	}
 </script>
 
 <main>
 	<div id="ui">
 		<div id="control">
-			<Tabs/>
+			<Tabs on:change={tabChange}/>
 		</div>
 		<div id="preview">
 			<div id="resize_area">

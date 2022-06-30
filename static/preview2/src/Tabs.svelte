@@ -1,9 +1,14 @@
 <script>
+	import { createEventDispatcher } from "svelte";
+
+	const dispatch = createEventDispatcher();
+
 	let currentTab = "tools";
 	
 	function tabClick(event) {
 		const tabName = this.getAttribute("data-name");
 		currentTab = tabName;
+		dispatch("change", { tab: currentTab });
 	}
 </script>
 
