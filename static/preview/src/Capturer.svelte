@@ -5,6 +5,11 @@
 
 	export let bannerWidth;
 	export let bannerHeight;
+	export let containerWidth;
+	export let containerHeight;
+
+	let fallbackSizeMode = "banner";
+	let videoSizeMode = "banner";
 
 	async function apiRequest(data) {
 		const res = await fetch("/api", {
@@ -15,19 +20,39 @@
 	}
 
 	async function captureFallback() {
+		let width, height;
+		if (fallbackSizeMode === "banner") {
+			width = bannerWidth;
+			height = bannerHeight;
+		}
+		else if (fallbackSizeMode === "container") {
+			width = containerWidth;
+			height = containerHeight;
+		}
+
 		const res = await apiRequest({
 			method: "capture",
-			width: bannerWidth,
-			height: bannerHeight
+			width: width,
+			height: height
 		});
 	}
 
 	async function captureVideo() {
+		let width, height;
+		if (videoSizeMode === "banner") {
+			width = bannerWidth;
+			height = bannerHeight;
+		}
+		else if (videoSizeMode === "container") {
+			width = containerWidth;
+			height = containerHeight;
+		}
+
 		const res = await apiRequest({
 			method: "capture",
 			video: true,
-			width: bannerWidth,
-			height: bannerHeight,
+			width: width,
+			height: height,
 			fps: 60,
 			videoFilename: "video.mp4",
 			videoCompressionRate: 1,
@@ -40,14 +65,26 @@
 	<div class="section">
 		<fieldset>
 			<legend>Fallback</legend>
-			<!-- TODO: size mode: auto, container size -->
-			<input type="button" value="📷 Capture Fallback" title="Capture fallback" on:click={captureFallback}/>
+			<p>Size</p>
+			<p>
+				<select bind:value={fallbackSizeMode}>
+					<option value="banner" selected>From banner</option>
+					<option value="container">From container</option>
+				</select>
+			</p>
+			<p><input type="button" value="📷 Capture Fallback" title="Capture fallback" on:click={captureFallback}/></p>
 		</fieldset>
 	</div>
 	<div class="section">
 		<fieldset>
 			<legend>Video</legend>
-			<!-- TODO: size mode: auto, container size -->
+			<p>Size</p>
+			<p>
+				<select bind:value={videoSizeMode}>
+					<option value="banner" selected>From banner</option>
+					<option value="container">From container</option>
+				</select>
+			</p>
 			<input type="button" value="🎥 Capture Video" title="Capture video" on:click={captureVideo}/>
 		</fieldset>
 	</div>
@@ -66,5 +103,10 @@
 	.section {
 		margin-top: 15px;
 		margin-bottom: 20px;
+	}
+
+	select {
+		margin-top: 5px;
+		margin-bottom: 10px;
 	}
 </style>

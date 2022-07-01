@@ -133,7 +133,11 @@
 				{#if currentTab === "tools"}
 					<Tools on:open={toolOpen}/>
 				{:else if currentTab === "capturer"}
-					<Capturer bannerWidth={banner.offsetWidth} bannerHeight={banner.offsetHeight}/>
+					<Capturer 
+						bannerWidth={banner.offsetWidth}
+						bannerHeight={banner.offsetHeight}
+						containerWidth={bannerWidth}
+						containerHeight={bannerHeight}/>
 				{:else if currentTab === "builder"}
 					<Builder/>
 				{:else if currentTab === "events"}
