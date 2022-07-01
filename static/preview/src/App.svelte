@@ -131,6 +131,16 @@
     function closeOverlay() {
         showToolWindow = false;
     }
+
+	function captureStart(event) {
+		console.log(event.detail.message);
+		// TODO: overlay
+	}
+
+	function captureReady(event) {
+		console.log(event.detail.capture);
+		// TODO: show capture
+	}
 </script>
 
 <main>
@@ -145,7 +155,9 @@
 						bannerWidth={bannerDefaultWidth}
 						bannerHeight={bannerDefaultHeight}
 						containerWidth={banner.offsetWidth}
-						containerHeight={banner.offsetHeight}/>
+						containerHeight={banner.offsetHeight}
+						on:start={captureStart}
+						on:ready={captureReady}/>
 				{:else if currentTab === "builder"}
 					<Builder/>
 				{:else if currentTab === "events"}

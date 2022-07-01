@@ -24,6 +24,10 @@
 	}
 
 	async function captureFallback() {
+		dispatch("start", { 
+			message: "Capture fallback..."
+		});
+
 		let width, height;
 		if (fallbackSizeMode === "banner") {
 			width = bannerWidth;
@@ -39,9 +43,22 @@
 			width: width,
 			height: height
 		});
+
+		dispatch("ready", { 
+			...res,
+			capture: {
+				video: false,
+				filename: "fallback.gif",
+				width, height, 
+			}
+		});
 	}
 
 	async function captureVideo() {
+		dispatch("start", { 
+			message: "Capture video..."
+		});
+
 		let width, height;
 		if (videoSizeMode === "banner") {
 			width = bannerWidth;
@@ -63,6 +80,15 @@
 			videoFilename: videoFilename,
 			videoCompressionRate: videoCompressionRate,
 			videoDuration: videoDuration
+		});
+
+		dispatch("ready", {
+			...res,
+			capture: {
+				video: true,
+				filename: videoFilename,
+				width, height, 
+			}
 		});
 	}
 </script>
