@@ -10,6 +10,7 @@
 
 	let fallbackSizeMode = "banner";
 	let videoSizeMode = "banner";
+	let fps = 60;
 
 	async function apiRequest(data) {
 		const res = await fetch("/api", {
@@ -53,7 +54,7 @@
 			video: true,
 			width: width,
 			height: height,
-			fps: 60,
+			fps: fps,
 			videoFilename: "video.mp4",
 			videoCompressionRate: 1,
 			videoDuration: undefined
@@ -85,6 +86,10 @@
 					<option value="container">From container</option>
 				</select>
 			</p>
+			<p>FPS</p>
+			<p>
+				<input type="number" size="45" bind:value={fps} min=1>
+			</p>
 			<input type="button" value="🎥 Capture Video" title="Capture video" on:click={captureVideo}/>
 		</fieldset>
 	</div>
@@ -106,6 +111,11 @@
 	}
 
 	select {
+		margin-top: 5px;
+		margin-bottom: 10px;
+	}
+
+	input[type=number] {
 		margin-top: 5px;
 		margin-bottom: 10px;
 	}

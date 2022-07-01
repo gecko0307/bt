@@ -71,8 +71,16 @@
 		const bannerDocument = bannerWindow.document;
 		bannerInternalContainer = bannerDocument.getElementById("container");
 		if (bannerInternalContainer) {
+			console.log(bannerInternalContainer.offsetWidth, bannerInternalContainer.offsetHeight);
 			bannerDefaultWidth = bannerInternalContainer.offsetWidth;
 			bannerDefaultHeight = bannerInternalContainer.offsetHeight;
+			/*
+			bannerWidth = bannerDefaultWidth;
+			bannerHeight = bannerDefaultHeight;
+			bannerWidthProp = bannerWidth;
+			bannerHeightProp = bannerHeight;
+			*/
+			bannerResetSize();
 		}
 	}
 
@@ -134,10 +142,10 @@
 					<Tools on:open={toolOpen}/>
 				{:else if currentTab === "capturer"}
 					<Capturer 
-						bannerWidth={banner.offsetWidth}
-						bannerHeight={banner.offsetHeight}
-						containerWidth={bannerWidth}
-						containerHeight={bannerHeight}/>
+						bannerWidth={bannerDefaultWidth}
+						bannerHeight={bannerDefaultHeight}
+						containerWidth={banner.offsetWidth}
+						containerHeight={banner.offsetHeight}/>
 				{:else if currentTab === "builder"}
 					<Builder/>
 				{:else if currentTab === "events"}

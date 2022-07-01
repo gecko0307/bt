@@ -1127,7 +1127,12 @@ var app = (function () {
     	let option2;
     	let option3;
     	let t14;
+    	let p5;
+    	let t16;
+    	let p6;
     	let input1;
+    	let t17;
+    	let input2;
     	let mounted;
     	let dispose;
 
@@ -1167,50 +1172,63 @@ var app = (function () {
     			option3 = element("option");
     			option3.textContent = "From container";
     			t14 = space();
+    			p5 = element("p");
+    			p5.textContent = "FPS";
+    			t16 = space();
+    			p6 = element("p");
     			input1 = element("input");
-    			add_location(legend0, file$3, 66, 3, 1380);
-    			add_location(p0, file$3, 67, 3, 1410);
+    			t17 = space();
+    			input2 = element("input");
+    			add_location(legend0, file$3, 67, 3, 1397);
+    			add_location(p0, file$3, 68, 3, 1427);
     			option0.__value = "banner";
     			option0.value = option0.__value;
     			option0.selected = true;
-    			add_location(option0, file$3, 70, 5, 1480);
+    			add_location(option0, file$3, 71, 5, 1497);
     			option1.__value = "container";
     			option1.value = option1.__value;
-    			add_location(option1, file$3, 71, 5, 1539);
-    			attr_dev(select0, "class", "svelte-1bjsd88");
-    			if (/*fallbackSizeMode*/ ctx[0] === void 0) add_render_callback(() => /*select0_change_handler*/ ctx[8].call(select0));
-    			add_location(select0, file$3, 69, 4, 1435);
-    			add_location(p1, file$3, 68, 3, 1426);
+    			add_location(option1, file$3, 72, 5, 1556);
+    			attr_dev(select0, "class", "svelte-nx0m4q");
+    			if (/*fallbackSizeMode*/ ctx[0] === void 0) add_render_callback(() => /*select0_change_handler*/ ctx[9].call(select0));
+    			add_location(select0, file$3, 70, 4, 1452);
+    			add_location(p1, file$3, 69, 3, 1443);
     			attr_dev(input0, "type", "button");
     			input0.value = "📷 Capture Fallback";
     			attr_dev(input0, "title", "Capture fallback");
-    			add_location(input0, file$3, 74, 6, 1620);
-    			add_location(p2, file$3, 74, 3, 1617);
-    			add_location(fieldset0, file$3, 65, 2, 1365);
-    			attr_dev(div0, "class", "section svelte-1bjsd88");
-    			add_location(div0, file$3, 64, 1, 1340);
-    			add_location(legend1, file$3, 79, 3, 1793);
-    			add_location(p3, file$3, 80, 3, 1820);
+    			add_location(input0, file$3, 75, 6, 1637);
+    			add_location(p2, file$3, 75, 3, 1634);
+    			add_location(fieldset0, file$3, 66, 2, 1382);
+    			attr_dev(div0, "class", "section svelte-nx0m4q");
+    			add_location(div0, file$3, 65, 1, 1357);
+    			add_location(legend1, file$3, 80, 3, 1810);
+    			add_location(p3, file$3, 81, 3, 1837);
     			option2.__value = "banner";
     			option2.value = option2.__value;
     			option2.selected = true;
-    			add_location(option2, file$3, 83, 5, 1887);
+    			add_location(option2, file$3, 84, 5, 1904);
     			option3.__value = "container";
     			option3.value = option3.__value;
-    			add_location(option3, file$3, 84, 5, 1946);
-    			attr_dev(select1, "class", "svelte-1bjsd88");
-    			if (/*videoSizeMode*/ ctx[1] === void 0) add_render_callback(() => /*select1_change_handler*/ ctx[9].call(select1));
-    			add_location(select1, file$3, 82, 4, 1845);
-    			add_location(p4, file$3, 81, 3, 1836);
-    			attr_dev(input1, "type", "button");
-    			input1.value = "🎥 Capture Video";
-    			attr_dev(input1, "title", "Capture video");
-    			add_location(input1, file$3, 87, 3, 2024);
-    			add_location(fieldset1, file$3, 78, 2, 1778);
-    			attr_dev(div1, "class", "section svelte-1bjsd88");
-    			add_location(div1, file$3, 77, 1, 1753);
-    			attr_dev(main, "class", "svelte-1bjsd88");
-    			add_location(main, file$3, 63, 0, 1331);
+    			add_location(option3, file$3, 85, 5, 1963);
+    			attr_dev(select1, "class", "svelte-nx0m4q");
+    			if (/*videoSizeMode*/ ctx[1] === void 0) add_render_callback(() => /*select1_change_handler*/ ctx[10].call(select1));
+    			add_location(select1, file$3, 83, 4, 1862);
+    			add_location(p4, file$3, 82, 3, 1853);
+    			add_location(p5, file$3, 88, 3, 2041);
+    			attr_dev(input1, "type", "number");
+    			attr_dev(input1, "size", "45");
+    			attr_dev(input1, "min", "1");
+    			attr_dev(input1, "class", "svelte-nx0m4q");
+    			add_location(input1, file$3, 90, 4, 2065);
+    			add_location(p6, file$3, 89, 3, 2056);
+    			attr_dev(input2, "type", "button");
+    			input2.value = "🎥 Capture Video";
+    			attr_dev(input2, "title", "Capture video");
+    			add_location(input2, file$3, 92, 3, 2133);
+    			add_location(fieldset1, file$3, 79, 2, 1795);
+    			attr_dev(div1, "class", "section svelte-nx0m4q");
+    			add_location(div1, file$3, 78, 1, 1770);
+    			attr_dev(main, "class", "svelte-nx0m4q");
+    			add_location(main, file$3, 64, 0, 1348);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -1244,14 +1262,21 @@ var app = (function () {
     			append_dev(select1, option3);
     			select_option(select1, /*videoSizeMode*/ ctx[1]);
     			append_dev(fieldset1, t14);
-    			append_dev(fieldset1, input1);
+    			append_dev(fieldset1, p5);
+    			append_dev(fieldset1, t16);
+    			append_dev(fieldset1, p6);
+    			append_dev(p6, input1);
+    			set_input_value(input1, /*fps*/ ctx[2]);
+    			append_dev(fieldset1, t17);
+    			append_dev(fieldset1, input2);
 
     			if (!mounted) {
     				dispose = [
-    					listen_dev(select0, "change", /*select0_change_handler*/ ctx[8]),
-    					listen_dev(input0, "click", /*captureFallback*/ ctx[2], false, false, false),
-    					listen_dev(select1, "change", /*select1_change_handler*/ ctx[9]),
-    					listen_dev(input1, "click", /*captureVideo*/ ctx[3], false, false, false)
+    					listen_dev(select0, "change", /*select0_change_handler*/ ctx[9]),
+    					listen_dev(input0, "click", /*captureFallback*/ ctx[3], false, false, false),
+    					listen_dev(select1, "change", /*select1_change_handler*/ ctx[10]),
+    					listen_dev(input1, "input", /*input1_input_handler*/ ctx[11]),
+    					listen_dev(input2, "click", /*captureVideo*/ ctx[4], false, false, false)
     				];
 
     				mounted = true;
@@ -1264,6 +1289,10 @@ var app = (function () {
 
     			if (dirty & /*videoSizeMode*/ 2) {
     				select_option(select1, /*videoSizeMode*/ ctx[1]);
+    			}
+
+    			if (dirty & /*fps*/ 4 && to_number(input1.value) !== /*fps*/ ctx[2]) {
+    				set_input_value(input1, /*fps*/ ctx[2]);
     			}
     		},
     		i: noop,
@@ -1305,6 +1334,7 @@ var app = (function () {
     	let { containerHeight } = $$props;
     	let fallbackSizeMode = "banner";
     	let videoSizeMode = "banner";
+    	let fps = 60;
 
     	async function captureFallback() {
     		let width, height;
@@ -1336,7 +1366,7 @@ var app = (function () {
     			video: true,
     			width,
     			height,
-    			fps: 60,
+    			fps,
     			videoFilename: "video.mp4",
     			videoCompressionRate: 1,
     			videoDuration: undefined
@@ -1359,11 +1389,16 @@ var app = (function () {
     		$$invalidate(1, videoSizeMode);
     	}
 
+    	function input1_input_handler() {
+    		fps = to_number(this.value);
+    		$$invalidate(2, fps);
+    	}
+
     	$$self.$$set = $$props => {
-    		if ('bannerWidth' in $$props) $$invalidate(4, bannerWidth = $$props.bannerWidth);
-    		if ('bannerHeight' in $$props) $$invalidate(5, bannerHeight = $$props.bannerHeight);
-    		if ('containerWidth' in $$props) $$invalidate(6, containerWidth = $$props.containerWidth);
-    		if ('containerHeight' in $$props) $$invalidate(7, containerHeight = $$props.containerHeight);
+    		if ('bannerWidth' in $$props) $$invalidate(5, bannerWidth = $$props.bannerWidth);
+    		if ('bannerHeight' in $$props) $$invalidate(6, bannerHeight = $$props.bannerHeight);
+    		if ('containerWidth' in $$props) $$invalidate(7, containerWidth = $$props.containerWidth);
+    		if ('containerHeight' in $$props) $$invalidate(8, containerHeight = $$props.containerHeight);
     	};
 
     	$$self.$capture_state = () => ({
@@ -1375,18 +1410,20 @@ var app = (function () {
     		containerHeight,
     		fallbackSizeMode,
     		videoSizeMode,
+    		fps,
     		apiRequest: apiRequest$2,
     		captureFallback,
     		captureVideo
     	});
 
     	$$self.$inject_state = $$props => {
-    		if ('bannerWidth' in $$props) $$invalidate(4, bannerWidth = $$props.bannerWidth);
-    		if ('bannerHeight' in $$props) $$invalidate(5, bannerHeight = $$props.bannerHeight);
-    		if ('containerWidth' in $$props) $$invalidate(6, containerWidth = $$props.containerWidth);
-    		if ('containerHeight' in $$props) $$invalidate(7, containerHeight = $$props.containerHeight);
+    		if ('bannerWidth' in $$props) $$invalidate(5, bannerWidth = $$props.bannerWidth);
+    		if ('bannerHeight' in $$props) $$invalidate(6, bannerHeight = $$props.bannerHeight);
+    		if ('containerWidth' in $$props) $$invalidate(7, containerWidth = $$props.containerWidth);
+    		if ('containerHeight' in $$props) $$invalidate(8, containerHeight = $$props.containerHeight);
     		if ('fallbackSizeMode' in $$props) $$invalidate(0, fallbackSizeMode = $$props.fallbackSizeMode);
     		if ('videoSizeMode' in $$props) $$invalidate(1, videoSizeMode = $$props.videoSizeMode);
+    		if ('fps' in $$props) $$invalidate(2, fps = $$props.fps);
     	};
 
     	if ($$props && "$$inject" in $$props) {
@@ -1396,6 +1433,7 @@ var app = (function () {
     	return [
     		fallbackSizeMode,
     		videoSizeMode,
+    		fps,
     		captureFallback,
     		captureVideo,
     		bannerWidth,
@@ -1403,7 +1441,8 @@ var app = (function () {
     		containerWidth,
     		containerHeight,
     		select0_change_handler,
-    		select1_change_handler
+    		select1_change_handler,
+    		input1_input_handler
     	];
     }
 
@@ -1412,10 +1451,10 @@ var app = (function () {
     		super(options);
 
     		init(this, options, instance$3, create_fragment$3, safe_not_equal, {
-    			bannerWidth: 4,
-    			bannerHeight: 5,
-    			containerWidth: 6,
-    			containerHeight: 7
+    			bannerWidth: 5,
+    			bannerHeight: 6,
+    			containerWidth: 7,
+    			containerHeight: 8
     		});
 
     		dispatch_dev("SvelteRegisterComponent", {
@@ -1428,19 +1467,19 @@ var app = (function () {
     		const { ctx } = this.$$;
     		const props = options.props || {};
 
-    		if (/*bannerWidth*/ ctx[4] === undefined && !('bannerWidth' in props)) {
+    		if (/*bannerWidth*/ ctx[5] === undefined && !('bannerWidth' in props)) {
     			console.warn("<Capturer> was created without expected prop 'bannerWidth'");
     		}
 
-    		if (/*bannerHeight*/ ctx[5] === undefined && !('bannerHeight' in props)) {
+    		if (/*bannerHeight*/ ctx[6] === undefined && !('bannerHeight' in props)) {
     			console.warn("<Capturer> was created without expected prop 'bannerHeight'");
     		}
 
-    		if (/*containerWidth*/ ctx[6] === undefined && !('containerWidth' in props)) {
+    		if (/*containerWidth*/ ctx[7] === undefined && !('containerWidth' in props)) {
     			console.warn("<Capturer> was created without expected prop 'containerWidth'");
     		}
 
-    		if (/*containerHeight*/ ctx[7] === undefined && !('containerHeight' in props)) {
+    		if (/*containerHeight*/ ctx[8] === undefined && !('containerHeight' in props)) {
     			console.warn("<Capturer> was created without expected prop 'containerHeight'");
     		}
     	}
@@ -1696,7 +1735,7 @@ var app = (function () {
     const { console: console_1 } = globals;
     const file = "src\\App.svelte";
 
-    // (143:38) 
+    // (151:38) 
     function create_if_block_4(ctx) {
     	let events;
     	let current;
@@ -1729,14 +1768,14 @@ var app = (function () {
     		block,
     		id: create_if_block_4.name,
     		type: "if",
-    		source: "(143:38) ",
+    		source: "(151:38) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (141:39) 
+    // (149:39) 
     function create_if_block_3(ctx) {
     	let builder;
     	let current;
@@ -1769,24 +1808,24 @@ var app = (function () {
     		block,
     		id: create_if_block_3.name,
     		type: "if",
-    		source: "(141:39) ",
+    		source: "(149:39) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (135:40) 
+    // (143:40) 
     function create_if_block_2(ctx) {
     	let capturer;
     	let current;
 
     	capturer = new Capturer({
     			props: {
-    				bannerWidth: /*banner*/ ctx[1].offsetWidth,
-    				bannerHeight: /*banner*/ ctx[1].offsetHeight,
-    				containerWidth: /*bannerWidth*/ ctx[3],
-    				containerHeight: /*bannerHeight*/ ctx[4]
+    				bannerWidth: /*bannerDefaultWidth*/ ctx[3],
+    				bannerHeight: /*bannerDefaultHeight*/ ctx[4],
+    				containerWidth: /*banner*/ ctx[1].offsetWidth,
+    				containerHeight: /*banner*/ ctx[1].offsetHeight
     			},
     			$$inline: true
     		});
@@ -1801,10 +1840,10 @@ var app = (function () {
     		},
     		p: function update(ctx, dirty) {
     			const capturer_changes = {};
-    			if (dirty[0] & /*banner*/ 2) capturer_changes.bannerWidth = /*banner*/ ctx[1].offsetWidth;
-    			if (dirty[0] & /*banner*/ 2) capturer_changes.bannerHeight = /*banner*/ ctx[1].offsetHeight;
-    			if (dirty[0] & /*bannerWidth*/ 8) capturer_changes.containerWidth = /*bannerWidth*/ ctx[3];
-    			if (dirty[0] & /*bannerHeight*/ 16) capturer_changes.containerHeight = /*bannerHeight*/ ctx[4];
+    			if (dirty[0] & /*bannerDefaultWidth*/ 8) capturer_changes.bannerWidth = /*bannerDefaultWidth*/ ctx[3];
+    			if (dirty[0] & /*bannerDefaultHeight*/ 16) capturer_changes.bannerHeight = /*bannerDefaultHeight*/ ctx[4];
+    			if (dirty[0] & /*banner*/ 2) capturer_changes.containerWidth = /*banner*/ ctx[1].offsetWidth;
+    			if (dirty[0] & /*banner*/ 2) capturer_changes.containerHeight = /*banner*/ ctx[1].offsetHeight;
     			capturer.$set(capturer_changes);
     		},
     		i: function intro(local) {
@@ -1825,14 +1864,14 @@ var app = (function () {
     		block,
     		id: create_if_block_2.name,
     		type: "if",
-    		source: "(135:40) ",
+    		source: "(143:40) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (133:4) {#if currentTab === "tools"}
+    // (141:4) {#if currentTab === "tools"}
     function create_if_block_1(ctx) {
     	let tools;
     	let current;
@@ -1866,14 +1905,14 @@ var app = (function () {
     		block,
     		id: create_if_block_1.name,
     		type: "if",
-    		source: "(133:4) {#if currentTab === \\\"tools\\\"}",
+    		source: "(141:4) {#if currentTab === \\\"tools\\\"}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (182:1) {#if showToolWindow}
+    // (190:1) {#if showToolWindow}
     function create_if_block(ctx) {
     	let div3;
     	let div0;
@@ -1903,27 +1942,27 @@ var app = (function () {
     			img = element("img");
     			attr_dev(div0, "id", "overlay-bg");
     			attr_dev(div0, "class", "svelte-125wn80");
-    			add_location(div0, file, 183, 3, 5277);
+    			add_location(div0, file, 191, 3, 5570);
     			attr_dev(iframe, "title", "Tool Frame");
     			attr_dev(iframe, "id", "tool_frame");
     			if (!src_url_equal(iframe.src, iframe_src_value = /*toolURL*/ ctx[10])) attr_dev(iframe, "src", iframe_src_value);
     			attr_dev(iframe, "frameborder", "0");
     			attr_dev(iframe, "class", "svelte-125wn80");
-    			add_location(iframe, file, 185, 4, 5346);
+    			add_location(iframe, file, 193, 4, 5639);
     			attr_dev(div1, "id", "tool_frame_container");
     			attr_dev(div1, "class", "svelte-125wn80");
-    			add_location(div1, file, 184, 3, 5309);
+    			add_location(div1, file, 192, 3, 5602);
     			attr_dev(img, "id", "close-bg");
     			if (!src_url_equal(img.src, img_src_value = "images/close.svg")) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", "close");
     			attr_dev(img, "class", "svelte-125wn80");
-    			add_location(img, file, 188, 4, 5552);
+    			add_location(img, file, 196, 4, 5845);
     			attr_dev(div2, "id", "close");
     			attr_dev(div2, "class", "svelte-125wn80");
-    			add_location(div2, file, 187, 3, 5468);
+    			add_location(div2, file, 195, 3, 5761);
     			attr_dev(div3, "id", "overlay");
     			attr_dev(div3, "class", "svelte-125wn80");
-    			add_location(div3, file, 182, 2, 5216);
+    			add_location(div3, file, 190, 2, 5509);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div3, anchor);
@@ -1983,7 +2022,7 @@ var app = (function () {
     		block,
     		id: create_if_block.name,
     		type: "if",
-    		source: "(182:1) {#if showToolWindow}",
+    		source: "(190:1) {#if showToolWindow}",
     		ctx
     	});
 
@@ -2111,82 +2150,82 @@ var app = (function () {
     			if (if_block1) if_block1.c();
     			attr_dev(div0, "id", "control_page");
     			attr_dev(div0, "class", "svelte-125wn80");
-    			add_location(div0, file, 131, 3, 3437);
+    			add_location(div0, file, 139, 3, 3716);
     			attr_dev(div1, "id", "control");
     			attr_dev(div1, "class", "svelte-125wn80");
-    			add_location(div1, file, 129, 2, 3380);
+    			add_location(div1, file, 137, 2, 3659);
     			attr_dev(iframe, "title", "banner");
     			attr_dev(iframe, "id", "banner");
     			if (!src_url_equal(iframe.src, iframe_src_value = "/index.html")) attr_dev(iframe, "src", iframe_src_value);
     			attr_dev(iframe, "frameborder", "0");
     			attr_dev(iframe, "scrolling", "no");
     			attr_dev(iframe, "class", "svelte-125wn80");
-    			add_location(iframe, file, 150, 5, 4008);
+    			add_location(iframe, file, 158, 5, 4301);
     			attr_dev(div2, "id", "banner_container");
     			attr_dev(div2, "class", "svelte-125wn80");
-    			add_location(div2, file, 149, 4, 3946);
+    			add_location(div2, file, 157, 4, 4239);
     			attr_dev(div3, "id", "resize_area");
     			attr_dev(div3, "class", "svelte-125wn80");
-    			add_location(div3, file, 148, 3, 3918);
-    			add_location(p0, file, 156, 6, 4226);
+    			add_location(div3, file, 156, 3, 4211);
+    			add_location(p0, file, 164, 6, 4519);
     			attr_dev(input0, "type", "text");
     			attr_dev(input0, "size", "45");
     			set_style(input0, "width", "200px");
-    			add_location(input0, file, 157, 6, 4251);
+    			add_location(input0, file, 165, 6, 4544);
     			attr_dev(input1, "type", "button");
     			input1.value = "↻";
     			attr_dev(input1, "class", "svelte-125wn80");
-    			add_location(input1, file, 158, 6, 4365);
+    			add_location(input1, file, 166, 6, 4658);
     			attr_dev(div4, "class", "widget");
-    			add_location(div4, file, 155, 5, 4198);
-    			add_location(p1, file, 161, 6, 4467);
+    			add_location(div4, file, 163, 5, 4491);
+    			add_location(p1, file, 169, 6, 4760);
     			attr_dev(input2, "type", "number");
     			attr_dev(input2, "size", "45");
     			attr_dev(input2, "min", "0");
     			attr_dev(input2, "class", "svelte-125wn80");
-    			add_location(input2, file, 162, 6, 4487);
+    			add_location(input2, file, 170, 6, 4780);
     			attr_dev(div5, "class", "widget");
-    			add_location(div5, file, 160, 5, 4439);
-    			add_location(p2, file, 165, 6, 4629);
+    			add_location(div5, file, 168, 5, 4732);
+    			add_location(p2, file, 173, 6, 4922);
     			attr_dev(input3, "type", "number");
     			attr_dev(input3, "size", "45");
     			attr_dev(input3, "min", "0");
     			attr_dev(input3, "class", "svelte-125wn80");
-    			add_location(input3, file, 166, 6, 4650);
+    			add_location(input3, file, 174, 6, 4943);
     			attr_dev(div6, "class", "widget");
-    			add_location(div6, file, 164, 5, 4601);
-    			add_location(p3, file, 169, 6, 4793);
+    			add_location(div6, file, 172, 5, 4894);
+    			add_location(p3, file, 177, 6, 5086);
     			option0.__value = "iphone_se";
     			option0.value = option0.__value;
-    			add_location(option0, file, 171, 7, 4888);
+    			add_location(option0, file, 179, 7, 5181);
     			option1.__value = "iphone_xr";
     			option1.value = option1.__value;
-    			add_location(option1, file, 172, 7, 4941);
+    			add_location(option1, file, 180, 7, 5234);
     			option2.__value = "iphone_12_pro";
     			option2.value = option2.__value;
-    			add_location(option2, file, 173, 7, 4994);
+    			add_location(option2, file, 181, 7, 5287);
     			attr_dev(select, "class", "svelte-125wn80");
     			if (/*bannerDevice*/ ctx[7] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[25].call(select));
-    			add_location(select, file, 170, 6, 4814);
+    			add_location(select, file, 178, 6, 5107);
     			attr_dev(input4, "type", "button");
     			input4.value = "Reset";
     			attr_dev(input4, "class", "svelte-125wn80");
-    			add_location(input4, file, 175, 6, 5071);
+    			add_location(input4, file, 183, 6, 5364);
     			attr_dev(div7, "class", "widget");
-    			add_location(div7, file, 168, 5, 4765);
+    			add_location(div7, file, 176, 5, 5058);
     			attr_dev(div8, "class", "row");
-    			add_location(div8, file, 154, 4, 4174);
+    			add_location(div8, file, 162, 4, 4467);
     			attr_dev(div9, "id", "size_info");
     			attr_dev(div9, "class", "svelte-125wn80");
-    			add_location(div9, file, 153, 3, 4148);
+    			add_location(div9, file, 161, 3, 4441);
     			attr_dev(div10, "id", "preview");
     			attr_dev(div10, "class", "svelte-125wn80");
-    			add_location(div10, file, 147, 2, 3895);
+    			add_location(div10, file, 155, 2, 4188);
     			attr_dev(div11, "id", "ui");
     			attr_dev(div11, "class", "svelte-125wn80");
-    			add_location(div11, file, 128, 1, 3363);
+    			add_location(div11, file, 136, 1, 3642);
     			attr_dev(main, "class", "svelte-125wn80");
-    			add_location(main, file, 127, 0, 3354);
+    			add_location(main, file, 135, 0, 3633);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -2432,8 +2471,8 @@ var app = (function () {
     		$$invalidate(1, banner.onload = bannerOnLoad, banner);
 
     		observer = new ResizeObserver(mutations => {
-    				$$invalidate(3, bannerWidth = mutations[0].contentRect.width);
-    				$$invalidate(4, bannerHeight = mutations[0].contentRect.height);
+    				bannerWidth = mutations[0].contentRect.width;
+    				bannerHeight = mutations[0].contentRect.height;
     				$$invalidate(5, bannerWidthProp = bannerWidth);
     				$$invalidate(6, bannerHeightProp = bannerHeight);
     			});
@@ -2448,8 +2487,17 @@ var app = (function () {
     		bannerInternalContainer = bannerDocument.getElementById("container");
 
     		if (bannerInternalContainer) {
-    			bannerDefaultWidth = bannerInternalContainer.offsetWidth;
-    			bannerDefaultHeight = bannerInternalContainer.offsetHeight;
+    			console.log(bannerInternalContainer.offsetWidth, bannerInternalContainer.offsetHeight);
+    			$$invalidate(3, bannerDefaultWidth = bannerInternalContainer.offsetWidth);
+    			$$invalidate(4, bannerDefaultHeight = bannerInternalContainer.offsetHeight);
+
+    			/*
+    bannerWidth = bannerDefaultWidth;
+    bannerHeight = bannerDefaultHeight;
+    bannerWidthProp = bannerWidth;
+    bannerHeightProp = bannerHeight;
+    */
+    			bannerResetSize();
     		}
     	}
 
@@ -2593,10 +2641,10 @@ var app = (function () {
     		if ('banner' in $$props) $$invalidate(1, banner = $$props.banner);
     		if ('bannerURL' in $$props) $$invalidate(2, bannerURL = $$props.bannerURL);
     		if ('bannerInternalContainer' in $$props) bannerInternalContainer = $$props.bannerInternalContainer;
-    		if ('bannerDefaultWidth' in $$props) bannerDefaultWidth = $$props.bannerDefaultWidth;
-    		if ('bannerDefaultHeight' in $$props) bannerDefaultHeight = $$props.bannerDefaultHeight;
-    		if ('bannerWidth' in $$props) $$invalidate(3, bannerWidth = $$props.bannerWidth);
-    		if ('bannerHeight' in $$props) $$invalidate(4, bannerHeight = $$props.bannerHeight);
+    		if ('bannerDefaultWidth' in $$props) $$invalidate(3, bannerDefaultWidth = $$props.bannerDefaultWidth);
+    		if ('bannerDefaultHeight' in $$props) $$invalidate(4, bannerDefaultHeight = $$props.bannerDefaultHeight);
+    		if ('bannerWidth' in $$props) bannerWidth = $$props.bannerWidth;
+    		if ('bannerHeight' in $$props) bannerHeight = $$props.bannerHeight;
     		if ('bannerWidthProp' in $$props) $$invalidate(5, bannerWidthProp = $$props.bannerWidthProp);
     		if ('bannerHeightProp' in $$props) $$invalidate(6, bannerHeightProp = $$props.bannerHeightProp);
     		if ('bannerDevice' in $$props) $$invalidate(7, bannerDevice = $$props.bannerDevice);
@@ -2615,8 +2663,8 @@ var app = (function () {
     		bannerContainer,
     		banner,
     		bannerURL,
-    		bannerWidth,
-    		bannerHeight,
+    		bannerDefaultWidth,
+    		bannerDefaultHeight,
     		bannerWidthProp,
     		bannerHeightProp,
     		bannerDevice,
