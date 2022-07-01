@@ -1134,7 +1134,22 @@ var app = (function () {
     	let p6;
     	let input1;
     	let t17;
+    	let p7;
+    	let t19;
+    	let p8;
     	let input2;
+    	let t20;
+    	let p9;
+    	let t22;
+    	let p10;
+    	let input3;
+    	let t23;
+    	let p11;
+    	let t25;
+    	let p12;
+    	let input4;
+    	let t26;
+    	let input5;
     	let mounted;
     	let dispose;
 
@@ -1180,57 +1195,100 @@ var app = (function () {
     			p6 = element("p");
     			input1 = element("input");
     			t17 = space();
+    			p7 = element("p");
+    			p7.textContent = "Duration (0 = autodetect)";
+    			t19 = space();
+    			p8 = element("p");
     			input2 = element("input");
-    			add_location(legend0, file$3, 69, 3, 1425);
-    			add_location(p0, file$3, 70, 3, 1455);
+    			t20 = space();
+    			p9 = element("p");
+    			p9.textContent = "Filename";
+    			t22 = space();
+    			p10 = element("p");
+    			input3 = element("input");
+    			t23 = space();
+    			p11 = element("p");
+    			p11.textContent = "Compression rate";
+    			t25 = space();
+    			p12 = element("p");
+    			input4 = element("input");
+    			t26 = space();
+    			input5 = element("input");
+    			add_location(legend0, file$3, 72, 3, 1542);
+    			add_location(p0, file$3, 73, 3, 1572);
     			option0.__value = "banner";
     			option0.value = option0.__value;
     			option0.selected = true;
-    			add_location(option0, file$3, 73, 5, 1525);
+    			add_location(option0, file$3, 76, 5, 1642);
     			option1.__value = "container";
     			option1.value = option1.__value;
-    			add_location(option1, file$3, 74, 5, 1584);
-    			attr_dev(select0, "class", "svelte-nx0m4q");
-    			if (/*fallbackSizeMode*/ ctx[0] === void 0) add_render_callback(() => /*select0_change_handler*/ ctx[9].call(select0));
-    			add_location(select0, file$3, 72, 4, 1480);
-    			add_location(p1, file$3, 71, 3, 1471);
+    			add_location(option1, file$3, 77, 5, 1701);
+    			attr_dev(select0, "class", "svelte-qemwg6");
+    			if (/*fallbackSizeMode*/ ctx[0] === void 0) add_render_callback(() => /*select0_change_handler*/ ctx[12].call(select0));
+    			add_location(select0, file$3, 75, 4, 1597);
+    			add_location(p1, file$3, 74, 3, 1588);
     			attr_dev(input0, "type", "button");
     			input0.value = "📷 Capture Fallback";
     			attr_dev(input0, "title", "Capture fallback");
-    			add_location(input0, file$3, 77, 6, 1665);
-    			add_location(p2, file$3, 77, 3, 1662);
-    			add_location(fieldset0, file$3, 68, 2, 1410);
-    			attr_dev(div0, "class", "section svelte-nx0m4q");
-    			add_location(div0, file$3, 67, 1, 1385);
-    			add_location(legend1, file$3, 82, 3, 1838);
-    			add_location(p3, file$3, 83, 3, 1865);
+    			add_location(input0, file$3, 80, 6, 1782);
+    			add_location(p2, file$3, 80, 3, 1779);
+    			add_location(fieldset0, file$3, 71, 2, 1527);
+    			attr_dev(div0, "class", "section svelte-qemwg6");
+    			add_location(div0, file$3, 70, 1, 1502);
+    			add_location(legend1, file$3, 85, 3, 1955);
+    			add_location(p3, file$3, 86, 3, 1982);
     			option2.__value = "banner";
     			option2.value = option2.__value;
     			option2.selected = true;
-    			add_location(option2, file$3, 86, 5, 1932);
+    			add_location(option2, file$3, 89, 5, 2049);
     			option3.__value = "container";
     			option3.value = option3.__value;
-    			add_location(option3, file$3, 87, 5, 1991);
-    			attr_dev(select1, "class", "svelte-nx0m4q");
-    			if (/*videoSizeMode*/ ctx[1] === void 0) add_render_callback(() => /*select1_change_handler*/ ctx[10].call(select1));
-    			add_location(select1, file$3, 85, 4, 1890);
-    			add_location(p4, file$3, 84, 3, 1881);
-    			add_location(p5, file$3, 90, 3, 2069);
+    			add_location(option3, file$3, 90, 5, 2108);
+    			attr_dev(select1, "class", "svelte-qemwg6");
+    			if (/*videoSizeMode*/ ctx[1] === void 0) add_render_callback(() => /*select1_change_handler*/ ctx[13].call(select1));
+    			add_location(select1, file$3, 88, 4, 2007);
+    			add_location(p4, file$3, 87, 3, 1998);
+    			add_location(p5, file$3, 93, 3, 2186);
     			attr_dev(input1, "type", "number");
     			attr_dev(input1, "size", "45");
     			attr_dev(input1, "min", "1");
-    			attr_dev(input1, "class", "svelte-nx0m4q");
-    			add_location(input1, file$3, 92, 4, 2093);
-    			add_location(p6, file$3, 91, 3, 2084);
-    			attr_dev(input2, "type", "button");
-    			input2.value = "🎥 Capture Video";
-    			attr_dev(input2, "title", "Capture video");
-    			add_location(input2, file$3, 94, 3, 2161);
-    			add_location(fieldset1, file$3, 81, 2, 1823);
-    			attr_dev(div1, "class", "section svelte-nx0m4q");
-    			add_location(div1, file$3, 80, 1, 1798);
-    			attr_dev(main, "class", "svelte-nx0m4q");
-    			add_location(main, file$3, 66, 0, 1376);
+    			attr_dev(input1, "class", "svelte-qemwg6");
+    			add_location(input1, file$3, 94, 6, 2204);
+    			add_location(p6, file$3, 94, 3, 2201);
+    			add_location(p7, file$3, 95, 3, 2267);
+    			attr_dev(input2, "type", "number");
+    			attr_dev(input2, "size", "45");
+    			set_style(input2, "width", "200px");
+    			attr_dev(input2, "min", "0");
+    			attr_dev(input2, "step", "1");
+    			attr_dev(input2, "class", "svelte-qemwg6");
+    			add_location(input2, file$3, 96, 6, 2307);
+    			add_location(p8, file$3, 96, 3, 2304);
+    			add_location(p9, file$3, 97, 3, 2407);
+    			attr_dev(input3, "type", "text");
+    			attr_dev(input3, "size", "45");
+    			set_style(input3, "width", "200px");
+    			attr_dev(input3, "class", "svelte-qemwg6");
+    			add_location(input3, file$3, 98, 6, 2430);
+    			add_location(p10, file$3, 98, 3, 2427);
+    			add_location(p11, file$3, 99, 3, 2515);
+    			attr_dev(input4, "type", "number");
+    			attr_dev(input4, "size", "45");
+    			set_style(input4, "width", "200px");
+    			attr_dev(input4, "min", "0");
+    			attr_dev(input4, "step", "0.1");
+    			attr_dev(input4, "class", "svelte-qemwg6");
+    			add_location(input4, file$3, 100, 6, 2546);
+    			add_location(p12, file$3, 100, 3, 2543);
+    			attr_dev(input5, "type", "button");
+    			input5.value = "🎥 Capture Video";
+    			attr_dev(input5, "title", "Capture video");
+    			add_location(input5, file$3, 101, 3, 2655);
+    			add_location(fieldset1, file$3, 84, 2, 1940);
+    			attr_dev(div1, "class", "section svelte-qemwg6");
+    			add_location(div1, file$3, 83, 1, 1915);
+    			attr_dev(main, "class", "svelte-qemwg6");
+    			add_location(main, file$3, 69, 0, 1493);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -1270,15 +1328,36 @@ var app = (function () {
     			append_dev(p6, input1);
     			set_input_value(input1, /*fps*/ ctx[2]);
     			append_dev(fieldset1, t17);
-    			append_dev(fieldset1, input2);
+    			append_dev(fieldset1, p7);
+    			append_dev(fieldset1, t19);
+    			append_dev(fieldset1, p8);
+    			append_dev(p8, input2);
+    			set_input_value(input2, /*videoDuration*/ ctx[5]);
+    			append_dev(fieldset1, t20);
+    			append_dev(fieldset1, p9);
+    			append_dev(fieldset1, t22);
+    			append_dev(fieldset1, p10);
+    			append_dev(p10, input3);
+    			set_input_value(input3, /*videoFilename*/ ctx[3]);
+    			append_dev(fieldset1, t23);
+    			append_dev(fieldset1, p11);
+    			append_dev(fieldset1, t25);
+    			append_dev(fieldset1, p12);
+    			append_dev(p12, input4);
+    			set_input_value(input4, /*videoCompressionRate*/ ctx[4]);
+    			append_dev(fieldset1, t26);
+    			append_dev(fieldset1, input5);
 
     			if (!mounted) {
     				dispose = [
-    					listen_dev(select0, "change", /*select0_change_handler*/ ctx[9]),
-    					listen_dev(input0, "click", /*captureFallback*/ ctx[3], false, false, false),
-    					listen_dev(select1, "change", /*select1_change_handler*/ ctx[10]),
-    					listen_dev(input1, "input", /*input1_input_handler*/ ctx[11]),
-    					listen_dev(input2, "click", /*captureVideo*/ ctx[4], false, false, false)
+    					listen_dev(select0, "change", /*select0_change_handler*/ ctx[12]),
+    					listen_dev(input0, "click", /*captureFallback*/ ctx[6], false, false, false),
+    					listen_dev(select1, "change", /*select1_change_handler*/ ctx[13]),
+    					listen_dev(input1, "input", /*input1_input_handler*/ ctx[14]),
+    					listen_dev(input2, "input", /*input2_input_handler*/ ctx[15]),
+    					listen_dev(input3, "input", /*input3_input_handler*/ ctx[16]),
+    					listen_dev(input4, "input", /*input4_input_handler*/ ctx[17]),
+    					listen_dev(input5, "click", /*captureVideo*/ ctx[7], false, false, false)
     				];
 
     				mounted = true;
@@ -1295,6 +1374,18 @@ var app = (function () {
 
     			if (dirty & /*fps*/ 4 && to_number(input1.value) !== /*fps*/ ctx[2]) {
     				set_input_value(input1, /*fps*/ ctx[2]);
+    			}
+
+    			if (dirty & /*videoDuration*/ 32 && to_number(input2.value) !== /*videoDuration*/ ctx[5]) {
+    				set_input_value(input2, /*videoDuration*/ ctx[5]);
+    			}
+
+    			if (dirty & /*videoFilename*/ 8 && input3.value !== /*videoFilename*/ ctx[3]) {
+    				set_input_value(input3, /*videoFilename*/ ctx[3]);
+    			}
+
+    			if (dirty & /*videoCompressionRate*/ 16 && to_number(input4.value) !== /*videoCompressionRate*/ ctx[4]) {
+    				set_input_value(input4, /*videoCompressionRate*/ ctx[4]);
     			}
     		},
     		i: noop,
@@ -1337,6 +1428,9 @@ var app = (function () {
     	let fallbackSizeMode = "banner";
     	let videoSizeMode = "banner";
     	let fps = 60;
+    	let videoFilename = "video.mp4";
+    	let videoCompressionRate = 1;
+    	let videoDuration = 0;
 
     	async function captureFallback() {
     		let width, height;
@@ -1371,9 +1465,9 @@ var app = (function () {
     			width,
     			height,
     			videoFps: fps,
-    			videoFilename: "video.mp4",
-    			videoCompressionRate: 1,
-    			videoDuration: undefined
+    			videoFilename,
+    			videoCompressionRate,
+    			videoDuration
     		});
     	}
 
@@ -1398,11 +1492,26 @@ var app = (function () {
     		$$invalidate(2, fps);
     	}
 
+    	function input2_input_handler() {
+    		videoDuration = to_number(this.value);
+    		$$invalidate(5, videoDuration);
+    	}
+
+    	function input3_input_handler() {
+    		videoFilename = this.value;
+    		$$invalidate(3, videoFilename);
+    	}
+
+    	function input4_input_handler() {
+    		videoCompressionRate = to_number(this.value);
+    		$$invalidate(4, videoCompressionRate);
+    	}
+
     	$$self.$$set = $$props => {
-    		if ('bannerWidth' in $$props) $$invalidate(5, bannerWidth = $$props.bannerWidth);
-    		if ('bannerHeight' in $$props) $$invalidate(6, bannerHeight = $$props.bannerHeight);
-    		if ('containerWidth' in $$props) $$invalidate(7, containerWidth = $$props.containerWidth);
-    		if ('containerHeight' in $$props) $$invalidate(8, containerHeight = $$props.containerHeight);
+    		if ('bannerWidth' in $$props) $$invalidate(8, bannerWidth = $$props.bannerWidth);
+    		if ('bannerHeight' in $$props) $$invalidate(9, bannerHeight = $$props.bannerHeight);
+    		if ('containerWidth' in $$props) $$invalidate(10, containerWidth = $$props.containerWidth);
+    		if ('containerHeight' in $$props) $$invalidate(11, containerHeight = $$props.containerHeight);
     	};
 
     	$$self.$capture_state = () => ({
@@ -1415,19 +1524,25 @@ var app = (function () {
     		fallbackSizeMode,
     		videoSizeMode,
     		fps,
+    		videoFilename,
+    		videoCompressionRate,
+    		videoDuration,
     		apiRequest: apiRequest$2,
     		captureFallback,
     		captureVideo
     	});
 
     	$$self.$inject_state = $$props => {
-    		if ('bannerWidth' in $$props) $$invalidate(5, bannerWidth = $$props.bannerWidth);
-    		if ('bannerHeight' in $$props) $$invalidate(6, bannerHeight = $$props.bannerHeight);
-    		if ('containerWidth' in $$props) $$invalidate(7, containerWidth = $$props.containerWidth);
-    		if ('containerHeight' in $$props) $$invalidate(8, containerHeight = $$props.containerHeight);
+    		if ('bannerWidth' in $$props) $$invalidate(8, bannerWidth = $$props.bannerWidth);
+    		if ('bannerHeight' in $$props) $$invalidate(9, bannerHeight = $$props.bannerHeight);
+    		if ('containerWidth' in $$props) $$invalidate(10, containerWidth = $$props.containerWidth);
+    		if ('containerHeight' in $$props) $$invalidate(11, containerHeight = $$props.containerHeight);
     		if ('fallbackSizeMode' in $$props) $$invalidate(0, fallbackSizeMode = $$props.fallbackSizeMode);
     		if ('videoSizeMode' in $$props) $$invalidate(1, videoSizeMode = $$props.videoSizeMode);
     		if ('fps' in $$props) $$invalidate(2, fps = $$props.fps);
+    		if ('videoFilename' in $$props) $$invalidate(3, videoFilename = $$props.videoFilename);
+    		if ('videoCompressionRate' in $$props) $$invalidate(4, videoCompressionRate = $$props.videoCompressionRate);
+    		if ('videoDuration' in $$props) $$invalidate(5, videoDuration = $$props.videoDuration);
     	};
 
     	if ($$props && "$$inject" in $$props) {
@@ -1438,6 +1553,9 @@ var app = (function () {
     		fallbackSizeMode,
     		videoSizeMode,
     		fps,
+    		videoFilename,
+    		videoCompressionRate,
+    		videoDuration,
     		captureFallback,
     		captureVideo,
     		bannerWidth,
@@ -1446,7 +1564,10 @@ var app = (function () {
     		containerHeight,
     		select0_change_handler,
     		select1_change_handler,
-    		input1_input_handler
+    		input1_input_handler,
+    		input2_input_handler,
+    		input3_input_handler,
+    		input4_input_handler
     	];
     }
 
@@ -1455,10 +1576,10 @@ var app = (function () {
     		super(options);
 
     		init(this, options, instance$3, create_fragment$3, safe_not_equal, {
-    			bannerWidth: 5,
-    			bannerHeight: 6,
-    			containerWidth: 7,
-    			containerHeight: 8
+    			bannerWidth: 8,
+    			bannerHeight: 9,
+    			containerWidth: 10,
+    			containerHeight: 11
     		});
 
     		dispatch_dev("SvelteRegisterComponent", {
@@ -1471,19 +1592,19 @@ var app = (function () {
     		const { ctx } = this.$$;
     		const props = options.props || {};
 
-    		if (/*bannerWidth*/ ctx[5] === undefined && !('bannerWidth' in props)) {
+    		if (/*bannerWidth*/ ctx[8] === undefined && !('bannerWidth' in props)) {
     			console_1$1.warn("<Capturer> was created without expected prop 'bannerWidth'");
     		}
 
-    		if (/*bannerHeight*/ ctx[6] === undefined && !('bannerHeight' in props)) {
+    		if (/*bannerHeight*/ ctx[9] === undefined && !('bannerHeight' in props)) {
     			console_1$1.warn("<Capturer> was created without expected prop 'bannerHeight'");
     		}
 
-    		if (/*containerWidth*/ ctx[7] === undefined && !('containerWidth' in props)) {
+    		if (/*containerWidth*/ ctx[10] === undefined && !('containerWidth' in props)) {
     			console_1$1.warn("<Capturer> was created without expected prop 'containerWidth'");
     		}
 
-    		if (/*containerHeight*/ ctx[8] === undefined && !('containerHeight' in props)) {
+    		if (/*containerHeight*/ ctx[11] === undefined && !('containerHeight' in props)) {
     			console_1$1.warn("<Capturer> was created without expected prop 'containerHeight'");
     		}
     	}

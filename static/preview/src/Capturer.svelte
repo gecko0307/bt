@@ -11,6 +11,9 @@
 	let fallbackSizeMode = "banner";
 	let videoSizeMode = "banner";
 	let fps = 60;
+	let videoFilename = "video.mp4";
+	let videoCompressionRate = 1;
+	let videoDuration = 0;
 
 	async function apiRequest(data) {
 		const res = await fetch("/api", {
@@ -57,9 +60,9 @@
 			width: width,
 			height: height,
 			videoFps: fps,
-			videoFilename: "video.mp4",
-			videoCompressionRate: 1,
-			videoDuration: undefined
+			videoFilename: videoFilename,
+			videoCompressionRate: videoCompressionRate,
+			videoDuration: videoDuration
 		});
 	}
 </script>
@@ -89,9 +92,13 @@
 				</select>
 			</p>
 			<p>FPS</p>
-			<p>
-				<input type="number" size="45" bind:value={fps} min=1>
-			</p>
+			<p><input type="number" size="45" bind:value={fps} min=1></p>
+			<p>Duration (0 = autodetect)</p>
+			<p><input type="number" size="45" style="width:200px" bind:value={videoDuration} min=0 step=1></p>
+			<p>Filename</p>
+			<p><input type="text" size="45" style="width:200px" bind:value={videoFilename}></p>
+			<p>Compression rate</p>
+			<p><input type="number" size="45" style="width:200px" bind:value={videoCompressionRate} min=0 step=0.1></p>
 			<input type="button" value="🎥 Capture Video" title="Capture video" on:click={captureVideo}/>
 		</fieldset>
 	</div>
@@ -113,6 +120,11 @@
 	}
 
 	select {
+		margin-top: 5px;
+		margin-bottom: 10px;
+	}
+
+	input[type=text] {
 		margin-top: 5px;
 		margin-bottom: 10px;
 	}
