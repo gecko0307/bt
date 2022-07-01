@@ -49,12 +49,14 @@
 			height = containerHeight;
 		}
 
+		console.log(fps);
+
 		const res = await apiRequest({
 			method: "capture",
 			video: true,
 			width: width,
 			height: height,
-			fps: fps,
+			videoFps: fps,
 			videoFilename: "video.mp4",
 			videoCompressionRate: 1,
 			videoDuration: undefined
