@@ -1,12 +1,15 @@
 <script>
-	import { onMount } from "svelte";
+	import { onMount, createEventDispatcher } from "svelte";
+
+	const dispatch = createEventDispatcher();
 
 	onMount(async () => {
 		timerStart();
 	});
 
 	function openURL(url) {
-		window.location.href = url;
+		//window.location.href = url;
+		dispatch("open", { url });
 	}
 </script>
 <script context="module">

@@ -1,5 +1,6 @@
 <script>
 	import { onMount } from "svelte";
+    import { fade } from "svelte/transition";
 	import "style/core.css";
     import Tabs from "./Tabs.svelte";
 	import Tools, { timerStart } from "./Tools.svelte";
@@ -26,6 +27,10 @@
 	let bannerWidthProp = bannerWidth;
 	let bannerHeightProp = bannerHeight;
 	let bannerDevice = "default";
+
+	let showToolWindow = false;
+	let toolFrame;
+	let toolURL;
 	
 	let observer;
 
@@ -108,6 +113,16 @@
 	function tabChange(event) {
 		currentTab = event.detail.tab;
 	}
+
+	function toolOpen(event) {
+		toolURL = event.detail.url;
+		console.log(toolURL);
+		showToolWindow = true;
+	}
+
+    function closeOverlay() {
+        showToolWindow = false;
+    }
 </script>
 
 <main>
@@ -116,7 +131,7 @@
 			<Tabs on:change={tabChange}/>
 			<div id="control_page">
 				{#if currentTab === "tools"}
-					<Tools/>
+					<Tools on:open={toolOpen}/>
 				{:else if currentTab === "capturer"}
 					<Capturer bannerWidth={banner.offsetWidth} bannerHeight={banner.offsetHeight}/>
 				{:else if currentTab === "builder"}
@@ -160,6 +175,17 @@
 			</div>
 		</div>
 	</div>
+	{#if showToolWindow}
+		<div id="overlay" transition:fade="{{ duration: 100 }}">
+			<div id="overlay-bg"></div>
+			<div id="tool_frame_container">
+				<iframe title="Tool Frame" id="tool_frame" bind:this={toolFrame} src="{toolURL}" frameborder="0"></iframe>
+			</div>
+			<div id="close" on:click={ closeOverlay } transition:fade={{ duration: 100 }}>
+				<img id="close-bg" src="images/close.svg" alt="close">
+			</div>
+		</div>
+	{/if}
 </main>
 
 <style>
@@ -295,4 +321,68 @@
 		top: 48px;
 		bottom: 0;
 	}
+
+    #overlay {
+        position: fixed;
+		box-sizing: border-box;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    #overlay-bg {
+        position: fixed;
+		box-sizing: border-box;
+        width: 100%;
+        height: 100%;
+        background-color: #000000;
+        opacity: 0.6;
+    }
+
+	#tool_frame_container {
+		position: fixed;
+		box-sizing: border-box;
+		margin: 0;
+        padding: 0;
+		overflow-x: hidden;
+		overflow-y: auto;
+		width: 95%;
+        max-width: 1440px;
+        left: -100%;
+        right: -100%;
+        margin-left: auto;
+        margin-right: auto;
+		height: auto;
+		top: 100px;
+		bottom: 100px;
+	}
+
+	#tool_frame {
+		position: absolute;
+		box-sizing: border-box;
+		width: 100%;
+		height: 100%;
+		left: 0; right: 0;
+		top: 0; bottom: 0;
+		margin: auto;
+		opacity: 1;
+		overflow-x: hidden;
+		overflow-y: auto;
+	}
+
+    #close {
+        position: fixed;
+        width: 32px;
+        height: 32px;
+        left: auto;
+        right: 20px;
+        top: 20px;
+        cursor: pointer;
+        /* border: 1px solid white; */
+    }
+    #close-bg {
+        width: 100%;
+        height: 100%;
+    }
 </style>
