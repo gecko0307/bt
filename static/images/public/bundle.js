@@ -241,6 +241,9 @@ var app = (function () {
     function onMount(fn) {
         get_current_component().$$.on_mount.push(fn);
     }
+    function onDestroy(fn) {
+        get_current_component().$$.on_destroy.push(fn);
+    }
 
     const dirty_components = [];
     const binding_callbacks = [];
@@ -2043,7 +2046,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (101:12) {:else}
+    // (105:12) {:else}
     function create_else_block(ctx) {
     	let p;
 
@@ -2051,7 +2054,7 @@ var app = (function () {
     		c: function create() {
     			p = element("p");
     			p.textContent = "No images found in \"Images\" directory";
-    			add_location(p, file, 101, 16, 3156);
+    			add_location(p, file, 105, 16, 3214);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, p, anchor);
@@ -2068,14 +2071,14 @@ var app = (function () {
     		block,
     		id: create_else_block.name,
     		type: "else",
-    		source: "(101:12) {:else}",
+    		source: "(105:12) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (86:12) {#if images.length > 0}
+    // (90:12) {#if images.length > 0}
     function create_if_block_3(ctx) {
     	let each_1_anchor;
     	let current;
@@ -2164,14 +2167,14 @@ var app = (function () {
     		block,
     		id: create_if_block_3.name,
     		type: "if",
-    		source: "(86:12) {#if images.length > 0}",
+    		source: "(90:12) {#if images.length > 0}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (88:20) {#if imageFile in config.images}
+    // (92:20) {#if imageFile in config.images}
     function create_if_block_4(ctx) {
     	let div;
     	let fieldset;
@@ -2214,11 +2217,11 @@ var app = (function () {
     			t6 = space();
     			create_component(imagesettings.$$.fragment);
     			t7 = space();
-    			add_location(b, file, 91, 36, 2605);
-    			add_location(legend, file, 90, 32, 2559);
-    			add_location(fieldset, file, 89, 28, 2515);
+    			add_location(b, file, 95, 36, 2663);
+    			add_location(legend, file, 94, 32, 2617);
+    			add_location(fieldset, file, 93, 28, 2573);
     			attr_dev(div, "class", "image svelte-16ndu7x");
-    			add_location(div, file, 88, 24, 2466);
+    			add_location(div, file, 92, 24, 2524);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -2264,14 +2267,14 @@ var app = (function () {
     		block,
     		id: create_if_block_4.name,
     		type: "if",
-    		source: "(88:20) {#if imageFile in config.images}",
+    		source: "(92:20) {#if imageFile in config.images}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (87:16) {#each images as imageFile}
+    // (91:16) {#each images as imageFile}
     function create_each_block(ctx) {
     	let if_block_anchor;
     	let current;
@@ -2330,14 +2333,14 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(87:16) {#each images as imageFile}",
+    		source: "(91:16) {#each images as imageFile}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (112:4) {#if optimizing || error}
+    // (116:4) {#if optimizing || error}
     function create_if_block(ctx) {
     	let div1;
     	let div0;
@@ -2358,10 +2361,10 @@ var app = (function () {
     			if (if_block1) if_block1.c();
     			attr_dev(div0, "id", "overlay-bg");
     			attr_dev(div0, "class", "svelte-16ndu7x");
-    			add_location(div0, file, 113, 12, 3659);
+    			add_location(div0, file, 117, 12, 3717);
     			attr_dev(div1, "id", "overlay");
     			attr_dev(div1, "class", "svelte-16ndu7x");
-    			add_location(div1, file, 112, 8, 3589);
+    			add_location(div1, file, 116, 8, 3647);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div1, anchor);
@@ -2448,14 +2451,14 @@ var app = (function () {
     		block,
     		id: create_if_block.name,
     		type: "if",
-    		source: "(112:4) {#if optimizing || error}",
+    		source: "(116:4) {#if optimizing || error}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (115:12) {#if optimizing}
+    // (119:12) {#if optimizing}
     function create_if_block_2(ctx) {
     	let img;
     	let img_src_value;
@@ -2469,7 +2472,7 @@ var app = (function () {
     			if (!src_url_equal(img.src, img_src_value = "images/preloader.svg")) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", "preloader");
     			attr_dev(img, "class", "svelte-16ndu7x");
-    			add_location(img, file, 115, 16, 3734);
+    			add_location(img, file, 119, 16, 3792);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, img, anchor);
@@ -2500,14 +2503,14 @@ var app = (function () {
     		block,
     		id: create_if_block_2.name,
     		type: "if",
-    		source: "(115:12) {#if optimizing}",
+    		source: "(119:12) {#if optimizing}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (118:12) {#if error}
+    // (122:12) {#if error}
     function create_if_block_1(ctx) {
     	let div0;
     	let t0;
@@ -2536,19 +2539,19 @@ var app = (function () {
     			t3 = space();
     			div1 = element("div");
     			img = element("img");
-    			add_location(br0, file, 119, 29, 3978);
-    			add_location(br1, file, 119, 33, 3982);
+    			add_location(br0, file, 123, 29, 4036);
+    			add_location(br1, file, 123, 33, 4040);
     			attr_dev(div0, "id", "error");
     			attr_dev(div0, "class", "svelte-16ndu7x");
-    			add_location(div0, file, 118, 16, 3895);
+    			add_location(div0, file, 122, 16, 3953);
     			attr_dev(img, "id", "close-bg");
     			if (!src_url_equal(img.src, img_src_value = "images/close.svg")) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", "close");
     			attr_dev(img, "class", "svelte-16ndu7x");
-    			add_location(img, file, 123, 20, 4166);
+    			add_location(img, file, 127, 20, 4224);
     			attr_dev(div1, "id", "close");
     			attr_dev(div1, "class", "svelte-16ndu7x");
-    			add_location(div1, file, 122, 16, 4066);
+    			add_location(div1, file, 126, 16, 4124);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div0, anchor);
@@ -2607,7 +2610,7 @@ var app = (function () {
     		block,
     		id: create_if_block_1.name,
     		type: "if",
-    		source: "(118:12) {#if error}",
+    		source: "(122:12) {#if error}",
     		ctx
     	});
 
@@ -2675,27 +2678,27 @@ var app = (function () {
     			t8 = text(" Kb zip");
     			t9 = space();
     			if (if_block1) if_block1.c();
-    			add_location(h1, file, 83, 8, 2253);
+    			add_location(h1, file, 87, 8, 2311);
     			attr_dev(div0, "id", "images");
     			attr_dev(div0, "class", "svelte-16ndu7x");
-    			add_location(div0, file, 84, 8, 2287);
+    			add_location(div0, file, 88, 8, 2345);
     			input.disabled = /*disabled*/ ctx[7];
     			attr_dev(input, "type", "button");
     			input.value = "⚙️ Optimize";
-    			add_location(input, file, 105, 12, 3277);
+    			add_location(input, file, 109, 12, 3335);
     			attr_dev(div1, "id", "buttons");
-    			add_location(div1, file, 104, 8, 3245);
-    			add_location(b, file, 108, 27, 3422);
+    			add_location(div1, file, 108, 8, 3303);
+    			add_location(b, file, 112, 27, 3480);
     			attr_dev(p, "class", "svelte-16ndu7x");
-    			add_location(p, file, 108, 12, 3407);
+    			add_location(p, file, 112, 12, 3465);
     			attr_dev(div2, "id", "info");
     			attr_dev(div2, "class", "svelte-16ndu7x");
-    			add_location(div2, file, 107, 8, 3378);
+    			add_location(div2, file, 111, 8, 3436);
     			attr_dev(div3, "id", "ui");
     			attr_dev(div3, "class", "svelte-16ndu7x");
-    			add_location(div3, file, 82, 4, 2230);
+    			add_location(div3, file, 86, 4, 2288);
     			attr_dev(main, "class", "svelte-16ndu7x");
-    			add_location(main, file, 81, 0, 2218);
+    			add_location(main, file, 85, 0, 2276);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -2887,6 +2890,10 @@ var app = (function () {
     		};
     	});
 
+    	onDestroy(() => {
+    		sse.close();
+    	});
+
     	const writable_props = [];
 
     	Object_1.keys($$props).forEach(key => {
@@ -2895,6 +2902,7 @@ var app = (function () {
 
     	$$self.$capture_state = () => ({
     		onMount,
+    		onDestroy,
     		fade,
     		ImageSettings,
     		sse,

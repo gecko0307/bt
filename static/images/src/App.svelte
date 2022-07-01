@@ -1,5 +1,5 @@
 <script>
-    import { onMount } from "svelte";
+    import { onMount, onDestroy } from "svelte";
     import { fade } from "svelte/transition";
     import "style/core.css";
     import ImageSettings from "./ImageSettings.svelte";
@@ -77,6 +77,10 @@
             console.error("EventSource failed: ", error);
         };
     });
+
+    onDestroy(() => {
+		sse.close();
+	});
 </script>
 
 <main>
