@@ -345,8 +345,7 @@
 		box-sizing: border-box;
 		margin: 0;
         padding: 0;
-		overflow-x: hidden;
-		overflow-y: auto;
+		overflow: hidden;
 		width: 95%;
         max-width: 1440px;
         left: -100%;
@@ -356,6 +355,8 @@
 		height: auto;
 		top: 100px;
 		bottom: 100px;
+		border: 5px solid #5fccb6;
+		border-radius: 10px;
 	}
 
 	#tool_frame {
