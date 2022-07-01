@@ -69,8 +69,6 @@
 			height = containerHeight;
 		}
 
-		console.log(fps);
-
 		const res = await apiRequest({
 			method: "capture",
 			video: true,

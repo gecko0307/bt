@@ -1,8 +1,8 @@
 <script>
 	import { onMount } from "svelte";
-    import { fade } from "svelte/transition";
+	import { fade } from "svelte/transition";
 	import "style/core.css";
-    import Tabs from "./Tabs.svelte";
+	import Tabs from "./Tabs.svelte";
 	import Tools, { timerStart } from "./Tools.svelte";
 	import Capturer from "./Capturer.svelte";
 	import Builder from "./Builder.svelte";
@@ -27,6 +27,13 @@
 	let bannerWidthProp = bannerWidth;
 	let bannerHeightProp = bannerHeight;
 	let bannerDevice = "default";
+
+	let showOverlay = false;
+	let inProgress = false;
+
+	let showCapture = false;
+	let capturedVideo = false;
+	let captureFilename;
 
 	let showToolWindow = false;
 	let toolFrame;
@@ -74,12 +81,6 @@
 			console.log(bannerInternalContainer.offsetWidth, bannerInternalContainer.offsetHeight);
 			bannerDefaultWidth = bannerInternalContainer.offsetWidth;
 			bannerDefaultHeight = bannerInternalContainer.offsetHeight;
-			/*
-			bannerWidth = bannerDefaultWidth;
-			bannerHeight = bannerDefaultHeight;
-			bannerWidthProp = bannerWidth;
-			bannerHeightProp = bannerHeight;
-			*/
 			bannerResetSize();
 		}
 	}
@@ -125,21 +126,27 @@
 	function toolOpen(event) {
 		toolURL = event.detail.url;
 		console.log(toolURL);
+		showOverlay = true;
 		showToolWindow = true;
 	}
 
-    function closeOverlay() {
-        showToolWindow = false;
-    }
+	function closeOverlay() {
+		showOverlay = false;
+		showCapture = false;
+		showToolWindow = false;
+	}
 
 	function captureStart(event) {
-		console.log(event.detail.message);
-		// TODO: overlay
+		inProgress = true;
+		showOverlay = true;
 	}
 
 	function captureReady(event) {
-		console.log(event.detail.capture);
-		// TODO: show capture
+		const capture = event.detail.capture;
+		capturedVideo = capture.video;
+		captureFilename = "/file?path=capture/" + capture.filename;
+		inProgress = false;
+		showCapture = true;
 	}
 </script>
 
@@ -199,12 +206,27 @@
 			</div>
 		</div>
 	</div>
-	{#if showToolWindow}
+	{#if showOverlay}
 		<div id="overlay" transition:fade="{{ duration: 100 }}">
 			<div id="overlay-bg"></div>
-			<div id="tool_frame_container">
-				<iframe title="Tool Frame" id="tool_frame" bind:this={toolFrame} src="{toolURL}" frameborder="0"></iframe>
-			</div>
+			{#if inProgress}
+				<img id="preloader" src="images/preloader.svg" alt="preloader" transition:fade={{ duration: 100 }}>
+			{/if}
+			{#if showCapture}
+				{#if capturedVideo}
+					<video id="video" controls transition:fade={{ duration: 100 }}>
+						<track kind="captions">
+						<source id="video_src" type="video/mp4" src="{captureFilename}">
+					</video>
+				{:else}
+					<img id="fallback" src="{captureFilename}" alt="Fallback">
+				{/if}
+			{/if}
+			{#if showToolWindow}
+				<div id="tool_frame_container">
+					<iframe title="Tool Frame" id="tool_frame" bind:this={toolFrame} src="{toolURL}" frameborder="0"></iframe>
+				</div>
+			{/if}
 			<div id="close" on:click={ closeOverlay } transition:fade={{ duration: 100 }}>
 				<img id="close-bg" src="images/close.svg" alt="close">
 			</div>
@@ -346,36 +368,67 @@
 		bottom: 0;
 	}
 
-    #overlay {
-        position: fixed;
+	#overlay {
+		position: fixed;
 		box-sizing: border-box;
-        width: 100%;
-        height: 100%;
-        margin: 0;
-        padding: 0;
-    }
+		width: 100%;
+		height: 100%;
+		margin: 0;
+		padding: 0;
+	}
 
-    #overlay-bg {
-        position: fixed;
+	#overlay-bg {
+		position: fixed;
 		box-sizing: border-box;
-        width: 100%;
-        height: 100%;
-        background-color: #000000;
-        opacity: 0.6;
-    }
+		width: 100%;
+		height: 100%;
+		background-color: #000000;
+		opacity: 0.6;
+	}
+
+	#preloader {
+		position: fixed;
+		width: 10vh;
+		height: auto;
+		left: -100%;
+		right: -100%;
+		margin-left: auto;
+		margin-right: auto;
+		top: -100%;
+		bottom: -100%;
+		margin-top: auto;
+		margin-bottom: auto;
+	}
+
+	#fallback, #video {
+		position: fixed;
+		box-sizing: border-box;
+		margin: 0;
+		padding: 0;
+		width: auto;
+		height: auto;
+		left: -100%;
+		right: -100%;
+		margin-left: auto;
+		margin-right: auto;
+		top: -100%;
+		bottom: -100%;
+		margin-top: auto;
+		margin-bottom: auto;
+	}
 
 	#tool_frame_container {
 		position: fixed;
 		box-sizing: border-box;
 		margin: 0;
-        padding: 0;
+		padding: 0;
 		overflow: hidden;
 		width: 95%;
-        max-width: 1440px;
-        left: -100%;
-        right: -100%;
-        margin-left: auto;
-        margin-right: auto;
+		max-width: 1440px;
+		left: -100%;
+		right: -100%;
+		margin-left: auto;
+		margin-right: auto;
 		height: auto;
 		top: 100px;
 		bottom: 100px;
@@ -396,18 +449,18 @@
 		overflow-y: auto;
 	}
 
-    #close {
-        position: fixed;
-        width: 32px;
-        height: 32px;
-        left: auto;
-        right: 20px;
-        top: 20px;
-        cursor: pointer;
-        /* border: 1px solid white; */
-    }
-    #close-bg {
-        width: 100%;
-        height: 100%;
-    }
+	#close {
+		position: fixed;
+		width: 32px;
+		height: 32px;
+		left: auto;
+		right: 20px;
+		top: 20px;
+		cursor: pointer;
+		/* border: 1px solid white; */
+	}
+	#close-bg {
+		width: 100%;
+		height: 100%;
+	}
 </style>
