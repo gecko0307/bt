@@ -112,7 +112,7 @@ async function capture(options) {
         console.log(`Capture screenshot at ${screenshotTime}s...`);
 
         if (banner.duration > 0) {
-            await page.evaluate(`window.gsap.globalTimeline.pause(${screenshotTime})`);
+            await page.evaluate((t) => { window.animation.master.pause(t, false); }, screenshotTime);
         }
 
         const pngPath = `${options.outPath}/${screenshotFilename}`;

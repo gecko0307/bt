@@ -7,6 +7,7 @@
 	export let bannerHeight;
 	export let containerWidth;
 	export let containerHeight;
+	export let bannerTime;
 
 	let screenshotSizeMode = "banner";
 	let fallbackSizeMode = "banner";
@@ -49,6 +50,7 @@
 			screenshot: true,
 			transparent: transparent,
 			zoom: zoom,
+			screenshotTime: bannerTime,
 			screenshotFilename: screenshotFilename,
 			width: width,
 			height: height

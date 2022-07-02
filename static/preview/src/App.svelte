@@ -38,6 +38,7 @@
 	let timelineEnabled = true;
 	let paused = false;
 	let timelineProgress = 0.0;
+	let bannerTime = 0.0;
 
 	let displayTime;
 	let displayDuration;
@@ -145,6 +146,7 @@
 			}
 
 			currentTimeline.progress(timelineProgress);
+			bannerTime = timelineProgress * currentTimeline.duration();
 			printTime();
 		}
 		if (!paused) window.requestAnimationFrame(step);
@@ -234,6 +236,7 @@
 	function timelineChange() {
 		if (paused) {
 			currentTimeline.progress(timelineProgress);
+			bannerTime = timelineProgress * currentTimeline.duration();
 			printTime();
 		}
 	}
@@ -278,6 +281,7 @@
 						bannerHeight={bannerDefaultHeight}
 						containerWidth={bannerWidthProp}
 						containerHeight={bannerHeightProp}
+						bannerTime={bannerTime}
 						on:start={captureStart}
 						on:ready={captureReady}/>
 				{:else if currentTab === "builder"}

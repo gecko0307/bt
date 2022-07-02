@@ -48,6 +48,7 @@ async function captureFunc(options = {}) {
         video: options.video || false,
         screenshot: options.screenshot || false,
         screenshotFilename: options.screenshotFilename || "screenshot.png",
+        screenshotTime: options.screenshotTime || 0,
         transparent: options.transparent || false,
         zoom: options.zoom || 1,
         gifRepeat: options.gifRepeat || true,
