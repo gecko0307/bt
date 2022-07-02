@@ -288,7 +288,7 @@
 						</div>
 						<div class="widget fill">
 							<p>Progress</p>
-							<input type="range" min="0" max="1" step="0.0001" bind:value={timelineProgress} on:input={timelineChange}>
+							<input type="range" min="0" max="1" step="any" bind:value={timelineProgress} on:input={timelineChange}>
 						</div>
 					</div>
 				</div>
