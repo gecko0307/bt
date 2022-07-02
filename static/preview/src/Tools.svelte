@@ -44,17 +44,4 @@
 		margin-top: 15px;
 		margin-bottom: 20px;
 	}
-
-	#timer {
-		font-family: monospace;
-		font-size: 50px;
-		position: relative;
-		margin-top: 0;
-		margin-bottom: 10px;
-		color: #379683;
-	}
-	
-	#msec {
-		font-size: 0.75em;
-	}
 </style>

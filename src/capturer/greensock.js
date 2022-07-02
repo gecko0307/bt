@@ -12,6 +12,9 @@ async function capture(options) {
     
     const videoFilename = options.videoFilename || "video.mp4";
     const videoPath = path.join(options.outPath, videoFilename);
+
+    const screenshotFilename = options.screenshotFilename || "screenshot.png";
+    console.log(screenshotFilename);
     
     const url = options.url || "http://localhost:8000/";
     
@@ -39,7 +42,8 @@ async function capture(options) {
     await page.evaluate(deleteDevTools);
 
     const banner = await page.evaluate(() => {
-        if (animation !== undefined) {
+        if (window.animation !== undefined) {
+            let animation = window.animation;
             let bannerType = "gsap";
             let bannerVersion;
             if (animation.info) {
@@ -93,6 +97,31 @@ async function capture(options) {
     result.width = banner.width;
     result.height = banner.height;
     result.duration = banner.duration;
+
+    await page.setViewport({
+        width: banner.width,
+        height: banner.height,
+        deviceScaleFactor: options.zoom || 1,
+    });
+
+    if (options.screenshot === true) {
+        // Capture screenshot
+        let screenshotTime = options.screenshotTime || 0;
+        if (banner.duration === 0) screenshotTime = 0;
+
+        console.log(`Capture screenshot at ${screenshotTime}s...`);
+
+        if (banner.duration > 0) {
+            await page.evaluate(`window.gsap.globalTimeline.pause(${screenshotTime})`);
+        }
+
+        const pngPath = `${options.outPath}/${screenshotFilename}`;
+        await page.screenshot({ 
+            path: pngPath,
+            omitBackground: options.transparent || false
+        });
+        return result;
+    }
     
     if (banner.type !== "gsap") {
         console.log("Error: only GreenSock banners are supported!");
@@ -105,12 +134,6 @@ async function capture(options) {
         await browser.close();
         return result;
     }
-    
-    await page.setViewport({
-        width: banner.width,
-        height: banner.height,
-        deviceScaleFactor: 1,
-    });
     
     if (options.video === true) {
         // Capture video
@@ -141,7 +164,7 @@ async function capture(options) {
         console.log(`Generated ${videoFilename}`);
     }
     else {
-        // Capture images
+        // Capture fallback frames
         for (let frame = 0; frame < banner.frames.length; frame++) {
             await page.evaluate("window.frames[" + frame + "][0]()"); // run pause function
             const delay = banner.frames[frame][1]; // frame delay in milliseconds

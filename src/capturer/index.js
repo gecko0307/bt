@@ -30,13 +30,14 @@ async function captureFunc(options = {}) {
         options.videoCompressionRate = config.video.compressionRate;
         options.videoDuration = config.video.duration;
     }
+    // TODO: add other options to config
 
     const captureDir = path.resolve("./capture");
     if (!fs.existsSync(captureDir)){
         fs.mkdirSync(captureDir);
     }
     
-    const captureImages = (options.video !== true);
+    const captureImages = (options.video !== true && options.screenshot !== true);
     
     // Capture frames/video from GreenSock banner
     const capture = await greensock.capture({
@@ -45,6 +46,10 @@ async function captureFunc(options = {}) {
         width: options.width || 0,
         height: options.height || 0,
         video: options.video || false,
+        screenshot: options.screenshot || false,
+        screenshotFilename: options.screenshotFilename || "screenshot.png",
+        transparent: options.transparent || false,
+        zoom: options.zoom || 1,
         gifRepeat: options.gifRepeat || true,
         gifQuality: options.gifQuality || 10,
         videoFilename: options.videoFilename || "video.mp4",

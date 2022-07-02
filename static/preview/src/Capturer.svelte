@@ -16,6 +16,8 @@
 	let videoFilename = "video.mp4";
 	let videoCompressionRate = 1;
 	let videoDuration = 0;
+	let transparent = false;
+	let zoom = 1;
 
 	async function apiRequest(data) {
 		const res = await fetch("/api", {
@@ -26,7 +28,42 @@
 	}
 
 	async function captureScreenshot() {
-		// TODO
+		dispatch("start", { 
+			message: "Capture screenshot..."
+		});
+
+		let width, height;
+		if (screenshotSizeMode === "banner") {
+			width = bannerWidth;
+			height = bannerHeight;
+		}
+		else if (screenshotSizeMode === "container") {
+			width = containerWidth;
+			height = containerHeight;
+		}
+
+		console.log(width, height);
+
+		const res = await apiRequest({
+			method: "capture",
+			screenshot: true,
+			transparent: transparent,
+			zoom: zoom,
+			screenshotFilename: screenshotFilename,
+			width: width,
+			height: height
+		});
+
+		dispatch("ready", { 
+			...res,
+			capture: {
+				haveResult: true,
+				video: false,
+				screenshot: true,
+				filename: screenshotFilename,
+				width, height
+			}
+		});
 	}
 
 	async function captureFallback() {
@@ -50,15 +87,13 @@
 			height: height
 		});
 
-		console.log(res);
-
 		dispatch("ready", { 
 			...res,
 			capture: {
 				haveResult: res.frames.length > 0,
 				video: false,
 				filename: "fallback.gif",
-				width, height, 
+				width, height
 			}
 		});
 	}
@@ -114,7 +149,13 @@
 			</p>
 			<p>Filename</p>
 			<p><input type="text" size="45" style="width:200px" bind:value={screenshotFilename}></p>
-			<p><input type="button" value="📷 Capture Screenshot" title="Capture screenshot" on:click={captureScreenshot} disabled/></p>
+			<p>Zoom</p>
+			<p><input type="number" size="45" bind:value={zoom} min=1 step=1></p>
+			<label>
+				<input type="checkbox" bind:checked={transparent} />
+				Transparent background
+			</label>
+			<p><input type="button" value="📷 Capture Screenshot" title="Capture screenshot" on:click={captureScreenshot}/></p>
 		</fieldset>
 	</div>
 	<div class="section">
@@ -181,5 +222,10 @@
 	input[type=number] {
 		margin-top: 5px;
 		margin-bottom: 10px;
+	}
+
+	input[type=checkbox] {
+		margin-top: 5px;
+		margin-bottom: 15px;
 	}
 </style>

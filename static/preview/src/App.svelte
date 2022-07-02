@@ -9,7 +9,7 @@
 	import Events from "./Events.svelte";
 	
 	let sse;
-
+	
 	const screens = {
 		iphone_se: { width: 375, height: 667 },
 		iphone_xr: { width: 414, height: 896 },
@@ -28,8 +28,10 @@
 	let bannerHeightProp = bannerHeight;
 	let bannerDevice = "default";
 
+	$: containerWidth = bannerWidthProp;
+	$: containerHeight = bannerHeightProp;
+
 	let gsap;
-	//let timelines;
 	let timelineIDs;
 	let currentTimelineID;
 	let currentTimeline;
@@ -90,7 +92,6 @@
 		const bannerDocument = bannerWindow.document;
 		bannerInternalContainer = bannerDocument.getElementById("container");
 		if (bannerInternalContainer) {
-			console.log(bannerInternalContainer.offsetWidth, bannerInternalContainer.offsetHeight);
 			bannerDefaultWidth = bannerInternalContainer.offsetWidth;
 			bannerDefaultHeight = bannerInternalContainer.offsetHeight;
 			bannerResetSize();
@@ -98,19 +99,25 @@
 
 		//
 		gsap = banner.contentWindow.gsap;
-		gsap.globalTimeline.pause();
-		timelineIDs = Array.from(gsap.globalTimeline.getChildren().filter(c => c.constructor.name === "Timeline" && c.vars.id !== undefined).map(c => c.vars.id));
-		currentTimeline = gsap.getById("MASTER");
-		if (currentTimeline === undefined) {
-			timelineEnabled = false;
+		if (gsap) {
+			gsap.globalTimeline.pause();
+			timelineIDs = Array.from(gsap.globalTimeline.getChildren().filter(c => c.constructor.name === "Timeline" && c.vars.id !== undefined).map(c => c.vars.id));
+			currentTimeline = gsap.getById("MASTER");
+			if (currentTimeline === undefined) {
+				timelineEnabled = false;
+			}
+			else {
+				currentTimelineID = "MASTER";
+			}
+			paused = !timelineEnabled;
+			if (!paused) {
+				currentTimeline.pause();
+				window.requestAnimationFrame(step);
+			}
 		}
 		else {
-			currentTimelineID = "MASTER";
-		}
-		paused = !timelineEnabled;
-		if (!paused) {
-			currentTimeline.pause();
-			window.requestAnimationFrame(step);
+			timelineEnabled = false;
+			paused = true;
 		}
 
 		// 
@@ -207,7 +214,7 @@
 		const capture = event.detail.capture;
 		if (capture.haveResult) {
 			capturedVideo = capture.video;
-			captureFilename = "/file?path=capture/" + capture.filename;
+			captureFilename = "/file?path=capture/" + capture.filename + "&" + new Date().getTime();
 			showCapture = true;
 		}
 		else {
@@ -269,8 +276,8 @@
 					<Capturer 
 						bannerWidth={bannerDefaultWidth}
 						bannerHeight={bannerDefaultHeight}
-						containerWidth={banner.offsetWidth}
-						containerHeight={banner.offsetHeight}
+						containerWidth={bannerWidthProp}
+						containerHeight={bannerHeightProp}
 						on:start={captureStart}
 						on:ready={captureReady}/>
 				{:else if currentTab === "builder"}
@@ -312,25 +319,25 @@
 					</div>
 				</div>
 			</div>
-			{#if timelineIDs && currentTimeline}
-				<div id="timeline">
-					<div class="row">
-						<div class="widget">
-							<p>Timeline</p>
-							<select bind:value={currentTimelineID} on:change={timelineIDChange} disabled={!timelineEnabled}>
+			<div id="timeline">
+				<div class="row">
+					<div class="widget">
+						<p>Timeline</p>
+						<select bind:value={currentTimelineID} on:change={timelineIDChange} disabled={!timelineEnabled}>
+							{#if timelineIDs !== undefined}
 								{#each timelineIDs as id}
 									<option value="{id}">{id}</option>
 								{/each}
-							</select>
-							<input type="button" value="{paused? '▶️' : '⏸️'}" on:click={togglePause} disabled={!timelineEnabled}/>
-						</div>
-						<div class="widget fill">
-							<p class="time"><b><span>{displayTime}</span></b> / <span>{displayDuration}</span></p>
-							<input type="range" min="0" max="1" step="any" bind:value={timelineProgress} on:input={timelineChange} disabled={!timelineEnabled}>
-						</div>
+							{/if}
+						</select>
+						<input type="button" value="{paused? '▶️' : '⏸️'}" on:click={togglePause} disabled={!timelineEnabled}/>
+					</div>
+					<div class="widget fill">
+						<p class="time"><b><span>{displayTime}</span></b> / <span>{displayDuration}</span></p>
+						<input type="range" min="0" max="1" step="any" bind:value={timelineProgress} on:input={timelineChange} disabled={!timelineEnabled}>
 					</div>
 				</div>
-			{/if}
+			</div>
 		</div>
 	</div>
 	{#if showOverlay}
@@ -559,6 +566,8 @@
 		padding: 0;
 		width: auto;
 		height: auto;
+		max-width: 100%;
+		max-height: 100%;
 		left: -100%;
 		right: -100%;
 		margin-left: auto;
