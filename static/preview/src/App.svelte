@@ -34,6 +34,7 @@
 	let currentTimeline;
 	let timelineEnabled = true;
 	let paused = false;
+	let timelineProgress = 0.0;
 
 	let showOverlay = false;
 	let inProgress = false;
@@ -94,7 +95,6 @@
 		//
 		gsap = banner.contentWindow.gsap;
 		timelines = Array.from(gsap.globalTimeline.getChildren().filter(c => c.constructor.name === "Timeline" && c.vars.id !== undefined));
-		console.log(timelines);
 		currentTimeline = gsap.getById("MASTER");
 		if (currentTimeline === undefined) {
 			if (timelines.length > 0) currentTimeline = timelines[0];
@@ -103,6 +103,10 @@
 			}
 		}
 		paused = !timelineEnabled;
+		if (!paused) {
+			currentTimeline.pause();
+			window.requestAnimationFrame(step);
+		}
 
 		// 
 		const style = bannerDocument.createElement("style");
@@ -110,6 +114,31 @@
 		style.type = "text/css";
 		style.textContent = "#__bs_notify__ { opacity: 0; } #link, #container { left: 0; right: auto; margin: 0; }";
 		bannerDocument.querySelectorAll(".dev, .gs-dev-tools, [preview]").forEach(elem => elem.remove());
+	}
+
+	let start = null;
+	let prevTime = 0.0;
+	function step(timestamp) {
+		if (!start) start = timestamp;
+		const time = (timestamp - start);
+		const timeStep = (time - prevTime) / 1000;
+		prevTime = time;
+		if (currentTimeline) {
+			timelineProgress += timeStep / currentTimeline.duration();
+
+			if (timelineProgress >= 1.0) {
+				timelineProgress = 0.0;
+				start = null;
+				prevTime = 0.0;
+			}
+
+			currentTimeline.progress(timelineProgress);
+		}
+		if (!paused) window.requestAnimationFrame(step);
+		else { 
+			start = null;
+			prevTime = 0.0;
+		}
 	}
 
 	function bannerSizeChange(event) {
@@ -176,15 +205,17 @@
 		showCapture = true;
 	}
 
-	function pause() {
-		console.log("pause");
-		if (currentTimeline.isActive()) {
-			currentTimeline.pause();
-			paused = true;
-		}
+	function togglePause() {
+		if (!paused) paused = true;
 		else {
-			currentTimeline.play();
 			paused = false;
+			window.requestAnimationFrame(step);
+		}
+	}
+
+	function timelineChange() {
+		if (paused) {
+			currentTimeline.progress(timelineProgress);
 		}
 	}
 </script>
@@ -243,21 +274,25 @@
 					</div>
 				</div>
 			</div>
-			<div id="timeline">
-				<div class="row">
-					<div class="widget">
-						{#if timelines}
+			{#if timelines && currentTimeline}
+				<div id="timeline">
+					<div class="row">
+						<div class="widget">
 							<p>Timeline</p>
 							<select bind:value={currentTimelineID}>
 								{#each timelines as tl}
 									<option value="{tl.vars.id}">{tl.vars.id}</option>
 								{/each}
 							</select>
-							<input type="button" value="{paused? 'Play' : 'Pause'}" on:click={pause} disabled={!timelineEnabled}/>
-						{/if}
+							<input type="button" value="{paused? '▶️' : '⏸️'}" on:click={togglePause} disabled={!timelineEnabled}/>
+						</div>
+						<div class="widget fill">
+							<p>Progress</p>
+							<input type="range" min="0" max="1" step="0.0001" bind:value={timelineProgress} on:input={timelineChange}>
+						</div>
 					</div>
 				</div>
-			</div>
+			{/if}
 		</div>
 	</div>
 	{#if showOverlay}
@@ -406,6 +441,15 @@
 
 	input[type=number] {
 		margin: 5px 0px;
+	}
+
+	.widget.fill {
+		flex-grow: 1;
+	}
+
+	input[type=range] {
+		margin: 10px 0px;
+		width: 100%;
 	}
 
 	select {
