@@ -230,6 +230,10 @@
 	function timelineIDChange() {
 		console.log(currentTimelineID);
 		currentTimeline = gsap.getById(currentTimelineID);
+		timelineProgress = 0.0;
+		start = null;
+		prevTime = 0.0;
+		paused = true;
 	}
 </script>
 
