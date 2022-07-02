@@ -3,7 +3,7 @@
 	import { fade } from "svelte/transition";
 	import "style/core.css";
 	import Tabs from "./Tabs.svelte";
-	import Tools, { timerStart } from "./Tools.svelte";
+	import Tools from "./Tools.svelte";
 	import Capturer from "./Capturer.svelte";
 	import Builder from "./Builder.svelte";
 	import Events from "./Events.svelte";
@@ -98,6 +98,7 @@
 
 		//
 		gsap = banner.contentWindow.gsap;
+		gsap.globalTimeline.pause();
 		timelineIDs = Array.from(gsap.globalTimeline.getChildren().filter(c => c.constructor.name === "Timeline" && c.vars.id !== undefined).map(c => c.vars.id));
 		console.log(timelineIDs);
 		currentTimeline = gsap.getById("MASTER");
@@ -163,7 +164,6 @@
 	function loadBanner() {
 		banner.src = "";
 		banner.src = bannerURL;
-		timerStart();
 	}
 
 	function bannerDeviceChange() {
