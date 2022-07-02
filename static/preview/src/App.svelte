@@ -29,8 +29,9 @@
 	let bannerDevice = "default";
 
 	let gsap;
-	let timelines;
-	let currentTimelineID = "MASTER";
+	//let timelines;
+	let timelineIDs;
+	let currentTimelineID;
 	let currentTimeline;
 	let timelineEnabled = true;
 	let paused = false;
@@ -94,13 +95,14 @@
 
 		//
 		gsap = banner.contentWindow.gsap;
-		timelines = Array.from(gsap.globalTimeline.getChildren().filter(c => c.constructor.name === "Timeline" && c.vars.id !== undefined));
+		timelineIDs = Array.from(gsap.globalTimeline.getChildren().filter(c => c.constructor.name === "Timeline" && c.vars.id !== undefined).map(c => c.vars.id));
+		console.log(timelineIDs);
 		currentTimeline = gsap.getById("MASTER");
 		if (currentTimeline === undefined) {
-			if (timelines.length > 0) currentTimeline = timelines[0];
-			else {
-				timelineEnabled = false;
-			}
+			timelineEnabled = false;
+		}
+		else {
+			currentTimelineID = "MASTER";
 		}
 		paused = !timelineEnabled;
 		if (!paused) {
@@ -224,6 +226,11 @@
 			currentTimeline.progress(timelineProgress);
 		}
 	}
+
+	function timelineIDChange() {
+		console.log(currentTimelineID);
+		currentTimeline = gsap.getById(currentTimelineID);
+	}
 </script>
 
 <main>
@@ -280,14 +287,14 @@
 					</div>
 				</div>
 			</div>
-			{#if timelines && currentTimeline}
+			{#if timelineIDs && currentTimeline}
 				<div id="timeline">
 					<div class="row">
 						<div class="widget">
 							<p>Timeline</p>
-							<select bind:value={currentTimelineID}>
-								{#each timelines as tl}
-									<option value="{tl.vars.id}">{tl.vars.id}</option>
+							<select bind:value={currentTimelineID} on:change={timelineIDChange}>
+								{#each timelineIDs as id}
+									<option value="{id}">{id}</option>
 								{/each}
 							</select>
 							<input type="button" value="{paused? '▶️' : '⏸️'}" on:click={togglePause} disabled={!timelineEnabled}/>
