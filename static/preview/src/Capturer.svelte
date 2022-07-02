@@ -44,9 +44,12 @@
 			height: height
 		});
 
+		console.log(res);
+
 		dispatch("ready", { 
 			...res,
 			capture: {
+				haveResult: res.frames.length > 0,
 				video: false,
 				filename: "fallback.gif",
 				width, height, 
@@ -83,6 +86,7 @@
 		dispatch("ready", {
 			...res,
 			capture: {
+				haveResult: true,
 				video: true,
 				filename: videoFilename,
 				width, height, 

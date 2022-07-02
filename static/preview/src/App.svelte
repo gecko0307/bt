@@ -198,11 +198,17 @@
 	}
 
 	function captureReady(event) {
-		const capture = event.detail.capture;
-		capturedVideo = capture.video;
-		captureFilename = "/file?path=capture/" + capture.filename;
 		inProgress = false;
-		showCapture = true;
+		const capture = event.detail.capture;
+		if (capture.haveResult) {
+			capturedVideo = capture.video;
+			captureFilename = "/file?path=capture/" + capture.filename;
+			showCapture = true;
+		}
+		else {
+			showCapture = false;
+			showOverlay = false;
+		}
 	}
 
 	function togglePause() {
