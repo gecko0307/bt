@@ -8,8 +8,10 @@
 	export let containerWidth;
 	export let containerHeight;
 
+	let screenshotSizeMode = "banner";
 	let fallbackSizeMode = "banner";
 	let videoSizeMode = "banner";
+	let screenshotFilename = "screenshot.png";
 	let fps = 60;
 	let videoFilename = "video.mp4";
 	let videoCompressionRate = 1;
@@ -21,6 +23,10 @@
 			body: JSON.stringify(data)
 		});
 		return await res.json();
+	}
+
+	async function captureScreenshot() {
+		// TODO
 	}
 
 	async function captureFallback() {
@@ -98,7 +104,22 @@
 <main>
 	<div class="section">
 		<fieldset>
-			<legend>Fallback</legend>
+			<legend>Screenshot</legend>
+			<p>Size</p>
+			<p>
+				<select bind:value={screenshotSizeMode}>
+					<option value="banner" selected>From banner</option>
+					<option value="container">From container</option>
+				</select>
+			</p>
+			<p>Filename</p>
+			<p><input type="text" size="45" style="width:200px" bind:value={screenshotFilename}></p>
+			<p><input type="button" value="📷 Capture Screenshot" title="Capture screenshot" on:click={captureScreenshot} disabled/></p>
+		</fieldset>
+	</div>
+	<div class="section">
+		<fieldset>
+			<legend>Fallback (GIF + PSD)</legend>
 			<p>Size</p>
 			<p>
 				<select bind:value={fallbackSizeMode}>

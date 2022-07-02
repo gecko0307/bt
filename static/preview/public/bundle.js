@@ -1048,40 +1048,59 @@ var app = (function () {
     	let option1;
     	let t6;
     	let p2;
+    	let t8;
+    	let p3;
     	let input0;
-    	let t7;
+    	let t9;
+    	let p4;
+    	let input1;
+    	let t10;
     	let div1;
     	let fieldset1;
     	let legend1;
-    	let t9;
-    	let p3;
-    	let t11;
-    	let p4;
+    	let t12;
+    	let p5;
+    	let t14;
+    	let p6;
     	let select1;
     	let option2;
     	let option3;
-    	let t14;
-    	let p5;
-    	let t16;
-    	let p6;
-    	let input1;
     	let t17;
     	let p7;
-    	let t19;
-    	let p8;
     	let input2;
+    	let t18;
+    	let div2;
+    	let fieldset2;
+    	let legend2;
     	let t20;
-    	let p9;
+    	let p8;
     	let t22;
-    	let p10;
-    	let input3;
-    	let t23;
-    	let p11;
+    	let p9;
+    	let select2;
+    	let option4;
+    	let option5;
     	let t25;
+    	let p10;
+    	let t27;
+    	let p11;
+    	let input3;
+    	let t28;
     	let p12;
+    	let t30;
+    	let p13;
     	let input4;
-    	let t26;
+    	let t31;
+    	let p14;
+    	let t33;
+    	let p15;
     	let input5;
+    	let t34;
+    	let p16;
+    	let t36;
+    	let p17;
+    	let input6;
+    	let t37;
+    	let input7;
     	let mounted;
     	let dispose;
 
@@ -1091,7 +1110,7 @@ var app = (function () {
     			div0 = element("div");
     			fieldset0 = element("fieldset");
     			legend0 = element("legend");
-    			legend0.textContent = "Fallback";
+    			legend0.textContent = "Screenshot";
     			t1 = space();
     			p0 = element("p");
     			p0.textContent = "Size";
@@ -1104,123 +1123,176 @@ var app = (function () {
     			option1.textContent = "From container";
     			t6 = space();
     			p2 = element("p");
+    			p2.textContent = "Filename";
+    			t8 = space();
+    			p3 = element("p");
     			input0 = element("input");
-    			t7 = space();
+    			t9 = space();
+    			p4 = element("p");
+    			input1 = element("input");
+    			t10 = space();
     			div1 = element("div");
     			fieldset1 = element("fieldset");
     			legend1 = element("legend");
-    			legend1.textContent = "Video";
-    			t9 = space();
-    			p3 = element("p");
-    			p3.textContent = "Size";
-    			t11 = space();
-    			p4 = element("p");
+    			legend1.textContent = "Fallback (GIF + PSD)";
+    			t12 = space();
+    			p5 = element("p");
+    			p5.textContent = "Size";
+    			t14 = space();
+    			p6 = element("p");
     			select1 = element("select");
     			option2 = element("option");
     			option2.textContent = "From banner";
     			option3 = element("option");
     			option3.textContent = "From container";
-    			t14 = space();
-    			p5 = element("p");
-    			p5.textContent = "FPS";
-    			t16 = space();
-    			p6 = element("p");
-    			input1 = element("input");
     			t17 = space();
     			p7 = element("p");
-    			p7.textContent = "Duration (0 = autodetect)";
-    			t19 = space();
-    			p8 = element("p");
     			input2 = element("input");
+    			t18 = space();
+    			div2 = element("div");
+    			fieldset2 = element("fieldset");
+    			legend2 = element("legend");
+    			legend2.textContent = "Video";
     			t20 = space();
-    			p9 = element("p");
-    			p9.textContent = "Filename";
+    			p8 = element("p");
+    			p8.textContent = "Size";
     			t22 = space();
-    			p10 = element("p");
-    			input3 = element("input");
-    			t23 = space();
-    			p11 = element("p");
-    			p11.textContent = "Compression rate";
+    			p9 = element("p");
+    			select2 = element("select");
+    			option4 = element("option");
+    			option4.textContent = "From banner";
+    			option5 = element("option");
+    			option5.textContent = "From container";
     			t25 = space();
+    			p10 = element("p");
+    			p10.textContent = "FPS";
+    			t27 = space();
+    			p11 = element("p");
+    			input3 = element("input");
+    			t28 = space();
     			p12 = element("p");
+    			p12.textContent = "Duration (0 = autodetect)";
+    			t30 = space();
+    			p13 = element("p");
     			input4 = element("input");
-    			t26 = space();
+    			t31 = space();
+    			p14 = element("p");
+    			p14.textContent = "Filename";
+    			t33 = space();
+    			p15 = element("p");
     			input5 = element("input");
-    			add_location(legend0, file$3, 100, 3, 2009);
-    			add_location(p0, file$3, 101, 3, 2039);
+    			t34 = space();
+    			p16 = element("p");
+    			p16.textContent = "Compression rate";
+    			t36 = space();
+    			p17 = element("p");
+    			input6 = element("input");
+    			t37 = space();
+    			input7 = element("input");
+    			add_location(legend0, file$3, 106, 3, 2147);
+    			add_location(p0, file$3, 107, 3, 2179);
     			option0.__value = "banner";
     			option0.value = option0.__value;
     			option0.selected = true;
-    			add_location(option0, file$3, 104, 5, 2109);
+    			add_location(option0, file$3, 110, 5, 2251);
     			option1.__value = "container";
     			option1.value = option1.__value;
-    			add_location(option1, file$3, 105, 5, 2168);
+    			add_location(option1, file$3, 111, 5, 2310);
     			attr_dev(select0, "class", "svelte-qemwg6");
-    			if (/*fallbackSizeMode*/ ctx[0] === void 0) add_render_callback(() => /*select0_change_handler*/ ctx[12].call(select0));
-    			add_location(select0, file$3, 103, 4, 2064);
-    			add_location(p1, file$3, 102, 3, 2055);
-    			attr_dev(input0, "type", "button");
-    			input0.value = "📷 Capture Fallback";
-    			attr_dev(input0, "title", "Capture fallback");
-    			add_location(input0, file$3, 108, 6, 2249);
-    			add_location(p2, file$3, 108, 3, 2246);
-    			add_location(fieldset0, file$3, 99, 2, 1994);
+    			if (/*screenshotSizeMode*/ ctx[0] === void 0) add_render_callback(() => /*select0_change_handler*/ ctx[14].call(select0));
+    			add_location(select0, file$3, 109, 4, 2204);
+    			add_location(p1, file$3, 108, 3, 2195);
+    			add_location(p2, file$3, 114, 3, 2388);
+    			attr_dev(input0, "type", "text");
+    			attr_dev(input0, "size", "45");
+    			set_style(input0, "width", "200px");
+    			attr_dev(input0, "class", "svelte-qemwg6");
+    			add_location(input0, file$3, 115, 6, 2411);
+    			add_location(p3, file$3, 115, 3, 2408);
+    			attr_dev(input1, "type", "button");
+    			input1.value = "📷 Capture Screenshot";
+    			attr_dev(input1, "title", "Capture screenshot");
+    			input1.disabled = true;
+    			add_location(input1, file$3, 116, 6, 2504);
+    			add_location(p4, file$3, 116, 3, 2501);
+    			add_location(fieldset0, file$3, 105, 2, 2132);
     			attr_dev(div0, "class", "section svelte-qemwg6");
-    			add_location(div0, file$3, 98, 1, 1969);
-    			add_location(legend1, file$3, 113, 3, 2422);
-    			add_location(p3, file$3, 114, 3, 2449);
+    			add_location(div0, file$3, 104, 1, 2107);
+    			add_location(legend1, file$3, 121, 3, 2692);
+    			add_location(p5, file$3, 122, 3, 2734);
     			option2.__value = "banner";
     			option2.value = option2.__value;
     			option2.selected = true;
-    			add_location(option2, file$3, 117, 5, 2516);
+    			add_location(option2, file$3, 125, 5, 2804);
     			option3.__value = "container";
     			option3.value = option3.__value;
-    			add_location(option3, file$3, 118, 5, 2575);
+    			add_location(option3, file$3, 126, 5, 2863);
     			attr_dev(select1, "class", "svelte-qemwg6");
-    			if (/*videoSizeMode*/ ctx[1] === void 0) add_render_callback(() => /*select1_change_handler*/ ctx[13].call(select1));
-    			add_location(select1, file$3, 116, 4, 2474);
-    			add_location(p4, file$3, 115, 3, 2465);
-    			add_location(p5, file$3, 121, 3, 2653);
-    			attr_dev(input1, "type", "number");
-    			attr_dev(input1, "size", "45");
-    			attr_dev(input1, "min", "1");
-    			attr_dev(input1, "class", "svelte-qemwg6");
-    			add_location(input1, file$3, 122, 6, 2671);
-    			add_location(p6, file$3, 122, 3, 2668);
-    			add_location(p7, file$3, 123, 3, 2734);
-    			attr_dev(input2, "type", "number");
-    			attr_dev(input2, "size", "45");
-    			set_style(input2, "width", "200px");
-    			attr_dev(input2, "min", "0");
-    			attr_dev(input2, "step", "1");
-    			attr_dev(input2, "class", "svelte-qemwg6");
-    			add_location(input2, file$3, 124, 6, 2774);
-    			add_location(p8, file$3, 124, 3, 2771);
-    			add_location(p9, file$3, 125, 3, 2874);
-    			attr_dev(input3, "type", "text");
+    			if (/*fallbackSizeMode*/ ctx[1] === void 0) add_render_callback(() => /*select1_change_handler*/ ctx[16].call(select1));
+    			add_location(select1, file$3, 124, 4, 2759);
+    			add_location(p6, file$3, 123, 3, 2750);
+    			attr_dev(input2, "type", "button");
+    			input2.value = "📷 Capture Fallback";
+    			attr_dev(input2, "title", "Capture fallback");
+    			add_location(input2, file$3, 129, 6, 2944);
+    			add_location(p7, file$3, 129, 3, 2941);
+    			add_location(fieldset1, file$3, 120, 2, 2677);
+    			attr_dev(div1, "class", "section svelte-qemwg6");
+    			add_location(div1, file$3, 119, 1, 2652);
+    			add_location(legend2, file$3, 134, 3, 3117);
+    			add_location(p8, file$3, 135, 3, 3144);
+    			option4.__value = "banner";
+    			option4.value = option4.__value;
+    			option4.selected = true;
+    			add_location(option4, file$3, 138, 5, 3211);
+    			option5.__value = "container";
+    			option5.value = option5.__value;
+    			add_location(option5, file$3, 139, 5, 3270);
+    			attr_dev(select2, "class", "svelte-qemwg6");
+    			if (/*videoSizeMode*/ ctx[2] === void 0) add_render_callback(() => /*select2_change_handler*/ ctx[17].call(select2));
+    			add_location(select2, file$3, 137, 4, 3169);
+    			add_location(p9, file$3, 136, 3, 3160);
+    			add_location(p10, file$3, 142, 3, 3348);
+    			attr_dev(input3, "type", "number");
     			attr_dev(input3, "size", "45");
-    			set_style(input3, "width", "200px");
+    			attr_dev(input3, "min", "1");
     			attr_dev(input3, "class", "svelte-qemwg6");
-    			add_location(input3, file$3, 126, 6, 2897);
-    			add_location(p10, file$3, 126, 3, 2894);
-    			add_location(p11, file$3, 127, 3, 2982);
+    			add_location(input3, file$3, 143, 6, 3366);
+    			add_location(p11, file$3, 143, 3, 3363);
+    			add_location(p12, file$3, 144, 3, 3429);
     			attr_dev(input4, "type", "number");
     			attr_dev(input4, "size", "45");
     			set_style(input4, "width", "200px");
     			attr_dev(input4, "min", "0");
-    			attr_dev(input4, "step", "0.1");
+    			attr_dev(input4, "step", "1");
     			attr_dev(input4, "class", "svelte-qemwg6");
-    			add_location(input4, file$3, 128, 6, 3013);
-    			add_location(p12, file$3, 128, 3, 3010);
-    			attr_dev(input5, "type", "button");
-    			input5.value = "🎥 Capture Video";
-    			attr_dev(input5, "title", "Capture video");
-    			add_location(input5, file$3, 129, 3, 3122);
-    			add_location(fieldset1, file$3, 112, 2, 2407);
-    			attr_dev(div1, "class", "section svelte-qemwg6");
-    			add_location(div1, file$3, 111, 1, 2382);
+    			add_location(input4, file$3, 145, 6, 3469);
+    			add_location(p13, file$3, 145, 3, 3466);
+    			add_location(p14, file$3, 146, 3, 3569);
+    			attr_dev(input5, "type", "text");
+    			attr_dev(input5, "size", "45");
+    			set_style(input5, "width", "200px");
+    			attr_dev(input5, "class", "svelte-qemwg6");
+    			add_location(input5, file$3, 147, 6, 3592);
+    			add_location(p15, file$3, 147, 3, 3589);
+    			add_location(p16, file$3, 148, 3, 3677);
+    			attr_dev(input6, "type", "number");
+    			attr_dev(input6, "size", "45");
+    			set_style(input6, "width", "200px");
+    			attr_dev(input6, "min", "0");
+    			attr_dev(input6, "step", "0.1");
+    			attr_dev(input6, "class", "svelte-qemwg6");
+    			add_location(input6, file$3, 149, 6, 3708);
+    			add_location(p17, file$3, 149, 3, 3705);
+    			attr_dev(input7, "type", "button");
+    			input7.value = "🎥 Capture Video";
+    			attr_dev(input7, "title", "Capture video");
+    			add_location(input7, file$3, 150, 3, 3817);
+    			add_location(fieldset2, file$3, 133, 2, 3102);
+    			attr_dev(div2, "class", "section svelte-qemwg6");
+    			add_location(div2, file$3, 132, 1, 3077);
     			attr_dev(main, "class", "svelte-qemwg6");
-    			add_location(main, file$3, 97, 0, 1960);
+    			add_location(main, file$3, 103, 0, 2098);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -1237,87 +1309,119 @@ var app = (function () {
     			append_dev(p1, select0);
     			append_dev(select0, option0);
     			append_dev(select0, option1);
-    			select_option(select0, /*fallbackSizeMode*/ ctx[0]);
+    			select_option(select0, /*screenshotSizeMode*/ ctx[0]);
     			append_dev(fieldset0, t6);
     			append_dev(fieldset0, p2);
-    			append_dev(p2, input0);
-    			append_dev(main, t7);
+    			append_dev(fieldset0, t8);
+    			append_dev(fieldset0, p3);
+    			append_dev(p3, input0);
+    			set_input_value(input0, /*screenshotFilename*/ ctx[3]);
+    			append_dev(fieldset0, t9);
+    			append_dev(fieldset0, p4);
+    			append_dev(p4, input1);
+    			append_dev(main, t10);
     			append_dev(main, div1);
     			append_dev(div1, fieldset1);
     			append_dev(fieldset1, legend1);
-    			append_dev(fieldset1, t9);
-    			append_dev(fieldset1, p3);
-    			append_dev(fieldset1, t11);
-    			append_dev(fieldset1, p4);
-    			append_dev(p4, select1);
+    			append_dev(fieldset1, t12);
+    			append_dev(fieldset1, p5);
+    			append_dev(fieldset1, t14);
+    			append_dev(fieldset1, p6);
+    			append_dev(p6, select1);
     			append_dev(select1, option2);
     			append_dev(select1, option3);
-    			select_option(select1, /*videoSizeMode*/ ctx[1]);
-    			append_dev(fieldset1, t14);
-    			append_dev(fieldset1, p5);
-    			append_dev(fieldset1, t16);
-    			append_dev(fieldset1, p6);
-    			append_dev(p6, input1);
-    			set_input_value(input1, /*fps*/ ctx[2]);
+    			select_option(select1, /*fallbackSizeMode*/ ctx[1]);
     			append_dev(fieldset1, t17);
     			append_dev(fieldset1, p7);
-    			append_dev(fieldset1, t19);
-    			append_dev(fieldset1, p8);
-    			append_dev(p8, input2);
-    			set_input_value(input2, /*videoDuration*/ ctx[5]);
-    			append_dev(fieldset1, t20);
-    			append_dev(fieldset1, p9);
-    			append_dev(fieldset1, t22);
-    			append_dev(fieldset1, p10);
-    			append_dev(p10, input3);
-    			set_input_value(input3, /*videoFilename*/ ctx[3]);
-    			append_dev(fieldset1, t23);
-    			append_dev(fieldset1, p11);
-    			append_dev(fieldset1, t25);
-    			append_dev(fieldset1, p12);
-    			append_dev(p12, input4);
-    			set_input_value(input4, /*videoCompressionRate*/ ctx[4]);
-    			append_dev(fieldset1, t26);
-    			append_dev(fieldset1, input5);
+    			append_dev(p7, input2);
+    			append_dev(main, t18);
+    			append_dev(main, div2);
+    			append_dev(div2, fieldset2);
+    			append_dev(fieldset2, legend2);
+    			append_dev(fieldset2, t20);
+    			append_dev(fieldset2, p8);
+    			append_dev(fieldset2, t22);
+    			append_dev(fieldset2, p9);
+    			append_dev(p9, select2);
+    			append_dev(select2, option4);
+    			append_dev(select2, option5);
+    			select_option(select2, /*videoSizeMode*/ ctx[2]);
+    			append_dev(fieldset2, t25);
+    			append_dev(fieldset2, p10);
+    			append_dev(fieldset2, t27);
+    			append_dev(fieldset2, p11);
+    			append_dev(p11, input3);
+    			set_input_value(input3, /*fps*/ ctx[4]);
+    			append_dev(fieldset2, t28);
+    			append_dev(fieldset2, p12);
+    			append_dev(fieldset2, t30);
+    			append_dev(fieldset2, p13);
+    			append_dev(p13, input4);
+    			set_input_value(input4, /*videoDuration*/ ctx[7]);
+    			append_dev(fieldset2, t31);
+    			append_dev(fieldset2, p14);
+    			append_dev(fieldset2, t33);
+    			append_dev(fieldset2, p15);
+    			append_dev(p15, input5);
+    			set_input_value(input5, /*videoFilename*/ ctx[5]);
+    			append_dev(fieldset2, t34);
+    			append_dev(fieldset2, p16);
+    			append_dev(fieldset2, t36);
+    			append_dev(fieldset2, p17);
+    			append_dev(p17, input6);
+    			set_input_value(input6, /*videoCompressionRate*/ ctx[6]);
+    			append_dev(fieldset2, t37);
+    			append_dev(fieldset2, input7);
 
     			if (!mounted) {
     				dispose = [
-    					listen_dev(select0, "change", /*select0_change_handler*/ ctx[12]),
-    					listen_dev(input0, "click", /*captureFallback*/ ctx[6], false, false, false),
-    					listen_dev(select1, "change", /*select1_change_handler*/ ctx[13]),
-    					listen_dev(input1, "input", /*input1_input_handler*/ ctx[14]),
-    					listen_dev(input2, "input", /*input2_input_handler*/ ctx[15]),
-    					listen_dev(input3, "input", /*input3_input_handler*/ ctx[16]),
-    					listen_dev(input4, "input", /*input4_input_handler*/ ctx[17]),
-    					listen_dev(input5, "click", /*captureVideo*/ ctx[7], false, false, false)
+    					listen_dev(select0, "change", /*select0_change_handler*/ ctx[14]),
+    					listen_dev(input0, "input", /*input0_input_handler*/ ctx[15]),
+    					listen_dev(input1, "click", captureScreenshot, false, false, false),
+    					listen_dev(select1, "change", /*select1_change_handler*/ ctx[16]),
+    					listen_dev(input2, "click", /*captureFallback*/ ctx[8], false, false, false),
+    					listen_dev(select2, "change", /*select2_change_handler*/ ctx[17]),
+    					listen_dev(input3, "input", /*input3_input_handler*/ ctx[18]),
+    					listen_dev(input4, "input", /*input4_input_handler*/ ctx[19]),
+    					listen_dev(input5, "input", /*input5_input_handler*/ ctx[20]),
+    					listen_dev(input6, "input", /*input6_input_handler*/ ctx[21]),
+    					listen_dev(input7, "click", /*captureVideo*/ ctx[9], false, false, false)
     				];
 
     				mounted = true;
     			}
     		},
     		p: function update(ctx, [dirty]) {
-    			if (dirty & /*fallbackSizeMode*/ 1) {
-    				select_option(select0, /*fallbackSizeMode*/ ctx[0]);
+    			if (dirty & /*screenshotSizeMode*/ 1) {
+    				select_option(select0, /*screenshotSizeMode*/ ctx[0]);
     			}
 
-    			if (dirty & /*videoSizeMode*/ 2) {
-    				select_option(select1, /*videoSizeMode*/ ctx[1]);
+    			if (dirty & /*screenshotFilename*/ 8 && input0.value !== /*screenshotFilename*/ ctx[3]) {
+    				set_input_value(input0, /*screenshotFilename*/ ctx[3]);
     			}
 
-    			if (dirty & /*fps*/ 4 && to_number(input1.value) !== /*fps*/ ctx[2]) {
-    				set_input_value(input1, /*fps*/ ctx[2]);
+    			if (dirty & /*fallbackSizeMode*/ 2) {
+    				select_option(select1, /*fallbackSizeMode*/ ctx[1]);
     			}
 
-    			if (dirty & /*videoDuration*/ 32 && to_number(input2.value) !== /*videoDuration*/ ctx[5]) {
-    				set_input_value(input2, /*videoDuration*/ ctx[5]);
+    			if (dirty & /*videoSizeMode*/ 4) {
+    				select_option(select2, /*videoSizeMode*/ ctx[2]);
     			}
 
-    			if (dirty & /*videoFilename*/ 8 && input3.value !== /*videoFilename*/ ctx[3]) {
-    				set_input_value(input3, /*videoFilename*/ ctx[3]);
+    			if (dirty & /*fps*/ 16 && to_number(input3.value) !== /*fps*/ ctx[4]) {
+    				set_input_value(input3, /*fps*/ ctx[4]);
     			}
 
-    			if (dirty & /*videoCompressionRate*/ 16 && to_number(input4.value) !== /*videoCompressionRate*/ ctx[4]) {
-    				set_input_value(input4, /*videoCompressionRate*/ ctx[4]);
+    			if (dirty & /*videoDuration*/ 128 && to_number(input4.value) !== /*videoDuration*/ ctx[7]) {
+    				set_input_value(input4, /*videoDuration*/ ctx[7]);
+    			}
+
+    			if (dirty & /*videoFilename*/ 32 && input5.value !== /*videoFilename*/ ctx[5]) {
+    				set_input_value(input5, /*videoFilename*/ ctx[5]);
+    			}
+
+    			if (dirty & /*videoCompressionRate*/ 64 && to_number(input6.value) !== /*videoCompressionRate*/ ctx[6]) {
+    				set_input_value(input6, /*videoCompressionRate*/ ctx[6]);
     			}
     		},
     		i: noop,
@@ -1349,6 +1453,10 @@ var app = (function () {
     	return await res.json();
     }
 
+    async function captureScreenshot() {
+    	
+    } // TODO
+
     function instance$3($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('Capturer', slots, []);
@@ -1357,8 +1465,10 @@ var app = (function () {
     	let { bannerHeight } = $$props;
     	let { containerWidth } = $$props;
     	let { containerHeight } = $$props;
+    	let screenshotSizeMode = "banner";
     	let fallbackSizeMode = "banner";
     	let videoSizeMode = "banner";
+    	let screenshotFilename = "screenshot.png";
     	let fps = 60;
     	let videoFilename = "video.mp4";
     	let videoCompressionRate = 1;
@@ -1433,40 +1543,50 @@ var app = (function () {
     	});
 
     	function select0_change_handler() {
-    		fallbackSizeMode = select_value(this);
-    		$$invalidate(0, fallbackSizeMode);
+    		screenshotSizeMode = select_value(this);
+    		$$invalidate(0, screenshotSizeMode);
+    	}
+
+    	function input0_input_handler() {
+    		screenshotFilename = this.value;
+    		$$invalidate(3, screenshotFilename);
     	}
 
     	function select1_change_handler() {
+    		fallbackSizeMode = select_value(this);
+    		$$invalidate(1, fallbackSizeMode);
+    	}
+
+    	function select2_change_handler() {
     		videoSizeMode = select_value(this);
-    		$$invalidate(1, videoSizeMode);
-    	}
-
-    	function input1_input_handler() {
-    		fps = to_number(this.value);
-    		$$invalidate(2, fps);
-    	}
-
-    	function input2_input_handler() {
-    		videoDuration = to_number(this.value);
-    		$$invalidate(5, videoDuration);
+    		$$invalidate(2, videoSizeMode);
     	}
 
     	function input3_input_handler() {
-    		videoFilename = this.value;
-    		$$invalidate(3, videoFilename);
+    		fps = to_number(this.value);
+    		$$invalidate(4, fps);
     	}
 
     	function input4_input_handler() {
+    		videoDuration = to_number(this.value);
+    		$$invalidate(7, videoDuration);
+    	}
+
+    	function input5_input_handler() {
+    		videoFilename = this.value;
+    		$$invalidate(5, videoFilename);
+    	}
+
+    	function input6_input_handler() {
     		videoCompressionRate = to_number(this.value);
-    		$$invalidate(4, videoCompressionRate);
+    		$$invalidate(6, videoCompressionRate);
     	}
 
     	$$self.$$set = $$props => {
-    		if ('bannerWidth' in $$props) $$invalidate(8, bannerWidth = $$props.bannerWidth);
-    		if ('bannerHeight' in $$props) $$invalidate(9, bannerHeight = $$props.bannerHeight);
-    		if ('containerWidth' in $$props) $$invalidate(10, containerWidth = $$props.containerWidth);
-    		if ('containerHeight' in $$props) $$invalidate(11, containerHeight = $$props.containerHeight);
+    		if ('bannerWidth' in $$props) $$invalidate(10, bannerWidth = $$props.bannerWidth);
+    		if ('bannerHeight' in $$props) $$invalidate(11, bannerHeight = $$props.bannerHeight);
+    		if ('containerWidth' in $$props) $$invalidate(12, containerWidth = $$props.containerWidth);
+    		if ('containerHeight' in $$props) $$invalidate(13, containerHeight = $$props.containerHeight);
     	};
 
     	$$self.$capture_state = () => ({
@@ -1476,28 +1596,33 @@ var app = (function () {
     		bannerHeight,
     		containerWidth,
     		containerHeight,
+    		screenshotSizeMode,
     		fallbackSizeMode,
     		videoSizeMode,
+    		screenshotFilename,
     		fps,
     		videoFilename,
     		videoCompressionRate,
     		videoDuration,
     		apiRequest: apiRequest$2,
+    		captureScreenshot,
     		captureFallback,
     		captureVideo
     	});
 
     	$$self.$inject_state = $$props => {
-    		if ('bannerWidth' in $$props) $$invalidate(8, bannerWidth = $$props.bannerWidth);
-    		if ('bannerHeight' in $$props) $$invalidate(9, bannerHeight = $$props.bannerHeight);
-    		if ('containerWidth' in $$props) $$invalidate(10, containerWidth = $$props.containerWidth);
-    		if ('containerHeight' in $$props) $$invalidate(11, containerHeight = $$props.containerHeight);
-    		if ('fallbackSizeMode' in $$props) $$invalidate(0, fallbackSizeMode = $$props.fallbackSizeMode);
-    		if ('videoSizeMode' in $$props) $$invalidate(1, videoSizeMode = $$props.videoSizeMode);
-    		if ('fps' in $$props) $$invalidate(2, fps = $$props.fps);
-    		if ('videoFilename' in $$props) $$invalidate(3, videoFilename = $$props.videoFilename);
-    		if ('videoCompressionRate' in $$props) $$invalidate(4, videoCompressionRate = $$props.videoCompressionRate);
-    		if ('videoDuration' in $$props) $$invalidate(5, videoDuration = $$props.videoDuration);
+    		if ('bannerWidth' in $$props) $$invalidate(10, bannerWidth = $$props.bannerWidth);
+    		if ('bannerHeight' in $$props) $$invalidate(11, bannerHeight = $$props.bannerHeight);
+    		if ('containerWidth' in $$props) $$invalidate(12, containerWidth = $$props.containerWidth);
+    		if ('containerHeight' in $$props) $$invalidate(13, containerHeight = $$props.containerHeight);
+    		if ('screenshotSizeMode' in $$props) $$invalidate(0, screenshotSizeMode = $$props.screenshotSizeMode);
+    		if ('fallbackSizeMode' in $$props) $$invalidate(1, fallbackSizeMode = $$props.fallbackSizeMode);
+    		if ('videoSizeMode' in $$props) $$invalidate(2, videoSizeMode = $$props.videoSizeMode);
+    		if ('screenshotFilename' in $$props) $$invalidate(3, screenshotFilename = $$props.screenshotFilename);
+    		if ('fps' in $$props) $$invalidate(4, fps = $$props.fps);
+    		if ('videoFilename' in $$props) $$invalidate(5, videoFilename = $$props.videoFilename);
+    		if ('videoCompressionRate' in $$props) $$invalidate(6, videoCompressionRate = $$props.videoCompressionRate);
+    		if ('videoDuration' in $$props) $$invalidate(7, videoDuration = $$props.videoDuration);
     	};
 
     	if ($$props && "$$inject" in $$props) {
@@ -1505,8 +1630,10 @@ var app = (function () {
     	}
 
     	return [
+    		screenshotSizeMode,
     		fallbackSizeMode,
     		videoSizeMode,
+    		screenshotFilename,
     		fps,
     		videoFilename,
     		videoCompressionRate,
@@ -1518,11 +1645,13 @@ var app = (function () {
     		containerWidth,
     		containerHeight,
     		select0_change_handler,
+    		input0_input_handler,
     		select1_change_handler,
-    		input1_input_handler,
-    		input2_input_handler,
+    		select2_change_handler,
     		input3_input_handler,
-    		input4_input_handler
+    		input4_input_handler,
+    		input5_input_handler,
+    		input6_input_handler
     	];
     }
 
@@ -1531,10 +1660,10 @@ var app = (function () {
     		super(options);
 
     		init(this, options, instance$3, create_fragment$3, safe_not_equal, {
-    			bannerWidth: 8,
-    			bannerHeight: 9,
-    			containerWidth: 10,
-    			containerHeight: 11
+    			bannerWidth: 10,
+    			bannerHeight: 11,
+    			containerWidth: 12,
+    			containerHeight: 13
     		});
 
     		dispatch_dev("SvelteRegisterComponent", {
@@ -1547,19 +1676,19 @@ var app = (function () {
     		const { ctx } = this.$$;
     		const props = options.props || {};
 
-    		if (/*bannerWidth*/ ctx[8] === undefined && !('bannerWidth' in props)) {
+    		if (/*bannerWidth*/ ctx[10] === undefined && !('bannerWidth' in props)) {
     			console_1$1.warn("<Capturer> was created without expected prop 'bannerWidth'");
     		}
 
-    		if (/*bannerHeight*/ ctx[9] === undefined && !('bannerHeight' in props)) {
+    		if (/*bannerHeight*/ ctx[11] === undefined && !('bannerHeight' in props)) {
     			console_1$1.warn("<Capturer> was created without expected prop 'bannerHeight'");
     		}
 
-    		if (/*containerWidth*/ ctx[10] === undefined && !('containerWidth' in props)) {
+    		if (/*containerWidth*/ ctx[12] === undefined && !('containerWidth' in props)) {
     			console_1$1.warn("<Capturer> was created without expected prop 'containerWidth'");
     		}
 
-    		if (/*containerHeight*/ ctx[11] === undefined && !('containerHeight' in props)) {
+    		if (/*containerHeight*/ ctx[13] === undefined && !('containerHeight' in props)) {
     			console_1$1.warn("<Capturer> was created without expected prop 'containerHeight'");
     		}
     	}
