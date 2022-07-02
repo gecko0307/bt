@@ -100,7 +100,6 @@
 		gsap = banner.contentWindow.gsap;
 		gsap.globalTimeline.pause();
 		timelineIDs = Array.from(gsap.globalTimeline.getChildren().filter(c => c.constructor.name === "Timeline" && c.vars.id !== undefined).map(c => c.vars.id));
-		console.log(timelineIDs);
 		currentTimeline = gsap.getById("MASTER");
 		if (currentTimeline === undefined) {
 			timelineEnabled = false;
