@@ -120,6 +120,7 @@ async function capture(options) {
             path: pngPath,
             omitBackground: options.transparent || false
         });
+        await browser.close();
         return result;
     }
     
