@@ -1,3 +1,15 @@
+BT 1.0.0 alpha4 - 02 Jul, 2022
+------------------------------
+- **Builder**
+  - Now Builder always adds `data-version` attribute to `body`
+  - Support SVG images
+  - All warnings are now printed at the end of the build
+- **Preview**
+  - Updated banner preview page: a timeline to control animation, better UI for banner resizing, all tools and options are now organized in tabs
+  - Set capture options and capture videos from UI
+  - Capture screenshots
+  - Open Image Optimizer and Font Generator in the same tab in a modal window
+
 BT 1.0.0 alpha3 - 27 Jun, 2022
 ------------------------------
 - **Builder**
