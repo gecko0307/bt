@@ -37,6 +37,9 @@
 	let paused = false;
 	let timelineProgress = 0.0;
 
+	let displayTime;
+	let displayDuration;
+
 	let showOverlay = false;
 	let inProgress = false;
 
@@ -135,6 +138,7 @@
 			}
 
 			currentTimeline.progress(timelineProgress);
+			printTime();
 		}
 		if (!paused) window.requestAnimationFrame(step);
 		else { 
@@ -224,7 +228,25 @@
 	function timelineChange() {
 		if (paused) {
 			currentTimeline.progress(timelineProgress);
+			printTime();
 		}
+	}
+
+	function printTime() {
+		const totalSeconds = timelineProgress * currentTimeline.duration();
+		displayTime = formatTime(totalSeconds);
+		displayDuration = formatTime(currentTimeline.duration());
+	}
+
+	function formatTime(sec) {
+		const minutes = Math.floor(sec / 60.0);
+		const seconds = Math.floor(sec % 60.0);
+		const sentiseconds = Math.floor(((sec % 60.0) % 1) * 100);
+		const res =
+			String(minutes).padStart(2, "0") + ":" + 
+			String(seconds).padStart(2, "0") + ":" + 
+			String(sentiseconds).padStart(2, "0");
+		return res;
 	}
 
 	function timelineIDChange() {
@@ -296,7 +318,7 @@
 					<div class="row">
 						<div class="widget">
 							<p>Timeline</p>
-							<select bind:value={currentTimelineID} on:change={timelineIDChange}>
+							<select bind:value={currentTimelineID} on:change={timelineIDChange} disabled={!timelineEnabled}>
 								{#each timelineIDs as id}
 									<option value="{id}">{id}</option>
 								{/each}
@@ -304,8 +326,8 @@
 							<input type="button" value="{paused? '▶️' : '⏸️'}" on:click={togglePause} disabled={!timelineEnabled}/>
 						</div>
 						<div class="widget fill">
-							<p>Progress</p>
-							<input type="range" min="0" max="1" step="any" bind:value={timelineProgress} on:input={timelineChange}>
+							<p class="time"><b><span>{displayTime}</span></b> / <span>{displayDuration}</span></p>
+							<input type="range" min="0" max="1" step="any" bind:value={timelineProgress} on:input={timelineChange} disabled={!timelineEnabled}>
 						</div>
 					</div>
 				</div>
@@ -383,6 +405,10 @@
 		top: auto;
 		bottom: 0;
 		background-color: #ffffff;
+	}
+
+	.time {
+		font-family: monospace;
 	}
 
 	#size_info {
