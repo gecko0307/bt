@@ -3,12 +3,19 @@
 
 	const dispatch = createEventDispatcher();
 
+	async function apiRequest(data) {
+		const res = await fetch("/api", {
+			method: "POST",
+			body: JSON.stringify(data)
+		});
+		return await res.json();
+	}
+
 	onMount(async () => {
 		timerStart();
 	});
 
 	function openURL(url) {
-		//window.location.href = url;
 		dispatch("open", { url });
 	}
 </script>

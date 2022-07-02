@@ -28,6 +28,13 @@
 	let bannerHeightProp = bannerHeight;
 	let bannerDevice = "default";
 
+	let gsap;
+	let timelines;
+	let currentTimelineID = "MASTER";
+	let currentTimeline;
+	let timelineEnabled = true;
+	let paused = false;
+
 	let showOverlay = false;
 	let inProgress = false;
 
@@ -83,6 +90,26 @@
 			bannerDefaultHeight = bannerInternalContainer.offsetHeight;
 			bannerResetSize();
 		}
+
+		//
+		gsap = banner.contentWindow.gsap;
+		timelines = Array.from(gsap.globalTimeline.getChildren().filter(c => c.constructor.name === "Timeline" && c.vars.id !== undefined));
+		console.log(timelines);
+		currentTimeline = gsap.getById("MASTER");
+		if (currentTimeline === undefined) {
+			if (timelines.length > 0) currentTimeline = timelines[0];
+			else {
+				timelineEnabled = false;
+			}
+		}
+		paused = !timelineEnabled;
+
+		// 
+		const style = bannerDocument.createElement("style");
+		bannerDocument.head.appendChild(style);
+		style.type = "text/css";
+		style.textContent = "#__bs_notify__ { opacity: 0; } #link, #container { left: 0; right: auto; margin: 0; }";
+		bannerDocument.querySelectorAll(".dev, .gs-dev-tools, [preview]").forEach(elem => elem.remove());
 	}
 
 	function bannerSizeChange(event) {
@@ -148,6 +175,18 @@
 		inProgress = false;
 		showCapture = true;
 	}
+
+	function pause() {
+		console.log("pause");
+		if (currentTimeline.isActive()) {
+			currentTimeline.pause();
+			paused = true;
+		}
+		else {
+			currentTimeline.play();
+			paused = false;
+		}
+	}
 </script>
 
 <main>
@@ -201,6 +240,21 @@
 							<option value="iphone_12_pro">iPhone 12 Pro</option>
 						</select>
 						<input type="button" value="Reset" on:click={bannerResetSize}/>
+					</div>
+				</div>
+			</div>
+			<div id="timeline">
+				<div class="row">
+					<div class="widget">
+						{#if timelines}
+							<p>Timeline</p>
+							<select bind:value={currentTimelineID}>
+								{#each timelines as tl}
+									<option value="{tl.vars.id}">{tl.vars.id}</option>
+								{/each}
+							</select>
+							<input type="button" value="{paused? 'Play' : 'Pause'}" on:click={pause} disabled={!timelineEnabled}/>
+						{/if}
 					</div>
 				</div>
 			</div>
@@ -267,6 +321,18 @@
 		background-color: #cccccc;
 	}
 
+	#timeline {
+		position: absolute;
+		box-sizing: border-box;
+		padding: 10px;
+		margin: 0;
+		width: 100%;
+		height: 74px;
+		top: auto;
+		bottom: 0;
+		background-color: #ffffff;
+	}
+
 	#size_info {
 		position: absolute;
 		box-sizing: border-box;
@@ -285,7 +351,7 @@
 		width: 100%;
 		height: auto;
 		top: 74px;
-		bottom: 0;
+		bottom: 74px;
 		overflow: auto;
 	}
 
