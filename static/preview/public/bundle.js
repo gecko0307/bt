@@ -2406,18 +2406,18 @@ var app = (function () {
     			div1 = element("div");
     			img = element("img");
     			attr_dev(div0, "id", "overlay-bg");
-    			attr_dev(div0, "class", "svelte-zkaz2t");
+    			attr_dev(div0, "class", "svelte-1hd43id");
     			add_location(div0, file, 348, 3, 9816);
     			attr_dev(img, "id", "close-bg");
     			if (!src_url_equal(img.src, img_src_value = "images/close.svg")) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", "close");
-    			attr_dev(img, "class", "svelte-zkaz2t");
+    			attr_dev(img, "class", "svelte-1hd43id");
     			add_location(img, file, 368, 4, 10599);
     			attr_dev(div1, "id", "close");
-    			attr_dev(div1, "class", "svelte-zkaz2t");
+    			attr_dev(div1, "class", "svelte-1hd43id");
     			add_location(div1, file, 367, 3, 10515);
     			attr_dev(div2, "id", "overlay");
-    			attr_dev(div2, "class", "svelte-zkaz2t");
+    			attr_dev(div2, "class", "svelte-1hd43id");
     			add_location(div2, file, 347, 2, 9755);
     		},
     		m: function mount(target, anchor) {
@@ -2559,7 +2559,7 @@ var app = (function () {
     			attr_dev(img, "id", "preloader");
     			if (!src_url_equal(img.src, img_src_value = "images/preloader.svg")) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", "preloader");
-    			attr_dev(img, "class", "svelte-zkaz2t");
+    			attr_dev(img, "class", "svelte-1hd43id");
     			add_location(img, file, 350, 4, 9870);
     		},
     		m: function mount(target, anchor) {
@@ -2689,7 +2689,7 @@ var app = (function () {
     			attr_dev(img, "id", "fallback");
     			if (!src_url_equal(img.src, img_src_value = /*captureFilename*/ ctx[20])) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", "Fallback");
-    			attr_dev(img, "class", "svelte-zkaz2t");
+    			attr_dev(img, "class", "svelte-1hd43id");
     			add_location(img, file, 359, 5, 10234);
     		},
     		m: function mount(target, anchor) {
@@ -2740,7 +2740,7 @@ var app = (function () {
     			add_location(source, file, 356, 6, 10135);
     			attr_dev(video, "id", "video");
     			video.controls = true;
-    			attr_dev(video, "class", "svelte-zkaz2t");
+    			attr_dev(video, "class", "svelte-1hd43id");
     			add_location(video, file, 354, 5, 10033);
     		},
     		m: function mount(target, anchor) {
@@ -2800,10 +2800,10 @@ var app = (function () {
     			attr_dev(iframe, "id", "tool_frame");
     			if (!src_url_equal(iframe.src, iframe_src_value = /*toolURL*/ ctx[23])) attr_dev(iframe, "src", iframe_src_value);
     			attr_dev(iframe, "frameborder", "0");
-    			attr_dev(iframe, "class", "svelte-zkaz2t");
+    			attr_dev(iframe, "class", "svelte-1hd43id");
     			add_location(iframe, file, 364, 5, 10382);
     			attr_dev(div, "id", "tool_frame_container");
-    			attr_dev(div, "class", "svelte-zkaz2t");
+    			attr_dev(div, "class", "svelte-1hd43id");
     			add_location(div, file, 363, 4, 10344);
     		},
     		m: function mount(target, anchor) {
@@ -3000,23 +3000,23 @@ var app = (function () {
     			t28 = space();
     			if (if_block2) if_block2.c();
     			attr_dev(div0, "id", "control_page");
-    			attr_dev(div0, "class", "svelte-zkaz2t");
+    			attr_dev(div0, "class", "svelte-1hd43id");
     			add_location(div0, file, 274, 3, 7084);
     			attr_dev(div1, "id", "control");
-    			attr_dev(div1, "class", "svelte-zkaz2t");
+    			attr_dev(div1, "class", "svelte-1hd43id");
     			add_location(div1, file, 272, 2, 7027);
     			attr_dev(iframe, "title", "banner");
     			attr_dev(iframe, "id", "banner");
     			if (!src_url_equal(iframe.src, iframe_src_value = "/index.html")) attr_dev(iframe, "src", iframe_src_value);
     			attr_dev(iframe, "frameborder", "0");
     			attr_dev(iframe, "scrolling", "no");
-    			attr_dev(iframe, "class", "svelte-zkaz2t");
+    			attr_dev(iframe, "class", "svelte-1hd43id");
     			add_location(iframe, file, 296, 5, 7756);
     			attr_dev(div2, "id", "banner_container");
-    			attr_dev(div2, "class", "svelte-zkaz2t");
+    			attr_dev(div2, "class", "svelte-1hd43id");
     			add_location(div2, file, 295, 4, 7694);
     			attr_dev(div3, "id", "resize_area");
-    			attr_dev(div3, "class", "svelte-zkaz2t");
+    			attr_dev(div3, "class", "svelte-1hd43id");
     			add_location(div3, file, 294, 3, 7666);
     			add_location(p0, file, 302, 6, 7974);
     			attr_dev(input0, "type", "text");
@@ -3025,7 +3025,7 @@ var app = (function () {
     			add_location(input0, file, 303, 6, 7999);
     			attr_dev(input1, "type", "button");
     			input1.value = "↻";
-    			attr_dev(input1, "class", "svelte-zkaz2t");
+    			attr_dev(input1, "class", "svelte-1hd43id");
     			add_location(input1, file, 304, 6, 8113);
     			attr_dev(div4, "class", "widget");
     			add_location(div4, file, 301, 5, 7946);
@@ -3033,7 +3033,7 @@ var app = (function () {
     			attr_dev(input2, "type", "number");
     			attr_dev(input2, "size", "45");
     			attr_dev(input2, "min", "0");
-    			attr_dev(input2, "class", "svelte-zkaz2t");
+    			attr_dev(input2, "class", "svelte-1hd43id");
     			add_location(input2, file, 308, 6, 8235);
     			attr_dev(div5, "class", "widget");
     			add_location(div5, file, 306, 5, 8187);
@@ -3041,7 +3041,7 @@ var app = (function () {
     			attr_dev(input3, "type", "number");
     			attr_dev(input3, "size", "45");
     			attr_dev(input3, "min", "0");
-    			attr_dev(input3, "class", "svelte-zkaz2t");
+    			attr_dev(input3, "class", "svelte-1hd43id");
     			add_location(input3, file, 312, 6, 8398);
     			attr_dev(div6, "class", "widget");
     			add_location(div6, file, 310, 5, 8349);
@@ -3055,58 +3055,58 @@ var app = (function () {
     			option2.__value = "iphone_12_pro";
     			option2.value = option2.__value;
     			add_location(option2, file, 319, 7, 8742);
-    			attr_dev(select0, "class", "svelte-zkaz2t");
+    			attr_dev(select0, "class", "svelte-1hd43id");
     			if (/*bannerDevice*/ ctx[7] === void 0) add_render_callback(() => /*select0_change_handler*/ ctx[43].call(select0));
     			add_location(select0, file, 316, 6, 8562);
     			attr_dev(input4, "type", "button");
     			input4.value = "Reset";
-    			attr_dev(input4, "class", "svelte-zkaz2t");
+    			attr_dev(input4, "class", "svelte-1hd43id");
     			add_location(input4, file, 321, 6, 8819);
     			attr_dev(div7, "class", "widget");
     			add_location(div7, file, 314, 5, 8513);
     			attr_dev(div8, "class", "row");
     			add_location(div8, file, 300, 4, 7922);
     			attr_dev(div9, "id", "size_info");
-    			attr_dev(div9, "class", "svelte-zkaz2t");
+    			attr_dev(div9, "class", "svelte-1hd43id");
     			add_location(div9, file, 299, 3, 7896);
     			add_location(p4, file, 328, 6, 9000);
     			select1.disabled = select1_disabled_value = !/*timelineEnabled*/ ctx[10];
-    			attr_dev(select1, "class", "svelte-zkaz2t");
+    			attr_dev(select1, "class", "svelte-1hd43id");
     			if (/*currentTimelineID*/ ctx[9] === void 0) add_render_callback(() => /*select1_change_handler*/ ctx[44].call(select1));
     			add_location(select1, file, 329, 6, 9023);
     			attr_dev(input5, "type", "button");
     			input5.value = input5_value_value = /*paused*/ ctx[11] ? '▶️' : '⏸️';
     			input5.disabled = input5_disabled_value = !/*timelineEnabled*/ ctx[10];
-    			attr_dev(input5, "class", "svelte-zkaz2t");
+    			attr_dev(input5, "class", "svelte-1hd43id");
     			add_location(input5, file, 336, 6, 9295);
     			attr_dev(div10, "class", "widget");
     			add_location(div10, file, 327, 5, 8972);
     			add_location(span0, file, 339, 25, 9470);
     			add_location(b, file, 339, 22, 9467);
     			add_location(span1, file, 339, 58, 9503);
-    			attr_dev(p5, "class", "time svelte-zkaz2t");
+    			attr_dev(p5, "class", "time svelte-1hd43id");
     			add_location(p5, file, 339, 6, 9451);
     			attr_dev(input6, "type", "range");
     			attr_dev(input6, "min", "0");
     			attr_dev(input6, "max", "1");
     			attr_dev(input6, "step", "any");
     			input6.disabled = input6_disabled_value = !/*timelineEnabled*/ ctx[10];
-    			attr_dev(input6, "class", "svelte-zkaz2t");
+    			attr_dev(input6, "class", "svelte-1hd43id");
     			add_location(input6, file, 340, 6, 9545);
-    			attr_dev(div11, "class", "widget fill svelte-zkaz2t");
+    			attr_dev(div11, "class", "widget fill svelte-1hd43id");
     			add_location(div11, file, 338, 5, 9418);
     			attr_dev(div12, "class", "row");
     			add_location(div12, file, 326, 4, 8948);
     			attr_dev(div13, "id", "timeline");
-    			attr_dev(div13, "class", "svelte-zkaz2t");
+    			attr_dev(div13, "class", "svelte-1hd43id");
     			add_location(div13, file, 325, 3, 8923);
     			attr_dev(div14, "id", "preview");
-    			attr_dev(div14, "class", "svelte-zkaz2t");
+    			attr_dev(div14, "class", "svelte-1hd43id");
     			add_location(div14, file, 293, 2, 7643);
     			attr_dev(div15, "id", "ui");
-    			attr_dev(div15, "class", "svelte-zkaz2t");
+    			attr_dev(div15, "class", "svelte-1hd43id");
     			add_location(div15, file, 271, 1, 7010);
-    			attr_dev(main, "class", "svelte-zkaz2t");
+    			attr_dev(main, "class", "svelte-1hd43id");
     			add_location(main, file, 270, 0, 7001);
     		},
     		l: function claim(nodes) {

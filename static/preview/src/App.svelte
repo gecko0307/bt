@@ -529,6 +529,7 @@
 		height: auto;
 		top: 48px;
 		bottom: 0;
+		overflow: auto;
 	}
 
 	#overlay {
