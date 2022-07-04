@@ -39,6 +39,12 @@ async function build(options = { platform: "publish", gulpBuilderPath: "" }) {
     }
     config = fillMissing(config, configDefault);
 
+    config.brand = options.brand || config.brand;
+    config.campaign = options.campaign || config.campaign;
+    config.creative = options.creative || config.creative;
+    config.version = options.version || config.version;
+    config.size = options.size || config.size;
+
     if (options.platform === "publish") {
         options.platform = config.platform;
     }
