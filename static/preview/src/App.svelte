@@ -31,6 +31,8 @@
 	$: containerWidth = bannerWidthProp;
 	$: containerHeight = bannerHeightProp;
 
+	let defaultSize = "0x0";
+
 	let gsap;
 	let timelineIDs;
 	let currentTimelineID;
@@ -93,6 +95,11 @@
 		const bannerDocument = bannerWindow.document;
 		bannerInternalContainer = bannerDocument.getElementById("container");
 		if (bannerInternalContainer) {
+			const style = bannerWindow.getComputedStyle(bannerInternalContainer);
+			const w = style.getPropertyValue("width").replace(/px/g, "");
+			const h = style.getPropertyValue("height").replace(/px/g, "");
+			defaultSize = `${w}x${h}`;
+
 			bannerDefaultWidth = bannerInternalContainer.offsetWidth;
 			bannerDefaultHeight = bannerInternalContainer.offsetHeight;
 			bannerResetSize();
@@ -312,7 +319,7 @@
 						on:ready={captureReady}/>
 				{:else if currentTab === "builder"}
 					<Builder
-						defaultSize={bannerDefaultWidth + "x" + bannerDefaultHeight}
+						defaultSize={defaultSize}
 						on:start={buildStart}
 						on:ready={buildReady}/>
 				{:else if currentTab === "events"}
