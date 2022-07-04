@@ -114,16 +114,16 @@
 					timelineEnabled = false;
 			}
 			paused = !timelineEnabled;
-			if (!paused) {
-				currentTimeline.pause();
-				window.requestAnimationFrame(step);
-			}
 		}
 		else {
 			timelineEnabled = false;
 			paused = true;
 		}
 		printTime();
+		if (timelineEnabled && currentTimeline) {
+			currentTimeline.pause();
+			window.requestAnimationFrame(step);
+		}
 
 		// 
 		const style = bannerDocument.createElement("style");
@@ -230,6 +230,7 @@
 	}
 
 	function togglePause() {
+		if (!timelineEnabled) return;
 		if (!paused) paused = true;
 		else {
 			paused = false;
@@ -238,7 +239,7 @@
 	}
 
 	function timelineChange() {
-		if (paused) {
+		if (paused && timelineEnabled) {
 			currentTimeline.progress(timelineProgress);
 			bannerTime = timelineProgress * currentTimeline.duration();
 			printTime();
