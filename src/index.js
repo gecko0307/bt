@@ -55,7 +55,7 @@ async function build(options = { platform: "publish" }) {
         await gulpBuilder(options);
     }
     else {
-        await nativeBuilder(options);
+        await nativeBuilder.build(options);
     }
 }
 

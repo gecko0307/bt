@@ -44,7 +44,7 @@ async function build(req = {}) {
         await builder(options);
     }
     else {
-        await builder2(options);
+        await builder2.build(options);
     }
 
     return {
@@ -63,6 +63,8 @@ const methods = {
     "optimizeImages": imageOptimizer.optimizeImages,
     
     "capture": capture,
+
+    "buildConfig": builder2.buildConfig,
     "build": build
 };
 

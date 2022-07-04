@@ -33,12 +33,17 @@ const configDefault = {
     version: "v1"
 };
 
-async function build(options = { platform: "publish" }) {
+async function buildConfig() {
     let config = {};
     if (await fs.pathExists(builderConfigPath)) {
         config = requireUncached(builderConfigPath) || {};
     }
     config = fillMissing(config, configDefault);
+    return config;
+}
+
+async function build(options = { platform: "publish" }) {
+    const config = await buildConfig();
     
     if (options.platform === "publish") {
         options.platform = config.platform;
@@ -258,4 +263,4 @@ async function build(options = { platform: "publish" }) {
     }
 }
 
-module.exports = build;
+module.exports = { build, buildConfig };
