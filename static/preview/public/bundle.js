@@ -2359,7 +2359,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (317:38) 
+    // (318:38) 
     function create_if_block_9(ctx) {
     	let events;
     	let current;
@@ -2392,7 +2392,7 @@ var app = (function () {
     		block,
     		id: create_if_block_9.name,
     		type: "if",
-    		source: "(317:38) ",
+    		source: "(318:38) ",
     		ctx
     	});
 
@@ -2403,7 +2403,14 @@ var app = (function () {
     function create_if_block_8(ctx) {
     	let builder;
     	let current;
-    	builder = new Builder({ $$inline: true });
+
+    	builder = new Builder({
+    			props: {
+    				defaultSize: /*bannerDefaultWidth*/ ctx[5] + "x" + /*bannerDefaultHeight*/ ctx[6]
+    			},
+    			$$inline: true
+    		});
+
     	builder.$on("start", /*buildStart*/ ctx[35]);
     	builder.$on("ready", /*buildReady*/ ctx[36]);
 
@@ -2415,7 +2422,11 @@ var app = (function () {
     			mount_component(builder, target, anchor);
     			current = true;
     		},
-    		p: noop,
+    		p: function update(ctx, dirty) {
+    			const builder_changes = {};
+    			if (dirty[0] & /*bannerDefaultWidth, bannerDefaultHeight*/ 96) builder_changes.defaultSize = /*bannerDefaultWidth*/ ctx[5] + "x" + /*bannerDefaultHeight*/ ctx[6];
+    			builder.$set(builder_changes);
+    		},
     		i: function intro(local) {
     			if (current) return;
     			transition_in(builder.$$.fragment, local);
@@ -2543,7 +2554,7 @@ var app = (function () {
     	return block;
     }
 
-    // (359:7) {#if timelineIDs !== undefined}
+    // (360:7) {#if timelineIDs !== undefined}
     function create_if_block_5(ctx) {
     	let each_1_anchor;
     	let each_value = /*timelineIDs*/ ctx[8];
@@ -2604,14 +2615,14 @@ var app = (function () {
     		block,
     		id: create_if_block_5.name,
     		type: "if",
-    		source: "(359:7) {#if timelineIDs !== undefined}",
+    		source: "(360:7) {#if timelineIDs !== undefined}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (360:8) {#each timelineIDs as id}
+    // (361:8) {#each timelineIDs as id}
     function create_each_block(ctx) {
     	let option;
     	let t_value = /*id*/ ctx[64] + "";
@@ -2624,7 +2635,7 @@ var app = (function () {
     			t = text(t_value);
     			option.__value = option_value_value = /*id*/ ctx[64];
     			option.value = option.__value;
-    			add_location(option, file, 360, 9, 9924);
+    			add_location(option, file, 361, 9, 9992);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
@@ -2647,14 +2658,14 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(360:8) {#each timelineIDs as id}",
+    		source: "(361:8) {#each timelineIDs as id}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (375:1) {#if showOverlay}
+    // (376:1) {#if showOverlay}
     function create_if_block(ctx) {
     	let div2;
     	let div0;
@@ -2689,18 +2700,18 @@ var app = (function () {
     			img = element("img");
     			attr_dev(div0, "id", "overlay-bg");
     			attr_dev(div0, "class", "svelte-1hd43id");
-    			add_location(div0, file, 376, 3, 10535);
+    			add_location(div0, file, 377, 3, 10603);
     			attr_dev(img, "id", "close-bg");
     			if (!src_url_equal(img.src, img_src_value = "images/close.svg")) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", "close");
     			attr_dev(img, "class", "svelte-1hd43id");
-    			add_location(img, file, 396, 4, 11318);
+    			add_location(img, file, 397, 4, 11386);
     			attr_dev(div1, "id", "close");
     			attr_dev(div1, "class", "svelte-1hd43id");
-    			add_location(div1, file, 395, 3, 11234);
+    			add_location(div1, file, 396, 3, 11302);
     			attr_dev(div2, "id", "overlay");
     			attr_dev(div2, "class", "svelte-1hd43id");
-    			add_location(div2, file, 375, 2, 10474);
+    			add_location(div2, file, 376, 2, 10542);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div2, anchor);
@@ -2821,14 +2832,14 @@ var app = (function () {
     		block,
     		id: create_if_block.name,
     		type: "if",
-    		source: "(375:1) {#if showOverlay}",
+    		source: "(376:1) {#if showOverlay}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (378:3) {#if inProgress}
+    // (379:3) {#if inProgress}
     function create_if_block_4(ctx) {
     	let img;
     	let img_src_value;
@@ -2842,7 +2853,7 @@ var app = (function () {
     			if (!src_url_equal(img.src, img_src_value = "images/preloader.svg")) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", "preloader");
     			attr_dev(img, "class", "svelte-1hd43id");
-    			add_location(img, file, 378, 4, 10589);
+    			add_location(img, file, 379, 4, 10657);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, img, anchor);
@@ -2873,14 +2884,14 @@ var app = (function () {
     		block,
     		id: create_if_block_4.name,
     		type: "if",
-    		source: "(378:3) {#if inProgress}",
+    		source: "(379:3) {#if inProgress}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (381:3) {#if showCapture}
+    // (382:3) {#if showCapture}
     function create_if_block_2(ctx) {
     	let current_block_type_index;
     	let if_block;
@@ -2953,14 +2964,14 @@ var app = (function () {
     		block,
     		id: create_if_block_2.name,
     		type: "if",
-    		source: "(381:3) {#if showCapture}",
+    		source: "(382:3) {#if showCapture}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (387:4) {:else}
+    // (388:4) {:else}
     function create_else_block(ctx) {
     	let img;
     	let img_src_value;
@@ -2972,7 +2983,7 @@ var app = (function () {
     			if (!src_url_equal(img.src, img_src_value = /*captureFilename*/ ctx[20])) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", "Fallback");
     			attr_dev(img, "class", "svelte-1hd43id");
-    			add_location(img, file, 387, 5, 10953);
+    			add_location(img, file, 388, 5, 11021);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, img, anchor);
@@ -2993,14 +3004,14 @@ var app = (function () {
     		block,
     		id: create_else_block.name,
     		type: "else",
-    		source: "(387:4) {:else}",
+    		source: "(388:4) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (382:4) {#if capturedVideo}
+    // (383:4) {#if capturedVideo}
     function create_if_block_3(ctx) {
     	let video;
     	let track;
@@ -3015,15 +3026,15 @@ var app = (function () {
     			track = element("track");
     			source = element("source");
     			attr_dev(track, "kind", "captions");
-    			add_location(track, file, 383, 6, 10823);
+    			add_location(track, file, 384, 6, 10891);
     			attr_dev(source, "id", "video_src");
     			attr_dev(source, "type", "video/mp4");
     			if (!src_url_equal(source.src, source_src_value = /*captureFilename*/ ctx[20])) attr_dev(source, "src", source_src_value);
-    			add_location(source, file, 384, 6, 10854);
+    			add_location(source, file, 385, 6, 10922);
     			attr_dev(video, "id", "video");
     			video.controls = true;
     			attr_dev(video, "class", "svelte-1hd43id");
-    			add_location(video, file, 382, 5, 10752);
+    			add_location(video, file, 383, 5, 10820);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, video, anchor);
@@ -3061,14 +3072,14 @@ var app = (function () {
     		block,
     		id: create_if_block_3.name,
     		type: "if",
-    		source: "(382:4) {#if capturedVideo}",
+    		source: "(383:4) {#if capturedVideo}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (391:3) {#if showToolWindow}
+    // (392:3) {#if showToolWindow}
     function create_if_block_1(ctx) {
     	let div;
     	let iframe;
@@ -3083,10 +3094,10 @@ var app = (function () {
     			if (!src_url_equal(iframe.src, iframe_src_value = /*toolURL*/ ctx[23])) attr_dev(iframe, "src", iframe_src_value);
     			attr_dev(iframe, "frameborder", "0");
     			attr_dev(iframe, "class", "svelte-1hd43id");
-    			add_location(iframe, file, 392, 5, 11101);
+    			add_location(iframe, file, 393, 5, 11169);
     			attr_dev(div, "id", "tool_frame_container");
     			attr_dev(div, "class", "svelte-1hd43id");
-    			add_location(div, file, 391, 4, 11063);
+    			add_location(div, file, 392, 4, 11131);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -3108,7 +3119,7 @@ var app = (function () {
     		block,
     		id: create_if_block_1.name,
     		type: "if",
-    		source: "(391:3) {#if showToolWindow}",
+    		source: "(392:3) {#if showToolWindow}",
     		ctx
     	});
 
@@ -3292,97 +3303,97 @@ var app = (function () {
     			attr_dev(iframe, "frameborder", "0");
     			attr_dev(iframe, "scrolling", "no");
     			attr_dev(iframe, "class", "svelte-1hd43id");
-    			add_location(iframe, file, 324, 5, 8503);
+    			add_location(iframe, file, 325, 5, 8571);
     			attr_dev(div2, "id", "banner_container");
     			attr_dev(div2, "class", "svelte-1hd43id");
-    			add_location(div2, file, 323, 4, 8441);
+    			add_location(div2, file, 324, 4, 8509);
     			attr_dev(div3, "id", "resize_area");
     			attr_dev(div3, "class", "svelte-1hd43id");
-    			add_location(div3, file, 322, 3, 8413);
-    			add_location(p0, file, 330, 6, 8721);
+    			add_location(div3, file, 323, 3, 8481);
+    			add_location(p0, file, 331, 6, 8789);
     			attr_dev(input0, "type", "text");
     			attr_dev(input0, "size", "45");
     			set_style(input0, "width", "200px");
-    			add_location(input0, file, 331, 6, 8746);
+    			add_location(input0, file, 332, 6, 8814);
     			attr_dev(input1, "type", "button");
     			input1.value = "↻";
     			attr_dev(input1, "class", "svelte-1hd43id");
-    			add_location(input1, file, 332, 6, 8860);
+    			add_location(input1, file, 333, 6, 8928);
     			attr_dev(div4, "class", "widget");
-    			add_location(div4, file, 329, 5, 8693);
-    			add_location(p1, file, 335, 6, 8962);
+    			add_location(div4, file, 330, 5, 8761);
+    			add_location(p1, file, 336, 6, 9030);
     			attr_dev(input2, "type", "number");
     			attr_dev(input2, "size", "45");
     			attr_dev(input2, "min", "0");
     			attr_dev(input2, "class", "svelte-1hd43id");
-    			add_location(input2, file, 336, 6, 8982);
+    			add_location(input2, file, 337, 6, 9050);
     			attr_dev(div5, "class", "widget");
-    			add_location(div5, file, 334, 5, 8934);
-    			add_location(p2, file, 339, 6, 9124);
+    			add_location(div5, file, 335, 5, 9002);
+    			add_location(p2, file, 340, 6, 9192);
     			attr_dev(input3, "type", "number");
     			attr_dev(input3, "size", "45");
     			attr_dev(input3, "min", "0");
     			attr_dev(input3, "class", "svelte-1hd43id");
-    			add_location(input3, file, 340, 6, 9145);
+    			add_location(input3, file, 341, 6, 9213);
     			attr_dev(div6, "class", "widget");
-    			add_location(div6, file, 338, 5, 9096);
-    			add_location(p3, file, 343, 6, 9288);
+    			add_location(div6, file, 339, 5, 9164);
+    			add_location(p3, file, 344, 6, 9356);
     			option0.__value = "iphone_se";
     			option0.value = option0.__value;
-    			add_location(option0, file, 345, 7, 9383);
+    			add_location(option0, file, 346, 7, 9451);
     			option1.__value = "iphone_xr";
     			option1.value = option1.__value;
-    			add_location(option1, file, 346, 7, 9436);
+    			add_location(option1, file, 347, 7, 9504);
     			option2.__value = "iphone_12_pro";
     			option2.value = option2.__value;
-    			add_location(option2, file, 347, 7, 9489);
+    			add_location(option2, file, 348, 7, 9557);
     			attr_dev(select0, "class", "svelte-1hd43id");
     			if (/*bannerDevice*/ ctx[7] === void 0) add_render_callback(() => /*select0_change_handler*/ ctx[45].call(select0));
-    			add_location(select0, file, 344, 6, 9309);
+    			add_location(select0, file, 345, 6, 9377);
     			attr_dev(input4, "type", "button");
     			input4.value = "Reset";
     			attr_dev(input4, "class", "svelte-1hd43id");
-    			add_location(input4, file, 349, 6, 9566);
+    			add_location(input4, file, 350, 6, 9634);
     			attr_dev(div7, "class", "widget");
-    			add_location(div7, file, 342, 5, 9260);
+    			add_location(div7, file, 343, 5, 9328);
     			attr_dev(div8, "class", "row");
-    			add_location(div8, file, 328, 4, 8669);
+    			add_location(div8, file, 329, 4, 8737);
     			attr_dev(div9, "id", "size_info");
     			attr_dev(div9, "class", "svelte-1hd43id");
-    			add_location(div9, file, 327, 3, 8643);
-    			add_location(p4, file, 356, 6, 9747);
+    			add_location(div9, file, 328, 3, 8711);
+    			add_location(p4, file, 357, 6, 9815);
     			attr_dev(select1, "class", "svelte-1hd43id");
     			if (/*currentTimelineID*/ ctx[9] === void 0) add_render_callback(() => /*select1_change_handler*/ ctx[46].call(select1));
-    			add_location(select1, file, 357, 6, 9770);
+    			add_location(select1, file, 358, 6, 9838);
     			attr_dev(input5, "type", "button");
     			input5.value = input5_value_value = /*paused*/ ctx[11] ? '▶️' : '⏸️';
     			input5.disabled = input5_disabled_value = !/*timelineEnabled*/ ctx[10];
     			attr_dev(input5, "class", "svelte-1hd43id");
-    			add_location(input5, file, 364, 6, 10014);
+    			add_location(input5, file, 365, 6, 10082);
     			attr_dev(div10, "class", "widget");
-    			add_location(div10, file, 355, 5, 9719);
-    			add_location(span0, file, 367, 25, 10189);
-    			add_location(b, file, 367, 22, 10186);
-    			add_location(span1, file, 367, 58, 10222);
+    			add_location(div10, file, 356, 5, 9787);
+    			add_location(span0, file, 368, 25, 10257);
+    			add_location(b, file, 368, 22, 10254);
+    			add_location(span1, file, 368, 58, 10290);
     			attr_dev(p5, "class", "time svelte-1hd43id");
-    			add_location(p5, file, 367, 6, 10170);
+    			add_location(p5, file, 368, 6, 10238);
     			attr_dev(input6, "type", "range");
     			attr_dev(input6, "min", "0");
     			attr_dev(input6, "max", "1");
     			attr_dev(input6, "step", "any");
     			input6.disabled = input6_disabled_value = !/*timelineEnabled*/ ctx[10];
     			attr_dev(input6, "class", "svelte-1hd43id");
-    			add_location(input6, file, 368, 6, 10264);
+    			add_location(input6, file, 369, 6, 10332);
     			attr_dev(div11, "class", "widget fill svelte-1hd43id");
-    			add_location(div11, file, 366, 5, 10137);
+    			add_location(div11, file, 367, 5, 10205);
     			attr_dev(div12, "class", "row");
-    			add_location(div12, file, 354, 4, 9695);
+    			add_location(div12, file, 355, 4, 9763);
     			attr_dev(div13, "id", "timeline");
     			attr_dev(div13, "class", "svelte-1hd43id");
-    			add_location(div13, file, 353, 3, 9670);
+    			add_location(div13, file, 354, 3, 9738);
     			attr_dev(div14, "id", "preview");
     			attr_dev(div14, "class", "svelte-1hd43id");
-    			add_location(div14, file, 321, 2, 8390);
+    			add_location(div14, file, 322, 2, 8458);
     			attr_dev(div15, "id", "ui");
     			attr_dev(div15, "class", "svelte-1hd43id");
     			add_location(div15, file, 297, 1, 7699);

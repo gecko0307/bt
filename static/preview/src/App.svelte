@@ -312,6 +312,7 @@
 						on:ready={captureReady}/>
 				{:else if currentTab === "builder"}
 					<Builder
+						defaultSize={bannerDefaultWidth + "x" + bannerDefaultHeight}
 						on:start={buildStart}
 						on:ready={buildReady}/>
 				{:else if currentTab === "events"}
