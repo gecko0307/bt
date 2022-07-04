@@ -68,7 +68,7 @@ async function build(options = { platform: "publish", gulpBuilderPath: "" }) {
     const gulpfilePath = path.join(builderPath, "gulpfile.js");
     if (!(await fs.pathExists(gulpfilePath))) {
         console.log(`Builder not found in ${builderPath}! Please, specify valid Gulp-builder installation path in config.json`);
-        return;
+        return { ok: false };
     }
 
     console.log(`Using Gulp-builder in ${builderPath}`);
@@ -78,6 +78,7 @@ async function build(options = { platform: "publish", gulpBuilderPath: "" }) {
     );
     if (builderCode !== 0) {
         console.log("Build failed!");
+        return { ok: false };
     }
     else {
         console.log("Build finished!");
@@ -138,6 +139,11 @@ async function build(options = { platform: "publish", gulpBuilderPath: "" }) {
         zip.writeZip(zipPath);
         const { size } = await fs.stat(zipPath);
         console.log(`Generated ${zipPath} (${formatBytes(size)})`);
+
+        return {
+            ok: true,
+            archiveFilename: "build/" + path.basename(zipPath)
+        };
     }
 }
 

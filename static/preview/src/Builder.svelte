@@ -3,11 +3,10 @@
 
 	const dispatch = createEventDispatcher();
 
-	export let defaultSize = "0x0";
 	let brand = "";
 	let campaign = "";
 	let creative = "";
-	let size = defaultSize;
+	let size = "";
 	let platform = "publish";
 	let version = "v1";
 
@@ -29,7 +28,7 @@
 		creative = config.creative || "";
 		platform = config.platform || "publish";
 		version = config.version || "v1";
-		size = config.size || defaultSize;
+		size = config.size || "";
 	});
 
 	async function build() {
@@ -47,7 +46,8 @@
 		dispatch("ready", {
 			...res,
 			build: {
-				haveResult: res.ok
+				haveResult: res.ok,
+				filename: res.archiveFilename || ""
 			}
 		});
 	}

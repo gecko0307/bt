@@ -251,7 +251,7 @@ async function build(options = { platform: "publish" }) {
     
     log.info("Archive...");
     // TODO: respect tr.dist.format
-    await archive(log, tr, platformId, config, banner, fallbackPath);
+    const zipPath = await archive(log, tr, platformId, config, banner, fallbackPath);
 
     // Build report
     if (log.warningMessages.length > 0) {
@@ -261,6 +261,10 @@ async function build(options = { platform: "publish" }) {
     else {
         console.log(chalk.greenBright("Everything is OK!"));
     }
+
+    return {
+        archiveFilename: "build/" + path.basename(zipPath)
+    };
 }
 
 module.exports = { build, buildConfig };

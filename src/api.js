@@ -39,17 +39,19 @@ async function build(req = {}) {
         builderPath = btConfig.builder.path || "";
     }
 
+    let res;
     if (useGulpBuilder) {
         options.gulpBuilderPath = builderPath;
-        await builder(options);
+        res = await builder(options);
     }
     else {
-        await builder2.build(options);
+        res = await builder2.build(options);
     }
 
     return {
-        ok: true,
-        message: ""
+        ok: res.ok || false,
+        message: "",
+        archiveFilename: res.archiveFilename
     }
 }
 
