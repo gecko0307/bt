@@ -54,6 +54,11 @@ async function build(options = { platform: "publish" }) {
     if (options.platform === "publish") {
         options.platform = config.platform;
     }
+    else {
+        config.platform = options.platform;
+    }
+
+    await fs.writeJSON(builderConfigPath, config, { spaces: "\t" });
 
     const platformId = options.platform;
     const { tr, platformName } = await requirements(platformId);

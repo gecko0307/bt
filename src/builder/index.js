@@ -48,6 +48,11 @@ async function build(options = { platform: "publish", gulpBuilderPath: "" }) {
     if (options.platform === "publish") {
         options.platform = config.platform;
     }
+    else {
+        config.platform = options.platform;
+    }
+
+    await fs.writeJSON(builderConfigPath, config, { spaces: "\t" });
     
     let platformName = "Unknown";
     let technicalRequirements = "publish";
