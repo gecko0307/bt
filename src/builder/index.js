@@ -12,7 +12,7 @@ const builderConfigPath = path.resolve("./.data/builder.config.json");
 
 const configDefault = {
     brand: "",
-    campaign: "banner",
+    campaign: "",
     creative: "",
     platform: "publish",
     version: "v1"
