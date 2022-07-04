@@ -109,6 +109,9 @@
 			}
 			else {
 				currentTimelineID = "MASTER";
+				console.log(currentTimeline.duration());
+				if (currentTimeline.duration() === 0.0)
+					timelineEnabled = false;
 			}
 			paused = !timelineEnabled;
 			if (!paused) {
@@ -120,6 +123,7 @@
 			timelineEnabled = false;
 			paused = true;
 		}
+		printTime();
 
 		// 
 		const style = bannerDocument.createElement("style");
@@ -242,9 +246,15 @@
 	}
 
 	function printTime() {
-		const totalSeconds = timelineProgress * currentTimeline.duration();
-		displayTime = formatTime(totalSeconds);
-		displayDuration = formatTime(currentTimeline.duration());
+		if (timelineEnabled) {
+			const totalSeconds = timelineProgress * currentTimeline.duration();
+			displayTime = formatTime(totalSeconds);
+			displayDuration = formatTime(currentTimeline.duration());
+		}
+		else {
+			displayTime = "00:00:00";
+			displayDuration = "00:00:00";
+		}
 	}
 
 	function formatTime(sec) {
@@ -261,10 +271,13 @@
 	function timelineIDChange() {
 		console.log(currentTimelineID);
 		currentTimeline = gsap.getById(currentTimelineID);
+		console.log(currentTimeline.duration());
+		timelineEnabled = (currentTimeline.duration() !== 0.0);
 		timelineProgress = 0.0;
 		start = null;
 		prevTime = 0.0;
 		paused = true;
+		printTime();
 	}
 </script>
 
@@ -327,7 +340,7 @@
 				<div class="row">
 					<div class="widget">
 						<p>Timeline</p>
-						<select bind:value={currentTimelineID} on:change={timelineIDChange} disabled={!timelineEnabled}>
+						<select bind:value={currentTimelineID} on:change={timelineIDChange}>
 							{#if timelineIDs !== undefined}
 								{#each timelineIDs as id}
 									<option value="{id}">{id}</option>
