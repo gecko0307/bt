@@ -40,8 +40,6 @@
 			// TODO: build options
 		});
 
-		console.log(res);
-
 		dispatch("ready", {
 			...res,
 			build: {

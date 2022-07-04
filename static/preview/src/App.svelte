@@ -213,6 +213,7 @@
 	function closeOverlay() {
 		showOverlay = false;
 		showCapture = false;
+		showBuild = false;
 		showToolWindow = false;
 	}
 
