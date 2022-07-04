@@ -26,8 +26,15 @@ async function build(req = {}) {
     let useGulpBuilder = false;
     let builderPath = "";
 
+    console.log(req);
+
     const options = {
-        platform: "publish"
+        brand: req.brand || "",
+        campaign: req.campaign || "",
+        creative: req.creative || "",
+        platform: req.platform || "publish",
+        version: req.version || "v1",
+        size: req.size || ""
     };
 
     let btConfig = {};

@@ -1943,58 +1943,58 @@ var app = (function () {
     			input5 = element("input");
     			t19 = space();
     			input6 = element("input");
-    			add_location(legend, file$2, 55, 3, 1095);
-    			add_location(p0, file$2, 56, 3, 1122);
+    			add_location(legend, file$2, 60, 3, 1196);
+    			add_location(p0, file$2, 61, 3, 1223);
     			attr_dev(input0, "type", "text");
     			attr_dev(input0, "size", "45");
     			set_style(input0, "width", "200px");
     			attr_dev(input0, "class", "svelte-jra80u");
-    			add_location(input0, file$2, 57, 6, 1142);
-    			add_location(p1, file$2, 57, 3, 1139);
-    			add_location(p2, file$2, 58, 3, 1219);
+    			add_location(input0, file$2, 62, 6, 1243);
+    			add_location(p1, file$2, 62, 3, 1240);
+    			add_location(p2, file$2, 63, 3, 1320);
     			attr_dev(input1, "type", "text");
     			attr_dev(input1, "size", "45");
     			set_style(input1, "width", "200px");
     			attr_dev(input1, "class", "svelte-jra80u");
-    			add_location(input1, file$2, 59, 6, 1242);
-    			add_location(p3, file$2, 59, 3, 1239);
-    			add_location(p4, file$2, 60, 3, 1322);
+    			add_location(input1, file$2, 64, 6, 1343);
+    			add_location(p3, file$2, 64, 3, 1340);
+    			add_location(p4, file$2, 65, 3, 1423);
     			attr_dev(input2, "type", "text");
     			attr_dev(input2, "size", "45");
     			set_style(input2, "width", "200px");
     			attr_dev(input2, "class", "svelte-jra80u");
-    			add_location(input2, file$2, 61, 6, 1345);
-    			add_location(p5, file$2, 61, 3, 1342);
-    			add_location(p6, file$2, 62, 3, 1425);
+    			add_location(input2, file$2, 66, 6, 1446);
+    			add_location(p5, file$2, 66, 3, 1443);
+    			add_location(p6, file$2, 67, 3, 1526);
     			attr_dev(input3, "type", "text");
     			attr_dev(input3, "size", "45");
     			set_style(input3, "width", "200px");
     			attr_dev(input3, "class", "svelte-jra80u");
-    			add_location(input3, file$2, 63, 6, 1444);
-    			add_location(p7, file$2, 63, 3, 1441);
-    			add_location(p8, file$2, 64, 3, 1520);
+    			add_location(input3, file$2, 68, 6, 1545);
+    			add_location(p7, file$2, 68, 3, 1542);
+    			add_location(p8, file$2, 69, 3, 1621);
     			attr_dev(input4, "type", "text");
     			attr_dev(input4, "size", "45");
     			set_style(input4, "width", "200px");
     			attr_dev(input4, "class", "svelte-jra80u");
-    			add_location(input4, file$2, 65, 6, 1543);
-    			add_location(p9, file$2, 65, 3, 1540);
-    			add_location(p10, file$2, 66, 3, 1623);
+    			add_location(input4, file$2, 70, 6, 1644);
+    			add_location(p9, file$2, 70, 3, 1641);
+    			add_location(p10, file$2, 71, 3, 1724);
     			attr_dev(input5, "type", "text");
     			attr_dev(input5, "size", "45");
     			set_style(input5, "width", "200px");
     			attr_dev(input5, "class", "svelte-jra80u");
-    			add_location(input5, file$2, 67, 6, 1645);
-    			add_location(p11, file$2, 67, 3, 1642);
+    			add_location(input5, file$2, 72, 6, 1746);
+    			add_location(p11, file$2, 72, 3, 1743);
     			attr_dev(input6, "type", "button");
     			input6.value = "📦 Build banner";
     			attr_dev(input6, "title", "Build banner");
-    			add_location(input6, file$2, 68, 3, 1724);
-    			add_location(fieldset, file$2, 54, 2, 1080);
+    			add_location(input6, file$2, 73, 3, 1825);
+    			add_location(fieldset, file$2, 59, 2, 1181);
     			attr_dev(div, "class", "section svelte-jra80u");
-    			add_location(div, file$2, 53, 1, 1055);
+    			add_location(div, file$2, 58, 1, 1156);
     			attr_dev(main, "class", "svelte-jra80u");
-    			add_location(main, file$2, 52, 0, 1046);
+    			add_location(main, file$2, 57, 0, 1147);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -2134,7 +2134,16 @@ var app = (function () {
 
     	async function build() {
     		dispatch("start", { message: "Build..." });
-    		const res = await apiRequest$1({ method: "build" }); // TODO: build options
+
+    		const res = await apiRequest$1({
+    			method: "build",
+    			brand,
+    			campaign,
+    			creative,
+    			platform,
+    			version,
+    			size
+    		});
 
     		dispatch("ready", {
     			...res,

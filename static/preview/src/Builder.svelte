@@ -36,8 +36,13 @@
 		});
 
 		const res = await apiRequest({
-			method: "build"
-			// TODO: build options
+			method: "build",
+			brand: brand,
+			campaign: campaign,
+			creative: creative,
+			platform: platform,
+			version: version,
+			size: size
 		});
 
 		dispatch("ready", {
