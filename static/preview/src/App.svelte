@@ -404,7 +404,8 @@
 			{/if}
 			{#if showBuild}
 				<div id="build">
-					<a href="{buildFilename}" target="_blank" download={buildDownloadFilename}><b>Download build</b></a>
+					<a href="{buildFilename}" download={buildDownloadFilename}><b>Download build</b></a><br>
+					<a href="/build" target="_blank"><b>Show build</b></a>
 				</div>
 			{/if}
 			{#if showToolWindow}
@@ -636,7 +637,7 @@
 		margin: 0;
 		padding: 0;
 		width: 320px;
-		height: 64px;
+		height: 100px;
 		max-width: 100%;
 		max-height: 100%;
 		left: -100%;
@@ -650,6 +651,7 @@
 		font-family: sans-serif;
 		font-size: 16px;
 		text-align: center;
+		line-height: 1.8em;
 		color: #ffffff;
 		background-color: #ffffff;
 		padding-top: 18px;
