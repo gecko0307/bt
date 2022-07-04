@@ -142,7 +142,7 @@ async function build(options = { platform: "publish", gulpBuilderPath: "" }) {
 
         return {
             ok: true,
-            archiveFilename: "build/" + path.basename(zipPath)
+            archiveFilename: path.basename(zipPath)
         };
     }
 }

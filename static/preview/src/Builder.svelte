@@ -22,7 +22,6 @@
 		const config = await apiRequest({
 			method: "buildConfig"
 		});
-		console.log(config);
 		brand = config.brand || "";
 		campaign = config.campaign || "";
 		creative = config.creative || "";

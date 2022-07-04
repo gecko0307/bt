@@ -52,6 +52,10 @@
 	let capturedVideo = false;
 	let captureFilename;
 
+	let showBuild = false;
+	let buildFilename;
+	let buildDownloadFilename;
+
 	let showToolWindow = false;
 	let toolFrame;
 	let toolURL;
@@ -239,8 +243,15 @@
 	function buildReady(event) {
 		inProgress = false;
 		const build = event.detail.build;
-		// TODO: show build result
-		showOverlay = false;
+		if (build && build.haveResult) {
+			buildFilename = "/file?path=dist/" + build.filename + "&" + new Date().getTime();
+			buildDownloadFilename = build.filename;
+			showBuild = true;
+		}
+		else {
+			showBuild = false;
+			showOverlay = false;
+		}
 	}
 
 	function togglePause() {
@@ -389,6 +400,11 @@
 				{:else}
 					<img id="fallback" src="{captureFilename}" alt="Fallback">
 				{/if}
+			{/if}
+			{#if showBuild}
+				<div id="build">
+					<a href="{buildFilename}" target="_blank" download={buildDownloadFilename}><b>Download build</b></a>
+				</div>
 			{/if}
 			{#if showToolWindow}
 				<div id="tool_frame_container">
@@ -611,6 +627,35 @@
 		bottom: -100%;
 		margin-top: auto;
 		margin-bottom: auto;
+	}
+
+	#build {
+		position: fixed;
+		box-sizing: border-box;
+		margin: 0;
+		padding: 0;
+		width: 320px;
+		height: 64px;
+		max-width: 100%;
+		max-height: 100%;
+		left: -100%;
+		right: -100%;
+		margin-left: auto;
+		margin-right: auto;
+		top: -100%;
+		bottom: -100%;
+		margin-top: auto;
+		margin-bottom: auto;
+		font-family: sans-serif;
+		font-size: 16px;
+		text-align: center;
+		color: #ffffff;
+		background-color: #ffffff;
+		padding-top: 24px;
+	}
+
+	#build a {
+		color: #5fccb6;
 	}
 
 	#tool_frame_container {

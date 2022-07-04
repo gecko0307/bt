@@ -66,7 +66,9 @@ async function build(options = { platform: "publish" }) {
         const requiredFilePath = path.resolve(`./HTML/${filename}`);
         if (!await fs.pathExists(requiredFilePath)) {
             log.error(`Error: required file "${filename}" is missing`);
-            return;
+            return {
+                ok: false
+            };
         }
         else {
             if (path.extname(requiredFilePath) === ".html") {
@@ -92,13 +94,25 @@ async function build(options = { platform: "publish" }) {
         const document = dom.window.document;
 
         log.info("Scripts...");
-        if (!await transform.scripts(filename, document, tr)) return;
+        if (!await transform.scripts(filename, document, tr)) {
+            return {
+                ok: false
+            };
+        }
 
         log.info("Styles...");
-        if (!await transform.styles(filename, document, tr)) return;
+        if (!await transform.styles(filename, document, tr)) {
+            return {
+                ok: false
+            };
+        }
 
         log.info("Assets...");
-        if (!await transform.assets(filename, document, tr)) return;
+        if (!await transform.assets(filename, document, tr)) {
+            return {
+                ok: false
+            };
+        }
 
         if (filename === tr.indexFile) {
             log.info("Check external references...");
@@ -164,7 +178,11 @@ async function build(options = { platform: "publish" }) {
             banner.isResponsive = banner.width.endsWith("%") || banner.height.endsWith("%");
 
             log.info("Prepare...");
-            if (!await transform.prepare(filename, document, tr, { banner, config })) return;
+            if (!await transform.prepare(filename, document, tr, { banner, config })) {
+                return {
+                    ok: false
+                };
+            }
         }
 
         log.info("Serialize...");
@@ -263,7 +281,8 @@ async function build(options = { platform: "publish" }) {
     }
 
     return {
-        archiveFilename: "build/" + path.basename(zipPath)
+        ok: true,
+        archiveFilename: path.basename(zipPath)
     };
 }
 
