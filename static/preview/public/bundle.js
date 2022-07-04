@@ -2682,18 +2682,18 @@ var app = (function () {
     			div1 = element("div");
     			img = element("img");
     			attr_dev(div0, "id", "overlay-bg");
-    			attr_dev(div0, "class", "svelte-lyio46");
+    			attr_dev(div0, "class", "svelte-141vfnt");
     			add_location(div0, file, 389, 3, 10843);
     			attr_dev(img, "id", "close-bg");
     			if (!src_url_equal(img.src, img_src_value = "images/close.svg")) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", "close");
-    			attr_dev(img, "class", "svelte-lyio46");
+    			attr_dev(img, "class", "svelte-141vfnt");
     			add_location(img, file, 414, 4, 11797);
     			attr_dev(div1, "id", "close");
-    			attr_dev(div1, "class", "svelte-lyio46");
+    			attr_dev(div1, "class", "svelte-141vfnt");
     			add_location(div1, file, 413, 3, 11713);
     			attr_dev(div2, "id", "overlay");
-    			attr_dev(div2, "class", "svelte-lyio46");
+    			attr_dev(div2, "class", "svelte-141vfnt");
     			add_location(div2, file, 388, 2, 10782);
     		},
     		m: function mount(target, anchor) {
@@ -2851,7 +2851,7 @@ var app = (function () {
     			attr_dev(img, "id", "preloader");
     			if (!src_url_equal(img.src, img_src_value = "images/preloader.svg")) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", "preloader");
-    			attr_dev(img, "class", "svelte-lyio46");
+    			attr_dev(img, "class", "svelte-141vfnt");
     			add_location(img, file, 391, 4, 10897);
     		},
     		m: function mount(target, anchor) {
@@ -2981,7 +2981,7 @@ var app = (function () {
     			attr_dev(img, "id", "fallback");
     			if (!src_url_equal(img.src, img_src_value = /*captureFilename*/ ctx[20])) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", "Fallback");
-    			attr_dev(img, "class", "svelte-lyio46");
+    			attr_dev(img, "class", "svelte-141vfnt");
     			add_location(img, file, 400, 5, 11261);
     		},
     		m: function mount(target, anchor) {
@@ -3032,7 +3032,7 @@ var app = (function () {
     			add_location(source, file, 397, 6, 11162);
     			attr_dev(video, "id", "video");
     			video.controls = true;
-    			attr_dev(video, "class", "svelte-lyio46");
+    			attr_dev(video, "class", "svelte-141vfnt");
     			add_location(video, file, 395, 5, 11060);
     		},
     		m: function mount(target, anchor) {
@@ -3094,10 +3094,10 @@ var app = (function () {
     			attr_dev(a, "href", /*buildFilename*/ ctx[22]);
     			attr_dev(a, "target", "_blank");
     			attr_dev(a, "download", /*buildDownloadFilename*/ ctx[23]);
-    			attr_dev(a, "class", "svelte-lyio46");
+    			attr_dev(a, "class", "svelte-141vfnt");
     			add_location(a, file, 405, 5, 11389);
     			attr_dev(div, "id", "build");
-    			attr_dev(div, "class", "svelte-lyio46");
+    			attr_dev(div, "class", "svelte-141vfnt");
     			add_location(div, file, 404, 4, 11366);
     		},
     		m: function mount(target, anchor) {
@@ -3144,10 +3144,10 @@ var app = (function () {
     			attr_dev(iframe, "id", "tool_frame");
     			if (!src_url_equal(iframe.src, iframe_src_value = /*toolURL*/ ctx[26])) attr_dev(iframe, "src", iframe_src_value);
     			attr_dev(iframe, "frameborder", "0");
-    			attr_dev(iframe, "class", "svelte-lyio46");
+    			attr_dev(iframe, "class", "svelte-141vfnt");
     			add_location(iframe, file, 410, 5, 11580);
     			attr_dev(div, "id", "tool_frame_container");
-    			attr_dev(div, "class", "svelte-lyio46");
+    			attr_dev(div, "class", "svelte-141vfnt");
     			add_location(div, file, 409, 4, 11542);
     		},
     		m: function mount(target, anchor) {
@@ -3343,23 +3343,23 @@ var app = (function () {
     			t28 = space();
     			if (if_block2) if_block2.c();
     			attr_dev(div0, "id", "control_page");
-    			attr_dev(div0, "class", "svelte-lyio46");
+    			attr_dev(div0, "class", "svelte-141vfnt");
     			add_location(div0, file, 313, 3, 8081);
     			attr_dev(div1, "id", "control");
-    			attr_dev(div1, "class", "svelte-lyio46");
+    			attr_dev(div1, "class", "svelte-141vfnt");
     			add_location(div1, file, 311, 2, 8024);
     			attr_dev(iframe, "title", "banner");
     			attr_dev(iframe, "id", "banner");
     			if (!src_url_equal(iframe.src, iframe_src_value = "/index.html")) attr_dev(iframe, "src", iframe_src_value);
     			attr_dev(iframe, "frameborder", "0");
     			attr_dev(iframe, "scrolling", "no");
-    			attr_dev(iframe, "class", "svelte-lyio46");
+    			attr_dev(iframe, "class", "svelte-141vfnt");
     			add_location(iframe, file, 337, 5, 8811);
     			attr_dev(div2, "id", "banner_container");
-    			attr_dev(div2, "class", "svelte-lyio46");
+    			attr_dev(div2, "class", "svelte-141vfnt");
     			add_location(div2, file, 336, 4, 8749);
     			attr_dev(div3, "id", "resize_area");
-    			attr_dev(div3, "class", "svelte-lyio46");
+    			attr_dev(div3, "class", "svelte-141vfnt");
     			add_location(div3, file, 335, 3, 8721);
     			add_location(p0, file, 343, 6, 9029);
     			attr_dev(input0, "type", "text");
@@ -3368,7 +3368,7 @@ var app = (function () {
     			add_location(input0, file, 344, 6, 9054);
     			attr_dev(input1, "type", "button");
     			input1.value = "↻";
-    			attr_dev(input1, "class", "svelte-lyio46");
+    			attr_dev(input1, "class", "svelte-141vfnt");
     			add_location(input1, file, 345, 6, 9168);
     			attr_dev(div4, "class", "widget");
     			add_location(div4, file, 342, 5, 9001);
@@ -3376,7 +3376,7 @@ var app = (function () {
     			attr_dev(input2, "type", "number");
     			attr_dev(input2, "size", "45");
     			attr_dev(input2, "min", "0");
-    			attr_dev(input2, "class", "svelte-lyio46");
+    			attr_dev(input2, "class", "svelte-141vfnt");
     			add_location(input2, file, 349, 6, 9290);
     			attr_dev(div5, "class", "widget");
     			add_location(div5, file, 347, 5, 9242);
@@ -3384,7 +3384,7 @@ var app = (function () {
     			attr_dev(input3, "type", "number");
     			attr_dev(input3, "size", "45");
     			attr_dev(input3, "min", "0");
-    			attr_dev(input3, "class", "svelte-lyio46");
+    			attr_dev(input3, "class", "svelte-141vfnt");
     			add_location(input3, file, 353, 6, 9453);
     			attr_dev(div6, "class", "widget");
     			add_location(div6, file, 351, 5, 9404);
@@ -3398,57 +3398,57 @@ var app = (function () {
     			option2.__value = "iphone_12_pro";
     			option2.value = option2.__value;
     			add_location(option2, file, 360, 7, 9797);
-    			attr_dev(select0, "class", "svelte-lyio46");
+    			attr_dev(select0, "class", "svelte-141vfnt");
     			if (/*bannerDevice*/ ctx[7] === void 0) add_render_callback(() => /*select0_change_handler*/ ctx[48].call(select0));
     			add_location(select0, file, 357, 6, 9617);
     			attr_dev(input4, "type", "button");
     			input4.value = "Reset";
-    			attr_dev(input4, "class", "svelte-lyio46");
+    			attr_dev(input4, "class", "svelte-141vfnt");
     			add_location(input4, file, 362, 6, 9874);
     			attr_dev(div7, "class", "widget");
     			add_location(div7, file, 355, 5, 9568);
     			attr_dev(div8, "class", "row");
     			add_location(div8, file, 341, 4, 8977);
     			attr_dev(div9, "id", "size_info");
-    			attr_dev(div9, "class", "svelte-lyio46");
+    			attr_dev(div9, "class", "svelte-141vfnt");
     			add_location(div9, file, 340, 3, 8951);
     			add_location(p4, file, 369, 6, 10055);
-    			attr_dev(select1, "class", "svelte-lyio46");
+    			attr_dev(select1, "class", "svelte-141vfnt");
     			if (/*currentTimelineID*/ ctx[9] === void 0) add_render_callback(() => /*select1_change_handler*/ ctx[49].call(select1));
     			add_location(select1, file, 370, 6, 10078);
     			attr_dev(input5, "type", "button");
     			input5.value = input5_value_value = /*paused*/ ctx[11] ? '▶️' : '⏸️';
     			input5.disabled = input5_disabled_value = !/*timelineEnabled*/ ctx[10];
-    			attr_dev(input5, "class", "svelte-lyio46");
+    			attr_dev(input5, "class", "svelte-141vfnt");
     			add_location(input5, file, 377, 6, 10322);
     			attr_dev(div10, "class", "widget");
     			add_location(div10, file, 368, 5, 10027);
     			add_location(span0, file, 380, 25, 10497);
     			add_location(b, file, 380, 22, 10494);
     			add_location(span1, file, 380, 58, 10530);
-    			attr_dev(p5, "class", "time svelte-lyio46");
+    			attr_dev(p5, "class", "time svelte-141vfnt");
     			add_location(p5, file, 380, 6, 10478);
     			attr_dev(input6, "type", "range");
     			attr_dev(input6, "min", "0");
     			attr_dev(input6, "max", "1");
     			attr_dev(input6, "step", "any");
     			input6.disabled = input6_disabled_value = !/*timelineEnabled*/ ctx[10];
-    			attr_dev(input6, "class", "svelte-lyio46");
+    			attr_dev(input6, "class", "svelte-141vfnt");
     			add_location(input6, file, 381, 6, 10572);
-    			attr_dev(div11, "class", "widget fill svelte-lyio46");
+    			attr_dev(div11, "class", "widget fill svelte-141vfnt");
     			add_location(div11, file, 379, 5, 10445);
     			attr_dev(div12, "class", "row");
     			add_location(div12, file, 367, 4, 10003);
     			attr_dev(div13, "id", "timeline");
-    			attr_dev(div13, "class", "svelte-lyio46");
+    			attr_dev(div13, "class", "svelte-141vfnt");
     			add_location(div13, file, 366, 3, 9978);
     			attr_dev(div14, "id", "preview");
-    			attr_dev(div14, "class", "svelte-lyio46");
+    			attr_dev(div14, "class", "svelte-141vfnt");
     			add_location(div14, file, 334, 2, 8698);
     			attr_dev(div15, "id", "ui");
-    			attr_dev(div15, "class", "svelte-lyio46");
+    			attr_dev(div15, "class", "svelte-141vfnt");
     			add_location(div15, file, 310, 1, 8007);
-    			attr_dev(main, "class", "svelte-lyio46");
+    			attr_dev(main, "class", "svelte-141vfnt");
     			add_location(main, file, 309, 0, 7998);
     		},
     		l: function claim(nodes) {

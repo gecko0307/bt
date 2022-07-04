@@ -651,7 +651,9 @@
 		text-align: center;
 		color: #ffffff;
 		background-color: #ffffff;
-		padding-top: 24px;
+		padding-top: 18px;
+		border: 5px solid #5fccb6;
+		border-radius: 10px;
 	}
 
 	#build a {
