@@ -218,7 +218,7 @@
 	function captureReady(event) {
 		inProgress = false;
 		const capture = event.detail.capture;
-		if (capture.haveResult) {
+		if (capture && capture.haveResult) {
 			capturedVideo = capture.video;
 			captureFilename = "/file?path=capture/" + capture.filename + "&" + new Date().getTime();
 			showCapture = true;
@@ -227,6 +227,18 @@
 			showCapture = false;
 			showOverlay = false;
 		}
+	}
+
+	function buildStart(event) {
+		inProgress = true;
+		showOverlay = true;
+	}
+
+	function buildReady(event) {
+		inProgress = false;
+		const build = event.detail.build;
+		// TODO: show build result
+		showOverlay = false;
 	}
 
 	function togglePause() {
@@ -299,7 +311,9 @@
 						on:start={captureStart}
 						on:ready={captureReady}/>
 				{:else if currentTab === "builder"}
-					<Builder/>
+					<Builder
+						on:start={buildStart}
+						on:ready={buildReady}/>
 				{:else if currentTab === "events"}
 					<Events/>
 				{/if}

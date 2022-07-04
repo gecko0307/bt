@@ -12,9 +12,19 @@
 	}
 
 	async function build() {
+		dispatch("start", { 
+			message: "Build..."
+		});
+
 		const res = await apiRequest({
 			method: "build"
 			// TODO: build options
+		});
+
+		dispatch("ready", {
+			...res,
+			build: {
+			}
 		});
 	}
 </script>
