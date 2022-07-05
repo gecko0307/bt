@@ -43,6 +43,7 @@ async function buildConfig() {
 }
 
 async function build(options = { platform: "publish" }) {
+    log.clear();
     const config = await buildConfig();
     
     config.brand = options.brand || config.brand;
@@ -293,7 +294,8 @@ async function build(options = { platform: "publish" }) {
 
     return {
         ok: true,
-        archiveFilename: path.basename(zipPath)
+        archiveFilename: path.basename(zipPath),
+        log: log
     };
 }
 

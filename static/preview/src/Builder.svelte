@@ -51,7 +51,8 @@
 			...res,
 			build: {
 				haveResult: res.ok,
-				filename: res.archiveFilename || ""
+				filename: res.archiveFilename || "",
+				log: res.log
 			}
 		});
 	}

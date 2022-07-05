@@ -58,7 +58,8 @@ async function build(req = {}) {
     return {
         ok: res.ok || false,
         message: "",
-        archiveFilename: res.archiveFilename
+        archiveFilename: res.archiveFilename || [],
+        log: res.log
     }
 }
 

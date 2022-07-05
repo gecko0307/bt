@@ -55,6 +55,7 @@
 	let showBuild = false;
 	let buildFilename;
 	let buildDownloadFilename;
+	let buildMessages = [];
 
 	let showToolWindow = false;
 	let toolFrame;
@@ -215,6 +216,7 @@
 		showCapture = false;
 		showBuild = false;
 		showToolWindow = false;
+		buildMessages = [];
 	}
 
 	function captureStart(event) {
@@ -247,6 +249,9 @@
 		if (build && build.haveResult) {
 			buildFilename = "/file?path=dist/" + build.filename + "&" + new Date().getTime();
 			buildDownloadFilename = build.filename;
+			if (build.log) {
+				buildMessages = (build.log.errorMessages || []).concat(build.log.warningMessages || []);
+			}
 			showBuild = true;
 		}
 		else {
@@ -406,6 +411,11 @@
 				<div id="build">
 					<a href="{buildFilename}" download={buildDownloadFilename}><b>Download build</b></a><br>
 					<a href="/build" target="_blank"><b>Show build</b></a>
+					<div id="build_messages">
+						{#each buildMessages as msg}
+							<p>{msg.output}</p>
+						{/each}
+					</div>
 				</div>
 			{/if}
 			{#if showToolWindow}
@@ -587,6 +597,10 @@
 		height: 100%;
 		margin: 0;
 		padding: 0;
+		text-align: center;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 	}
 
 	#overlay-bg {
@@ -632,35 +646,37 @@
 	}
 
 	#build {
-		position: fixed;
+		display: inline-block;
+		position: relative;
 		box-sizing: border-box;
-		margin: 0;
-		padding: 0;
-		width: 320px;
-		height: 100px;
-		max-width: 100%;
-		max-height: 100%;
-		left: -100%;
-		right: -100%;
-		margin-left: auto;
-		margin-right: auto;
-		top: -100%;
-		bottom: -100%;
-		margin-top: auto;
-		margin-bottom: auto;
+		padding: 15px;
+		width: auto;
+		height: auto;
+		max-width: 75%;
+		max-height: 50%;
+		overflow-y: auto;
 		font-family: sans-serif;
 		font-size: 16px;
 		text-align: center;
 		line-height: 1.8em;
 		color: #ffffff;
 		background-color: #ffffff;
-		padding-top: 18px;
 		border: 5px solid #5fccb6;
 		border-radius: 10px;
 	}
 
 	#build a {
 		color: #5fccb6;
+	}
+
+	#build_messages {
+		text-align: left;
+		margin-top: 10px;
+	}
+	#build_messages p {
+		font-size: 14px;
+		line-height: 1.3em;
+		color: #ff0000;
 	}
 
 	#tool_frame_container {

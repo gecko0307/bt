@@ -43,6 +43,12 @@ class Logger {
             console.log(chalk.redBright(err.output));
         }
     }
+
+    clear() {
+        this.infoMessages = [];
+        this.warningMessages = [];
+        this.errorMessages = [];
+    }
 }
 
 function createLogger(options = {}) {
