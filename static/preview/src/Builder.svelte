@@ -3,6 +3,7 @@
 
 	const dispatch = createEventDispatcher();
 
+	let builder = "internal";
 	let brand = "";
 	let campaign = "";
 	let creative = "";
@@ -42,7 +43,8 @@
 			creative: creative,
 			platform: platform,
 			version: version,
-			size: size
+			size: size,
+			builder: builder
 		});
 
 		dispatch("ready", {
@@ -71,6 +73,13 @@
 			<p><input type="text" size="45" style="width:200px" bind:value={platform}></p>
 			<p>Version</p>
 			<p><input type="text" size="45" style="width:200px" bind:value={version}></p>
+			<p>Builder</p>
+			<p>
+				<select bind:value={builder}>
+					<option value="internal" selected>Internal</option>
+					<option value="gulp">Gulp-builder</option>
+				</select>
+			</p>
 			<input type="button" value="📦 Build banner" title="Build banner" on:click={build}/>
 		</fieldset>
 	</div>
@@ -92,6 +101,11 @@
 	}
 
 	input[type=text] {
+		margin-top: 5px;
+		margin-bottom: 10px;
+	}
+
+	select {
 		margin-top: 5px;
 		margin-bottom: 10px;
 	}

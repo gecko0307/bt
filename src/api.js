@@ -42,7 +42,7 @@ async function build(req = {}) {
         btConfig = requireUncached(btConfigPath) || {};
     }
     if ("builder" in btConfig) {
-        useGulpBuilder = btConfig.builder.useGulpBuilder || false;
+        useGulpBuilder = btConfig.builder.useGulpBuilder || (req.builder === "gulp") || false;
         builderPath = btConfig.builder.path || "";
     }
 

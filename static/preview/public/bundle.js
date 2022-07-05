@@ -1894,6 +1894,13 @@ var app = (function () {
     	let p11;
     	let input5;
     	let t19;
+    	let p12;
+    	let t21;
+    	let p13;
+    	let select;
+    	let option0;
+    	let option1;
+    	let t24;
     	let input6;
     	let mounted;
     	let dispose;
@@ -1942,59 +1949,81 @@ var app = (function () {
     			p11 = element("p");
     			input5 = element("input");
     			t19 = space();
+    			p12 = element("p");
+    			p12.textContent = "Builder";
+    			t21 = space();
+    			p13 = element("p");
+    			select = element("select");
+    			option0 = element("option");
+    			option0.textContent = "Internal";
+    			option1 = element("option");
+    			option1.textContent = "Gulp-builder";
+    			t24 = space();
     			input6 = element("input");
-    			add_location(legend, file$2, 60, 3, 1196);
-    			add_location(p0, file$2, 61, 3, 1223);
+    			add_location(legend, file$2, 62, 3, 1246);
+    			add_location(p0, file$2, 63, 3, 1273);
     			attr_dev(input0, "type", "text");
     			attr_dev(input0, "size", "45");
     			set_style(input0, "width", "200px");
-    			attr_dev(input0, "class", "svelte-jra80u");
-    			add_location(input0, file$2, 62, 6, 1243);
-    			add_location(p1, file$2, 62, 3, 1240);
-    			add_location(p2, file$2, 63, 3, 1320);
+    			attr_dev(input0, "class", "svelte-1fd4ssk");
+    			add_location(input0, file$2, 64, 6, 1293);
+    			add_location(p1, file$2, 64, 3, 1290);
+    			add_location(p2, file$2, 65, 3, 1370);
     			attr_dev(input1, "type", "text");
     			attr_dev(input1, "size", "45");
     			set_style(input1, "width", "200px");
-    			attr_dev(input1, "class", "svelte-jra80u");
-    			add_location(input1, file$2, 64, 6, 1343);
-    			add_location(p3, file$2, 64, 3, 1340);
-    			add_location(p4, file$2, 65, 3, 1423);
+    			attr_dev(input1, "class", "svelte-1fd4ssk");
+    			add_location(input1, file$2, 66, 6, 1393);
+    			add_location(p3, file$2, 66, 3, 1390);
+    			add_location(p4, file$2, 67, 3, 1473);
     			attr_dev(input2, "type", "text");
     			attr_dev(input2, "size", "45");
     			set_style(input2, "width", "200px");
-    			attr_dev(input2, "class", "svelte-jra80u");
-    			add_location(input2, file$2, 66, 6, 1446);
-    			add_location(p5, file$2, 66, 3, 1443);
-    			add_location(p6, file$2, 67, 3, 1526);
+    			attr_dev(input2, "class", "svelte-1fd4ssk");
+    			add_location(input2, file$2, 68, 6, 1496);
+    			add_location(p5, file$2, 68, 3, 1493);
+    			add_location(p6, file$2, 69, 3, 1576);
     			attr_dev(input3, "type", "text");
     			attr_dev(input3, "size", "45");
     			set_style(input3, "width", "200px");
-    			attr_dev(input3, "class", "svelte-jra80u");
-    			add_location(input3, file$2, 68, 6, 1545);
-    			add_location(p7, file$2, 68, 3, 1542);
-    			add_location(p8, file$2, 69, 3, 1621);
+    			attr_dev(input3, "class", "svelte-1fd4ssk");
+    			add_location(input3, file$2, 70, 6, 1595);
+    			add_location(p7, file$2, 70, 3, 1592);
+    			add_location(p8, file$2, 71, 3, 1671);
     			attr_dev(input4, "type", "text");
     			attr_dev(input4, "size", "45");
     			set_style(input4, "width", "200px");
-    			attr_dev(input4, "class", "svelte-jra80u");
-    			add_location(input4, file$2, 70, 6, 1644);
-    			add_location(p9, file$2, 70, 3, 1641);
-    			add_location(p10, file$2, 71, 3, 1724);
+    			attr_dev(input4, "class", "svelte-1fd4ssk");
+    			add_location(input4, file$2, 72, 6, 1694);
+    			add_location(p9, file$2, 72, 3, 1691);
+    			add_location(p10, file$2, 73, 3, 1774);
     			attr_dev(input5, "type", "text");
     			attr_dev(input5, "size", "45");
     			set_style(input5, "width", "200px");
-    			attr_dev(input5, "class", "svelte-jra80u");
-    			add_location(input5, file$2, 72, 6, 1746);
-    			add_location(p11, file$2, 72, 3, 1743);
+    			attr_dev(input5, "class", "svelte-1fd4ssk");
+    			add_location(input5, file$2, 74, 6, 1796);
+    			add_location(p11, file$2, 74, 3, 1793);
+    			add_location(p12, file$2, 75, 3, 1875);
+    			option0.__value = "internal";
+    			option0.value = option0.__value;
+    			option0.selected = true;
+    			add_location(option0, file$2, 78, 5, 1939);
+    			option1.__value = "gulp";
+    			option1.value = option1.__value;
+    			add_location(option1, file$2, 79, 5, 1997);
+    			attr_dev(select, "class", "svelte-1fd4ssk");
+    			if (/*builder*/ ctx[0] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[14].call(select));
+    			add_location(select, file$2, 77, 4, 1903);
+    			add_location(p13, file$2, 76, 3, 1894);
     			attr_dev(input6, "type", "button");
     			input6.value = "📦 Build banner";
     			attr_dev(input6, "title", "Build banner");
-    			add_location(input6, file$2, 73, 3, 1825);
-    			add_location(fieldset, file$2, 59, 2, 1181);
-    			attr_dev(div, "class", "section svelte-jra80u");
-    			add_location(div, file$2, 58, 1, 1156);
-    			attr_dev(main, "class", "svelte-jra80u");
-    			add_location(main, file$2, 57, 0, 1147);
+    			add_location(input6, file$2, 82, 3, 2068);
+    			add_location(fieldset, file$2, 61, 2, 1231);
+    			attr_dev(div, "class", "section svelte-1fd4ssk");
+    			add_location(div, file$2, 60, 1, 1206);
+    			attr_dev(main, "class", "svelte-1fd4ssk");
+    			add_location(main, file$2, 59, 0, 1197);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -2009,77 +2038,90 @@ var app = (function () {
     			append_dev(fieldset, t3);
     			append_dev(fieldset, p1);
     			append_dev(p1, input0);
-    			set_input_value(input0, /*brand*/ ctx[0]);
+    			set_input_value(input0, /*brand*/ ctx[1]);
     			append_dev(fieldset, t4);
     			append_dev(fieldset, p2);
     			append_dev(fieldset, t6);
     			append_dev(fieldset, p3);
     			append_dev(p3, input1);
-    			set_input_value(input1, /*campaign*/ ctx[1]);
+    			set_input_value(input1, /*campaign*/ ctx[2]);
     			append_dev(fieldset, t7);
     			append_dev(fieldset, p4);
     			append_dev(fieldset, t9);
     			append_dev(fieldset, p5);
     			append_dev(p5, input2);
-    			set_input_value(input2, /*creative*/ ctx[2]);
+    			set_input_value(input2, /*creative*/ ctx[3]);
     			append_dev(fieldset, t10);
     			append_dev(fieldset, p6);
     			append_dev(fieldset, t12);
     			append_dev(fieldset, p7);
     			append_dev(p7, input3);
-    			set_input_value(input3, /*size*/ ctx[3]);
+    			set_input_value(input3, /*size*/ ctx[4]);
     			append_dev(fieldset, t13);
     			append_dev(fieldset, p8);
     			append_dev(fieldset, t15);
     			append_dev(fieldset, p9);
     			append_dev(p9, input4);
-    			set_input_value(input4, /*platform*/ ctx[4]);
+    			set_input_value(input4, /*platform*/ ctx[5]);
     			append_dev(fieldset, t16);
     			append_dev(fieldset, p10);
     			append_dev(fieldset, t18);
     			append_dev(fieldset, p11);
     			append_dev(p11, input5);
-    			set_input_value(input5, /*version*/ ctx[5]);
+    			set_input_value(input5, /*version*/ ctx[6]);
     			append_dev(fieldset, t19);
+    			append_dev(fieldset, p12);
+    			append_dev(fieldset, t21);
+    			append_dev(fieldset, p13);
+    			append_dev(p13, select);
+    			append_dev(select, option0);
+    			append_dev(select, option1);
+    			select_option(select, /*builder*/ ctx[0]);
+    			append_dev(fieldset, t24);
     			append_dev(fieldset, input6);
 
     			if (!mounted) {
     				dispose = [
-    					listen_dev(input0, "input", /*input0_input_handler*/ ctx[7]),
-    					listen_dev(input1, "input", /*input1_input_handler*/ ctx[8]),
-    					listen_dev(input2, "input", /*input2_input_handler*/ ctx[9]),
-    					listen_dev(input3, "input", /*input3_input_handler*/ ctx[10]),
-    					listen_dev(input4, "input", /*input4_input_handler*/ ctx[11]),
-    					listen_dev(input5, "input", /*input5_input_handler*/ ctx[12]),
-    					listen_dev(input6, "click", /*build*/ ctx[6], false, false, false)
+    					listen_dev(input0, "input", /*input0_input_handler*/ ctx[8]),
+    					listen_dev(input1, "input", /*input1_input_handler*/ ctx[9]),
+    					listen_dev(input2, "input", /*input2_input_handler*/ ctx[10]),
+    					listen_dev(input3, "input", /*input3_input_handler*/ ctx[11]),
+    					listen_dev(input4, "input", /*input4_input_handler*/ ctx[12]),
+    					listen_dev(input5, "input", /*input5_input_handler*/ ctx[13]),
+    					listen_dev(select, "change", /*select_change_handler*/ ctx[14]),
+    					listen_dev(input6, "click", /*build*/ ctx[7], false, false, false)
     				];
 
     				mounted = true;
     			}
     		},
     		p: function update(ctx, [dirty]) {
-    			if (dirty & /*brand*/ 1 && input0.value !== /*brand*/ ctx[0]) {
-    				set_input_value(input0, /*brand*/ ctx[0]);
+    			if (dirty & /*brand*/ 2 && input0.value !== /*brand*/ ctx[1]) {
+    				set_input_value(input0, /*brand*/ ctx[1]);
     			}
 
-    			if (dirty & /*campaign*/ 2 && input1.value !== /*campaign*/ ctx[1]) {
-    				set_input_value(input1, /*campaign*/ ctx[1]);
+    			if (dirty & /*campaign*/ 4 && input1.value !== /*campaign*/ ctx[2]) {
+    				set_input_value(input1, /*campaign*/ ctx[2]);
     			}
 
-    			if (dirty & /*creative*/ 4 && input2.value !== /*creative*/ ctx[2]) {
-    				set_input_value(input2, /*creative*/ ctx[2]);
+    			if (dirty & /*creative*/ 8 && input2.value !== /*creative*/ ctx[3]) {
+    				set_input_value(input2, /*creative*/ ctx[3]);
     			}
 
-    			if (dirty & /*size*/ 8 && input3.value !== /*size*/ ctx[3]) {
-    				set_input_value(input3, /*size*/ ctx[3]);
+    			if (dirty & /*size*/ 16 && input3.value !== /*size*/ ctx[4]) {
+    				set_input_value(input3, /*size*/ ctx[4]);
     			}
 
-    			if (dirty & /*platform*/ 16 && input4.value !== /*platform*/ ctx[4]) {
-    				set_input_value(input4, /*platform*/ ctx[4]);
+    			if (dirty & /*platform*/ 32 && input4.value !== /*platform*/ ctx[5]) {
+    				set_input_value(input4, /*platform*/ ctx[5]);
     			}
 
-    			if (dirty & /*version*/ 32 && input5.value !== /*version*/ ctx[5]) {
-    				set_input_value(input5, /*version*/ ctx[5]);
+    			if (dirty & /*version*/ 64 && input5.value !== /*version*/ ctx[6]) {
+    				set_input_value(input5, /*version*/ ctx[6]);
+    			}
+
+    			if (dirty & /*builder*/ 1) {
+    				select_option(select, /*builder*/ ctx[0]);
     			}
     		},
     		i: noop,
@@ -2115,6 +2157,7 @@ var app = (function () {
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('Builder', slots, []);
     	const dispatch = createEventDispatcher();
+    	let builder = "internal";
     	let brand = "";
     	let campaign = "";
     	let creative = "";
@@ -2124,12 +2167,12 @@ var app = (function () {
 
     	onMount(async () => {
     		const config = await apiRequest$1({ method: "buildConfig" });
-    		$$invalidate(0, brand = config.brand || "");
-    		$$invalidate(1, campaign = config.campaign || "");
-    		$$invalidate(2, creative = config.creative || "");
-    		$$invalidate(4, platform = config.platform || "publish");
-    		$$invalidate(5, version = config.version || "v1");
-    		$$invalidate(3, size = config.size || "");
+    		$$invalidate(1, brand = config.brand || "");
+    		$$invalidate(2, campaign = config.campaign || "");
+    		$$invalidate(3, creative = config.creative || "");
+    		$$invalidate(5, platform = config.platform || "publish");
+    		$$invalidate(6, version = config.version || "v1");
+    		$$invalidate(4, size = config.size || "");
     	});
 
     	async function build() {
@@ -2142,7 +2185,8 @@ var app = (function () {
     			creative,
     			platform,
     			version,
-    			size
+    			size,
+    			builder
     		});
 
     		dispatch("ready", {
@@ -2162,38 +2206,44 @@ var app = (function () {
 
     	function input0_input_handler() {
     		brand = this.value;
-    		$$invalidate(0, brand);
+    		$$invalidate(1, brand);
     	}
 
     	function input1_input_handler() {
     		campaign = this.value;
-    		$$invalidate(1, campaign);
+    		$$invalidate(2, campaign);
     	}
 
     	function input2_input_handler() {
     		creative = this.value;
-    		$$invalidate(2, creative);
+    		$$invalidate(3, creative);
     	}
 
     	function input3_input_handler() {
     		size = this.value;
-    		$$invalidate(3, size);
+    		$$invalidate(4, size);
     	}
 
     	function input4_input_handler() {
     		platform = this.value;
-    		$$invalidate(4, platform);
+    		$$invalidate(5, platform);
     	}
 
     	function input5_input_handler() {
     		version = this.value;
-    		$$invalidate(5, version);
+    		$$invalidate(6, version);
+    	}
+
+    	function select_change_handler() {
+    		builder = select_value(this);
+    		$$invalidate(0, builder);
     	}
 
     	$$self.$capture_state = () => ({
     		onMount,
     		createEventDispatcher,
     		dispatch,
+    		builder,
     		brand,
     		campaign,
     		creative,
@@ -2205,12 +2255,13 @@ var app = (function () {
     	});
 
     	$$self.$inject_state = $$props => {
-    		if ('brand' in $$props) $$invalidate(0, brand = $$props.brand);
-    		if ('campaign' in $$props) $$invalidate(1, campaign = $$props.campaign);
-    		if ('creative' in $$props) $$invalidate(2, creative = $$props.creative);
-    		if ('size' in $$props) $$invalidate(3, size = $$props.size);
-    		if ('platform' in $$props) $$invalidate(4, platform = $$props.platform);
-    		if ('version' in $$props) $$invalidate(5, version = $$props.version);
+    		if ('builder' in $$props) $$invalidate(0, builder = $$props.builder);
+    		if ('brand' in $$props) $$invalidate(1, brand = $$props.brand);
+    		if ('campaign' in $$props) $$invalidate(2, campaign = $$props.campaign);
+    		if ('creative' in $$props) $$invalidate(3, creative = $$props.creative);
+    		if ('size' in $$props) $$invalidate(4, size = $$props.size);
+    		if ('platform' in $$props) $$invalidate(5, platform = $$props.platform);
+    		if ('version' in $$props) $$invalidate(6, version = $$props.version);
     	};
 
     	if ($$props && "$$inject" in $$props) {
@@ -2218,6 +2269,7 @@ var app = (function () {
     	}
 
     	return [
+    		builder,
     		brand,
     		campaign,
     		creative,
@@ -2230,7 +2282,8 @@ var app = (function () {
     		input2_input_handler,
     		input3_input_handler,
     		input4_input_handler,
-    		input5_input_handler
+    		input5_input_handler,
+    		select_change_handler
     	];
     }
 
