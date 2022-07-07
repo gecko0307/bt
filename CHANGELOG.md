@@ -1,3 +1,13 @@
+BT 1.0.0 alpha5 - TBD
+---------------------
+- **Preview**
+  - Build options
+  - Build result is shown in a modal window
+- **Font Generator**
+  - Save to file option
+- **Builder**
+  - Fix `href` check for link elements
+
 BT 1.0.0 alpha4 - 02 Jul, 2022
 ------------------------------
 - **Builder**
