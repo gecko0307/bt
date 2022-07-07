@@ -152,6 +152,10 @@
 								<p><input type="text" size="45" class:invalid={!isFontNameValid(config[fontFile].fontname)} bind:value={config[fontFile].fontname}></p>
 								<p>Subsetting text:</p>
 								<p><textarea rows="3" cols="45" class:invalid={!isSubsetTextValid(config[fontFile].text)} bind:value={config[fontFile].text}></textarea></p>
+								<label>
+									<input type="checkbox" bind:checked={config[fontFile].toFile} />
+									Save to file
+								</label>
 								<p><input type="button" value="❌ Remove" on:click={ () => removeFont(fontFile) }/></p>
 								<p><input type="button" value="🧹 Clear" on:click={ () => clearFont(fontFile) }/></p>
 							{:else}
@@ -166,7 +170,7 @@
 		</div>
 		<div id="buttons">
 			<p>
-				<input {disabled} type="button" value="⚙️ Generate fonts.css" on:click={ generate }/>
+				<input {disabled} type="button" value="⚙️ Generate fonts" on:click={ generate }/>
 				<input {disabled} type="button" value="❌ Remove all" on:click={ clear }/>
 			</p>
 		</div>
@@ -293,4 +297,8 @@
 		width: 100%;
 		height: 100%;
 	}
+
+	input[type=checkbox] {
+        margin-bottom: 15px;
+    }
 </style>

@@ -56,11 +56,7 @@ async function generate(fontsPath, fontFile, options) {
     fontObj.name["licence"] = "";
     fontObj.name["urlOfLicence"] = "";
 
-    const fontBase64 = font.toBase64({
-        type: "woff"
-    });
-
-    return fontBase64;
+    return font;
 }
 
 module.exports = {

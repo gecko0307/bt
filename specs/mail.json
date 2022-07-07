@@ -10,7 +10,7 @@
     },
     
     "requiredFiles": ["index.html"],
-    "allowedFiles": ["*.html", "*.png", "*.jpg", "*.jpeg", "*.gif", "*.css", "*.js", "*.svg", "*.mp4"],
+    "allowedFiles": ["*.html", "*.png", "*.jpg", "*.jpeg", "*.gif", "*.css", "*.js", "*.svg", "*.mp4", "*.woff"],
     "maxFilesNum": 0,
     
     "indexFile": "index.html",
