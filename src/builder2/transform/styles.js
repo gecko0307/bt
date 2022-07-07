@@ -141,7 +141,7 @@ async function processStyles(filename, document, tr) {
                 }
                 else {
                     const styleOutputPath = path.resolve(`./build/${baseFilename}`);
-                    style.href = baseFilename;
+                    style.setAttribute("href", baseFilename);
                     await fs.outputFile(styleOutputPath, code);
                 }
             }

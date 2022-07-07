@@ -26,8 +26,6 @@ async function build(req = {}) {
     let useGulpBuilder = false;
     let builderPath = "";
 
-    console.log(req);
-
     const options = {
         brand: req.brand || "",
         campaign: req.campaign || "",
@@ -52,13 +50,23 @@ async function build(req = {}) {
         res = await builder(options);
     }
     else {
-        res = await builder2.build(options);
+        try {
+            res = await builder2.build(options);
+        }
+        catch(e) {
+            console.log(e);
+            return {
+                ok: false,
+                message: e,
+                archiveFilename: ""
+            }
+        }
     }
 
     return {
         ok: res.ok || false,
         message: "",
-        archiveFilename: res.archiveFilename || [],
+        archiveFilename: res.archiveFilename || "",
         log: res.log
     }
 }

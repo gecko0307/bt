@@ -150,7 +150,7 @@ async function build(options = { platform: "publish" }) {
             const links = Array.prototype.slice.call(document.getElementsByTagName("link"));
             for (const link of links) {
                 if (link.hasAttribute("href")) {
-                    const src = script.getAttribute("href");
+                    const src = link.getAttribute("href");
                     if (src.startsWith("https://") || src.startsWith("http://")) {
                         if (tr.externalLinks === false)
                             log.warn("Warning: external references are not allowed for the specified platform");

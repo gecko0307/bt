@@ -246,11 +246,20 @@
 	function buildReady(event) {
 		inProgress = false;
 		const build = event.detail.build;
-		if (build && build.haveResult) {
-			buildFilename = "/file?path=dist/" + build.filename + "&" + new Date().getTime();
-			buildDownloadFilename = build.filename;
-			if (build.log) {
-				buildMessages = (build.log.errorMessages || []).concat(build.log.warningMessages || []);
+		if (build) {
+			if (build.haveResult) {
+				buildFilename = "/file?path=dist/" + build.filename + "&" + new Date().getTime();
+				buildDownloadFilename = build.filename;
+				if (build.log) {
+					buildMessages = (build.log.errorMessages || []).concat(build.log.warningMessages || []);
+				}
+			}
+			else {
+				buildFilename = "";
+				buildDownloadFilename = "";
+				buildMessages = [
+					{ output: event.detail.message || "Error" }
+				];
 			}
 			showBuild = true;
 		}
@@ -652,6 +661,7 @@
 		padding: 15px;
 		width: auto;
 		height: auto;
+		min-width: 300px;
 		max-width: 75%;
 		max-height: 50%;
 		overflow-y: auto;
