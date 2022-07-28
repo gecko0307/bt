@@ -50,6 +50,7 @@
         "jpeg-js": "^0.4.3",
         "js-beautify": "^1.14.3",
         "jsdom": "^16.7.0",
+        "livereload": "^0.9.3",
         "lodash": "^4.17.21",
         "mime": "^2.6.0",
         "mozjpeg-binaries": "^2.1.0",

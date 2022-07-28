@@ -4,8 +4,11 @@ const { EventEmitter } = require("events");
 const { EventIterator } = require("event-iterator");
 const Fastify = require("fastify");
 const fastifyStatic = require("fastify-static");
+const livereload = require("livereload");
 const chokidar = require("chokidar");
 const mime = require("mime");
+const jsdom = require("jsdom");
+const { JSDOM } = jsdom;
 const api = require("./api");
 
 const cwd = process.cwd();
@@ -14,9 +17,12 @@ let eventEmitter;
 let watcherFonts;
 let watcherImages;
 let fastify;
+let livereloadServer;
 
 function init() {
     eventEmitter = new EventEmitter();
+    
+    livereloadServer = livereload.createServer();
 
     fastify = Fastify({});
     fastify.register(require("fastify-sse-v2"), { retryDelay: 1000 });
@@ -25,6 +31,22 @@ function init() {
     fastify.register(fastifyStatic, {
         root: path.join(cwd, "HTML")
     });
+    
+    async function serveIndexFile(req, reply) {
+        const indexFilePath = path.resolve("./HTML/index.html");
+        const html = await fs.readFile(indexFilePath);
+        const dom = new JSDOM(html);
+        const document = dom.window.document;
+        const body = document.getElementsByTagName("body")[0];
+        const script = document.createElement("script");
+        script.setAttribute("src", "http://localhost:35729/livereload.js?snipver=1");
+        body.insertBefore(script, body.firstChild);
+        const htmlOutput = dom.serialize();
+        return reply.type("text/html").send(htmlOutput);
+    }
+    
+    fastify.get("/", serveIndexFile);
+    fastify.get("/index.html", serveIndexFile);
 
     //  Banner project's build directory (builded banner)
     fastify.register(fastifyStatic, {
@@ -144,6 +166,7 @@ function init() {
 }
 
 async function listen(options) {
+    await livereloadServer.watch(path.join(cwd, "HTML"));
     await fastify.listen(8000);
     console.log("Listening on http://localhost:8000/");
     if (options.onListen) options.onListen(fastify);
