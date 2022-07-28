@@ -106,7 +106,8 @@ async function prepare(filename, document, tr, options) {
         for (const id of Object.keys(tr.ids)) {
             const newId = tr.ids[id];
             const element = document.getElementById(id);
-            element.setAttribute("id", newId);
+            if (element)
+                element.setAttribute("id", newId);
         }
     }
 

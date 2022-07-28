@@ -1,0 +1,71 @@
+{
+    "id": "yandex_main_dropdown",
+    "name": "Yandex Main Dropdown Block",
+    
+    "type": "html",
+    
+    "dist": {
+        "format": "zip",
+        "maxSize": 1024
+    },
+    
+    "requiredFiles": ["index.html"],
+    "allowedFiles": ["*.html", "*.js", "*.json", "*.css", "*.jpg", "*.gif", "*.png", "*.svg"],
+    "maxFilesNum": 20,
+    
+    "indexFile": "index.html",
+    
+    "externalLinks": true,
+    
+    "fallback": {
+        "required": false
+    },
+    
+    "tags": {
+        "head": [
+            {
+                "tag": "meta",
+                "attributes": {
+                    "name": "ad.bgrcolor",
+                    "content": "FFFFFF"
+                }
+            }
+        ],
+        "body": [
+            {
+                "tag": "script",
+                "attributes": {
+                    "type": "text/javascript"
+                },
+                "text": "document.getElementById(\"click1_area\").onclick = function(e) { e.preventDefault(); homeExpandableDesktopBannerAPI.clickAndClose(1); };"
+            }
+        ]
+    },
+    
+    "attributes": {
+        "#link": {
+            "target": "null",
+            "href": "#"
+        },
+        "#container": {
+            "aria-hidden": "true"
+        }
+    },
+    
+    "ids": {
+        "link": "click1_area"
+    },
+    
+    "inlineFiles": false,
+    "minify": true,
+    
+    "browsers": {
+        "chrome": 14,
+        "firefox": 14,
+        "safari": 5,
+        "ie": 9,
+        "opera": 14,
+        "yandex": 14,
+        "edge": 0
+    }
+}
