@@ -71,7 +71,7 @@ You can also add your own templates to `templates` directory and use them.
 
 ## Server Tools
 Development server runs at `http://localhost:8000/` and serves project's `HTML` directory (banner's static files). Additional services are available at the following routes:
-* `http://localhost:8000/preview` - developer's preview page (WIP)
+* `http://localhost:8000/preview` - developer's preview page
 * `http://localhost:8000/images` or `/tuner` - Image Optimizer
 * `http://localhost:8000/fonts` - Web Font Generator
 * `http://localhost:8000/mobile` - Mobile Device Emulator to test Device Orientation API on desktop. This functionality will be reimplemented as a part of `/preview` page in future
