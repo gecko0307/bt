@@ -2,7 +2,6 @@ import resolve from "@rollup/plugin-node-resolve";
 import sass from "rollup-plugin-sass";
 import autoprefixer from "autoprefixer";
 import postcss from "postcss";
-//import livereload from "rollup-plugin-livereload";
 import { bundleReplace, cssAnimation, domIntrospection } from "./rollup.plugins";
 import opener from "opener";
 
@@ -38,12 +37,7 @@ export default {
                 .then(result => result.css)
         }),
         cssAnimation({ always: true }),
-        domIntrospection({ always: true }),
-        /*
-        livereload({
-            watch: "HTML",
-        })
-        */
+        domIntrospection({ always: true })
     ],
     
     context: "window",
