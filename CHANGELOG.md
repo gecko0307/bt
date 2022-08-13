@@ -1,5 +1,12 @@
-BT 1.0.0 alpha5 - TBD
----------------------
+BT 1.0.0 alpha6 - 13 Aug, 2022
+- **Development server**
+  - Inject livereload script to `index.html` instead of `animation.js`
+- **Builder**
+  - New platform specification `yandex_main_dropdown`
+  - Fix `prepare.js`
+
+BT 1.0.0 alpha5 - 21 Jul, 2022
+------------------------------
 - **Preview**
   - Build options
   - Build result is shown in a modal window
