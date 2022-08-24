@@ -25,7 +25,9 @@ if (fs.existsSync(serverConfigPath)) {
     serverConfig = fs.readJSONSync(serverConfigPath, { throws: false }) || defaultServerConfig;
 }
 
-const url = "http://localhost:8000" + serverConfig.startPath || "/";
+const port = 8000;
+const baseUrl = "http://localhost:8000";
+const url = baseUrl + serverConfig.startPath || "/";
 
 let eventEmitter;
 let watcherFonts;
@@ -181,8 +183,8 @@ function init() {
 
 async function listen(options) {
     await livereloadServer.watch(path.join(cwd, "HTML"));
-    await fastify.listen(8000);
-    console.log("Listening on http://localhost:8000/");
+    await fastify.listen(port);
+    console.log("Listening on", baseUrl);
     if (options.onListen) options.onListen(fastify);
 }
 
