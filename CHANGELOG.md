@@ -1,4 +1,10 @@
+BT 1.0.0 alpha7 - TBD
+---------------------
+- **Development server**
+  - Support `.data/server.config.json`
+
 BT 1.0.0 alpha6 - 13 Aug, 2022
+------------------------------
 - **Development server**
   - Inject livereload script to `index.html` instead of `animation.js`
 - **Builder**
