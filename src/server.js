@@ -13,6 +13,20 @@ const api = require("./api");
 
 const cwd = process.cwd();
 
+const serverConfigPath = path.join(cwd, ".data", "server.config.json");
+
+const defaultServerConfig = {
+	startPath: "/"
+};
+
+let serverConfig = defaultServerConfig;
+
+if (fs.existsSync(serverConfigPath)) {
+    serverConfig = fs.readJSONSync(serverConfigPath, { throws: false }) || defaultServerConfig;
+}
+
+const url = "http://localhost:8000" + serverConfig.startPath || "/";
+
 let eventEmitter;
 let watcherFonts;
 let watcherImages;
@@ -174,5 +188,6 @@ async function listen(options) {
 
 module.exports = {
     init,
-    listen
+    listen,
+    url
 };

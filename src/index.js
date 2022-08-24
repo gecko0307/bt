@@ -70,8 +70,8 @@ async function run(options = {}) {
         server.init();
         server.listen({
             onListen: function(server) {
-                const url = "http://localhost:8000/";
-                opener(url);
+                console.log("Opening", server.url);
+                opener(server.url);
                 console.log("Good luck!");
             }
         });
