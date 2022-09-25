@@ -74,7 +74,6 @@ Development server runs at `http://localhost:8000/` and serves project's `HTML` 
 * `http://localhost:8000/preview` - developer's preview page
 * `http://localhost:8000/images` or `/tuner` - Image Optimizer
 * `http://localhost:8000/fonts` - Web Font Generator
-* `http://localhost:8000/mobile` - Mobile Device Emulator to test Device Orientation API on desktop. This functionality will be reimplemented as a part of `/preview` page in future
 * `http://localhost:8000/build` - serves `build` directory with latest publish-ready banner build, if it exists.
 
 ## Copyright and License
