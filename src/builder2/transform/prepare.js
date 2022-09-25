@@ -73,7 +73,14 @@ async function prepare(filename, document, tr, options) {
     if ("head" in tr.tags) {
         head.appendChild(document.createTextNode("\r\n"));
         for (const tag of tr.tags.head) {
-            addTag(tag, head);
+            if (tag.tag === "meta") {
+                const name = tag.attributes.name;
+                const metaTag = document.querySelector(`meta[name='${name}']`);
+                if (metaTag == null) {
+                    addTag(tag, head);
+                }
+            }
+            else addTag(tag, head);
         }
     }
 
