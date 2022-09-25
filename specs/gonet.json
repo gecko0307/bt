@@ -1,0 +1,58 @@
+{
+    "id": "gonet",
+    "name": "Go NET",
+    
+    "type": "html",
+    
+    "dist": {
+        "format": "zip",
+        "maxSize": 150
+    },
+    
+    "requiredFiles": ["index.html"],
+    "allowedFiles": ["*.html", "*.htm", "*.js", "*.css", "*.jpg", "*.jpeg", "*.gif", "*.png", "*.svg", "*.webp", "*.eot", "*.otf", "*.ttf", "*.tte", "*.woff", "*.woff2"],
+    
+    "maxFilesNum": 100,
+    
+    "indexFile": "index.html",
+    
+    "externalLinks": false,
+    
+    "fallback": {
+        "required": false
+    },
+    
+    "tags": {
+        "head": [
+            {
+                "tag": "script",
+                "attributes": {
+                    "type": "text/javascript"
+                },
+                "text": " var clickTag = \"${3RD_CLICK_TRACKING_URL}\"; "
+            }
+        ],
+        "body": [
+            {
+                "tag": "text",
+                "text": "${HTML_IMPRESSION_TRACKING_URLS}",
+                "insert": "start"
+            }
+        ]
+    },
+    
+    "attributes": {
+        "#link": {
+            "target": null,
+            "href": "javascript:void(window.open(window.clickTag))"
+        },
+        "#container": {
+            "aria-hidden": "true"
+        }
+    },
+    
+    "ids": {},
+    
+    "inlineFiles": false,
+    "minify": true
+}
