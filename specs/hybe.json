@@ -1,6 +1,6 @@
 {
-    "id": "mail",
-    "name": "Mail.ru",
+    "id": "hube",
+    "name": "HYBE",
     
     "type": "html",
     
@@ -10,15 +10,17 @@
     },
     
     "requiredFiles": ["index.html"],
-    "allowedFiles": ["*.html", "*.png", "*.jpg", "*.jpeg", "*.gif", "*.css", "*.js", "*.svg", "*.mp4", "*.woff"],
+    "allowedFiles": ["*.*"],
     "maxFilesNum": 0,
     
     "indexFile": "index.html",
     
-    "externalLinks": false,
+    "externalLinks": true,
     
     "fallback": {
-        "required": false
+        "required": true,
+        "maxSize": 150,
+        "formats": ["gif"]
     },
     
     "tags": {
@@ -35,24 +37,18 @@
     },
     
     "attributes": {
-        "#link": {
-            "target": "_blank",
-            "href": "%link1%"
-        },
         "#container": {
-            "aria-hidden": "true"
+            "aria-hidden": "true",
+            "style": "opacity: 0; cursor: pointer;"
         }
     },
+    
+    "remove": [ "a" ],
     
     "ids": {},
     
     "inlineFiles": false,
     "minify": true,
     
-    "browsers": {
-        "chrome": 18,
-        "firefox": 14,
-        "safari": 5,
-        "ie": 10
-    }
+    "browsers": {}
 }

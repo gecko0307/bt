@@ -54,5 +54,7 @@
     "ids": {},
     
     "inlineFiles": false,
-    "minify": true
+    "minify": true,
+    
+    "browsers": {}
 }
