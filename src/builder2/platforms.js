@@ -56,6 +56,7 @@ const aliases = {
     "adbro": { name: "ADBRO", tr: "publish" },
     "adsmart": { name: "AdSmart", tr: "publish" },
     "ads": { name: "Google Ads", tr: "adwords" },
+    "adspector": { name: "AdSpector", tr: "soloway" },
     "advmaker": { name: "Advmaker", tr: "adwords" },
     "adw": { name: "AdWords", tr: "adwords" },
     "afisha": { name: "Афиша", tr: "rambler" },
