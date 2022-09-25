@@ -43,7 +43,7 @@
     "attributes": {
         "#container": {
             "aria-hidden": "true",
-            "style": "opacity: 0; cursor: pointer;"
+            "style": "{{context.content}}cursor: pointer;"
         }
     },
     

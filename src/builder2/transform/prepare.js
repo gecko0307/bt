@@ -8,6 +8,9 @@ async function prepare(filename, document, tr, options) {
 
     const templateData = {
         banner: options.banner,
+        context: {
+            content: ""
+        },
         load: function() {
             return function(filename, render) {
                 console.log(filename);
@@ -98,6 +101,15 @@ async function prepare(filename, document, tr, options) {
                 for (const name of Object.keys(attributes)) {
                     if (attributes[name] !== null) {
                         const template = attributes[name];
+                        let attribValue = "";
+                        if (element.hasAttribute(name)) {
+                            attribValue = element.getAttribute(name);
+                            if (name === "style") {
+                                attribValue = attribValue.trim();
+                                if (!attribValue.endsWith(";")) attribValue = attribValue + "; ";
+                            }
+                        }
+                        templateData.context.content = attribValue;
                         const value = Mustache.render(template, templateData);
                         element.setAttribute(name, value);
                     }
