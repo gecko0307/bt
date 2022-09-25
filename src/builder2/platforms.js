@@ -127,6 +127,7 @@ const aliases = {
     "nightparty": { name: "Nightparty", tr: "rambler" },
     "odnoklassniki": { name: "Одноклассники", tr: "mail" },
     "ok": { name: "Одноклассники", tr: "mail" },
+    "ok_interactive": { name: "Одноклассники / интерактивный пост", tr: "vk" },
     "omd": { name: "OMD OM Group", tr: "dcm" },
     "passion": { name: "Passion", tr: "rambler" },
     "pmp": { name: "PMP", tr: "rambler" },
