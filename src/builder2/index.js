@@ -187,6 +187,13 @@ async function build(options = { platform: "publish" }) {
             const { width, height } = await bannerLoad;
             banner.width = width.replace(/px/g, "");
             banner.height = height.replace(/px/g, "");
+            
+            if (config.size) {
+                const params = config.size.split("x");
+                banner.width = params[0] || banner.width;
+                banner.height = params[1] || banner.height;
+            }
+            
             banner.isResponsive = banner.width.endsWith("%") || banner.height.endsWith("%");
 
             log.info("Prepare...");
