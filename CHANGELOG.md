@@ -1,7 +1,12 @@
-BT 1.0.0 alpha7 - TBD
----------------------
+BT 1.0.0 alpha7 - 26 Sep, 2022
+------------------------------
 - **Development server**
   - Support `.data/server.config.json`
+- **Builder**
+  - New platform specifications `hybe`, `gonet`, `adspector` (alias for `soloway`), `ok_interactive` (alias for `vk`)
+  - Size explicitly defined in `builder.config.json` now overrides detected size
+  - Meta tag is now added only if it doesn't already exist
+  - Support mixing in existing value of an attribute (`{{context.content}}`) in platform specification.
 
 BT 1.0.0 alpha6 - 13 Aug, 2022
 ------------------------------
