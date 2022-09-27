@@ -1,0 +1,58 @@
+{
+    "id": "mail_unminified",
+    "name": "Mail.ru / Unminified",
+    
+    "type": "html",
+    
+    "dist": {
+        "format": "zip",
+        "maxSize": 150
+    },
+    
+    "requiredFiles": ["index.html"],
+    "allowedFiles": ["*.html", "*.png", "*.jpg", "*.jpeg", "*.gif", "*.css", "*.js", "*.svg", "*.mp4", "*.woff"],
+    "maxFilesNum": 0,
+    
+    "indexFile": "index.html",
+    
+    "externalLinks": false,
+    
+    "fallback": {
+        "required": false
+    },
+    
+    "tags": {
+        "head": [
+            {
+                "tag": "meta",
+                "attributes": {
+                    "name": "ad.size",
+                    "content": "width={{banner.width}},height={{banner.height}}"
+                }
+            }
+        ],
+        "body": []
+    },
+    
+    "attributes": {
+        "#link": {
+            "target": "_blank",
+            "href": "%link1%"
+        },
+        "#container": {
+            "aria-hidden": "true"
+        }
+    },
+    
+    "ids": {},
+    
+    "inlineFiles": false,
+    "minify": false,
+    
+    "browsers": {
+        "chrome": 18,
+        "firefox": 14,
+        "safari": 5,
+        "ie": 10
+    }
+}
