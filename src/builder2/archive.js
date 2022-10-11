@@ -12,7 +12,7 @@ function formatBytes(bytes, decimals = 2) {
     return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
 }
 
-async function archive(log, tr, platformId, config, banner, fallbackPath = "") {
+async function archive(log, root, tr, platformId, config, banner, fallbackPath = "") {
     const w = banner.width.replace(/%/g, "P");
     const h = banner.height.replace(/%/g, "P");
     let bannerSize = "";
@@ -44,22 +44,22 @@ async function archive(log, tr, platformId, config, banner, fallbackPath = "") {
         platform = platformId + "_";
     }
 
-    const outputPath = path.resolve("./build");
+    const outputPath = path.resolve(root, "./build");
 
     const zip = new Zip();
     const files = await fs.readdir(outputPath);
     files.forEach(filename => {
-        const filePath = path.resolve(`./build/${filename}`);
+        const filePath = path.resolve(root, `./build/${filename}`);
         zip.addLocalFile(filePath);
     });
 
     const zipFilename = `${bannerName}${bannerSize}${platform}${config.version}.zip`;
-    const zipPath = path.resolve(`./dist/${zipFilename}`);
+    const zipPath = path.resolve(root, `./dist/${zipFilename}`);
     let zipInternalPath = zipPath;
 
     if (fallbackPath.length > 0) {
         const zipInternalFilename = `${bannerSize}${platform}_${config.version}.zip`;
-        zipInternalPath = path.resolve(`./dist/${zipInternalFilename}`);
+        zipInternalPath = path.resolve(root, `./dist/${zipInternalFilename}`);
         zip.writeZip(zipInternalPath);
         const zip2 = new Zip();
         zip2.addLocalFile(zipInternalPath);

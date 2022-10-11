@@ -4,12 +4,12 @@ const stripComments = require("strip-comments");
 const minify = require("@node-minify/core");
 const uglifyjs = require("@node-minify/uglify-js");
 
-async function processScripts(filename, document, tr) {
+async function processScripts(root, filename, document, tr) {
     const scripts = Array.prototype.slice.call(document.getElementsByTagName("script"));
 
     for (const script of scripts) {
         const scriptFilename = script.getAttribute("src");
-        const scriptInputPath = path.resolve(`./HTML/${scriptFilename}`);
+        const scriptInputPath = path.resolve(root, `./HTML/${scriptFilename}`);
         const isInlineScript = script.hasAttribute("inline");
         const isDevScript = script.hasAttribute("dev");
         const isPreviewScript = script.hasAttribute("preview");
@@ -47,7 +47,7 @@ async function processScripts(filename, document, tr) {
                 script.innerHTML = "\n" + code;
             }
             else {
-                const scriptOutputPath = path.resolve(`./build/${baseFilename}`);
+                const scriptOutputPath = path.resolve(root, `./build/${baseFilename}`);
                 script.src = baseFilename;
                 await fs.outputFile(scriptOutputPath, code);
             }

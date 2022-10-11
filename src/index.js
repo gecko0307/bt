@@ -25,13 +25,14 @@ function requireUncached(module) {
 
 const btConfigPath = path.join(__dirname, "..", "config.json");
 
-async function build(options = { platform: "publish" }) {
+async function build(options = { platform: "publish", root: "./" }) {
     console.log("BannerToolchain build");
-
+    const root = options.root || "./";
+    console.log(`Building ${path.resolve(root)}`);
     console.log("Bundle...");
-    const mainModule = path.join(cwd, "src", "banner.js");
+    const mainModule = path.resolve(root, "src/banner.js");
     if (await fs.pathExists(mainModule)) {
-        const code = await runRollup("rollup.config.prod.js");
+        const code = await runRollup("rollup.config.prod.js", [], { cwd: path.resolve(root) });
         if (code !== 0)
             console.log("Bundling failed!");
     }
@@ -62,7 +63,7 @@ async function build(options = { platform: "publish" }) {
 
 async function deploy(options = { branch: "" }) {
     console.log("BannerToolchain deploy (WIP)");
-    await deployer(options);
+    await deployer({ ...options, buildFunc: build });
 }
 
 async function run(options = {}) {
@@ -137,7 +138,8 @@ async function main() {
         else if (args[0] === "build") {
             await build({
                 platform: args[1] || "publish", 
-                version: args[2] || "v1"
+                version: args[2] || "v1",
+                root: "./"
             });
             process.exit();
         }

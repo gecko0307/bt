@@ -2,7 +2,7 @@ const fs = require("fs-extra");
 const path = require("path");
 const Mustache = require("mustache");
 
-async function prepare(filename, document, tr, options) {
+async function prepare(root, filename, document, tr, options) {
     const head = document.getElementsByTagName("head")[0];
     const body = document.getElementsByTagName("body")[0];
 

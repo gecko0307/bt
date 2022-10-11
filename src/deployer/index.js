@@ -59,10 +59,19 @@ async function deploy(options = { branch: "" }) {
         }]);
         branch = answers.branch;
     }
-
-    console.log(`Building branch ${branch}...`);
     
-    // TODO
+    if (options.buildFunc) {
+        console.log(`Building branch ${branch}...`);
+        await git.raw(["checkout", "-f", "-B", branch, "origin/" + branch]);
+        await options.buildFunc({
+            root: `./.deploy/repo`,
+            platform: "publish",
+            version: "v1"
+        });
+    }
+    else {
+        // TODO
+    }
 }
 
 module.exports = deploy;

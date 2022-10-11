@@ -22,8 +22,8 @@ function requireUncached(module) {
     return require(module);
 }
 
-const builderConfigPath = path.resolve("./.data/builder.config.json");
-const buildPath = path.resolve("./build");
+//const builderConfigPath = path.resolve("./.data/builder.config.json");
+//const buildPath = path.resolve("./build");
 
 const configDefault = {
     brand: "",
@@ -33,7 +33,7 @@ const configDefault = {
     version: "v1"
 };
 
-async function buildConfig() {
+async function buildConfig(builderConfigPath) {
     let config = {};
     if (await fs.pathExists(builderConfigPath)) {
         config = requireUncached(builderConfigPath) || {};
@@ -42,9 +42,13 @@ async function buildConfig() {
     return config;
 }
 
-async function build(options = { platform: "publish" }) {
+async function build(options = { root: "./", platform: "publish" }) {
+    const root = options.root || "./";
+    const builderConfigPath = path.resolve(root, "./.data/builder.config.json");
+    const buildPath = path.resolve(root, "./build");
+    
     log.clear();
-    const config = await buildConfig();
+    const config = await buildConfig(builderConfigPath);
     
     config.brand = options.brand || config.brand;
     config.campaign = options.campaign || config.campaign;
@@ -58,7 +62,7 @@ async function build(options = { platform: "publish" }) {
     else {
         config.platform = options.platform;
     }
-
+    
     await fs.writeJSON(builderConfigPath, config, { spaces: "\t" });
 
     const platformId = options.platform;
@@ -75,7 +79,7 @@ async function build(options = { platform: "publish" }) {
 
     log.info("Checking required files...");
     for (filename of tr.requiredFiles) {
-        const requiredFilePath = path.resolve(`./HTML/${filename}`);
+        const requiredFilePath = path.resolve(root, `./HTML/${filename}`);
         if (!await fs.pathExists(requiredFilePath)) {
             log.error(`Error: required file "${filename}" is missing`);
             return {
@@ -87,7 +91,7 @@ async function build(options = { platform: "publish" }) {
                 htmlFiles[filename] = await fs.readFile(requiredFilePath, "utf8");
             }
             else {
-                const destinationFilePath = path.resolve(`./build/${filename}`);
+                const destinationFilePath = path.resolve(root, `./build/${filename}`);
                 await fs.copyFile(requiredFilePath, destinationFilePath);
             }
         }
@@ -106,21 +110,21 @@ async function build(options = { platform: "publish" }) {
         const document = dom.window.document;
 
         log.info("Scripts...");
-        if (!await transform.scripts(filename, document, tr)) {
+        if (!await transform.scripts(root, filename, document, tr)) {
             return {
                 ok: false
             };
         }
 
         log.info("Styles...");
-        if (!await transform.styles(filename, document, tr)) {
+        if (!await transform.styles(root, filename, document, tr)) {
             return {
                 ok: false
             };
         }
 
         log.info("Assets...");
-        if (!await transform.assets(filename, document, tr)) {
+        if (!await transform.assets(root, filename, document, tr)) {
             return {
                 ok: false
             };
@@ -197,7 +201,7 @@ async function build(options = { platform: "publish" }) {
             banner.isResponsive = banner.width.endsWith("%") || banner.height.endsWith("%");
 
             log.info("Prepare...");
-            if (!await transform.prepare(filename, document, tr, { banner, config })) {
+            if (!await transform.prepare(root, filename, document, tr, { banner, config })) {
                 return {
                     ok: false
                 };
@@ -207,7 +211,7 @@ async function build(options = { platform: "publish" }) {
         log.info("Serialize...");
         let htmlOutput = "";
         if (strip === true) {
-            htmlOutput = await transform.strip(filename, document, { banner, config });
+            htmlOutput = await transform.strip(root, filename, document, { banner, config });
         }
         else {
             htmlOutput = dom.serialize();
@@ -220,12 +224,11 @@ async function build(options = { platform: "publish" }) {
             "indent_scripts": false,
             "extra_liners": []
         });
-        const htmlOutputPath = path.resolve(`./build/${filename}`);
+        const htmlOutputPath = path.resolve(root, `./build/${filename}`);
         await fs.outputFile(htmlOutputPath, htmlOutput);
     }
 
     log.info("Check build files...");
-    const outputPath = path.resolve("./build");
     const matches = tr.allowedFiles.map(wildcard => wcmatch(wildcard));
 
     function isFileAllowed(filename) {
@@ -235,7 +238,7 @@ async function build(options = { platform: "publish" }) {
         return false;
     }
 
-    const files = await fs.readdir(outputPath);
+    const files = await fs.readdir(buildPath);
 
     if (tr.maxFilesNum > 0 && files.length > tr.maxFilesNum) {
         log.warn(`Warning: number of files exceeds maximum allowed by the specified platform (${tr.maxFilesNum})`);
@@ -251,9 +254,9 @@ async function build(options = { platform: "publish" }) {
     if ("fallback" in tr) {
         if (tr.fallback.required === true) {
             const fallbackPaths = [
-                path.resolve("./HTML/fallback.gif"),
-                path.resolve("./HTML/fallback.jpg"),
-                path.resolve("./HTML/fallback.png")
+                path.resolve(root, "./HTML/fallback.gif"),
+                path.resolve(root, "./HTML/fallback.jpg"),
+                path.resolve(root, "./HTML/fallback.png")
             ];
 
             for (const fPath of fallbackPaths) {
@@ -279,16 +282,16 @@ async function build(options = { platform: "publish" }) {
     }
 
     if (platformId === "publish") {
-        const previewInputPath = path.resolve("./HTML/preview.html");
+        const previewInputPath = path.resolve(root, "./HTML/preview.html");
         if (await fs.pathExists(previewInputPath)) {
-            const previewOutputPath = path.resolve("./build/preview.html");
+            const previewOutputPath = path.resolve(root, "./build/preview.html");
             await fs.copyFile(previewInputPath, previewOutputPath);
         }
     }
     
     log.info("Archive...");
     // TODO: respect tr.dist.format
-    const zipPath = await archive(log, tr, platformId, config, banner, fallbackPath);
+    const zipPath = await archive(log, root, tr, platformId, config, banner, fallbackPath);
 
     // Build report
     if (log.warningMessages.length > 0) {

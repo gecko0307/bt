@@ -2,7 +2,7 @@ const fs = require("fs-extra");
 const path = require("path");
 const mime = require("mime");
 
-async function processAssets(filename, document, tr) {
+async function processAssets(root, filename, document, tr) {
 
     const images = Array.prototype.slice.call(document.getElementsByTagName("img"));
     for (const image of images) {
@@ -11,8 +11,8 @@ async function processAssets(filename, document, tr) {
 
         const imageFilename = image.getAttribute("src");
         const baseFilename = path.basename(imageFilename);
-        const imageInputPath = path.resolve(`./HTML/${imageFilename}`);
-        const imageOutputPath = path.resolve(`./build/${baseFilename}`);
+        const imageInputPath = path.resolve(root, `./HTML/${imageFilename}`);
+        const imageOutputPath = path.resolve(root, `./build/${baseFilename}`);
         const isInlineImage = image.hasAttribute("inline");
 
         if (await fs.pathExists(imageInputPath)) {
@@ -38,8 +38,8 @@ async function processAssets(filename, document, tr) {
 
         const posterFilename = video.getAttribute("poster");
         const baseFilename = path.basename(posterFilename);
-        const posterInputPath = path.resolve(`./HTML/${posterFilename}`);
-        const posterOutputPath = path.resolve(`./build/${baseFilename}`);
+        const posterInputPath = path.resolve(root, `./HTML/${posterFilename}`);
+        const posterOutputPath = path.resolve(root, `./build/${baseFilename}`);
 
         if (await fs.pathExists(posterInputPath)) {
             video.setAttribute("poster", baseFilename);
@@ -53,8 +53,8 @@ async function processAssets(filename, document, tr) {
 
         const sourceFilename = source.getAttribute("src");
         const baseFilename = path.basename(sourceFilename);
-        const sourceInputPath = path.resolve(`./HTML/${sourceFilename}`);
-        const sourceOutputPath = path.resolve(`./build/${baseFilename}`);
+        const sourceInputPath = path.resolve(root, `./HTML/${sourceFilename}`);
+        const sourceOutputPath = path.resolve(root, `./build/${baseFilename}`);
 
         if (await fs.pathExists(sourceInputPath)) {
             source.setAttribute("src", baseFilename);
@@ -68,8 +68,8 @@ async function processAssets(filename, document, tr) {
 
         const imageFilename = image.getAttribute("xlink:href");
         const baseFilename = path.basename(imageFilename);
-        const imageInputPath = path.resolve(`./HTML/${imageFilename}`);
-        const imageOutputPath = path.resolve(`./build/${baseFilename}`);
+        const imageInputPath = path.resolve(root, `./HTML/${imageFilename}`);
+        const imageOutputPath = path.resolve(root, `./build/${baseFilename}`);
 
         if (await fs.pathExists(imageInputPath)) {
             image.setAttribute("xlink:href", baseFilename);

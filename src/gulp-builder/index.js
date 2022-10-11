@@ -8,8 +8,6 @@ const platforms = require("./platforms");
 
 const cwd = process.cwd();
 
-const builderConfigPath = path.resolve("./.data/builder.config.json");
-
 const configDefault = {
     brand: "",
     campaign: "",
@@ -32,7 +30,10 @@ function requireUncached(module) {
     return require(module);
 }
 
-async function build(options = { platform: "publish", gulpBuilderPath: "" }) {
+async function build(options = { platform: "publish", gulpBuilderPath: "", root: "./" }) {
+    const root = options.root || "./";
+    const builderConfigPath = path.resolve(root, ".data/builder.config.json");
+    
     let config = {};
     if (await fs.pathExists(builderConfigPath)) {
         config = requireUncached(builderConfigPath) || {};
@@ -72,8 +73,8 @@ async function build(options = { platform: "publish", gulpBuilderPath: "" }) {
     console.log("Technical requirements:", technicalRequirementsName, `(${technicalRequirements})`);
     console.log("Version:", config.version);
 
-    const inputPath = path.join(cwd, "HTML");
-    const outputPath = path.join(cwd, "build");
+    const inputPath = path.resolve(root, "HTML");
+    const outputPath = path.resolve(root, "build");
 
     const builderPath = options.gulpBuilderPath || "";
     const gulpfilePath = path.join(builderPath, "gulpfile.js");
@@ -94,7 +95,7 @@ async function build(options = { platform: "publish", gulpBuilderPath: "" }) {
     else {
         console.log("Build finished!");
 
-        const htmlPath = path.resolve("./build/index.html");
+        const htmlPath = path.resolve(root, "./build/index.html");
         // TODO: check if htmlPath exists
         const dom = await JSDOM.fromFile(htmlPath, { resources: "usable", pretendToBeVisual: true });
         //const dom = await JSDOM.fromURL("http://localhost:8000/build", { resources: "usable", pretendToBeVisual: true });
@@ -139,12 +140,12 @@ async function build(options = { platform: "publish", gulpBuilderPath: "" }) {
         }
 
         const zipFilename = `${bannerName}${bannerSize}${platform}_${config.version}.zip`;
-        const zipPath = path.join(cwd, "dist", zipFilename);
+        const zipPath = path.resolve(root, "dist", zipFilename);
 
         const zip = new Zip();
         const files = await fs.readdir(outputPath);
         files.forEach(filename => {
-            const filePath = path.join(cwd, "build", filename);
+            const filePath = path.resolve(root, "build", filename);
             zip.addLocalFile(filePath);
         });
         zip.writeZip(zipPath);

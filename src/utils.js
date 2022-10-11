@@ -17,7 +17,7 @@ function execute(cmd, options, spawnOptions = {}) {
         });
         
         p.on("error", function(err) {
-            //console.log(err);
+            console.log(err);
             reject(err);
         });
     });

@@ -52,7 +52,7 @@ async function autoprefix(css) {
     return result.css;
 }
 
-async function processStyles(filename, document, tr) {
+async function processStyles(root, filename, document, tr) {
     let assets = [];
 
     async function processCode(code) {
@@ -72,7 +72,7 @@ async function processStyles(filename, document, tr) {
                     return p;
                 }
                 else {
-                    const assetPath = path.resolve(`./HTML/${p}`);
+                    const assetPath = path.resolve(root, `./HTML/${p}`);
                     if (fs.pathExistsSync(assetPath)) {
                         if (!assets.includes(p)) assets.push(p);
                         return path.basename(p);
@@ -113,7 +113,7 @@ async function processStyles(filename, document, tr) {
     const extStyles = Array.prototype.slice.call(document.getElementsByTagName("link"));
     for (const style of extStyles) {
         const styleFilename = style.getAttribute("href");
-        const styleInputPath = path.resolve(`./HTML/${styleFilename}`);
+        const styleInputPath = path.resolve(root, `./HTML/${styleFilename}`);
         const isInlineStyle = style.hasAttribute("inline");
         const isDevStyle = style.hasAttribute("dev");
         const isPreviewStyle = style.hasAttribute("preview");
@@ -140,7 +140,7 @@ async function processStyles(filename, document, tr) {
                     style.replaceWith(inlineStyle);
                 }
                 else {
-                    const styleOutputPath = path.resolve(`./build/${baseFilename}`);
+                    const styleOutputPath = path.resolve(root, `./build/${baseFilename}`);
                     style.setAttribute("href", baseFilename);
                     await fs.outputFile(styleOutputPath, code);
                 }
@@ -151,8 +151,8 @@ async function processStyles(filename, document, tr) {
     // TODO: make this separate stage
     for (const asset of assets) {
         const filename = path.basename(asset);
-        const assetInputPath = path.resolve(`./HTML/${asset}`);
-        const assetOutputPath = path.resolve(`./build/${filename}`);
+        const assetInputPath = path.resolve(root, `./HTML/${asset}`);
+        const assetOutputPath = path.resolve(root, `./build/${filename}`);
         await fs.copyFile(assetInputPath, assetOutputPath);
     }
 

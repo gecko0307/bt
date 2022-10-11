@@ -1,7 +1,7 @@
 const fs = require("fs-extra");
 const path = require("path");
 
-async function strip(filename, document, options) {
+async function strip(root, filename, document, options) {
     const html = document.getElementsByTagName("html")[0];
     const head = document.getElementsByTagName("head")[0];
     const body = document.getElementsByTagName("body")[0];
