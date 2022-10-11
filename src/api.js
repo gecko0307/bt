@@ -3,7 +3,7 @@ const path = require("path");
 const fontGenerator = require("./font-generator");
 const imageOptimizer = require("./image-optimizer");
 const capturer = require("./capturer");
-const builder = require("./builder");
+const builder = require("./gulp-builder");
 const builder2 = require("./builder2");
 
 function requireUncached(module) {

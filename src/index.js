@@ -4,8 +4,9 @@ const path = require("path");
 const opener = require("opener");
 const server = require("./server");
 const capturer = require("./capturer");
-const gulpBuilder = require("./builder");
+const gulpBuilder = require("./gulp-builder");
 const nativeBuilder = require("./builder2");
+const deployer = require("./deployer");
 const runRollup = require("./rollup");
 
 const cwd = process.cwd();
@@ -57,6 +58,11 @@ async function build(options = { platform: "publish" }) {
     else {
         await nativeBuilder.build(options);
     }
+}
+
+async function deploy(options = { branch: "" }) {
+    console.log("BannerToolchain deploy (WIP)");
+    await deployer(options);
 }
 
 async function run(options = {}) {
@@ -132,6 +138,12 @@ async function main() {
             await build({
                 platform: args[1] || "publish", 
                 version: args[2] || "v1"
+            });
+            process.exit();
+        }
+        else if (args[0] === "deploy") {
+            await deploy({
+                branch: args[1] || ""
             });
             process.exit();
         }
