@@ -34,7 +34,10 @@ async function getRepo(address) {
 }
 
 async function deploy(options = { branch: "" }) {
-    // TODO: address prompt
+    // TODO: prompt repo address, brand, campaign
+    // TODO: save address, brand, campaign to deploy.config.json
+    
+    // TODO: address from config
     const git = await getRepo("git@gitlab.com:gecko0307/otkritie-october-2022.git");
     
     const remoteBranches = (await git.branch()).branches;
@@ -63,14 +66,18 @@ async function deploy(options = { branch: "" }) {
     if (options.buildFunc) {
         console.log(`Building branch ${branch}...`);
         await git.raw(["checkout", "-f", "-B", branch, "origin/" + branch]);
-        await options.buildFunc({
-            root: `./.deploy/repo`,
-            platform: "publish",
-            version: "v1"
-        });
+        const buildOptions = {
+            root: `./.deploy/repo`
+            brand: "", // TODO: from config
+            campaign: "", // TODO: from config
+            creative: "", // TODO: from branch
+            platform: "publish", // TODO: from branch
+            version: "v1" // TODO: from branch
+        };
+        await options.buildFunc(buildOptions);
     }
     else {
-        // TODO
+        console.log("Error: no buildFunc provided");
     }
 }
 

@@ -62,7 +62,7 @@ async function build(options = { platform: "publish", root: "./" }) {
 }
 
 async function deploy(options = { branch: "" }) {
-    console.log("BannerToolchain deploy (WIP)");
+    console.log("BannerToolchain deploy (experimental)");
     await deployer({ ...options, buildFunc: build });
 }
 
