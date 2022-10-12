@@ -11,38 +11,42 @@ function branchBaseName(branchName) {
 }
 
 async function deploy(options = { branch: "" }) {
-    console.log("Deploy...");
+    const config = {
+        brand: "",
+        campaign: ""
+    };
+    
+    // TODO: try to read deploy.config.json
+
     const repoDir = ".deploy/repo";
     const sshKey = path.resolve(".deploy/ssh/id_rsa");
     
-    console.log("Repo dir...");
     if (!await fs.exists(".deploy")) {
         await fs.mkdir(".deploy");
         await fs.mkdir(repoDir);
     }
     
-    console.log("Git");
     const git = Git(path.resolve(repoDir));
     git.outputHandler(function(command, stdout, stderr) {
         //stdout.pipe(process.stdout);
         stderr.pipe(process.stderr);
     });
     
-    // TODO: prompt repo address, brand, campaign
-    // TODO: save address, brand, campaign to deploy.config.json
-    
-    console.log("Initialize");
     if (await git.checkIsRepo()) {
         console.log("Fetching remote changes...");
         await git.raw(["fetch", "origin", "-p"]);
     }
     else {
         //const address = "git@gitlab.com:gecko0307/otkritie-october-2022.git";
-        console.log("Clone");
-        const answers = await inquirer.prompt([{
-            name: "address",
-            message: "Repository URL"
-        }]);
+        const answers = await inquirer.prompt([
+            { name: "address", message: "Repository URL:" },
+            { name: "brand", message: "Brand:" },
+            { name: "campaign", message: "Campaign:" }
+        ]);
+        
+        config.address = answers.address;
+        config.brand = answers.brand;
+        config.campaign = answers.campaign;
         
         //const sshCommand = `ssh -o StrictHostKeyChecking=no -i ${sshKey}`;
         //await git.env("GIT_SSH_COMMAND", sshCommand);
@@ -80,8 +84,8 @@ async function deploy(options = { branch: "" }) {
         await git.raw(["checkout", "-f", "-B", branch, "origin/" + branch]);
         const buildOptions = {
             root: `./.deploy/repo`,
-            brand: "", // TODO: from config
-            campaign: "", // TODO: from config
+            brand: config.brand, // TODO: from config
+            campaign: config.campaign, // TODO: from config
             creative: "", // TODO: from branch
             platform: "publish", // TODO: from branch
             version: "v1" // TODO: from branch
