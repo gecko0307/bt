@@ -1,3 +1,11 @@
+BT 1.0.0 alpha8 - TBD
+---------------------
+- **Deployer** - new tool for building banners from Git repository branches
+- **Builder**
+  - New platform specification `mail_unminified`
+- **Capturer**
+  - Fix recording banners with width or height not divisible by 2.
+
 BT 1.0.0 alpha7 - 26 Sep, 2022
 ------------------------------
 - **Development server**
