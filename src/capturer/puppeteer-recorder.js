@@ -41,7 +41,7 @@ module.exports.record = async function(options) {
     if ("format" in options) args.push("-f", options.format);
     else if (!outFile) args.push("-f", "mp4");
 
-    args.push(outFile || "-");
+    args.push(`${outFile}` || "-");
 
     const ffmpeg = spawn(ffmpegPath, args);
 
@@ -59,7 +59,7 @@ module.exports.record = async function(options) {
         if (options.logEachFrame)
             console.log(`[puppeteer-recorder] rendering frame ${i} of ${options.frames}.`);
         await options.render(browser, page, i);
-        const screenshot = await page.screenshot({ omitBackground: true });
+        const screenshot = await page.screenshot(); //{ omitBackground: true }
         await write(ffmpeg.stdin, screenshot);
     }
 
@@ -67,6 +67,7 @@ module.exports.record = async function(options) {
 
     await closed;
 };
+
 
 function ffmpegArgs(fps, crf = 1) { return [
     // Overwrite output files without asking

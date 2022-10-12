@@ -85,6 +85,9 @@ async function capture(options) {
     
     if (options.width && options.width !== 0) banner.width = options.width;
     if (options.height && options.height !== 0) banner.height = options.height;
+    
+    banner.width = Math.ceil(banner.width/2)*2;
+    banner.height = Math.ceil(banner.height/2)*2;
 
     console.log("Banner info:");
     console.log(`Size: ${banner.width}x${banner.height}`);
@@ -97,7 +100,7 @@ async function capture(options) {
     result.width = banner.width;
     result.height = banner.height;
     result.duration = banner.duration;
-
+    
     await page.setViewport({
         width: banner.width,
         height: banner.height,

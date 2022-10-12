@@ -11,6 +11,7 @@ function branchBaseName(branchName) {
 }
 
 async function getRepo(address) {
+    // TODO: key from config
     const repoDir = path.resolve(".deploy/repo");
     const sshKey = path.resolve(".deploy/ssh/id_rsa");
     const command = `ssh -o StrictHostKeyChecking=no -i ${sshKey}`;
@@ -67,7 +68,7 @@ async function deploy(options = { branch: "" }) {
         console.log(`Building branch ${branch}...`);
         await git.raw(["checkout", "-f", "-B", branch, "origin/" + branch]);
         const buildOptions = {
-            root: `./.deploy/repo`
+            root: `./.deploy/repo`,
             brand: "", // TODO: from config
             campaign: "", // TODO: from config
             creative: "", // TODO: from branch
