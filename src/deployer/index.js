@@ -10,36 +10,47 @@ function branchBaseName(branchName) {
     return levels[levels.length - 1];
 }
 
-async function getRepo(address) {
-    // TODO: key from config
-    const repoDir = path.resolve(".deploy/repo");
+async function deploy(options = { branch: "" }) {
+    console.log("Deploy...");
+    const repoDir = ".deploy/repo";
     const sshKey = path.resolve(".deploy/ssh/id_rsa");
-    const command = `ssh -o StrictHostKeyChecking=no -i ${sshKey}`;
-    if (!await fs.exists(repoDir))
-        await fs.mkdirSync(repoDir);
-    const git = Git(repoDir);
+    
+    console.log("Repo dir...");
+    if (!await fs.exists(".deploy")) {
+        await fs.mkdir(".deploy");
+        await fs.mkdir(repoDir);
+    }
+    
+    console.log("Git");
+    const git = Git(path.resolve(repoDir));
     git.outputHandler(function(command, stdout, stderr) {
         //stdout.pipe(process.stdout);
         stderr.pipe(process.stderr);
     });
-    await git.env("GIT_SSH_COMMAND", command);
-    if (git.checkIsRepo) {
+    
+    // TODO: prompt repo address, brand, campaign
+    // TODO: save address, brand, campaign to deploy.config.json
+    
+    console.log("Initialize");
+    if (await git.checkIsRepo()) {
         console.log("Fetching remote changes...");
         await git.raw(["fetch", "origin", "-p"]);
     }
     else {
+        //const address = "git@gitlab.com:gecko0307/otkritie-october-2022.git";
+        console.log("Clone");
+        const answers = await inquirer.prompt([{
+            name: "address",
+            message: "Repository URL"
+        }]);
+        
+        //const sshCommand = `ssh -o StrictHostKeyChecking=no -i ${sshKey}`;
+        //await git.env("GIT_SSH_COMMAND", sshCommand);
+        
+        const address = answers.address;
         console.log(`Cloning ${address} to ${repoDir}...`);
-        await git.clone(address, repoDir, ["--progress"]);
+        await git.clone(address, "./", ["--progress"]);
     }
-    return git;
-}
-
-async function deploy(options = { branch: "" }) {
-    // TODO: prompt repo address, brand, campaign
-    // TODO: save address, brand, campaign to deploy.config.json
-    
-    // TODO: address from config
-    const git = await getRepo("git@gitlab.com:gecko0307/otkritie-october-2022.git");
     
     const remoteBranches = (await git.branch()).branches;
     const keys = Object.keys(remoteBranches);
