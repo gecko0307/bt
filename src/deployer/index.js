@@ -2,6 +2,7 @@ const fs = require("fs-extra");
 const path = require("path");
 const Git = require("simple-git");
 const inquirer = require("inquirer");
+const { fillMissing } = require("object-fill-missing-keys");
 const parseBranch = require("./parseBranch");
 
 const cwd = process.cwd();
@@ -11,14 +12,29 @@ function branchBaseName(branchName) {
     return levels[levels.length - 1];
 }
 
-async function deploy(options = { branch: "" }) {
-    const config = {
-        brand: "",
-        campaign: ""
-    };
-    
-    // TODO: try to read deploy.config.json
+function requireUncached(module) {
+    delete require.cache[require.resolve(module)];
+    return require(module);
+}
 
+const configDefault = {
+    brand: "",
+    campaign: ""
+};
+
+async function deployConfig(deployConfigPath) {
+    let config = {};
+    if (await fs.pathExists(deployConfigPath)) {
+        config = requireUncached(deployConfigPath) || {};
+    }
+    config = fillMissing(config, configDefault);
+    return config;
+}
+
+async function deploy(options = { branch: "" }) {
+    const deployConfigPath = path.resolve("./builder.config.json");
+    const config = deployConfig(deployConfigPath);
+    
     const repoDir = ".deploy/repo";
     const sshKey = path.resolve(".deploy/ssh/id_rsa");
     
@@ -48,6 +64,9 @@ async function deploy(options = { branch: "" }) {
         config.brand = answers.brand;
         config.campaign = answers.campaign;
         
+        await fs.writeJSON(deployConfigPath, config, { spaces: "\t" });
+        
+        // TODO: SSH path from config
         //const sshCommand = `ssh -o StrictHostKeyChecking=no -i ${sshKey}`;
         //await git.env("GIT_SSH_COMMAND", sshCommand);
         
