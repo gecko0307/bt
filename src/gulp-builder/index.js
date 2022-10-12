@@ -33,6 +33,8 @@ function requireUncached(module) {
 async function build(options = { platform: "publish", gulpBuilderPath: "", root: "./" }) {
     const root = options.root || "./";
     const builderConfigPath = path.resolve(root, ".data/builder.config.json");
+    const buildPath = path.resolve(options.buildPath) || path.resolve(root, "./build");
+    const distPath = path.resolve(options.distPath) || path.resolve(root, "./dist");
     
     let config = {};
     if (await fs.pathExists(builderConfigPath)) {
@@ -74,7 +76,6 @@ async function build(options = { platform: "publish", gulpBuilderPath: "", root:
     console.log("Version:", config.version);
 
     const inputPath = path.resolve(root, "HTML");
-    const outputPath = path.resolve(root, "build");
 
     const builderPath = options.gulpBuilderPath || "";
     const gulpfilePath = path.join(builderPath, "gulpfile.js");
@@ -85,7 +86,7 @@ async function build(options = { platform: "publish", gulpBuilderPath: "", root:
 
     console.log(`Using Gulp-builder in ${builderPath}`);
     const builderCode = await execute("npm", 
-        ["run", "gulp", "--", "--task", `"${technicalRequirements}"`, "--input", `"${inputPath}/"`, "--output", `"${outputPath}/"`, "--skip"], 
+        ["run", "gulp", "--", "--task", `"${technicalRequirements}"`, "--input", `"${inputPath}/"`, "--output", `"${buildPath}/"`, "--skip"], 
         { cwd: builderPath }
     );
     if (builderCode !== 0) {
@@ -95,10 +96,9 @@ async function build(options = { platform: "publish", gulpBuilderPath: "", root:
     else {
         console.log("Build finished!");
 
-        const htmlPath = path.resolve(root, "./build/index.html");
+        const htmlPath = path.resolve(buildPath, "index.html");
         // TODO: check if htmlPath exists
         const dom = await JSDOM.fromFile(htmlPath, { resources: "usable", pretendToBeVisual: true });
-        //const dom = await JSDOM.fromURL("http://localhost:8000/build", { resources: "usable", pretendToBeVisual: true });
 
         function waitResourcesLoaded(resolve, reject) {
             const container = dom.window.document.getElementById("container");
@@ -140,12 +140,12 @@ async function build(options = { platform: "publish", gulpBuilderPath: "", root:
         }
 
         const zipFilename = `${bannerName}${bannerSize}${platform}_${config.version}.zip`;
-        const zipPath = path.resolve(root, "dist", zipFilename);
+        const zipPath = path.resolve(distPath, zipFilename);
 
         const zip = new Zip();
-        const files = await fs.readdir(outputPath);
+        const files = await fs.readdir(buildPath);
         files.forEach(filename => {
-            const filePath = path.resolve(root, "build", filename);
+            const filePath = path.resolve(buildPath, filename);
             zip.addLocalFile(filePath);
         });
         zip.writeZip(zipPath);

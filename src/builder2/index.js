@@ -22,9 +22,6 @@ function requireUncached(module) {
     return require(module);
 }
 
-//const builderConfigPath = path.resolve("./.data/builder.config.json");
-//const buildPath = path.resolve("./build");
-
 const configDefault = {
     brand: "",
     campaign: "banner",
@@ -45,7 +42,8 @@ async function buildConfig(builderConfigPath) {
 async function build(options = { root: "./", platform: "publish" }) {
     const root = options.root || "./";
     const builderConfigPath = path.resolve(root, "./.data/builder.config.json");
-    const buildPath = path.resolve(root, "./build");
+    const buildPath = options.buildPath || path.resolve(root, "./build");
+    const distPath = options.distPath || path.resolve(root, "./dist");
     
     log.clear();
     const config = await buildConfig(builderConfigPath);

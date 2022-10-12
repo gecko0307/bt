@@ -2,6 +2,7 @@ const fs = require("fs-extra");
 const path = require("path");
 const Git = require("simple-git");
 const inquirer = require("inquirer");
+const parseBranch = require("./parseBranch");
 
 const cwd = process.cwd();
 
@@ -37,7 +38,6 @@ async function deploy(options = { branch: "" }) {
         await git.raw(["fetch", "origin", "-p"]);
     }
     else {
-        //const address = "git@gitlab.com:gecko0307/otkritie-october-2022.git";
         const answers = await inquirer.prompt([
             { name: "address", message: "Repository URL:" },
             { name: "brand", message: "Brand:" },
@@ -79,16 +79,28 @@ async function deploy(options = { branch: "" }) {
         branch = answers.branch;
     }
     
+    const branchData = parseBranch(branch);
+    
     if (options.buildFunc) {
         console.log(`Building branch ${branch}...`);
+        
+        // TODO: create creative folder
+        if (!await fs.exists(branch))
+            await fs.mkdir(branch);
+        
+        if (!await fs.exists("dist"))
+            await fs.mkdir("dist");
+        
         await git.raw(["checkout", "-f", "-B", branch, "origin/" + branch]);
         const buildOptions = {
             root: `./.deploy/repo`,
-            brand: config.brand, // TODO: from config
-            campaign: config.campaign, // TODO: from config
-            creative: "", // TODO: from branch
-            platform: "publish", // TODO: from branch
-            version: "v1" // TODO: from branch
+            buildPath: branch,
+            distPath: "dist",
+            brand: config.brand,
+            campaign: config.campaign,
+            creative: branchData.creative,
+            platform: branchData.platform,
+            version: branchData.version
         };
         await options.buildFunc(buildOptions);
     }
