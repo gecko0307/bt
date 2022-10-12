@@ -33,10 +33,11 @@ async function deployConfig(deployConfigPath) {
 
 async function deploy(options = { branch: "" }) {
     const deployConfigPath = path.resolve("./builder.config.json");
-    const config = deployConfig(deployConfigPath);
+    const config = await deployConfig(deployConfigPath);
+    
+    console.log(config);
     
     const repoDir = ".deploy/repo";
-    const sshKey = path.resolve(".deploy/ssh/id_rsa");
     
     if (!await fs.exists(".deploy")) {
         await fs.mkdir(".deploy");
@@ -49,30 +50,43 @@ async function deploy(options = { branch: "" }) {
         stderr.pipe(process.stderr);
     });
     
+    if (config.sshKey) {
+        const sshCommand = `ssh -o StrictHostKeyChecking=no -i ${config.sshKey}`;
+        await git.env("GIT_SSH_COMMAND", sshCommand);
+    }
+    
     if (await git.checkIsRepo()) {
         console.log("Fetching remote changes...");
         await git.raw(["fetch", "origin", "-p"]);
     }
     else {
-        const answers = await inquirer.prompt([
-            { name: "address", message: "Repository URL:" },
-            { name: "brand", message: "Brand:" },
-            { name: "campaign", message: "Campaign:" }
-        ]);
+        console.log("Initializing a new repository...");
         
-        config.address = answers.address;
-        config.brand = answers.brand;
-        config.campaign = answers.campaign;
+        if (config.address === undefined) {
+            const answers = await inquirer.prompt([
+                { name: "address", message: "Repository URL:" }
+            ]);
+            config.address = answers.address;
+        }
+        
+        if (config.brand === undefined) {
+            const answers = await inquirer.prompt([
+                { name: "brand", message: "Brand:" }
+            ]);
+            config.brand = answers.brand;
+        }
+        
+        if (config.campaign === undefined) {
+            const answers = await inquirer.prompt([
+                { name: "campaign", message: "Campaign:" }
+            ]);
+            config.campaign = answers.campaign;
+        }
         
         await fs.writeJSON(deployConfigPath, config, { spaces: "\t" });
         
-        // TODO: SSH path from config
-        //const sshCommand = `ssh -o StrictHostKeyChecking=no -i ${sshKey}`;
-        //await git.env("GIT_SSH_COMMAND", sshCommand);
-        
-        const address = answers.address;
-        console.log(`Cloning ${address} to ${repoDir}...`);
-        await git.clone(address, "./", ["--progress"]);
+        console.log(`Cloning ${config.address} to ${repoDir}...`);
+        await git.clone(config.address, "./", ["--progress"]);
     }
     
     const remoteBranches = (await git.branch()).branches;
