@@ -31,15 +31,20 @@ function requireUncached(module) {
 }
 
 async function build(options = { platform: "publish", gulpBuilderPath: "", root: "./" }) {
+    console.log("Running gulp-builder...");
     const root = options.root || "./";
-    const builderConfigPath = path.resolve(root, ".data/builder.config.json");
-    const buildPath = path.resolve(options.buildPath) || path.resolve(root, "./build");
-    const distPath = path.resolve(options.distPath) || path.resolve(root, "./dist");
+    const builderConfigPath = path.resolve(".data/builder.config.json");
+    
+    let buildPath = path.resolve(root, "build");
+    let distPath = path.resolve(root, "dist");
+    if (options.buildPath) buildPath = path.resolve(options.buildPath);
+    if (options.distPath) distPath = path.resolve(options.distPath);
     
     let config = {};
     if (await fs.pathExists(builderConfigPath)) {
         config = requireUncached(builderConfigPath) || {};
     }
+    
     config = fillMissing(config, configDefault);
 
     config.brand = options.brand || config.brand;
