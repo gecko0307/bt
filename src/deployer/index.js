@@ -32,7 +32,7 @@ async function deployConfig(deployConfigPath) {
 }
 
 async function deploy(options = { branch: "" }) {
-    const deployConfigPath = path.resolve("./builder.config.json");
+    const deployConfigPath = path.resolve("./deploy.config.json");
     const config = await deployConfig(deployConfigPath);
     
     console.log(config);

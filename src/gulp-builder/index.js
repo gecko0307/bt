@@ -33,7 +33,7 @@ function requireUncached(module) {
 async function build(options = { platform: "publish", gulpBuilderPath: "", root: "./" }) {
     console.log("Running gulp-builder...");
     const root = options.root || "./";
-    const builderConfigPath = path.resolve(".data/builder.config.json");
+    const builderConfigPath = path.resolve(root, ".data/builder.config.json");
     
     let buildPath = path.resolve(root, "build");
     let distPath = path.resolve(root, "dist");
