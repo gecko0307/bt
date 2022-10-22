@@ -1,5 +1,6 @@
 const fs = require("fs-extra");
 const path = require("path");
+const execFile = require("util").promisify(require("child_process").execFile);
 const { createCanvas, Image } = require("canvas");
 const { writePsdBuffer } = require("ag-psd");
 const GIFEncoder = require("gifencoder");
@@ -82,10 +83,17 @@ async function captureFunc(options = {}) {
     if (options.gifRepeat === false)
         repeat = -1;
     
-    const gif = new GIFEncoder(capture.width, capture.height);
-    gif.start();
-    gif.setRepeat(repeat);
-    gif.setQuality(options.gifQuality || 10);
+    let useGifski = false;
+    if (process.platform === "win32")
+        useGifski = true;
+    
+    let gif;
+    if (!useGifski) {
+        gif = new GIFEncoder(capture.width, capture.height);
+        gif.start();
+        gif.setRepeat(repeat);
+        gif.setQuality(options.gifQuality || 10);
+    }
     
     let frames = [];
     
@@ -104,19 +112,48 @@ async function captureFunc(options = {}) {
             canvas: canvas
         });
         
-        gif.setDelay(frame.delay);
-        gif.addFrame(ctx);
+        if (!useGifski) {
+            gif.setDelay(frame.delay);
+            gif.addFrame(ctx);
+        }
         
         frames.push(`${i+1}.png`);
     }
     
-    // Generate GIF file
-    gif.finish();
-    const gifBuffer = gif.out.getData();
-    const gifPath = `${captureDir}/fallback.gif`;
-    fs.writeFileSync(gifPath, gifBuffer);
-    const gifSize = (Buffer.byteLength(gifBuffer) / 1024).toFixed(2);
     const maxGifSize = 120;
+    
+    // Generate GIF file
+    const gifPath = `${captureDir}/fallback.gif`;
+    let gifSize = 0;
+    if (useGifski) {
+        let quality = 100;
+        console.log(`Trying with quality ${quality}...`);
+        gifSize = await gifski(capture, gifPath, quality) / 1024;
+        if (gifSize === 0) {
+            console.log("Error");
+            return;
+        }
+        
+        while (gifSize > maxGifSize && quality > 0) {
+            quality--;
+            console.log(`Overweight (${parseInt(gifSize)} KB), trying with quality ${quality}...`);
+            gifSize = await gifski(capture, gifPath, quality) / 1024;
+            if (gifSize === 0) {
+                console.log("Error");
+                return;
+            }
+        }
+        
+        gifSize = gifSize.toFixed(2);
+    }
+    else {
+        gif.finish();
+        const gifBuffer = gif.out.getData();
+        fs.writeFileSync(gifPath, gifBuffer);
+        gifSize = (Buffer.byteLength(gifBuffer) / 1024).toFixed(2);
+    }
+    
+    // Check GIF file size
     const color = (gifSize >= maxGifSize)? "\x1b[1m\x1b[31m" : "\x1b[1m\x1b[32m"; // Red if too large, green if ok
     outputStr = "Generated fallback.gif (" + color + `${gifSize} kb` + "\x1b[0m" + ")";
     console.log(outputStr);
@@ -128,6 +165,38 @@ async function captureFunc(options = {}) {
     console.log(`Generated fallback.psd`);
     
     return frames;
+}
+
+async function gifski(capture, outputFile, quality = 100) {
+    const gifskiPath = path.join(__dirname, "..", "..", "bin", "gifski.exe");
+    let frames = [];
+    let delays = [];
+    
+    for (let i = 0; i < capture.frames.length; i++) {
+        const frame = capture.frames[i];
+        frames.push(frame.path);
+        delays.push(frame.delay);
+    }
+    
+    const delaysParam = delays.map(d => parseInt(d)).join(",");
+    
+    const gifskiOptions = [
+        ...frames,
+        "--delays", delaysParam,
+        "--output", outputFile,
+        "--quality", quality
+    ];
+    
+    try {
+        await execFile(gifskiPath, gifskiOptions);
+    } catch (e) {
+        console.error(e);
+        return 0;
+    }
+    
+    const stats = await fs.stat(outputFile);
+    const fileSizeInBytes = stats.size;
+    return fileSizeInBytes;
 }
 
 module.exports = captureFunc;
