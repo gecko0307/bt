@@ -4,6 +4,7 @@ BT 1.0.0 alpha8 - TBD
 - **Builder**
   - New platform specification `mail_unminified`
 - **Capturer**
+  - Use Gifski to create GIFs under Windows
   - Fix recording banners with width or height not divisible by 2.
 
 BT 1.0.0 alpha7 - 26 Sep, 2022
