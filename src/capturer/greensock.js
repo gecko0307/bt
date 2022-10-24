@@ -141,8 +141,8 @@ async function capture(options) {
     
     if (options.video === true) {
         // Capture video
-        let videoDuration = options.videoDuration;
-        if (videoDuration === 0) videoDuration = result.duration || 5;
+        let videoDuration = options.videoDuration || 0;
+        if (videoDuration === 0) videoDuration = banner.duration || 5;
         const videoFps = options.videoFps || 60;
         const videoCompressionRate = options.videoCompressionRate || 1;
         const frameTime = 1.0 / videoFps;
