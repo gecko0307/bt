@@ -91,7 +91,7 @@ async function build(options = { platform: "publish", gulpBuilderPath: "", root:
 
     console.log(`Using Gulp-builder in ${builderPath}`);
     const builderCode = await execute("npm", 
-        ["run", "gulp", "--", "--task", `"${technicalRequirements}"`, "--input", `"${inputPath}/"`, "--output", `"${buildPath}/"`, "--skip"], 
+        ["run", "gulp", "--", "--dropconsole", "--task", `"${technicalRequirements}"`, "--input", `"${inputPath}/"`, "--output", `"${buildPath}/"`, "--skip"], 
         { cwd: builderPath }
     );
     if (builderCode !== 0) {
