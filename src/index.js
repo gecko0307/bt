@@ -138,7 +138,7 @@ async function main() {
         else if (args[0] === "build") {
             await build({
                 platform: args[1] || "publish", 
-                version: args[2] || "v1",
+                version: args[2],
                 root: "./"
             });
             process.exit();

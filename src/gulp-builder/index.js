@@ -47,10 +47,10 @@ async function build(options = { platform: "publish", gulpBuilderPath: "", root:
     
     config = fillMissing(config, configDefault);
 
-    config.brand = options.brand || config.brand;
-    config.campaign = options.campaign || config.campaign;
-    config.creative = options.creative || config.creative;
-    config.version = options.version || config.version;
+    config.brand = options.brand || config.brand || "banner";
+    config.campaign = options.campaign || config.campaign || "";
+    config.creative = options.creative || config.creative || "";
+    config.version = options.version || config.version || "v1";
     config.size = options.size || config.size;
 
     if (options.platform === "publish") {
