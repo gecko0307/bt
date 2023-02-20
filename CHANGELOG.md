@@ -3,6 +3,8 @@ BT 1.0.0 alpha8 - TBD
 - **Deployer** - new tool for building banners from Git repository branches
 - **Builder**
   - New platform specification `mail_unminified`
+  - Strip console output when using gulp-builder
+  - Fix archive versioning
 - **Capturer**
   - Use Gifski to create GIFs under Windows
   - Fix recording banners with width or height not divisible by 2.
