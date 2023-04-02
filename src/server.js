@@ -32,6 +32,7 @@ const url = baseUrl + serverConfig.startPath || "/";
 let eventEmitter;
 let watcherFonts;
 let watcherImages;
+let watcherShaders;
 let fastify;
 let livereloadServer;
 
@@ -173,6 +174,14 @@ function init() {
         if (["add", "change", "unlink"].includes(event)) {
             await api.update("images", event, path);
             eventEmitter.emit("watcher", { subsystem: "images", event: event, path: path });
+        }
+    });
+    
+    watcherShaders = chokidar.watch(path.join(cwd, "Shaders"));
+    watcherShaders.on("all", async (event, path) => {
+        if (["add", "change", "unlink"].includes(event)) {
+            await api.update("shaders", event, path);
+            eventEmitter.emit("watcher", { subsystem: "shaders", event: event, path: path });
         }
     });
     

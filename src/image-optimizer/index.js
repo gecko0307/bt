@@ -175,12 +175,12 @@ async function compress(options) {
 }
 
 function chunkArray(myArray, chunk_size){
-	const arr = [...myArray];
-	const results = [];
-	while (arr.length) {
-		results.push(arr.splice(0, chunk_size));
-	}
-	return results;
+    const arr = [...myArray];
+    const results = [];
+    while (arr.length) {
+        results.push(arr.splice(0, chunk_size));
+    }
+    return results;
 }
 
 async function optimizeImages(req) {

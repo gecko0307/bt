@@ -2,6 +2,7 @@ const fs = require("fs-extra");
 const path = require("path");
 const fontGenerator = require("./font-generator");
 const imageOptimizer = require("./image-optimizer");
+const shaderBundler = require("./shader-bundler");
 const capturer = require("./capturer");
 const builder = require("./gulp-builder");
 const builder2 = require("./builder2");
@@ -94,6 +95,7 @@ async function init() {
     }
     fontGenerator.init();
     imageOptimizer.init();
+    shaderBundler.init();
 }
 
 async function update(subsystem, event, path) {
@@ -102,6 +104,9 @@ async function update(subsystem, event, path) {
     }
     else if (subsystem === "images") {
         await imageOptimizer.update();
+    }
+    else if (subsystem === "shaders") {
+        await shaderBundler.update();
     }
 }
 
