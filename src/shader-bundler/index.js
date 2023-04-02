@@ -23,9 +23,7 @@ async function inputFiles() {
 }
 
 async function init() {
-    if (!(await fs.pathExists(shadersStringsScriptPath))) {
-        await bundleShaders();
-    }
+    await bundleShaders();
 }
 
 async function update() {
