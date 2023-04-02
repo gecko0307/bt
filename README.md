@@ -18,6 +18,7 @@ Waring: this is NOT an end user web app! It is meant to be run locally for devel
 * ✔ Built-in Image Optimizer & Converter - reduce size of PNG, JPEG and SVG images with full control over quality trade-off
 * ✔ Generate inline base64-encoded CSS background-images for fully self-contained banners
 * ✔️ Web font generator with subsetting
+* ⌛ GLSL shader bundling
 * ✔️ Banner Builder - prepares banner for publishing on advertising platforms
 * ⌛ Banner Deploy - build banners in batch from Git repository
 * ⌛ Banner preview tools: resizer, timer, event manager, etc.
