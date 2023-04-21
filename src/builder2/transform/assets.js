@@ -64,16 +64,50 @@ async function processAssets(root, filename, document, tr) {
 
     const svgImages = Array.prototype.slice.call(document.getElementsByTagName("image"));
     for (const image of svgImages) {
-        if (image.hasAttribute("xlink:href") === false) continue;
+        const isInlineImage = image.hasAttribute("inline");
+        if (image.hasAttribute("href") === true) {
+            const imageFilename = image.getAttribute("href");
+            const baseFilename = path.basename(imageFilename);
+            const imageInputPath = path.resolve(root, `./HTML/${imageFilename}`);
+            const imageOutputPath = path.resolve(root, `./build/${baseFilename}`);
+            
+            if (await fs.pathExists(imageInputPath)) {
+                if (isInlineImage || tr.inlineFiles) {
+                    const content = await fs.readFile(imageInputPath);
+                    const base64Str = content.toString("base64");
+                    const mimetype = mime.getType(imageInputPath);
+                    const dataStr = `data:${mimetype};base64,${base64Str}`;
+                    image.removeAttribute("inline");
+                    image.removeAttribute("href");
+                    image.setAttribute("href", dataStr);
+                }
+                else {
+                    image.setAttribute("href", baseFilename);
+                    await fs.copyFile(imageInputPath, imageOutputPath);
+                }
+            }
+        }
+        if (image.hasAttribute("xlink:href") === true) {
+            const imageFilename = image.getAttribute("xlink:href");
+            const baseFilename = path.basename(imageFilename);
+            const imageInputPath = path.resolve(root, `./HTML/${imageFilename}`);
+            const imageOutputPath = path.resolve(root, `./build/${baseFilename}`);
 
-        const imageFilename = image.getAttribute("xlink:href");
-        const baseFilename = path.basename(imageFilename);
-        const imageInputPath = path.resolve(root, `./HTML/${imageFilename}`);
-        const imageOutputPath = path.resolve(root, `./build/${baseFilename}`);
-
-        if (await fs.pathExists(imageInputPath)) {
-            image.setAttribute("xlink:href", baseFilename);
-            await fs.copyFile(imageInputPath, imageOutputPath);
+            if (await fs.pathExists(imageInputPath)) {
+                if (isInlineImage || tr.inlineFiles) {
+                    const content = await fs.readFile(imageInputPath);
+                    const base64Str = content.toString("base64");
+                    const mimetype = mime.getType(imageInputPath);
+                    const dataStr = `data:${mimetype};base64,${base64Str}`;
+                    image.removeAttribute("inline");
+                    image.removeAttribute("xlink:href");
+                    image.setAttribute("xlink:href", dataStr);
+                }
+                else {
+                    image.setAttribute("xlink:href", baseFilename);
+                    await fs.copyFile(imageInputPath, imageOutputPath);
+                }
+            }
         }
     }
 
