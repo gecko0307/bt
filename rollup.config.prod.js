@@ -41,7 +41,7 @@ export default {
         domIntrospection({ always: true }),
         strip({
             debugger: true,
-            functions: ["console.log", "assert.*", "debug", "alert"],
+            functions: ["console.log", "console.info", "console.error", "assert.*", "debug", "alert"],
             sourceMap: false
         }),
         babel({
