@@ -1,10 +1,11 @@
-BT 1.0.0 alpha8 - TBD
----------------------
+BT 1.0.0 alpha8 - 21 Apr, 2023
+------------------------------
 - **Development server**
   - GLSL shader bundling
 - **Deployer** - new tool for building banners from Git repository branches
 - **Builder**
-  - New platform specification `mail_unminified`
+  - New platform specifications `2gis`, `mail_unminified`
+  - Support inline SVG images
   - Strip console output when using gulp-builder
   - Fix archive versioning
 - **Capturer**
