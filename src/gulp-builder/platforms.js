@@ -27,6 +27,7 @@ const platforms = {
     "cars": { name: "Cars", tr: "adriver" },
     "carsguru": { name: "CarsGuru", tr: "adriver" },
     "championat": { name: "Championat.ru", tr: "rambler" },
+    "cian": { name: "ЦИАН", tr: "adfox" },
     "cityads": { name: "CityAds", tr: "cityads" },
     "cmpstar": { name: "CMPStar", tr: "publish" },
     "condenast": { name: "Condé Nast", tr: "dcm" },
