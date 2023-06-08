@@ -22,8 +22,8 @@ async function captureFunc(options = {}) {
     options.width = options.width || config.width || 0;
     options.height = options.height || config.height || 0;
     if (config.gif) {
-        options.gifRepeat = config.gif.repeat;
-        options.gifQuality = config.gif.quality;
+        options.gifRepeat = config.gif.repeat || true;
+        options.gifQuality = config.gif.quality || 100;
     }
     if (config.video) {
         options.videoFilename = config.video.filename;
@@ -120,13 +120,14 @@ async function captureFunc(options = {}) {
         frames.push(`${i+1}.png`);
     }
     
+    // TODO: read from config
     const maxGifSize = 120;
     
     // Generate GIF file
     const gifPath = `${captureDir}/fallback.gif`;
     let gifSize = 0;
     if (useGifski) {
-        let quality = 100;
+        let quality = options.gifQuality || 100;
         console.log(`Trying with quality ${quality}...`);
         gifSize = await gifski(capture, gifPath, quality) / 1024;
         if (gifSize === 0) {
