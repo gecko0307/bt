@@ -4,8 +4,7 @@ const puppeteer = require("puppeteer");
 const { record } = require("./puppeteer-recorder");
 
 async function capture(options) {
-    const captureFuncPath = path.join(__dirname, "captureGreensock.js");
-    const captureFunc = await fs.readFile(captureFuncPath, "utf8");
+    const captureScript = await fs.readFile(path.join(__dirname, "captureGreensock.js"), "utf8");
     
     const deleteDevToolsPath = path.join(__dirname, "deleteDevTools.js");
     const deleteDevTools = await fs.readFile(deleteDevToolsPath, "utf8");
@@ -29,7 +28,13 @@ async function capture(options) {
     page.on("pageerror", ({ message }) => console.log(message));
     page.on("requestfailed", (request) => console.log(`${request.failure().errorText} ${request.url()}`));
     
-    await page.evaluateOnNewDocument(captureFunc);
+    if (options.video === false) {
+        await page.evaluateOnNewDocument(captureScript);
+    }
+    else {
+        await page.evaluateOnNewDocument("window.frames = [];");
+    }
+    
     try {
         await page.goto(url, { waitUntil: ["load", "domcontentloaded", "networkidle0" ] });
     }

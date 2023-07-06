@@ -21,6 +21,7 @@ async function captureFunc(options = {}) {
     options.url = config.url;
     options.width = options.width || config.width || 0;
     options.height = options.height || config.height || 0;
+    options.maxSize = options.maxSize || config.maxSize || 120;
     if (config.gif) {
         options.gifRepeat = config.gif.repeat || true;
         options.gifQuality = config.gif.quality || 100;
@@ -120,8 +121,9 @@ async function captureFunc(options = {}) {
         frames.push(`${i+1}.png`);
     }
     
-    // TODO: read from config
-    const maxGifSize = 120;
+    // TODO: use JPEG for one-frame capture
+    
+    const maxGifSize = options.maxSize;
     
     // Generate GIF file
     const gifPath = `${captureDir}/fallback.gif`;
