@@ -112,7 +112,7 @@ async function capture(options) {
         deviceScaleFactor: options.zoom || 1,
     });
 
-    if (options.screenshot === true) {
+    if (options.screenshot === true || banner.type === "unknown") {
         // Capture screenshot
         let screenshotTime = options.screenshotTime || 0;
         if (banner.duration === 0) screenshotTime = 0;

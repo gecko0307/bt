@@ -66,11 +66,11 @@ async function captureFunc(options = {}) {
         return [];
     }
     else if (capture.frames.length === 0) {
-        console.log("No images captured");
+        console.log("No animation captured");
         return [];
     }
     else {
-        console.log("Captured", capture.frames.length, "frames");
+        console.log("Captured", capture.frames.length, "animation frames");
     }
     
     const psd = {
