@@ -171,7 +171,9 @@ async function captureFunc(options = {}) {
 }
 
 async function gifski(capture, outputFile, quality = 100) {
-    const gifskiPath = path.join(__dirname, "..", "..", "bin", "gifski.exe");
+	const isWindows = process.platform === "win32";
+	const isLinux = process.platform === "linux";
+    const gifskiPath = path.join(__dirname, "..", "..", "bin", isWindows? "gifski.exe" : "gifski");
     let frames = [];
     let delays = [];
     
