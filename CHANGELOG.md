@@ -12,7 +12,7 @@ BT 1.0.0 alpha8 - 22 Apr, 2023
   - Strip console output when using gulp-builder
   - Fix archive versioning
 - **Capturer**
-  - Use Gifski to create GIFs under Windows
+  - Use Gifski to create GIFs under Windows and Linux
   - Fix recording banners with width or height not divisible by 2.
 
 BT 1.0.0 alpha7 - 26 Sep, 2022
