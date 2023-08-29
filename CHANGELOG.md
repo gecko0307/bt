@@ -1,5 +1,7 @@
 BT 1.0.0 alpha8 - 22 Apr, 2023
 ------------------------------
+- **Image Optimizer**
+  - ECT for Linux
 - **Development server**
   - GLSL shader bundling
 - **Deployer** - new tool for building banners from Git repository branches

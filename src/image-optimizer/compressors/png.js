@@ -46,7 +46,7 @@ async function compress(inputStream, options) {
 		outStream = png.pack().pipe(pngQuanter);
 	}
 
-	// Use ECT for lossless compression under Windows
+	// Use ECT for lossless compression under Windows & Linux
 	const isWindows = process.platform === "win32";
 	const isLinux = process.platform === "linux";
 	if (isWindows || isLinux) {
