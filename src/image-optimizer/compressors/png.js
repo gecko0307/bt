@@ -5,6 +5,7 @@ const decodePNG = require("./png-decoder");
 const imageq = require("image-q");
 const PngQuant = require("pngquant");
 const util = require("util");
+const exec = util.promisify(require("child_process").exec);
 const execFile = util.promisify(require("child_process").execFile);
 const { nanoid } = require("nanoid");
 const { streamToFile } = require("../utils");
@@ -45,10 +46,11 @@ async function compress(inputStream, options) {
 		outStream = png.pack().pipe(pngQuanter);
 	}
 
-	// Use ECT for lossless compression under Windows
-	const ectPath = path.join(__dirname, "..", "..", "..", "bin", "ect.exe");
+	// Use ECT for lossless compression under Windows & Linux
 	const isWindows = process.platform === "win32";
-	if (isWindows) {
+	const isLinux = process.platform === "linux";
+	if (isWindows || isLinux) {
+		const ectPath = path.join(__dirname, "..", "..", "..", "bin", isWindows? "ect.exe" : "ect");
 		const filename = nanoid() + ".png";
 		if (!(await fs.pathExists(tempFolderPath))) {
 			await fs.mkdir(tempFolderPath, { recursive: true });
@@ -59,7 +61,7 @@ async function compress(inputStream, options) {
 		outStream = fs.createReadStream(tempFilename);
 	}
 	else {
-		console.log("Sorry, PNG lossless compression is Windows-only");
+		console.log("Sorry, PNG lossless compression is not available on this platform");
 	}
 
 	return outStream;
