@@ -81,6 +81,7 @@ const aliases = {
     "doubleclick": { name: "DoubleClick", tr: "dcm" },
     "doubleclick_studio": { name: "DoubleClick Studio", tr: "studio" },
     "drive": { name: "Drive.ru", tr: "adfox" },
+    "dzen": { name: "Дзен", tr: "mail" },
     "eda": { name: "Eda.ru", tr: "rambler" },
     "esquire": { name: "Esquire", tr: "womensnetwork" },
     "exebid": { name: "Exebid", tr: "dca" },
