@@ -19,9 +19,9 @@ Waring: this is NOT an end user web app! It is meant to be run locally for devel
 * ✔ Generate inline base64-encoded CSS background-images for fully self-contained banners
 * ✔️ Web font generator with subsetting
 * ✔️ GLSL shader bundling
-* ✔️ Banner Builder - prepares banner for publishing on advertising platforms
+* ✔️ Banner Builder - prepares banner for publishing on advertising platforms, checks resources against platform requirements
+* ✔️ Banner preview tools
 * ⌛ Banner Deploy - build banners in batch from Git repository
-* ⌛ Banner preview tools: resizer, timer, event manager, etc.
 
 [![Screenshot1](https://github.com/gecko0307/bt/raw/master/assets/preview.jpg)](https://github.com/gecko0307/bt/raw/master/assets/preview.jpg)
 
