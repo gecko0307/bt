@@ -6,7 +6,7 @@ import * as $ from "./main/dom";
 import { frame } from "./main/frame";
 import { stop, checkStops, resetStop } from "./main/stop";
 import { capture } from "./main/capture";
-//import "./banner.sass";
+import "./banner.sass";
 
 banner.timeLimit = 0;
 
@@ -74,5 +74,5 @@ export default {
 	open,
 	// close,
 	replay,
-	info: { type: "gsap", version: 1 },
+	info: { type: "gsap", version: 2 },
 };

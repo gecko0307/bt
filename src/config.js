@@ -1,6 +1,8 @@
 const path = require("path");
 const fs = require("fs-extra");
 
+// package.json in project directory
+
 function requireUncached(module) {
     delete require.cache[require.resolve(module)];
     return require(module);

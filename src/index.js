@@ -40,9 +40,9 @@ async function build(options = { platform: "publish", root: "./" }) {
         console.log("Warning: main module (src/banner.js) not found");
     }
 
+    // Builder options
     let useGulpBuilder = false;
     let builderPath = "";
-
     let btConfig = {};
     if (await fs.pathExists(btConfigPath)) {
         btConfig = requireUncached(btConfigPath) || {};
@@ -87,11 +87,24 @@ async function run(options = {}) {
 
 async function init(options = { template: "default" }) {
     console.log("BannerToolchain init");
+    
     const template = options.template || "default";
     const templatePath = path.join(__dirname, "..", "templates", template);
     if (await fs.pathExists(templatePath)) {
         const destPath = path.join(cwd);
-        await fs.copy(templatePath, destPath);
+        fs.copySync(templatePath, destPath);
+        
+        // Update project's package.json
+        const projectConfig = require("./config");
+        if ("name" in projectConfig && projectConfig.name === "smarthead-banner") {
+            projectConfig.version = new Date().toISOString().substring(0, 10).replace(/-/g, ".");
+            const packageJson = JSON.stringify(projectConfig, null, '\t');
+            await fs.writeFile(path.resolve("./package.json"), packageJson, "utf8");
+            console.log(`Set package verison to "${projectConfig.version}"`);
+        }
+        
+        // TODO: generate .data/builder.config.json
+        
         console.log(`Initialized a project with template "${template}"`);
     }
     else {

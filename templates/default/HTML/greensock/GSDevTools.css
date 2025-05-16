@@ -1,0 +1,21 @@
+#devs {
+	width: 100%;
+	height: 100%;
+}
+
+.gs-dev-tools {
+	z-index: 100000;
+}
+.gs-dev-tools div, .gs-dev-tools svg, .gs-dev-tools a {
+	position: static;
+}
+.gs-dev-tools .logo {
+	display: none !important;
+}
+.gs-dev-tools .time-container {
+	margin-right: 15px !important;
+}
+
+.gs-dev-tools .gs-bottom {
+	background-color: rgba(0,0,0,.72) !important;
+}

@@ -6,9 +6,13 @@
 	<meta name="keywords" content="Greensock">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="format-detection" content="telephone=no,date=no,address=no,email=no,url=no">
+	<meta name="color-scheme" content="light only">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<link rel="stylesheet" type="text/css" href="fonts.css" inline>
 	<style type="text/css" inline>
+		:root { 
+			color-scheme: only light;
+		}
 		html {
 			width: 100%; height: 100%;
 			box-sizing: border-box;
@@ -21,6 +25,7 @@
 			overflow: hidden;
 			user-select: none;
 			margin: 0; padding: 0;
+			-webkit-text-size-adjust: 100%;
 			text-size-adjust: 100%;
 			-moz-user-select:none;
 			-webkit-user-select:none;
@@ -68,11 +73,28 @@
 		</div>
 	</a>
 	
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js"></script>
-	<!-- <script src="https://s0.2mdn.net/ads/studio/cached_libs/gsap_3.5.1_min.js"></script> -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
+	<!-- <script src="https://s0.2mdn.net/ads/studio/cached_libs/gsap_3.11.5_min.js"></script> -->
 	<!-- <script src="https://dsp-rambler.ru/js/gsap/3.5.1/gsap.min.js"></script> -->
-	<!-- <script src="greensock/3.5.1/gsap.min.js"></script> -->
+	<!-- <script src="greensock/3.13.0/gsap.min.js"></script> -->
 	
+	<script src="greensock/3.13.0/GSDevTools.min.js" preview></script>
+	<link rel="stylesheet" href="greensock/GSDevTools.css" preview inline>
+	<script preview>
+		window.addEventListener("load", function() {
+			if (window.GSDevTools !== undefined && window.gsdevtools === undefined) {
+				window.gsdevtools = window.GSDevTools.create({
+					id: "devs", animation: window.animation.master,
+					container: "body",
+					hideGlobalTimeline: true,
+					globalSync: false,
+					loop: (window.animation.master.repeat() === -1),
+					persist: true
+				});
+			}
+		});
+	</script>
+	<!-- <script src="shader_strings.js" inline></script> -->
 	<script src="animation.js" inline></script>
 </body>
 </html>
