@@ -1,12 +1,12 @@
-BT 1.0.0 alpha8 - 22 Apr, 2023
-------------------------------
+BT 1.0.0 beta1 - 17 May, 2025
+-----------------------------
 - **Image Optimizer**
   - ECT for Linux
 - **Development server**
   - GLSL shader bundling
-- **Deployer** - new tool for building banners from Git repository branches
+- **Deployer** - new experimental tool for building banners from Git repository branches
 - **Builder**
-  - New platform specifications `2gis`, `mail_unminified`
+  - New platform specifications `2gis`, `mail_unminified`, ``cian
   - New platform alias `cian`
   - Support inline SVG images
   - Strip console output when using gulp-builder
@@ -14,6 +14,9 @@ BT 1.0.0 alpha8 - 22 Apr, 2023
 - **Capturer**
   - Use Gifski to create GIFs under Windows and Linux
   - Fix recording banners with width or height not divisible by 2.
+- **Default project template**
+  - Upgrade to GSAP 3.13.0
+  - Add GSDevTools
 
 BT 1.0.0 alpha7 - 26 Sep, 2022
 ------------------------------
