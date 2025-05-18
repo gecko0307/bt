@@ -10,11 +10,11 @@ Waring: this is NOT an end user web app! It is meant to be run locally for devel
 * ✔️ JavaScript module bundling and babeling
 * ✔️ Dev server with file watching and autorefresh
 * ✔️ [Sass](https://sass-lang.com/) support
-* ✔️ [GreenSock](https://greensock.com/) animation support
+* ✔️ [GSAP](https://greensock.com/) animation support
 * ✔️ Built-in simple 3D engine based on WebGL
-* ✔️ CSS animation generator that uses simple GreenSock-like input expressions
-* ✔️ Capture individual frames of animation of GreenSock banners. Output PNG, layered PSD and animated GIF
-* ️✔ Capture high-quality MPEG-4 videos of GreenSock banners at 60 fps
+* ✔️ CSS animation generator that uses simple GSAP-like input expressions
+* ✔️ Capture individual frames of animation of GSAP banners. Output PNG, layered PSD and animated GIF
+* ️✔ Capture high-quality MPEG-4 videos of GSAP banners at 60 fps
 * ✔ Built-in Image Optimizer & Converter - reduce size of PNG, JPEG and SVG images with full control over quality trade-off
 * ✔ Generate inline base64-encoded CSS background-images for fully self-contained banners
 * ✔️ Web font generator with subsetting
@@ -44,11 +44,11 @@ To run the development server:
 
 `bt run`
 
-To capture screenshots of predefined animation frames (for GreenSock template only; dev server should be running):
+To capture screenshots of predefined animation frames (for GSAP template only; dev server should be running):
 
 `bt capture <resolution>`
 
-To capture video (for GreenSock template only; dev server should be running):
+To capture video (for GSAP template only; dev server should be running):
 
 `bt capture video <resolution>`
 
@@ -65,7 +65,7 @@ Example:
 You can add your own platform specifications to `specs` directory and use them.
 
 ## Templates
-`bt init` will create a project using a default template that uses [GreenSock](https://greensock.com/) animation library. Additionally [Anime.js](https://animejs.com/)-based template is available for fully self-hosted banners with as small size overhead as possible:
+`bt init` will create a project using a default template that uses [GSAP](https://greensock.com/) animation library. Additionally [Anime.js](https://animejs.com/)-based template is available for fully self-hosted banners with as small size overhead as possible:
 
 `bt init anime`
 
