@@ -1,3 +1,8 @@
+BT 1.0.0 beta2 - TBD
+--------------------
+- **Initializer**
+  - Generate `.data/builder.config.json` based on repository data
+
 BT 1.0.0 beta1 - 17 May, 2025
 -----------------------------
 - **Image Optimizer**
@@ -6,7 +11,7 @@ BT 1.0.0 beta1 - 17 May, 2025
   - GLSL shader bundling
 - **Deployer** - new experimental tool for building banners from Git repository branches
 - **Builder**
-  - New platform specifications `2gis`, `mail_unminified`, ``cian
+  - New platform specifications `2gis`, `mail_unminified`, `cian`
   - New platform alias `cian`
   - Support inline SVG images
   - Strip console output when using gulp-builder
